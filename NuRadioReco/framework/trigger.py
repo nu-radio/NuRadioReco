@@ -128,6 +128,24 @@ class SimpleThresholdTrigger(Trigger):
         self._number_of_coincidences = number_of_coincidences
         self._coinc_window = channel_coincidence_window
 
+class SimplePhasedTrigger(Trigger):
+
+    def __init__(self, name, threshold, channels=None):
+        """
+        initialize trigger class
+
+        Parameters 
+        -----------
+        name: string
+            unique name of the trigger 
+        threshold: float
+            the threshold
+        channels: array of ints or None
+            the channels that are involved in the trigger
+            default: None, i.e. all channels
+        """
+        Trigger.__init__(self, name, channels, 'simple_phased')
+        self._threshold = threshold
 
 class HighLowTrigger(Trigger):
 
