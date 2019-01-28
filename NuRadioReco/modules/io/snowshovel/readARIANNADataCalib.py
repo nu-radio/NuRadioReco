@@ -11,6 +11,7 @@ import time
 import os
 sys.path.append(os.path.expandvars('$SNS'))
 from scripts.online import AriUtils
+from scripts.offline import dacs2014
 import logging
 logger = logging.getLogger("readARIANNAData")
 
@@ -184,9 +185,18 @@ class readARIANNAData:
                     start = None
                 if(stop < datetime.datetime(1971, 1, 1)):
                     stop = None
-                
                 station.set_ARIANNA_parameter(ARIpar.seq_start_time, start)
                 station.set_ARIANNA_parameter(ARIpar.seq_stop_time, stop)
+                
+                station.set_ARIANNA_parameter(ARIpar.comm_duration, self.config_tree.DAQConfig.GetCommWinDuration() * units.s)
+                station.set_ARIANNA_parameter(ARIpar.comm_period, self.config_tree.DAQConfig.GetCommWinPeriod() * units.s)
+                dacset = self.config_tree.DAQConfig.GetDacSet().GetDacs()
+                dacsV = {}
+                for iCh in range(len(dacset)):
+                    dacsV[iCh] = {}
+                    for ihl, hl in enumerate(['low', 'high']):
+                        dacsV[iCh][hl] = dacs2014.getVth(AriUtils.getBoardFromMacAdr(AriUtils.getMacAdrFromStn(self._station_id)), iCh, dacset[iCh][ihl], hl)
+                station.set_ARIANNA_parameter(ARIpar.trigger_thresholds, dacsV)
 
                 evt.set_station(station)
                 yield evt

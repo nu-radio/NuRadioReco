@@ -49,3 +49,6 @@ class ARIANNAParameters(Enum):  # this class stores parameters specific to the A
     seq_start_time = 1  # the start time of a sequence
     seq_stop_time = 2  # the stop time of a sequence
     seq_num = 3  # the sequence number of the current event
+    comm_period = 4  # length of data taking window
+    comm_duration = 5  # maximum diration of communication window
+    trigger_thresholds = 6  # trigger thresholds converted to voltage
