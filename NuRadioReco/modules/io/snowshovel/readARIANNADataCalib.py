@@ -4,6 +4,7 @@ import NuRadioReco.framework.channel
 import ROOT
 import numpy as np
 from NuRadioReco.utilities import units
+from NuRadioReco.framework.parameters import ARIANNAParameters as ARIpar
 import datetime
 import sys
 import time
@@ -157,6 +158,13 @@ class readARIANNAData:
                         station.add_channel(channel)
                     else:
                         logger.warning(" Event {event} of run {run} is skipped, no stop point for rolling array!".format(event=evt_number,run=run_number))
+                
+                seq_number = self.data_tree.EventMetadata.GetSeqNum()
+                station.set_ARIANNA_parameter(ARIpar.seq_num, seq_number)
+                # read and save start and stop time of a sequence
+                station.set_ARIANNA_parameter(ARIpar.seq_start_time, datetime.datetime.fromtimestamp(self.config_tree.TrigStartClock.GetCurrTime()))
+                station.set_ARIANNA_parameter(ARIpar.seq_stop_time, datetime.datetime.fromtimestamp(self.config_tree.TrigStopClock.GetCurrTime()))
+
                 evt.set_station(station)
                 yield evt
 #             except:
