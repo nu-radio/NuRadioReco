@@ -551,6 +551,7 @@ class AntennaPatternBase():
             are complex floats or arrays of complex floats
             of the same length as the frequency input
         """
+        azi_ori += 180.0*units.deg # hot fix
         if self._notfound:
             VEL = {}
             VEL['theta'] = np.ones(len(freq), dtype=np.complex)

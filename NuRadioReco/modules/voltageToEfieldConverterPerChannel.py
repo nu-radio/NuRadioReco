@@ -82,6 +82,8 @@ class voltageToEfieldConverterPerChannel:
 
         sampling_rate = station.get_channel(0).get_sampling_rate()
 
+        #f, ax = plt.subplots(8,2,figsize=(12, 5), sharex='col')
+
         for iCh, channel in enumerate(station.iter_channels()):
             efield = ef.ElectricField([iCh])
             trace = channel.get_frequency_spectrum()
@@ -91,8 +93,11 @@ class voltageToEfieldConverterPerChannel:
             efield_spectrum[1][mask1] = (1.0-pol)**2 * trace[mask1] / efield_antenna_factor[iCh][0][mask1]
             efield_spectrum[2][mask2] = pol**2 * trace[mask2] / efield_antenna_factor[iCh][1][mask2]
             efield.set_frequency_spectrum(efield_spectrum, sampling_rate)
+            efield.set_trace_start_time(channel.get_trace_start_time())
             station.add_electric_field(efield)
-
+        #    ax[iCh][0].plot(np.abs(efield_antenna_factor[iCh][0][mask1]))
+        #    ax[iCh][1].plot(np.angle(efield_antenna_factor[iCh][0][mask1]))
+        #plt.show()
 
 
     def end(self):
