@@ -1,40 +1,10 @@
-import os
-import numpy as np
-import subprocess
-from optparse import OptionParser
-from matplotlib import cm
-import math
-import matplotlib.pyplot  as plt
-from scipy import signal
-from scipy.ndimage.filters import maximum_filter
-from numpy.random import randn
-import datetime
-import logging
-import time
-from NuRadioReco.detector import detector
-from NuRadioReco.utilities import units
 from NuRadioReco.modules.io.snowshovel import readARIANNADataCalib as CreadARIANNAData
-from NuRadioReco.modules import channelResampler as CchannelResampler
-from NuRadioReco.modules.ARIANNA import hardwareResponseIncorporator as ChardwareResponseIncorporator
-from NuRadioReco.modules import correlationDirectionFitter as CcorrelationDirectionFitter
-import NuRadioReco.modules.voltageToEfieldConverterPerChannel
-import NuRadioReco.modules.channelSignalReconstructor
-import NuRadioReco.modules.channelBandPassFilter
-import matplotlib.pyplot as plt
 
-
+"""
+Takes a calibrated snowShovel .root file and prints out the times and trigger type for each event.
+"""
 
 readARIANNAData = CreadARIANNAData.readARIANNAData()
-channelResampler = CchannelResampler.channelResampler()
-channelResampler.begin(debug=False)
-channelBandPassFilter = NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter()
-hardwareResponseIncorporator = ChardwareResponseIncorporator.hardwareResponseIncorporator()
-hardwareResponseIncorporator.begin(debug=False)
-correlationDirectionFitter = CcorrelationDirectionFitter.correlationDirectionFitter()
-voltageToEfieldConverterPerChannel = NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel()
-channelSignalReconstructor = NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor()
-voltageToEfieldConverterPerChannel.begin()
-
 
 
 def printHeaderDetailsPerEvent(path,file):
