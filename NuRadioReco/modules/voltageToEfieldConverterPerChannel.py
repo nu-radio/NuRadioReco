@@ -42,7 +42,7 @@ class voltageToEfieldConverterPerChannel:
         self.antenna_provider = antennapattern.AntennaPatternProvider()
         pass
 
-    def run(self, evt, station, det, pol=0, debug=True):
+    def run(self, evt, station, det, pol=0, debug=True, phase_only=False):
         """
         Performs computation for voltage trace to electric field per channel
 
@@ -60,6 +60,9 @@ class voltageToEfieldConverterPerChannel:
             0 = eTheta polarized, 1 = ePhi polarized
         debug: bool
             if True additional debug plot(s) are displayed - currently unused
+        phase_only: bool (default False)
+            if True, only the phases response of the antenna is unfolded
+            
         """
         self.__counter += 1
         event_time = station.get_station_time()
@@ -86,8 +89,12 @@ class voltageToEfieldConverterPerChannel:
             mask1 = np.abs(efield_antenna_factor[iCh][0]) != 0
             mask2 = np.abs(efield_antenna_factor[iCh][1]) != 0
             efield_spectrum = np.zeros((3,len(trace)), dtype=np.complex)
-            efield_spectrum[1][mask1] = (1.0-pol)**2 * trace[mask1] / efield_antenna_factor[iCh][0][mask1]
-            efield_spectrum[2][mask2] = pol**2 * trace[mask2] / efield_antenna_factor[iCh][1][mask2]
+            if(phase_only):
+                efield_spectrum[1][mask1] = (1.0-pol)**2 * trace[mask1] / np.exp(1j * np.angle(efield_antenna_factor[iCh][0][mask1]))
+                efield_spectrum[2][mask2] = pol**2 * trace[mask2] / np.exp(1j * np.angle(efield_antenna_factor[iCh][1][mask2]))
+            else:
+                efield_spectrum[1][mask1] = (1.0-pol)**2 * trace[mask1] / efield_antenna_factor[iCh][0][mask1]
+                efield_spectrum[2][mask2] = pol**2 * trace[mask2] / efield_antenna_factor[iCh][1][mask2]
             efield.set_frequency_spectrum(efield_spectrum, sampling_rate)
             efield.set_trace_start_time(channel.get_trace_start_time())
             efield[efp.zenith] = zenith
