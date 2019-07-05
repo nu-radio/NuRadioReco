@@ -109,6 +109,8 @@ def get_fresnel_t_p(zenith_incoming, n_2=1.3, n_1=1.):
     of the incoming radiation."
     """
     zenith_outgoing = get_fresnel_angle(zenith_incoming, n_2, n_1)
+    if(zenith_outgoing is None):
+        return 0
     t = 2 * n_1 * np.cos(zenith_incoming) / (n_1 * np.cos(zenith_outgoing) + n_2 * np.cos(zenith_incoming))
     return t
 
@@ -124,6 +126,8 @@ def get_fresnel_t_s(zenith_incoming, n_2=1.3, n_1=1.):
     of the incoming radiation."
     """
     zenith_outgoing = get_fresnel_angle(zenith_incoming, n_2, n_1)
+    if(zenith_outgoing is None):
+        return 0
     t = 2 * n_1 * np.cos(zenith_incoming) / (n_1 * np.cos(zenith_incoming) + n_2 * np.cos(zenith_outgoing))
     return t
 
@@ -139,7 +143,7 @@ def get_fresnel_r_p(zenith_incoming, n_2=1.3, n_1=1.):
     of the incoming radiation."
     """
     n = n_2/n_1
-    return (-n**2 * np.cos(zenith_incoming) + SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
+    return (n**2 * np.cos(zenith_incoming) - SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
               (n**2 * np.cos(zenith_incoming) + SM.sqrt(n**2 - np.sin(zenith_incoming)**2))
 
 
