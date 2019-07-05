@@ -141,6 +141,8 @@ def get_fresnel_r_p(zenith_incoming, n_2=1.3, n_1=1.):
     to the 'plane of incident' which is defindes as: "the plane of incidence
     is the plane which contains the surface normal and the propagation vector
     of the incoming radiation."
+    
+    see https://github.com/nu-radio/NuRadioReco/pull/97 for a derivation of the equation
     """
     n = n_2/n_1
     return (n**2 * np.cos(zenith_incoming) - SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
@@ -156,6 +158,8 @@ def get_fresnel_r_s(zenith_incoming, n_2=1.3, n_1=1.):
     to the 'plane of incident' which is defindes as: "the plane of incidence
     is the plane which contains the surface normal and the propagation vector
     of the incoming radiation."
+    
+    see https://github.com/nu-radio/NuRadioReco/pull/97 for a derivation of the equation
     """
     n = n_2/n_1
     return (np.cos(zenith_incoming) - SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
