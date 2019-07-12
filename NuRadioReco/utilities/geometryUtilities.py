@@ -147,6 +147,12 @@ def get_fresnel_r_p(zenith_incoming, n_2=1.3, n_1=1.):
     n = n_2/n_1
     return (n**2 * np.cos(zenith_incoming) - SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
               (n**2 * np.cos(zenith_incoming) + SM.sqrt(n**2 - np.sin(zenith_incoming)**2))
+              
+              
+def get_fresnel_r_p2(zenith_incoming, n_2=1.3, n_1=1.):
+    n = n_1/n_2
+    return (np.cos(zenith_incoming) - 1j * n *(n**2 * np.sin(zenith_incoming) - 1) ** 0.5)  / \
+            (np.cos(zenith_incoming) + 1j * n *(n**2 * np.sin(zenith_incoming) - 1) ** 0.5)
 
 
 def get_fresnel_r_s(zenith_incoming, n_2=1.3, n_1=1.):
