@@ -1,0 +1,1409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NuRadioReco.modules package &mdash; NuRadioReco  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NuRadioReco.modules.ARA package" href="NuRadioReco.modules.ARA.html" />
+    <link rel="prev" title="NuRadioReco.framework package" href="NuRadioReco.framework.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NuRadioReco
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.framework.html">NuRadioReco.framework package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.base_station">NuRadioReco.framework.base_station module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.base_trace">NuRadioReco.framework.base_trace module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.channel">NuRadioReco.framework.channel module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.electric_field">NuRadioReco.framework.electric_field module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.event">NuRadioReco.framework.event module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.parameter_serialization">NuRadioReco.framework.parameter_serialization module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.parameters">NuRadioReco.framework.parameters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.sim_station">NuRadioReco.framework.sim_station module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.station">NuRadioReco.framework.station module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.trigger">NuRadioReco.framework.trigger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NuRadioReco.modules package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.ARA.html">NuRadioReco.modules.ARA package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA.hardwareResponseIncorporator">NuRadioReco.modules.ARA.hardwareResponseIncorporator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA.triggerSimulator">NuRadioReco.modules.ARA.triggerSimulator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html">NuRadioReco.modules.ARIANNA package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#module-NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator">NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#module-NuRadioReco.modules.ARIANNA">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.html">NuRadioReco.modules.io package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.NuRadioRecoio">NuRadioReco.modules.io.NuRadioRecoio module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventReader">NuRadioReco.modules.io.eventReader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventWriter">NuRadioReco.modules.io.eventWriter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html">NuRadioReco.modules.phasedarray package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html#module-NuRadioReco.modules.phasedarray.triggerSimulator">NuRadioReco.modules.phasedarray.triggerSimulator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html#module-NuRadioReco.modules.phasedarray">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.trigger.html">NuRadioReco.modules.trigger package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.trigger.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger.highLowThreshold">NuRadioReco.modules.trigger.highLowThreshold module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger.multiHighLowThreshold">NuRadioReco.modules.trigger.multiHighLowThreshold module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger.simpleThreshold">NuRadioReco.modules.trigger.simpleThreshold module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelBandPassFilter">NuRadioReco.modules.channelBandPassFilter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelGenericNoiseAdder">NuRadioReco.modules.channelGenericNoiseAdder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelLengthAdjuster">NuRadioReco.modules.channelLengthAdjuster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.eventTypeIdentifier">NuRadioReco.modules.eventTypeIdentifier module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.templateDirectionFitter">NuRadioReco.modules.templateDirectionFitter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.triggerTimeAdjuster">NuRadioReco.modules.triggerTimeAdjuster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.voltageToAnalyticEfieldConverter">NuRadioReco.modules.voltageToAnalyticEfieldConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.voltageToEfieldConverter">NuRadioReco.modules.voltageToEfieldConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules.voltageToEfieldConverterPerChannel">NuRadioReco.modules.voltageToEfieldConverterPerChannel module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-NuRadioReco.modules">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.detector.html">NuRadioReco.detector package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.ARA.html">NuRadioReco.detector.ARA package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARA.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARA.html#module-NuRadioReco.detector.ARA.analog_components">NuRadioReco.detector.ARA.analog_components module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARA.html#module-NuRadioReco.detector.ARA">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.ARIANNA.html">NuRadioReco.detector.ARIANNA package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARIANNA.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARIANNA.html#module-NuRadioReco.detector.ARIANNA.analog_components">NuRadioReco.detector.ARIANNA.analog_components module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARIANNA.html#nuradioreco-detector-arianna-preprocessampresponses-module">NuRadioReco.detector.ARIANNA.preprocessAmpResponses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.detector.ARIANNA.html#module-NuRadioReco.detector.ARIANNA">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.amp">NuRadioReco.detector.amp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.antennapattern">NuRadioReco.detector.antennapattern module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector">NuRadioReco.detector.detector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-detector-sql-module">NuRadioReco.detector.detector_sql module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.filterresponse">NuRadioReco.detector.filterresponse module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.generic_detector">NuRadioReco.detector.generic_detector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-sql-to-json-module">NuRadioReco.detector.sql_to_json module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-test-detector-db-module">NuRadioReco.detector.test_detector_db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.utilities.html">NuRadioReco.utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.analytic_pulse">NuRadioReco.utilities.analytic_pulse module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.fft">NuRadioReco.utilities.fft module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.geometryUtilities">NuRadioReco.utilities.geometryUtilities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#standard-system-of-units">standard system of units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.utilities.html#the-base-units-are">The base units are:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NuRadioReco</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>NuRadioReco.modules package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/NuRadioReco.modules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nuradioreco-modules-package">
+<h1>NuRadioReco.modules package<a class="headerlink" href="#nuradioreco-modules-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.ARA.html">NuRadioReco.modules.ARA package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARA.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA.hardwareResponseIncorporator">NuRadioReco.modules.ARA.hardwareResponseIncorporator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA.triggerSimulator">NuRadioReco.modules.ARA.triggerSimulator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html">NuRadioReco.modules.ARIANNA package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#module-NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator">NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#module-NuRadioReco.modules.ARIANNA">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.io.html">NuRadioReco.modules.io package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.araroot.html">NuRadioReco.modules.io.araroot package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.araroot.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.araroot.html#nuradioreco-modules-io-araroot-readaradata-module">NuRadioReco.modules.io.araroot.readARAData module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.araroot.html#module-NuRadioReco.modules.io.araroot">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html">NuRadioReco.modules.io.coreas package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html#module-NuRadioReco.modules.io.coreas.coreas">NuRadioReco.modules.io.coreas.coreas module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html#nuradioreco-modules-io-coreas-readcoreas-module">NuRadioReco.modules.io.coreas.readCoREAS module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html#nuradioreco-modules-io-coreas-readcoreasstation-module">NuRadioReco.modules.io.coreas.readCoREASStation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html#module-NuRadioReco.modules.io.coreas.simulationSelector">NuRadioReco.modules.io.coreas.simulationSelector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.coreas.html#module-NuRadioReco.modules.io.coreas">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.noise.html">NuRadioReco.modules.io.noise package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise.noiseImporter">NuRadioReco.modules.io.noise.noiseImporter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#nuradioreco-modules-io-noise-noiseimporterroot-module">NuRadioReco.modules.io.noise.noiseImporterROOT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.snowshovel.html">NuRadioReco.modules.io.snowshovel package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.snowshovel.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.snowshovel.html#nuradioreco-modules-io-snowshovel-readariannadata-module">NuRadioReco.modules.io.snowshovel.readARIANNAData module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.snowshovel.html#nuradioreco-modules-io-snowshovel-readariannadatacalib-module">NuRadioReco.modules.io.snowshovel.readARIANNADataCalib module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.snowshovel.html#module-NuRadioReco.modules.io.snowshovel">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.NuRadioRecoio">NuRadioReco.modules.io.NuRadioRecoio module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventReader">NuRadioReco.modules.io.eventReader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventWriter">NuRadioReco.modules.io.eventWriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html">NuRadioReco.modules.phasedarray package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html#module-NuRadioReco.modules.phasedarray.triggerSimulator">NuRadioReco.modules.phasedarray.triggerSimulator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.phasedarray.html#module-NuRadioReco.modules.phasedarray">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.trigger.html">NuRadioReco.modules.trigger package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.trigger.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger.highLowThreshold">NuRadioReco.modules.trigger.highLowThreshold module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger.multiHighLowThreshold">NuRadioReco.modules.trigger.multiHighLowThreshold module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger.simpleThreshold">NuRadioReco.modules.trigger.simpleThreshold module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.trigger.html#module-NuRadioReco.modules.trigger">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelBandPassFilter">
+<span id="nuradioreco-modules-channelbandpassfilter-module"></span><h2>NuRadioReco.modules.channelBandPassFilter module<a class="headerlink" href="#module-NuRadioReco.modules.channelBandPassFilter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelBandPassFilter.</code><code class="descname">channelBandPassFilter</code><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Band pass filters the channels using different band-pass filters.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, passband=[0.055, 1.0], filter_type='rectangular', order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the filter</p>
+<dl class="docutils">
+<dt>evt, station, det</dt>
+<dd>Event, Station, Detector</dd>
+<dt>passband: list</dt>
+<dd>passband[0]: lower boundary of filter, passband[1]: upper boundary of filter</dd>
+<dt>filter_type: string</dt>
+<dd>‘rectangular’: perfect straight line filter
+‘butter’: butterworth filter from scipy
+‘butterabs’: absolute of butterworth filter from scipy
+or any filter that is implemented in NuRadioReco.detector.filterresponse. In this case the
+passband parameter is ignored
+or ‘FIR &lt;type&gt; &lt;parameter&gt;’ - see below for FIR filter options</dd>
+<dt>order: int (optional, default 2)</dt>
+<dd>for a butterworth filter: specifies the order of the filter</dd>
+</dl>
+<p>Added Jan-07-2018 by <a class="reference external" href="mailto:robert&#46;lahmann&#37;&#52;&#48;fau&#46;de">robert<span>&#46;</span>lahmann<span>&#64;</span>fau<span>&#46;</span>de</a>:
+FIR filter:
+see <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html</a>
+for window types; some windows need additional parameters; Default window is hamming
+(does not need parameters). Examples:
+filter_type=’FIR’ : use hamming window
+filter_type=’FIR hamming’: same as above
+filter_type=’FIR kaiser 10’ : Use Kaiser window with beta parameter 10
+filter_type=’FIR kaiser’ : Use Kaiser window with default beta parameter 6</p>
+<p>In principal, window names are just passed on to signal.firwin(), but if parameters
+are required, then these cases must be explicitly implemented in the code below.</p>
+<p>The for main filter types can be implemented: 
+LP: passband[0]=None, passband[1]  = f_cut
+HP: passband[0]=f_cut, passband[1] = None
+BP: passband[0]=f_cut_low, passband[1] = f_cut_high
+BS: passband[0]=f_cut_high, passband[1] = f_cut_low (i.e. passband[0] &gt; passband[1])</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelGenericNoiseAdder">
+<span id="nuradioreco-modules-channelgenericnoiseadder-module"></span><h2>NuRadioReco.modules.channelGenericNoiseAdder module<a class="headerlink" href="#module-NuRadioReco.modules.channelGenericNoiseAdder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelGenericNoiseAdder.</code><code class="descname">channelGenericNoiseAdder</code><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that generates noise in some generic fashion (not based on measured data), which can be added to data.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.add_random_phases">
+<code class="descname">add_random_phases</code><span class="sig-paren">(</span><em>amps</em>, <em>n_samples_time_domain</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.add_random_phases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding random phase information to given amplitude spectrum.</p>
+<dl class="docutils">
+<dt>amps: array of floats</dt>
+<dd>Data that random phase is added to.</dd>
+<dt>n_samples_time_domain: int</dt>
+<dd>number of samples in the time domain to differentiate between odd and even number of samples</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.bandlimited_noise">
+<code class="descname">bandlimited_noise</code><span class="sig-paren">(</span><em>min_freq</em>, <em>max_freq</em>, <em>n_samples</em>, <em>sampling_rate</em>, <em>amplitude</em>, <em>type='perfect_white'</em>, <em>time_domain=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.bandlimited_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating noise of n_samples in a bandwidth [min_freq,max_freq].</p>
+<dl class="docutils">
+<dt>min_freq: float</dt>
+<dd>Minimum frequency of passband for noise generation
+min_freq = None: Only the DC component is removed. If the DC component should be included, 
+min_freq = 0 has to be specified</dd>
+<dt>max_freq: float</dt>
+<dd>Maximum frequency of passband for noise generation
+max_freq = None: Frequencies up to Nyquist freq are used.</dd>
+<dt>n_samples: int</dt>
+<dd>number of samples in the time domain</dd>
+<dt>sampling_rate: float</dt>
+<dd>desired sampling rate of data</dd>
+<dt>amplitude: float</dt>
+<dd>desired voltage of noise as V_rms (only roughly, since bandpass limited)</dd>
+<dt>type: string</dt>
+<dd>perfect_white: flat frequency spectrum
+rayleigh: Amplitude of each frequency bin is drawn from a Rayleigh distribution
+# white: flat frequency spectrum with random jitter</dd>
+</dl>
+<ul class="simple">
+<li>Note that by design the max frequency is the Nyquist frequency, even if a bigger max_freq
+is implemented (RL 17-Sept-2018)</li>
+<li>Add ‘multi_white’ noise option on 20-Sept-2018 (RL)</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.fftnoise_fullfft">
+<code class="descname">fftnoise_fullfft</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.fftnoise_fullfft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding random phase information to given amplitude spectrum.</p>
+<dl class="docutils">
+<dt>f: array of floats</dt>
+<dd>Data that random phase is added to.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>event</em>, <em>station</em>, <em>detector</em>, <em>amplitude=0.001</em>, <em>min_freq=0.05</em>, <em>max_freq=2.0</em>, <em>type='white'</em>, <em>excluded_channels=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add noise to given event.</p>
+<p>event</p>
+<p>station</p>
+<p>detector</p>
+<dl class="docutils">
+<dt>amplitude: float</dt>
+<dd>desired voltage of noise as V_rms (only roughly, since bandpass limited)</dd>
+<dt>min_freq: float</dt>
+<dd>Minimum frequency of passband for noise generation</dd>
+<dt>max_freq: float</dt>
+<dd>Maximum frequency of passband for noise generation</dd>
+<dt>type: string</dt>
+<dd>perfect_white: flat frequency spectrum
+rayleigh: Amplitude of each frequency bin is drawn from a Rayleigh distribution</dd>
+<dt>excluded_channels: list of ints</dt>
+<dd>the channels ids of channels where no noise will be added, default is that no channel is excluded</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelLengthAdjuster">
+<span id="nuradioreco-modules-channellengthadjuster-module"></span><h2>NuRadioReco.modules.channelLengthAdjuster module<a class="headerlink" href="#module-NuRadioReco.modules.channelLengthAdjuster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelLengthAdjuster.</code><code class="descname">channelLengthAdjuster</code><a class="headerlink" href="#NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster" title="Permalink to this definition">¶</a></dt>
+<dd><p>cuts the trace to detector specifications, uses a simple algorithm to determine the location of the pulse</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>number_of_samples=256</em>, <em>offset=50</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines number of samples to cut the data to and how many samples before maximum in trace</p>
+<dl class="docutils">
+<dt>number_of_samples: int</dt>
+<dd>Number of samples desired in signal</dd>
+<dt>offset: int</dt>
+<dd>(roughly) How many samples before pulse</dd>
+<dt>debug: bool</dt>
+<dd>Debug</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelResampler">
+<span id="nuradioreco-modules-channelresampler-module"></span><h2>NuRadioReco.modules.channelResampler module<a class="headerlink" href="#module-NuRadioReco.modules.channelResampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelResampler.channelResampler">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelResampler.</code><code class="descname">channelResampler</code><a class="headerlink" href="#NuRadioReco.modules.channelResampler.channelResampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resamples the trace to a new sampling rate.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelResampler.channelResampler.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelResampler.channelResampler.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelResampler.channelResampler.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelResampler.channelResampler.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelResampler.channelResampler.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelResampler.channelResampler.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the channelResampler</p>
+<dl class="docutils">
+<dt>evt, station, det</dt>
+<dd>Event, Station, Detector</dd>
+<dt>sampling_rate: float</dt>
+<dd>In units 1/time provides the desired sampling rate of the data.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelSignalReconstructor">
+<span id="nuradioreco-modules-channelsignalreconstructor-module"></span><h2>NuRadioReco.modules.channelSignalReconstructor module<a class="headerlink" href="#module-NuRadioReco.modules.channelSignalReconstructor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelSignalReconstructor.</code><code class="descname">channelSignalReconstructor</code><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates basic signal parameters.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em>, <em>signal_start=20</em>, <em>signal_stop=100</em>, <em>noise_start=150</em>, <em>noise_stop=350</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.begin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>signal_start: float</dt>
+<dd>Start time (relative to the trace start time) of the window in which signal quantities will be calculated, with time units</dd>
+<dt>debug: bool</dt>
+<dd>Set module to debug output</dd>
+<dt>signal_stop: float</dt>
+<dd>Stop time (relative to the trace start time) of the window in which signal quantities will be calculated, with time units</dd>
+<dt>noise_start: float</dt>
+<dd>Start time (relative to the trace start time) of the window in which noise quantities will be calculated, with time units</dd>
+<dt>noise_stop: float</dt>
+<dd>Stop time (relative to the trace start time) of the window in which noise quantities will be calculated, with time units</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.get_SNR">
+<code class="descname">get_SNR</code><span class="sig-paren">(</span><em>station_id</em>, <em>channel</em>, <em>det</em>, <em>stored_noise=False</em>, <em>rms_stage=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.get_SNR" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>channel, det</dt>
+<dd>Channel, Detector</dd>
+<dt>stored_noise: bool</dt>
+<dd>Calculates noise from pre-computed forced triggers</dd>
+<dt>rms_stage: string</dt>
+<dd>See functionality of det.get_noise_RMS</dd>
+</dl>
+<dl class="docutils">
+<dt>SNR: dict</dt>
+<dd>dictionary of various SNR parameters</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>stored_noise=False</em>, <em>rms_stage='amp'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>evt, station, det</dt>
+<dd>Event, Station, Detector</dd>
+<dt>stored_noise: bool</dt>
+<dd>Calculates noise from pre-computed forced triggers</dd>
+<dt>rms_stage: string</dt>
+<dd>See functionality of det.get_noise_RMS</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelStopFilter">
+<span id="nuradioreco-modules-channelstopfilter-module"></span><h2>NuRadioReco.modules.channelStopFilter module<a class="headerlink" href="#module-NuRadioReco.modules.channelStopFilter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelStopFilter.channelStopFilter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelStopFilter.</code><code class="descname">channelStopFilter</code><a class="headerlink" href="#NuRadioReco.modules.channelStopFilter.channelStopFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>at the beginning and end of the trace (around the ‘stop’) our electronic produces a glitch
+this modules smoothly filters the beginning and the end of the trace</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelStopFilter.channelStopFilter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelStopFilter.channelStopFilter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelStopFilter.channelStopFilter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelStopFilter.channelStopFilter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelStopFilter.channelStopFilter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>filter_size=0.1</em>, <em>prepend=128</em>, <em>append=128</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelStopFilter.channelStopFilter.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>filter_size: size of tukey window (float)</dt>
+<dd>specifies the percentage of the trace where the filter is active.
+default is 0.1, i.e. the first 5% and the last 5% of the trace are filtered</dd>
+<dt>prepend: time interval to prepend</dt>
+<dd>the time span that is filled with zeros and prepended to the trace</dd>
+<dt>append: time interval to append</dt>
+<dd>the time span that is filled with zeros and appended to the trace</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelTemplateCorrelation">
+<span id="nuradioreco-modules-channeltemplatecorrelation-module"></span><h2>NuRadioReco.modules.channelTemplateCorrelation module<a class="headerlink" href="#module-NuRadioReco.modules.channelTemplateCorrelation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelTemplateCorrelation.</code><code class="descname">channelTemplateCorrelation</code><span class="sig-paren">(</span><em>template_directory</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates correlation of waveform with neutrino/cr templates</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.match_sampling">
+<code class="descname">match_sampling</code><span class="sig-paren">(</span><em>ref_template</em>, <em>resampling_factor</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.match_sampling" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, channels_to_use=[0, 1, 2, 3], cosmic_ray=False, n_templates=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>cosmic_ray: bool</dt>
+<dd>Switch for cosmic ray and neutrino analysis. Default is neutrino templates.</dd>
+<dt>n_templates: int</dt>
+<dd>default is 1: use just on standard template for all channels
+if n_templates is larger than one multiple templates are used and the
+average cross correlation for all templates is calculated. The set
+of templates contains several coreas input pulses and different
+incoming directions. The index first loops first over 6 different
+coreas pulses with different frequency content
+and then over azimuth angles of 0, 22.5 and 45 degree
+and then over zenith angles of 60, 50 and 70 degree</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.channelTimeWindow">
+<span id="nuradioreco-modules-channeltimewindow-module"></span><h2>NuRadioReco.modules.channelTimeWindow module<a class="headerlink" href="#module-NuRadioReco.modules.channelTimeWindow" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.channelTimeWindow.channelTimeWindow">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelTimeWindow.</code><code class="descname">channelTimeWindow</code><a class="headerlink" href="#NuRadioReco.modules.channelTimeWindow.channelTimeWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set trace outside time window to zero.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTimeWindow.channelTimeWindow.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTimeWindow.channelTimeWindow.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTimeWindow.channelTimeWindow.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTimeWindow.channelTimeWindow.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelTimeWindow.channelTimeWindow.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>window=None</em>, <em>window_function='rectangular'</em>, <em>around_pulse=True</em>, <em>window_width=50</em>, <em>window_rise_time=20</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTimeWindow.channelTimeWindow.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>evt, station, det</dt>
+<dd>Event, Station, Detector</dd>
+<dt>window: list or None</dt>
+<dd>[time_window_start, time_window_end] in which the signal should be kept (in units of time)</dd>
+<dt>window_function: string</dt>
+<dd>select window function
+* rectangular
+* hanning</dd>
+<dt>around_pulse: float or None</dt>
+<dd>if not None: specifies time interval around ‘signal_time’,
+if this option is set, ‘window’ is ignored</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.correlationDirectionFitter">
+<span id="nuradioreco-modules-correlationdirectionfitter-module"></span><h2>NuRadioReco.modules.correlationDirectionFitter module<a class="headerlink" href="#module-NuRadioReco.modules.correlationDirectionFitter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.correlationDirectionFitter.</code><code class="descname">correlationDirectionFitter</code><a class="headerlink" href="#NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits the direction using correlation of parallel channels.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em>, <em>log_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, n_index=None, ZenLim=[0.0, 1.5707963267948966], AziLim=[0.0, 6.283185307179586], channel_pairs=((0, 2), (1, 3)), use_envelope=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>reconstruct signal arrival direction for all events</p>
+<dl class="docutils">
+<dt>n_index: float</dt>
+<dd>the index of refraction</dd>
+<dt>ZenLim: 2-dim array/list of floats</dt>
+<dd>the zenith angle limits for the fit
+default if 0-90deg (upward coming signal)</dd>
+<dt>AziLim: 2-dim array/list of floats</dt>
+<dd>the azimuth angle limits for the fit
+default is 0-360deg</dd>
+<dt>channel_pairs: pair of pair of integers</dt>
+<dd>specify the two channel pairs to use, default ((0, 2), (1, 3))</dd>
+<dt>use_envelope: bool (default False)</dt>
+<dd>if True, the hilbert envelope of the traces is used</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.cosmicRayEnergyReconstructor">
+<span id="nuradioreco-modules-cosmicrayenergyreconstructor-module"></span><h2>NuRadioReco.modules.cosmicRayEnergyReconstructor module<a class="headerlink" href="#module-NuRadioReco.modules.cosmicRayEnergyReconstructor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.cosmicRayEnergyReconstructor.cosmicRayEnergyReconstructor">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.cosmicRayEnergyReconstructor.</code><code class="descname">cosmicRayEnergyReconstructor</code><a class="headerlink" href="#NuRadioReco.modules.cosmicRayEnergyReconstructor.cosmicRayEnergyReconstructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstructs the energy of an air shower from its radio signal
+Requires the following modules to be run beforehand:</p>
+<blockquote>
+<div><ul class="simple">
+<li>a 10th order Butterworth bandpass filter with passband 80-300 MHz</li>
+<li>a direction reconstruction</li>
+<li>the voltageToAnalyticEfieldConverter</li>
+</ul>
+</div></blockquote>
+<dl class="method">
+<dt id="NuRadioReco.modules.cosmicRayEnergyReconstructor.cosmicRayEnergyReconstructor.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>site='mooresbay'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.cosmicRayEnergyReconstructor.cosmicRayEnergyReconstructor.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.cosmicRayEnergyReconstructor.cosmicRayEnergyReconstructor.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>event</em>, <em>station</em>, <em>detector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.cosmicRayEnergyReconstructor.cosmicRayEnergyReconstructor.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.efieldAirToIcePropagator">
+<span id="nuradioreco-modules-efieldairtoicepropagator-module"></span><h2>NuRadioReco.modules.efieldAirToIcePropagator module<a class="headerlink" href="#module-NuRadioReco.modules.efieldAirToIcePropagator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.efieldAirToIcePropagator.</code><code class="descname">efieldAirToIcePropagator</code><a class="headerlink" href="#NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that propagates the efield (usually from air showers) into the ice.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldAirToIcePropagator.efieldAirToIcePropagator.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.efieldGenericNoiseAdder">
+<span id="nuradioreco-modules-efieldgenericnoiseadder-module"></span><h2>NuRadioReco.modules.efieldGenericNoiseAdder module<a class="headerlink" href="#module-NuRadioReco.modules.efieldGenericNoiseAdder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.efieldGenericNoiseAdder.</code><code class="descname">efieldGenericNoiseAdder</code><a class="headerlink" href="#NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that adds noise to the electric field – such as Galactic emission and background from human communication.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>type</em>, <em>narrowband_freq</em>, <em>narrowband_power</em>, <em>passband</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>event</p>
+<p>station</p>
+<p>detector</p>
+<dl class="docutils">
+<dt>type: string</dt>
+<dd>narrowband: single frequency background with FM
+galactic: galactic emission calculated from temperature plots</dd>
+<dt>narrowband_freq: list</dt>
+<dd>mean frequency of one or more narrowband transmitters</dd>
+<dt>narrowband_power: list</dt>
+<dd>must be same size as narrowband_freq list. Each element in the list should be a list consisting of 3 elements: the power of the signal in x,y,z polarization.</dd>
+<dt>passband: list</dt>
+<dd>galactic background will not be simulated below the lower cutoff</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.efieldTimeDirectionFitter">
+<span id="nuradioreco-modules-efieldtimedirectionfitter-module"></span><h2>NuRadioReco.modules.efieldTimeDirectionFitter module<a class="headerlink" href="#module-NuRadioReco.modules.efieldTimeDirectionFitter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.efieldTimeDirectionFitter.</code><code class="descname">efieldTimeDirectionFitter</code><a class="headerlink" href="#NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates basic signal parameters.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em>, <em>time_uncertainty=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, debug=True, channels_to_use=[0, 1, 2, 3], cosmic_ray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.efieldToVoltageConverter">
+<span id="nuradioreco-modules-efieldtovoltageconverter-module"></span><h2>NuRadioReco.modules.efieldToVoltageConverter module<a class="headerlink" href="#module-NuRadioReco.modules.efieldToVoltageConverter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.efieldToVoltageConverter.</code><code class="descname">efieldToVoltageConverter</code><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module that should be used to convert simulations to data.
+It assumes that at least one efield is given per channel as input. It will
+convolve the electric field with the corresponding antenna response for the
+incoming direction specified in the channel object.
+The station id, defines antenna location and antenna type.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em>, <em>uncertainty={}</em>, <em>time_resolution=0.1</em>, <em>pre_pulse_time=200</em>, <em>post_pulse_time=200</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin method, sets general parameters of module</p>
+<dl class="docutils">
+<dt>debug: bool</dt>
+<dd>enable/disable debug mode (default: False -&gt; no debug output)</dd>
+<dt>uncertainty: dictionary</dt>
+<dd><dl class="first docutils">
+<dt>optional argument to specify systematic uncertainties. currently supported keys</dt>
+<dd><ul class="first last simple">
+<li>‘sys_dx’: systematic uncertainty of x position of antenna</li>
+<li>‘sys_dy’: systematic uncertainty of y position of antenna</li>
+<li>‘sys_dz’: systematic uncertainty of z position of antenna</li>
+</ul>
+</dd>
+</dl>
+<ul class="last simple">
+<li><dl class="first docutils">
+<dt>‘sys_amp’: systematic uncertainty of the amplifier aplification,</dt>
+<dd>specify value as relative difference of linear gain</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>‘amp’: statistical uncertainty of the amplifier aplification,</dt>
+<dd>specify value as relative difference of linear gain</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>time_resolution: float</dt>
+<dd>time resolution of shifting pulse times</dd>
+<dt>pre_pulse_time: float</dt>
+<dd>length of empty samples that is added before the first pulse</dd>
+<dt>post_pulse_time: float</dt>
+<dd>length of empty samples that is added after the simulated trace</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.electricFieldBandPassFilter">
+<span id="nuradioreco-modules-electricfieldbandpassfilter-module"></span><h2>NuRadioReco.modules.electricFieldBandPassFilter module<a class="headerlink" href="#module-NuRadioReco.modules.electricFieldBandPassFilter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.electricFieldBandPassFilter.</code><code class="descname">electricFieldBandPassFilter</code><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, passband=[0.055, 1.0], filter_type='rectangular', debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies bandpass filter to electric field</p>
+<p>evt: event</p>
+<p>station: station</p>
+<p>det: detector</p>
+<dl class="docutils">
+<dt>passband: seq, array</dt>
+<dd>passband for filter, in phys units</dd>
+<dt>filter_type: str</dt>
+<dd>chose filter type, rectangular, butter10, butter10abs</dd>
+<dt>debug: bool</dt>
+<dd>set debug</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.electricFieldResampler">
+<span id="nuradioreco-modules-electricfieldresampler-module"></span><h2>NuRadioReco.modules.electricFieldResampler module<a class="headerlink" href="#module-NuRadioReco.modules.electricFieldResampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.electricFieldResampler.electricFieldResampler">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.electricFieldResampler.</code><code class="descname">electricFieldResampler</code><a class="headerlink" href="#NuRadioReco.modules.electricFieldResampler.electricFieldResampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>resamples the electric field trace to a new sampling rate</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldResampler.electricFieldResampler.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldResampler.electricFieldResampler.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldResampler.electricFieldResampler.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldResampler.electricFieldResampler.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldResampler.electricFieldResampler.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>event</em>, <em>station</em>, <em>det</em>, <em>sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldResampler.electricFieldResampler.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>resample electric field</p>
+<p>event: event</p>
+<p>station: station</p>
+<p>det: detector</p>
+<dl class="docutils">
+<dt>sampling_rate: float</dt>
+<dd>desired new sampling rate</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.electricFieldSignalReconstructor">
+<span id="nuradioreco-modules-electricfieldsignalreconstructor-module"></span><h2>NuRadioReco.modules.electricFieldSignalReconstructor module<a class="headerlink" href="#module-NuRadioReco.modules.electricFieldSignalReconstructor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.electricFieldSignalReconstructor.</code><code class="descname">electricFieldSignalReconstructor</code><a class="headerlink" href="#NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates basic signal parameters.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>signal_window_pre=10</em>, <em>signal_window_post=40</em>, <em>noise_window=100</em>, <em>log_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>reconstructs quantities for electric field</p>
+<p>event: event</p>
+<p>station: station</p>
+<p>det: detector</p>
+<dl class="docutils">
+<dt>debug: bool</dt>
+<dd>set debug</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.eventTypeIdentifier">
+<span id="nuradioreco-modules-eventtypeidentifier-module"></span><h2>NuRadioReco.modules.eventTypeIdentifier module<a class="headerlink" href="#module-NuRadioReco.modules.eventTypeIdentifier" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.eventTypeIdentifier.</code><code class="descname">eventTypeIdentifier</code><a class="headerlink" href="#NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this module to distinguish cosmic ray events from neutrino events</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>event</em>, <em>station</em>, <em>mode</em>, <em>forced_event_type='neutrino'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the type of event so that the correct modules can be
+executed accordingly. Currently neutrino and cosmic ray events are
+supported, but others can be added in the future.</p>
+<p>event: event</p>
+<p>station: station</p>
+<dl class="docutils">
+<dt>mode: string</dt>
+<dd>specifies which criteria the decision to flag the event as cosmic ray
+or neutrino should be based on. Currently only supports ‘forced’, 
+which automatically flags the event to a specified type. Add new 
+modes to use different criteria</dd>
+<dt>forced_event_type: string</dt>
+<dd>if the mode is set to forced, this is the type the event will be set to.
+Currently supported options are neutrino and cosmic_ray</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.templateDirectionFitter">
+<span id="nuradioreco-modules-templatedirectionfitter-module"></span><h2>NuRadioReco.modules.templateDirectionFitter module<a class="headerlink" href="#module-NuRadioReco.modules.templateDirectionFitter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.templateDirectionFitter.</code><code class="descname">templateDirectionFitter</code><a class="headerlink" href="#NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates basic signal parameters.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, debug=True, channels_to_use=[0, 1, 2, 3], cosmic_ray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits the direction using templates</p>
+<p>evt: event</p>
+<p>station: station</p>
+<p>det: detector</p>
+<dl class="docutils">
+<dt>debug: bool</dt>
+<dd>set debug</dd>
+<dt>channels_to_use: list</dt>
+<dd>antenna to use for fit</dd>
+<dt>cosmic_ray: bool</dt>
+<dd>type to set correlation template</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.triggerTimeAdjuster">
+<span id="nuradioreco-modules-triggertimeadjuster-module"></span><h2>NuRadioReco.modules.triggerTimeAdjuster module<a class="headerlink" href="#module-NuRadioReco.modules.triggerTimeAdjuster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.triggerTimeAdjuster.triggerTimeAdjuster">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.triggerTimeAdjuster.</code><code class="descname">triggerTimeAdjuster</code><a class="headerlink" href="#NuRadioReco.modules.triggerTimeAdjuster.triggerTimeAdjuster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies channel traces to simulate the effects of the trigger</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.triggerTimeAdjuster.triggerTimeAdjuster.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>trigger_name=None</em>, <em>pre_trigger_time=55.0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.triggerTimeAdjuster.triggerTimeAdjuster.begin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>trigger_name: string or None</dt>
+<dd>name of the trigger that should be used.
+If trigger_name is None, the trigger with the smalles trigger_time will be used.
+If a name is give, corresponding trigger module must be run beforehand.
+If the trigger does not exist or did not trigger, this module will do nothing</dd>
+<dt>pre_trigger_time: float</dt>
+<dd>Amount of time that should be stored in the channel trace before the trigger. If the channel trace is long
+enough, it will be cut accordingly. Otherwise, it will be rolled.</dd>
+<dt>cut_trace: bool</dt>
+<dd>If true, the trace will be cut to the length specified in the detector description</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.triggerTimeAdjuster.triggerTimeAdjuster.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>event</em>, <em>station</em>, <em>detector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.triggerTimeAdjuster.triggerTimeAdjuster.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.voltageToAnalyticEfieldConverter">
+<span id="nuradioreco-modules-voltagetoanalyticefieldconverter-module"></span><h2>NuRadioReco.modules.voltageToAnalyticEfieldConverter module<a class="headerlink" href="#module-NuRadioReco.modules.voltageToAnalyticEfieldConverter" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.covariance">
+<code class="descclassname">NuRadioReco.modules.voltageToAnalyticEfieldConverter.</code><code class="descname">covariance</code><span class="sig-paren">(</span><em>function</em>, <em>vmin</em>, <em>up</em>, <em>fast=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.covariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerically compute the covariance matrix from a chi^2 or -logLikelihood function.</p>
+<dl class="docutils">
+<dt>function: function-like</dt>
+<dd>The function may accept only a vector argument and has to return a scalar.</dd>
+<dt>vmin: array of floats</dt>
+<dd>Position of the minimum.</dd>
+<dt>up: float</dt>
+<dd>Threshold value to pass when climbing uphill.
+up = 1   for a chi^2 function
+up = 0.5 for a -logLikelihood function</dd>
+<dt>fast: boolean</dt>
+<dd>If true invert hesse matrix at the minimum, use this if computing function is expensive.</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cov</span> <span class="o">=</span> <span class="p">((</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">invcov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">1.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">ChiSquare</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xs</span><span class="o">-</span><span class="n">pars</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">invcov</span><span class="p">,</span><span class="n">xs</span><span class="o">-</span><span class="n">pars</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">NegLogLike</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">ChiSquare</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">covariance</span><span class="p">(</span><span class="n">ChiSquare</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="go">array([[ 2. ,  0.2],</span>
+<span class="go">       [ 0.2,  2. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">covariance</span><span class="p">(</span><span class="n">ChiSquare</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">array([[ 2. ,  0.2],</span>
+<span class="go">       [ 0.2,  2. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">covariance</span><span class="p">(</span><span class="n">NegLogLike</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">array([[ 2. ,  0.2],</span>
+<span class="go">       [ 0.2,  2. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">covariance</span><span class="p">(</span><span class="n">NegLogLike</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">fast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">array([[ 2. ,  0.2],</span>
+<span class="go">       [ 0.2,  2. ]])</span>
+</pre></div>
+</div>
+<p>The algorithm is slow (it needs many function evaluations), but robust.
+The covariance matrix is derived by explicitly following the chi^2
+or -logLikelihood function uphill until it crosses the 1-sigma contour.</p>
+<p>The fast alternative is to invert the hessian matrix at the minimum.</p>
+<p>Hans Dembinski &lt;<a class="reference external" href="mailto:hans&#46;dembinski&#37;&#52;&#48;kit&#46;edu">hans<span>&#46;</span>dembinski<span>&#64;</span>kit<span>&#46;</span>edu</a>&gt;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.stacked_lstsq">
+<code class="descclassname">NuRadioReco.modules.voltageToAnalyticEfieldConverter.</code><code class="descname">stacked_lstsq</code><span class="sig-paren">(</span><em>L</em>, <em>b</em>, <em>rcond=1e-10</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.stacked_lstsq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve L x = b, via SVD least squares cutting of small singular values
+L is an array of shape (…, M, N) and b of shape (…, M).
+Returns x of shape (…, N)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.voltageToAnalyticEfieldConverter.</code><code class="descname">voltageToAnalyticEfieldConverter</code><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>reconstucts the electric-field by foward folding an analytic pulse function through the antenna</p>
+<p>This module works only for cosmic rays so far. The cosmic-ray radio pulse
+can be described in Fourier space with a simple exponential function for
+the magnitude as a function of frequency.
+The phase is set to zero. A slope in the phase spectrum corresponds to a
+translation in time. In each iteration step, the time shift is set to the
+shift that results in the maximal cross correlation.</p>
+<p>The module also calculates the polarization angle and the energy fluence
+from the fit parameters.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>begin method. This function is executed before the event loop.</p>
+<p>The antenna pattern provider is initialized here.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], bandpass=[0.1, 0.5], useMCdirection=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>run method. This function is executed for each event</p>
+<p>evt
+station
+det
+debug: bool</p>
+<blockquote>
+<div>if True debug plotting is enables</div></blockquote>
+<dl class="docutils">
+<dt>debug_plotpath: string or None</dt>
+<dd>if not None plots will be saved to a file rather then shown. Plots will
+be save into the <cite>debug_plotpath</cite> directory</dd>
+<dt>use_channels: array of ints</dt>
+<dd>the channel ids to use for the electric field reconstruction
+default: 0 - 3</dd>
+<dt>bandpass: [float, float]</dt>
+<dd>the lower and upper frequecy for which the analytic pulse is calculated.
+A butterworth filter of 10th order and a rectangular filter is applied.
+default 100 - 500 MHz</dd>
+<dt>useMCdirection: bool</dt>
+<dd>use simulated direction instead of reconstructed direction</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.voltageToEfieldConverter">
+<span id="nuradioreco-modules-voltagetoefieldconverter-module"></span><h2>NuRadioReco.modules.voltageToEfieldConverter module<a class="headerlink" href="#module-NuRadioReco.modules.voltageToEfieldConverter" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="NuRadioReco.modules.voltageToEfieldConverter.get_array_of_channels">
+<code class="descclassname">NuRadioReco.modules.voltageToEfieldConverter.</code><code class="descname">get_array_of_channels</code><span class="sig-paren">(</span><em>station</em>, <em>use_channels</em>, <em>det</em>, <em>zenith</em>, <em>azimuth</em>, <em>antenna_pattern_provider</em>, <em>time_domain=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.get_array_of_channels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="NuRadioReco.modules.voltageToEfieldConverter.stacked_lstsq">
+<code class="descclassname">NuRadioReco.modules.voltageToEfieldConverter.</code><code class="descname">stacked_lstsq</code><span class="sig-paren">(</span><em>L</em>, <em>b</em>, <em>rcond=1e-10</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.stacked_lstsq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve L x = b, via SVD least squares cutting of small singular values
+L is an array of shape (…, M, N) and b of shape (…, M).
+Returns x of shape (…, N)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.voltageToEfieldConverter.</code><code class="descname">voltageToEfieldConverter</code><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], use_MC_direction=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>run method. This function is executed for each event</p>
+<p>evt
+station
+det
+debug: bool</p>
+<blockquote>
+<div>if True debug plotting is enables</div></blockquote>
+<dl class="docutils">
+<dt>debug_plotpath: string or None</dt>
+<dd>if not None plots will be saved to a file rather then shown. Plots will
+be save into the <cite>debug_plotpath</cite> directory</dd>
+<dt>use_channels: array of ints</dt>
+<dd>the channel ids to use for the electric field reconstruction</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules.voltageToEfieldConverterPerChannel">
+<span id="nuradioreco-modules-voltagetoefieldconverterperchannel-module"></span><h2>NuRadioReco.modules.voltageToEfieldConverterPerChannel module<a class="headerlink" href="#module-NuRadioReco.modules.voltageToEfieldConverterPerChannel" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.voltageToEfieldConverterPerChannel.</code><code class="descname">voltageToEfieldConverterPerChannel</code><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts voltage trace to electric field per channel</p>
+<p>Assumes either co-pole or cross-pole, then finds the electric field per channel by E = V/H in fourier space.</p>
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>pol=0</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs computation for voltage trace to electric field per channel</p>
+<p>Will provide a deconvoluted (electric field) trace for each channel from the stations input voltage traces</p>
+<dl class="docutils">
+<dt>evt: event data structure</dt>
+<dd>the event data structure</dd>
+<dt>station: station data structure</dt>
+<dd>the station data structure</dd>
+<dt>det: detector object</dt>
+<dd>the detector object</dd>
+<dt>pol: polarization</dt>
+<dd>0 = eTheta polarized, 1 = ePhi polarized</dd>
+<dt>debug: bool</dt>
+<dd>if True additional debug plot(s) are displayed - currently unused</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-NuRadioReco.modules">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NuRadioReco.modules" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="NuRadioReco.modules.ARA.html" class="btn btn-neutral float-right" title="NuRadioReco.modules.ARA package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="NuRadioReco.framework.html" class="btn btn-neutral float-left" title="NuRadioReco.framework package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, The NuRadioReco Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
