@@ -10,8 +10,14 @@ logger = logging.getLogger("BaseTrace")
 
 
 class BaseTrace:
+    """
+    base class for trace/waveform functionality
+    """
 
     def __init__(self):
+        """
+        init base trace object
+        """
         self._sampling_rate = None
         self._time_trace = None
         self._frequency_spectrum = None
@@ -23,7 +29,7 @@ class BaseTrace:
         returns the time trace. If the frequency spectrum was modified before,
         an ifft is performed automatically to have the time domain representation
         up to date.
-        
+
         Returns: 1 or N dimensional np.array of floats
             the time trace
         """
@@ -35,6 +41,14 @@ class BaseTrace:
         return self._time_trace
 
     def get_frequency_spectrum(self):
+        """
+        returns the frequency spectrum. Note: the normalization of the spectrum currently
+        on the sampling rate (units V/m). This may change in the future to be
+        V/m/GHz.
+
+        Returns: 1 or N dimensional np.array of floats
+            the frequency spectrum
+        """
         if(self.__time_domain_up_to_date):
 #             logger.debug("frequency domain is not up to date, calculating FFT on the fly")
 #             logger.debug("time trace has shape {}".format(self._time_trace.shape))
@@ -47,7 +61,7 @@ class BaseTrace:
     def set_trace(self, trace, sampling_rate):
         """
         sets the time trace
-        
+
         Parameters
         -----------
         trace: np.array of floats
@@ -64,6 +78,16 @@ class BaseTrace:
         self._frequency_spectrum = None
 
     def set_frequency_spectrum(self, frequency_spectrum, sampling_rate):
+        """
+        sets the frequency spectrum
+
+        Parameters
+        -----------
+        frequency_spectrum: np.array of floats
+            the frequency spectrum
+        sampling_rate: float
+            the sampling rage of the trace, i.e., the inverse of the bin width
+        """
         self.__time_domain_up_to_date = False
         self._frequency_spectrum = frequency_spectrum
         self._sampling_rate = sampling_rate
@@ -72,13 +96,19 @@ class BaseTrace:
     def get_sampling_rate(self):
         """
         returns the sampling rate of the trace
-        
+
         Return: float
             sampling rate, i.e., the inverse of the bin width
         """
         return self._sampling_rate
 
     def get_times(self):
+        """
+        returns the times corresponding to the stored waveform and sampling rate
+
+        Return: np.array
+            array of times
+        """
         try:
             length = self.get_number_of_samples()
             times = np.arange(0, length / self._sampling_rate - 0.1/self._sampling_rate, 1. / self._sampling_rate) + self._trace_start_time
@@ -90,30 +120,76 @@ class BaseTrace:
         return times
 
     def set_trace_start_time(self, start_time):
+        """
+        set trace start time
+        For more on times see https://github.com/nu-radio/NuRadioReco/wiki/Times
+
+        Parameters
+        -----------
+        start_time: time (astropy)
+
+        """
         self._trace_start_time = start_time
 
     def add_trace_start_time(self, start_time):
+        """
+        add time to trace start time
+        For more on times see https://github.com/nu-radio/NuRadioReco/wiki/Times
+
+        Parameters
+        -----------
+        start_time: time (astropy)
+
+        """
         self._trace_start_time += start_time
 
     def get_trace_start_time(self):
+        """
+        add time to trace start time
+        For more on times see https://github.com/nu-radio/NuRadioReco/wiki/Times
+
+        Return: time (astropy)
+
+        """
         return self._trace_start_time
 
     def get_frequencies(self):
+        """
+        returns the frequencies corresponding to the stored frequency spectrum
+        and sampling rate
+
+        Return: np.array
+            array of frequencies
+        """
         length = self.get_number_of_samples()
         return np.fft.rfftfreq(length, d=(1. / self._sampling_rate))
 
     def get_hilbert_envelope(self):
+        """
+        returns the hilbert envelope of the signal
+        convenience function from scipy.signal.hilbert
+
+        Return: np.array
+            array of hilbert envelope
+        """
         from scipy import signal
         h = signal.hilbert(self.get_trace())
         return np.array([np.abs(h[0]), np.abs(h[1]), np.abs(h[2])])
 
     def get_hilbert_envelope_mag(self):
+        """
+        returns the magnitude of the hilbert envelope of the signal
+        convenience function from scipy.signal.hilbert
+
+        Return: np.array
+            array of magnitude of hilbert envelope
+        """
         return np.linalg.norm(self.get_hilbert_envelope(), axis=0)
 
     def get_number_of_samples(self):
         """
         returns the number of samples in the time domain
-        
+
         Return: int
             number of samples in time domain
         """
@@ -125,14 +201,22 @@ class BaseTrace:
         return length
 
     def serialize(self):
+        """
+        Serialize trace
+
+        Return: serialized
+        """
         data = {'sampling_rate': self.get_sampling_rate(),
                 'time_trace': self.get_trace(),
                 'trace_start_time': self.get_trace_start_time()}
         return pickle.dumps(data, protocol=2)
 
     def deserialize(self, data_pkl):
+        """
+        Deserialize trace
+
+        """
         data = pickle.loads(data_pkl)
         self.set_trace(data['time_trace'], data['sampling_rate'])
         if('trace_start_time' in data.keys()):
             self.set_trace_start_time(data['trace_start_time'])
-            

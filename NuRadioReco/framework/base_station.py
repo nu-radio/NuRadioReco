@@ -54,6 +54,8 @@ class BaseStation():
         key: NuRadioReco.framework.parameters.stationParameters
             station parameter, for a new parameter add it to the framework first
 
+        return: value
+
         """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
