@@ -169,9 +169,11 @@ class BaseStation():
 
 
     def get_id(self):
-         """
+        """
         Get station id
-         """
+
+        return: int
+        """
         return self._station_id
 
     def get_trigger(self, name):

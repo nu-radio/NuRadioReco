@@ -11,28 +11,75 @@ logger = logging.getLogger('channel')
 
 class Channel(NuRadioReco.framework.base_trace.BaseTrace):
 
+    """
+    framework of channel object
+    """
+
     def __init__(self, channel_id):
+        """
+        Init function of channel object
+
+        Parameters
+        ----------
+        channel_id: int
+            ID of channel
+        """
         NuRadioReco.framework.base_trace.BaseTrace.__init__(self)
         self._parameters = {}
         self._id = channel_id
         self.__electric_field = None
 
     def get_parameter(self, key):
+        """
+        Access channel parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.channelParameters
+            channel parameter, for a new parameter add it to the framework first
+
+        return: value
+
+        """
         if not isinstance(key, parameters.channelParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.channelParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.channelParameters")
         return self._parameters[key]
 
     def get_parameters(self):
+        """
+        Get all channel parameters, parameters.channelParameters
+
+        """
         return self._parameters
 
     def set_parameter(self, key, value):
+        """
+        Set channel parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.channelParameters
+            channel parameter, for a new parameter add it to the framework first
+        value: var
+            as defined in channel parameters
+
+        """
         if not isinstance(key, parameters.channelParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.channelParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.channelParameters")
         self._parameters[key] = value
 
     def has_parameter(self, key):
+        """
+        Check for station parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.channelParameters
+            channel parameter, for a new parameter add it to the framework first
+
+        """
         if not isinstance(key, parameters.channelParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.channelParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.channelParameters")
@@ -45,9 +92,23 @@ class Channel(NuRadioReco.framework.base_trace.BaseTrace):
         return self.get_parameter(key)
 
     def get_id(self):
+        """
+        Get channel id
+
+        return: int
+        """
         return self._id
 
     def serialize(self, mode):
+        """
+        Serialize the channel data so it can be saved
+
+        Parameters
+        ----------
+        key: str
+            'mirco', 'mini' or 'full'
+
+        """
         if(mode == 'micro' or mode == 'mini'):
             base_trace_pkl = None
         else:
@@ -58,6 +119,14 @@ class Channel(NuRadioReco.framework.base_trace.BaseTrace):
         return pickle.dumps(data, protocol=2)
 
     def deserialize(self, data_pkl):
+        """
+        Deserialize the channel data from file
+
+        Parameters
+        ----------
+        data_pkl: data
+
+        """
         data = pickle.loads(data_pkl)
         if(data['base_trace'] is not None):
             NuRadioReco.framework.base_trace.BaseTrace.deserialize(self, data['base_trace'])
