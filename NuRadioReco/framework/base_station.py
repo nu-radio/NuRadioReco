@@ -16,8 +16,19 @@ logger = logging.getLogger('BaseStation')
 
 
 class BaseStation():
+    """
+    Basic class that provides all functionality for the stations. Station and sim_station inherit from this class.
+    """
 
     def __init__(self, station_id):
+        """
+        Init function.
+
+        Parameters
+        ----------
+        station_id: int
+            Station ID, needed to initialize station to read from detector
+        """
         self._parameters = {}
         self._ARIANNA_parameters = {}
         self._parameter_covariances = {}
@@ -35,70 +46,143 @@ class BaseStation():
         return self.get_parameter(key)
 
     def get_parameter(self, key):
+        """
+        Access station parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.stationParameters
+            station parameter, for a new parameter add it to the framework first
+
+        """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         return self._parameters[key]
 
     def get_parameters(self):
+        """
+        Get all station parameters, parameters.stationParameters
+
+        """
+
         return self._parameters
 
     def has_parameter(self, key):
+        """
+        Check for station parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.stationParameters
+            station parameter, for a new parameter add it to the framework first
+
+        """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         return key in self._parameters.keys()
 
     def set_parameter(self, key, value):
+        """
+        Set station parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.stationParameters
+            station parameter, for a new parameter add it to the framework first
+        value: var
+            as defined in station parameter
+
+        """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         self._parameters[key] = value
 
     def set_parameter_error(self, key, value):
+        """
+        Set station parameter error
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.stationParameters
+            station parameter, for a new parameter add it to the framework first
+        value: var
+            as defined in station parameter
+        """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         self._parameter_covariances[(key, key)] = value ** 2
 
     def get_parameter_error(self, key):
+        """
+        Get station parameter error
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.stationParameters
+            station parameter, for a new parameter add it to the framework first
+        """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         return self._parameter_covariances[(key, key)] ** 0.5
 
     def remove_parameter(self, key):
+        """
+        Remove station parameter error from station object
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.stationParameters
+            station parameter, for a new parameter add it to the framework first
+        """
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         self._parameters.pop(key, None)
 
     def set_station_time(self, time):
+        """
+        Set station time to access detector
+
+        Parameters
+        ----------
+        time: datetime.dateime or astropy.time.Time
+            time at which the event occurred
+        """
+
         if isinstance(time, datetime.datetime):
             self._station_time = astropy.time.Time(time)
         else:
             self._station_time = time
 
     def get_station_time(self):
+        """
+        Get station time
+        """
         return self._station_time
 
-#     def get_trace(self):
-#         return self._time_trace
-#
-#     def set_trace(self, trace, sampling_rate):
-#         self._time_trace = trace
-#         self._sampling_rate = sampling_rate
-#
-#     def get_sampling_rate(self):
-#         return self._sampling_rate
-#
-#     def get_times(self):
-#         return np.arange(0, len(self._time_trace) / self._sampling_rate, 1. / self._sampling_rate)
 
     def get_id(self):
+         """
+        Get station id
+         """
         return self._station_id
 
     def get_trigger(self, name):
+        """
+        gets trigger with a certain name
+
+        Paramters
+        ---------
+        trigger_name: string or None
+            the name of the trigger
+
+        Returns trigger
+        """
         if(name not in self._triggers):
             raise ValueError("trigger with name {} not present".format(name))
         return self._triggers[name]
@@ -123,6 +207,16 @@ class BaseStation():
         return self._triggers
 
     def set_trigger(self, trigger):
+        """
+        sets trigger
+
+        Paramters
+        ---------
+        trigger: NuRadioReco trigger
+
+
+        Returns bool
+        """
         if(trigger.get_name() in self._triggers):
             logger.warning(
                 "station has already a trigger with name {}. The previous trigger will be overridden!".format(trigger.get_name()))
@@ -157,15 +251,46 @@ class BaseStation():
         self.set_trigger(trigger)
 
     def set_electric_fields(self, electric_fields):
+        """
+        set electric fields of station
+
+        Parameters
+        ----------
+        electric_fields:
+        """
         self._electric_fields = electric_fields
 
     def get_electric_fields(self):
+        """
+        get electric fields of station
+
+        Parameters
+        ----------
+        electric_fields:
+        """
         return self._electric_fields
 
     def add_electric_field(self, electric_field):
+        """
+        add electric field to existing list of electric fields
+
+        Parameters
+        ----------
+        electric_field:
+        """
         self._electric_fields.append(electric_field)
 
     def get_electric_fields_for_channels(self, channel_ids=None, ray_path_type=None):
+        """
+        get electric field corresponding to chanel
+
+        Parameters
+        ----------
+        channel_ids:
+
+        ray_path_type: str
+
+        """
         for e_field in self._electric_fields:
             channel_ids2 = channel_ids
             if (channel_ids is None):
@@ -177,6 +302,10 @@ class BaseStation():
                     yield e_field
 
     def is_neutrino(self):
+        """
+        convenience function, based on particle type of station
+
+        """
         if self._particle_type == '':
             logger.error("Stations particle type has not been set")
             raise ValueError("Stations particle type has not been set")
@@ -184,6 +313,10 @@ class BaseStation():
         return self._particle_type == 'nu'
 
     def is_cosmic_ray(self):
+        """
+        convenience function, based on particle type of station
+
+        """
         if self._particle_type == '':
             logger.error("Stations particle type has not been set")
             raise ValueError("Stations particle type has not been set")
@@ -205,21 +338,55 @@ class BaseStation():
 
     # provide interface to ARIANNA specific parameters
     def get_ARIANNA_parameter(self, key):
+        """
+        Access ARIANNA specific station parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.ARIANNAParameters
+            station parameter, for a new parameter add it to the framework first
+
+        """
         if not isinstance(key, parameters.ARIANNAParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
         return self._ARIANNA_parameters[key]
 
     def get_ARIANNA_parameters(self):
+        """
+        Get all ARIANNA specific parameters, parameters.ARIANNAParameter
+
+        """
         return self._ARIANNA_parameters
 
     def has_ARIANNA_parameter(self, key):
+        """
+        Check ARIANNA specific station parameter
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.ARIANNAParameters
+            station parameter, for a new parameter add it to the framework first
+
+        returns bool
+
+        """
         if not isinstance(key, parameters.ARIANNAParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
         return key in self._ARIANNA_parameters.keys()
 
     def set_ARIANNA_parameter(self, key, value):
+        """
+        Set ARIANNA specific parameter error
+
+        Parameters
+        ----------
+        key: NuRadioReco.framework.parameters.ARIANNAParameters
+            ARIANNA parameter, for a new parameter add it to the framework first
+        value: var
+            as defined in station parameters
+        """
         if not isinstance(key, parameters.ARIANNAParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
@@ -228,6 +395,15 @@ class BaseStation():
 
 
     def serialize(self, mode):
+        """
+        Serialize the station data so it can be saved
+
+        Parameters
+        ----------
+        key: str
+            'mirco', 'mini' or 'full'
+
+        """
         trigger_pkls = []
         for trigger in self._triggers.values():
             trigger_pkls.append(trigger.serialize())
@@ -247,6 +423,14 @@ class BaseStation():
         return pickle.dumps(data, protocol=2)
 
     def deserialize(self, data_pkl):
+        """
+        Deserialize the station data from file
+
+        Parameters
+        ----------
+        data_pkl: data
+
+        """
         data = pickle.loads(data_pkl)
         if ('triggers' in data):
             self._triggers = NuRadioReco.framework.trigger.deserialize(data['triggers'])
