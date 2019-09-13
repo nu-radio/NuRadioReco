@@ -55,6 +55,9 @@
           
 
           
+            
+            <img src="_static/logo_small.png" class="logo" alt="Logo"/>
+          
           </a>
 
           
@@ -484,6 +487,55 @@ the file will be downloaded from a central data server</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="NuRadioReco.detector.antennapattern.parse_HFSS_file">
+<code class="descclassname">NuRadioReco.detector.antennapattern.</code><code class="descname">parse_HFSS_file</code><span class="sig-paren">(</span><em>hfss</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.parse_HFSS_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function that parses the HFSS files containig antenna responses</p>
+<dl class="docutils">
+<dt>hfss: string</dt>
+<dd>path to the file</dd>
+<dt>Returns:</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>ff: array of floats</dt>
+<dd>frequencies</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>thetas: array of floats</dt>
+<dd>zenith angle of inicdent electric field</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>phis: array of floats</dt>
+<dd>azimuth angle of inicdent electric field</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>magnitudes_theta: array of floats</dt>
+<dd>corresponding logarithmic magnitude values theta component</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>magnitudes_phi: array of floats</dt>
+<dd>corresponding logarithmic magnitude values phi component</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>phases_phi: array of floats</dt>
+<dd>corresponding phases phi component</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>phases_theta: array of floats</dt>
+<dd>corresponding phases theta component</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="NuRadioReco.detector.antennapattern.parse_WIPLD_file">
 <code class="descclassname">NuRadioReco.detector.antennapattern.</code><code class="descname">parse_WIPLD_file</code><span class="sig-paren">(</span><em>ad1, ra1, orientation, gen_num=1, s_paramateres=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.parse_WIPLD_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>reads in WIPLD data</p>
@@ -512,6 +564,18 @@ the file will be downloaded from a central data server</p>
 <code class="descclassname">NuRadioReco.detector.antennapattern.</code><code class="descname">preprocess_ARA</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.preprocess_ARA" title="Permalink to this definition">¶</a></dt>
 <dd><p>preprocess an antenna pattern in the ARASim ASCII file format. The vector effective length is calculated and
 the output is saved to the NuRadioReco pickle format.</p>
+<dl class="docutils">
+<dt>path: string</dt>
+<dd>the path to the file</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="NuRadioReco.detector.antennapattern.preprocess_HFSS">
+<code class="descclassname">NuRadioReco.detector.antennapattern.</code><code class="descname">preprocess_HFSS</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.preprocess_HFSS" title="Permalink to this definition">¶</a></dt>
+<dd><p>preprocess an antenna pattern in the HFSS file format. The vector effective length is calculated and the output is saved in the NuRadioReco pickle format.</p>
+<p>The vector effective length calculation still needs to be verified.</p>
+<p>The frequencies, theta, phi, magnitude theta, magnitude phi, phase theta and phase phi are read from the csv file and than ordered according to the NuRadioReco format.</p>
 <dl class="docutils">
 <dt>path: string</dt>
 <dd>the path to the file</dd>
@@ -665,7 +729,7 @@ the output is saved to the NuRadioReco pickle format.</p>
 <dt>station_id: int</dt>
 <dd>the station id</dd>
 </dl>
-<p>Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at 
+<p>Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
 time of measurement</p>
 </dd></dl>
 
@@ -677,7 +741,7 @@ time of measurement</p>
 <dt>site: string</dt>
 <dd>the position identifier e.g. “G”</dd>
 </dl>
-<p>Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at 
+<p>Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
 time of measurement</p>
 </dd></dl>
 

@@ -55,6 +55,9 @@
           
 
           
+            
+            <img src="_static/logo_small.png" class="logo" alt="Logo"/>
+          
           </a>
 
           
@@ -403,7 +406,7 @@ filter_type=’FIR kaiser 10’ : Use Kaiser window with beta parameter 10
 filter_type=’FIR kaiser’ : Use Kaiser window with default beta parameter 6</p>
 <p>In principal, window names are just passed on to signal.firwin(), but if parameters
 are required, then these cases must be explicitly implemented in the code below.</p>
-<p>The for main filter types can be implemented: 
+<p>The four main filter types can be implemented:
 LP: passband[0]=None, passband[1]  = f_cut
 HP: passband[0]=f_cut, passband[1] = None
 BP: passband[0]=f_cut_low, passband[1] = f_cut_high
@@ -975,7 +978,7 @@ The station id, defines antenna location and antenna type.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, passband=[0.055, 1.0], filter_type='rectangular', debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, passband=[0.055, 1.0], filter_type='rectangular', order=2, debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies bandpass filter to electric field</p>
 <p>evt: event</p>
 <p>station: station</p>
@@ -983,8 +986,12 @@ The station id, defines antenna location and antenna type.</p>
 <dl class="docutils">
 <dt>passband: seq, array</dt>
 <dd>passband for filter, in phys units</dd>
-<dt>filter_type: str</dt>
-<dd>chose filter type, rectangular, butter10, butter10abs</dd>
+<dt>filter_type: string</dt>
+<dd>‘rectangular’: perfect straight line filter
+‘butter’: butterworth filter from scipy
+‘butterabs’: absolute of butterworth filter from scipy</dd>
+<dt>order: int (optional, default 2)</dt>
+<dd>for a butterworth filter: specifies the order of the filter</dd>
 <dt>debug: bool</dt>
 <dd>set debug</dd>
 </dl>
