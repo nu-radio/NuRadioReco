@@ -6,6 +6,8 @@ import NuRadioReco.framework.parameters as parameters
 import datetime
 import astropy.time
 import NuRadioReco.framework.parameter_serialization
+from aenum import Enum
+
 try:
     import cPickle as pickle
 except ImportError:
@@ -35,16 +37,18 @@ deprecated_parameters = [
 
 class BaseStation():
 
-    def __init__(self, station_id):
+    def __init__(self, station_id, position=None):
         self._parameters = {}
         self._ARIANNA_parameters = {}
         self._parameter_covariances = {}
         self._station_id = station_id
+        self.__position = position
         self._station_time = None
         self._triggers = collections.OrderedDict()
         self._triggered = False
         self._electric_fields = []
         self._particle_type = ''
+        self.__reconstruction_status = []
 
     def __setitem__(self, key, value):
         self.set_parameter(key, value)
@@ -95,6 +99,9 @@ class BaseStation():
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
         self._parameters.pop(key, None)
 
+    def get_position(self):
+        return self.__position
+
     def set_station_time(self, time):
         if isinstance(time, datetime.datetime):
             self._station_time = astropy.time.Time(time)
@@ -103,6 +110,20 @@ class BaseStation():
 
     def get_station_time(self):
         return self._station_time
+
+    def set_reconstruction_status(self, status):
+        if not isinstance(status, reconstructionStatus):
+            logger.error("status needs to be of type NuRadioReco.framework.base_station.reconstructionStatus")
+            raise ValueError("status needs to be of type  NuRadioReco.framework.base_station.reconstructionStatus")
+
+        self.__reconstruction_status.append(status)
+
+    def has_reconstruction_status(self, status):
+        if not isinstance(status, reconstructionStatus):
+            logger.error("status needs to be of type NuRadioReco.framework.base_station.reconstructionStatus")
+            raise ValueError("status needs to be of type NuRadioReco.framework.base_station.reconstructionStatus")
+
+        return status in self.__reconstruction_status
 
 #     def get_trace(self):
 #         return self._time_trace
@@ -179,6 +200,10 @@ class BaseStation():
         self.set_trigger(trigger)
 
     def set_electric_fields(self, electric_fields):
+        if not isinstance(electric_fields, list):
+            logger.error("set_electric_fields argument must be a list")
+            raise ValueError("set_electric_fields argument must be a list")
+
         self._electric_fields = electric_fields
 
     def get_electric_fields(self):
@@ -224,7 +249,6 @@ class BaseStation():
         """
         self._particle_type = 'cr'
 
-
     # provide interface to ARIANNA specific parameters
     def get_ARIANNA_parameter(self, key):
         if not isinstance(key, parameters.ARIANNAParameters):
@@ -247,25 +271,28 @@ class BaseStation():
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.ARIANNAParameters")
         self._ARIANNA_parameters[key] = value
 
-
-
     def serialize(self, mode):
         trigger_pkls = []
         for trigger in self._triggers.values():
             trigger_pkls.append(trigger.serialize())
+
         efield_pkls = []
         if(mode != 'micro'):
             for efield in self.get_electric_fields():
                 efield_pkls.append(efield.serialize(self))
+
         data = {'_parameters': NuRadioReco.framework.parameter_serialization.serialize(self._parameters),
                 '_parameter_covariances': self._parameter_covariances,
                 '_ARIANNA_parameters': self._ARIANNA_parameters,
                 '_station_id': self._station_id,
+                '__position': self.__position,
                 '_station_time': self._station_time,
-                '_particle_type': self._particle_type,
                 'triggers': trigger_pkls,
                 '_triggered': self._triggered,
-                'electric_fields': efield_pkls}
+                'electric_fields': efield_pkls,
+                '_particle_type': self._particle_type,
+                '__reconstruction_status': self.__reconstruction_status}
+
         return pickle.dumps(data, protocol=2)
 
     def deserialize(self, data_pkl):
@@ -290,5 +317,13 @@ class BaseStation():
             self._ARIANNA_parameters = data['_ARIANNA_parameters']
 
         self._station_id = data['_station_id']
+        self.__position = data['__position']
         self.set_station_time(data['_station_time'])
         self._particle_type = data['_particle_type']
+        self.__reconstruction_status = data['__reconstruction_status']
+
+
+class reconstructionStatus(Enum):
+    has_signal = 1  # station signal over defined threshold
+    is_rejected = 2  # rejected for some reason
+    is_saturated = 3  # station is saturated
