@@ -119,6 +119,18 @@ class ADSTReader:
         pass
 
 
+    def store_to_nur(self, outputfilename):
+        import NuRadioReco.modules.io.eventWriter
+        eventWriter = NuRadioReco.modules.io.eventWriter.eventWriter()
+
+        eventWriter.begin(outputfilename)
+
+        for event in self.run():
+            eventWriter.run(event)
+
+        eventWriter.end()
+
+
     def _read_sdshower(self, recEvent):
         sdRecShower = recEvent.GetSDEvent().GetSdRecShower()
 
