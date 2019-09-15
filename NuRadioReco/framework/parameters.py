@@ -27,6 +27,11 @@ class stationParameters(Enum):
     ndf_efield_time_direction_fit = 27  # the number of degrees of freedom of the direction fitter that used the maximum pulse times of the efields
     cr_xmax = 28  # Depth of shower maximum of the air shower
 
+    station_signal = 100  # reconstructed station signal, e.g., sum of energy fluence over all polarisations
+    signal_to_noise_ratio = 101
+    reconstruction_status = 102  # needs to be key of type NuRadioReco.framework.base_station.reconstructionStatus
+
+
 
 class channelParameters(Enum):
     zenith = 1  # zenith angle of the incoming signal direction
@@ -56,6 +61,7 @@ class electricFieldParameters(Enum):
     reflection_coefficient_theta = 14  # for reflected rays: the complex Fresnel reflection coefficient of the eTheta component
     reflection_coefficient_phi = 15  # for reflected rays: the complex Fresnel reflection coefficient of the ePhi component
     cr_spectrum_quadratic_term = 16  # result of the second order correction to the spectrum fitted by the voltageToAnalyticEfieldConverter
+    noise_energy_fluence = 17  # Energy/area in the radio measurement out side the signal region
 
 
 class ARIANNAParameters(Enum):  # this class stores parameters specific to the ARIANNA data taking
@@ -89,3 +95,6 @@ class showerParameters(Enum):
     magnetic_field_rotation = 102
     magnetic_field_vector = 103  # magnetic field used in simulation in local coordinate system
     observation_level = 104  # altitude a.s.l where the particles are stored
+
+    # dedicated parameter for particle showers
+    shower_size = 200  # energy estimator

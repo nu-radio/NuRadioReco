@@ -1,6 +1,10 @@
 import os
 import sys
 
+'''
+Code to use the radio parameter storage of the ADST framework
+'''
+
 
 class Quantities:
 
@@ -9,13 +13,12 @@ class Quantities:
 
     def __repr__(self):
         ret = ''
+
         for k, v in self.__dict__.iteritems():
             if k == 'elements':
                 continue
-            ret += str(k)
-            ret += ' = '
-            ret += str(v)
-            ret += '\n'
+            ret += str(k) + ' = ' + str(v) + '\n'
+
         return ret
 
 
@@ -59,13 +62,12 @@ for ifile in (os.path.join(pathPrefix, 'StationRRecDataQuantities.h'),
             elem.__dict__[idx.strip()] = int(val.strip())
             elem.elements[idx.strip()] = int(val.strip())
 
+
 # Example code
 if __name__ == "__main__":
 
     import imp
-
-
     ce = imp.load_source('', './convertenums.py')
-    rdstQ = ce.rdstQ  # fuer stations
-    rdshQ = ce.rdshQ  # fue showers
+    rdstQ = ce.rdstQ  # for stations
+    rdshQ = ce.rdshQ  # for showers
     print(rdstQ.eGeomagneticEnergyFluence)
