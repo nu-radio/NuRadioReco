@@ -93,6 +93,7 @@ class efieldToVoltageConverter:
         times_min = []
         times_max = []
         for iCh in det.get_channel_ids(sim_station_id):
+            original_binning = None
             for electric_field in sim_station.get_electric_fields_for_channels([iCh]):
                 original_binning = 1. / electric_field.get_sampling_rate()
                 cab_delay = det.get_cable_delay(sim_station_id, iCh)
@@ -112,19 +113,20 @@ class efieldToVoltageConverter:
                     times_min.append(t0)
                     times_max.append(t0 + electric_field.get_number_of_samples() / electric_field.get_sampling_rate())
                     logger.debug("trace start time {}, cab_delty {}, tracelength {}".format(electric_field.get_trace_start_time(), cab_delay, electric_field.get_number_of_samples() / electric_field.get_sampling_rate()))
-        time_resolution = min(self.__time_resolution, original_binning)
-        times_min = np.array(times_min)
-        times_max = np.array(times_max)
-        if times_min.min() < 0:
-            times_min -= times_min.min()
-            times_max -= times_min.min()
-        times_min = np.array(times_min) - self.__pre_pulse_time
-        times_max = np.array(times_max) + self.__post_pulse_time
-        trace_length = times_max.max() - times_min.min()
-        trace_length_samples = int(round(trace_length / time_resolution))
-        if trace_length_samples % 2 != 0:
-            trace_length_samples += 1
-        logger.debug("smallest trace start time {:.1f}, largest trace time {:.1f} -> n_samples = {:d} {:.0f}ns)".format(times_min.min(), times_max.max(), trace_length_samples, trace_length / units.ns))
+        if original_binning is not None:
+            time_resolution = min(self.__time_resolution, original_binning)
+            times_min = np.array(times_min)
+            times_max = np.array(times_max)
+            if times_min.min() < 0:
+                times_min -= times_min.min()
+                times_max -= times_min.min()
+            times_min = np.array(times_min) - self.__pre_pulse_time
+            times_max = np.array(times_max) + self.__post_pulse_time
+            trace_length = times_max.max() - times_min.min()
+            trace_length_samples = int(round(trace_length / time_resolution))
+            if trace_length_samples % 2 != 0:
+                trace_length_samples += 1
+            logger.debug("smallest trace start time {:.1f}, largest trace time {:.1f} -> n_samples = {:d} {:.0f}ns)".format(times_min.min(), times_max.max(), trace_length_samples, trace_length / units.ns))
 
         # loop over all channels
         for channel_id in det.get_channel_ids(station.get_id()):
@@ -222,10 +224,11 @@ class efieldToVoltageConverter:
                 plt.show()
             if trace_object is None:  # this happens if don't have any efield for this channel
                 # set the trace to zeros
-                channel.set_trace(np.zeros(trace_length_samples), 1. / time_resolution)
+                channel.set_trace(np.zeros(det.get_channel(station.get_id(), channel.get_id())['adc_n_samples']), det.get_channel(station.get_id(), channel.get_id())['adc_sampling_frequency'])
+                channel.set_trace_start_time(0)
             else:
                 channel.set_frequency_spectrum(channel_spectrum, trace_object.get_sampling_rate())
-            channel.set_trace_start_time(times_min.min())
+                channel.set_trace_start_time(times_min.min())
 
             station.add_channel(channel)
         self.__t += time.time() - t
