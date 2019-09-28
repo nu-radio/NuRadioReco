@@ -44,7 +44,7 @@ class SimStation(NuRadioReco.framework.base_station.BaseStation):
         data = {'__magnetic_field_vector': self.__magnetic_field_vector,
                 '__simulation_weight': self.__simulation_weight,
                 'base_station': base_station_pkl}
-        return pickle.dumps(data, protocol=2)
+        return pickle.dumps(data, protocol=4)
 
     def deserialize(self, data_pkl):
         data = pickle.loads(data_pkl)

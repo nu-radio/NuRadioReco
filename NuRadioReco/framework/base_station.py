@@ -15,25 +15,7 @@ except ImportError:
 import logging
 import collections
 logger = logging.getLogger('BaseStation')
-logger.setLevel(logging.WARNING)
 
-deprecated_parameters = [
-    parameters.stationParameters.nu_zenith,
-    parameters.stationParameters.nu_azimuth,
-    parameters.stationParameters.nu_energy,
-    parameters.stationParameters.nu_flavor,
-    parameters.stationParameters.ccnc,
-    parameters.stationParameters.nu_vertex,
-    parameters.stationParameters.inelasticity,
-    parameters.stationParameters.cr_energy,
-    parameters.stationParameters.cr_zenith,
-    parameters.stationParameters.cr_azimuth,
-    parameters.stationParameters.zenith,
-    parameters.stationParameters.azimuth,
-    parameters.stationParameters.cr_energy_em,
-    parameters.stationParameters.nu_inttype,
-    parameters.stationParameters.cr_xmax
-]
 
 class BaseStation():
 
@@ -60,8 +42,6 @@ class BaseStation():
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
-        if key in deprecated_parameters:
-            logger.warning('Deprecation Warning! The parameter {} is deprecated. This property should be stored in the shower class.'.format(key))
         return self._parameters[key]
 
     def get_parameters(self):
@@ -77,8 +57,6 @@ class BaseStation():
         if not isinstance(key, parameters.stationParameters):
             logger.error("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
             raise ValueError("parameter key needs to be of type NuRadioReco.framework.parameters.stationParameters")
-        if key in deprecated_parameters:
-            logger.warning('Deprecation Warning! The parameter {} is deprecated. This property should be stored in the shower class.'.format(key))
         self._parameters[key] = value
 
     def set_parameter_error(self, key, value):
@@ -277,7 +255,7 @@ class BaseStation():
             trigger_pkls.append(trigger.serialize())
 
         efield_pkls = []
-        if(mode != 'micro'):
+        if(mode == 'full'):
             for efield in self.get_electric_fields():
                 efield_pkls.append(efield.serialize(self))
 
@@ -293,7 +271,7 @@ class BaseStation():
                 '_particle_type': self._particle_type,
                 '__reconstruction_status': self.__reconstruction_status}
 
-        return pickle.dumps(data, protocol=2)
+        return pickle.dumps(data, protocol=4)
 
     def deserialize(self, data_pkl):
         data = pickle.loads(data_pkl)
