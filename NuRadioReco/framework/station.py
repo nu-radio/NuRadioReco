@@ -79,9 +79,11 @@ class Station(NuRadioReco.framework.base_station.BaseStation):
 
     def serialize(self, mode):
         base_station_pkl = NuRadioReco.framework.base_station.BaseStation.serialize(self, mode)
+
         channels_pkl = []
         for channel in self.iter_channels():
             channels_pkl.append(channel.serialize(mode))
+
         sim_station_pkl = None
         if(self.has_sim_station()):
             sim_station_pkl = self.get_sim_station().serialize(mode)
@@ -90,6 +92,7 @@ class Station(NuRadioReco.framework.base_station.BaseStation):
                 'channels': channels_pkl,
                 'base_station': base_station_pkl,
                 'sim_station': sim_station_pkl}
+
         return pickle.dumps(data, protocol=4)
 
     def deserialize(self, data_pkl):

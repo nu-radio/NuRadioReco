@@ -47,10 +47,11 @@ class Channel(NuRadioReco.framework.base_trace.BaseTrace):
         return self._id
 
     def serialize(self, mode):
-        if(mode == 'micro' or mode == 'mini'):
+        if (mode == 'micro' or mode == 'mini'):
             base_trace_pkl = None
         else:
             base_trace_pkl = NuRadioReco.framework.base_trace.BaseTrace.serialize(self)
+
         data = {'parameters': NuRadioReco.framework.parameter_serialization.serialize(self._parameters),
                 'id': self.get_id(),
                 'base_trace': base_trace_pkl}
