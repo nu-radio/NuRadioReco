@@ -45,7 +45,7 @@ class ADSTReader:
 
 
     """
-    def begin(self, input_files, read_efield_traces=False, read_channel_traces=False):
+    def begin(self, input_files, read_efield_traces=False, read_channel_traces=False, verbose=False):
 
         """
         Parameters
@@ -247,6 +247,8 @@ class ADSTReader:
 
             electric_field = NuRadioReco.framework.electric_field.ElectricField([0, 1, 2], position=station_position)
             electric_field.set_parameter(efp.signal_time, rec_station.GetParameter(rdstQ.eSignalTime))
+            electric_field.set_parameter(efp.signal_to_noise_ratio, rec_station.GetParameter(rdstQ.eSignalToNoise))
+
             electric_field.set_parameter(efp.signal_energy_fluence, np.array([rdstQ.eSignalEnergyFluenceNS,
                                                                               rdstQ.eSignalEnergyFluenceEW,
                                                                               rdstQ.eSignalEnergyFluenceV]))
@@ -269,20 +271,19 @@ class ADSTReader:
             TODO:
             Signal / Noise SearchTime
             polarisation angles ...
-            noise energy fluence
             '''
 
             if self.__read_channel_traces:
                 raise NotImplementedError
 
-            copy_parameters = [(stp.station_signal, rdstQ.eSignalEnergyFluenceMag),
-                               (stp.signal_to_noise_ratio, rdstQ.eSignalToNoise)]
-
-            for para in copy_parameters:
-                try:
-                    station.set_parameter(para[0], rec_station.GetParameter(para[1]))
-                except KeyError as e:
-                    print("Key could not be copied: %s" % e)
+            # copy_parameters = [(stp.station_signal, rdstQ.eSignalEnergyFluenceMag),
+            #                    (stp.signal_to_noise_ratio, rdstQ.eSignalToNoise)]
+            #
+            # for para in copy_parameters:
+            #     try:
+            #         station.set_parameter(para[0], rec_station.GetParameter(para[1]))
+            #     except KeyError as e:
+            #         print("Key could not be copied: %s" % e)
 
             yield station
 
