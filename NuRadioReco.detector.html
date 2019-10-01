@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -717,7 +717,7 @@ the output is saved to the NuRadioReco pickle format.</p>
 
 <dl class="class">
 <dt id="NuRadioReco.detector.detector.Detector">
-<em class="property">class </em><code class="descclassname">NuRadioReco.detector.detector.</code><code class="descname">Detector</code><span class="sig-paren">(</span><em>source='json'</em>, <em>json_filename='ARIANNA/arianna_detector_db.json'</em>, <em>assume_inf=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">NuRadioReco.detector.detector.</code><code class="descname">Detector</code><span class="sig-paren">(</span><em>source='json'</em>, <em>json_filename='ARIANNA/arianna_detector_db.json'</em>, <em>dictionary=None</em>, <em>assume_inf=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>main detector class which provides access to the detector description</p>
 <p>This class provides functions for all relevant detector properties.</p>
@@ -772,26 +772,6 @@ time of measurement</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="NuRadioReco.detector.detector.Detector.get_antanna_orientation">
-<code class="descname">get_antanna_orientation</code><span class="sig-paren">(</span><em>station_id</em>, <em>channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_antanna_orientation" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the orientation of a specific antenna</p>
-<dl class="docutils">
-<dt>station_id: int</dt>
-<dd>the station id</dd>
-<dt>channel_id: int</dt>
-<dd>the channel id</dd>
-<dt>Returns typle of floats</dt>
-<dd><ul class="first last simple">
-<li>orientation theta: boresight direction (zenith angle, 0deg is the zenith, 180deg is straight down)</li>
-<li>orientation phi: boresight direction (azimuth angle counting from East counterclockwise)</li>
-<li>rotation theta: rotation of the antenna, vector in plane of tines pointing away from connector</li>
-<li>rotation phi: rotation of the antenna, vector in plane of tines pointing away from connector</li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="NuRadioReco.detector.detector.Detector.get_antenna_deployment_time">
 <code class="descname">get_antenna_deployment_time</code><span class="sig-paren">(</span><em>station_id</em>, <em>channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_antenna_deployment_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the time of antenna deployment</p>
@@ -818,6 +798,26 @@ time of measurement</p>
 <dd>the zenith angle of the incoming signal direction</dd>
 </dl>
 <p>Returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.detector.detector.Detector.get_antenna_orientation">
+<code class="descname">get_antenna_orientation</code><span class="sig-paren">(</span><em>station_id</em>, <em>channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_antenna_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the orientation of a specific antenna</p>
+<dl class="docutils">
+<dt>station_id: int</dt>
+<dd>the station id</dd>
+<dt>channel_id: int</dt>
+<dd>the channel id</dd>
+<dt>Returns typle of floats</dt>
+<dd><ul class="first last simple">
+<li>orientation theta: boresight direction (zenith angle, 0deg is the zenith, 180deg is straight down)</li>
+<li>orientation phi: boresight direction (azimuth angle counting from East counterclockwise)</li>
+<li>rotation theta: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</li>
+<li>rotation phi: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -994,6 +994,11 @@ time of measurement</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="NuRadioReco.detector.detector.Detector.get_station">
+<code class="descname">get_station</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="NuRadioReco.detector.detector.Detector.get_station_ids">
 <code class="descname">get_station_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_station_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns a sorted list of all station ids present in the database</p>
@@ -1093,6 +1098,21 @@ of the other channels will be taken from the default channel.
 The GenericDetector also ignores commission and decommision times and should
 therefore not be used for real data, but only for simulation studies.
 This detector only accepts json detector descriptions.</p>
+<dl class="method">
+<dt id="NuRadioReco.detector.generic_detector.GenericDetector.add_generic_station">
+<code class="descname">add_generic_station</code><span class="sig-paren">(</span><em>station_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.generic_detector.GenericDetector.add_generic_station" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a generic station to the detector. The station is treated like a
+generic station in the original detector description file, i.e. all missing
+properties and all channels will be taken from the default station.
+If a station with the same ID already exists, this function does nothing.</p>
+<dl class="docutils">
+<dt>station_dict: dictionary</dt>
+<dd>dictionary containing the station properties. Needs to at least include
+a station_id, any other missing parameters will be taken from the
+default station</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

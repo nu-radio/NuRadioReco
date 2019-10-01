@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -357,7 +357,7 @@ square root of the number of antennas.</dd>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>threshold=0.06</em>, <em>triggered_channels=None</em>, <em>secondary_channels=None</em>, <em>trigger_name='simple_phased_threshold'</em>, <em>phasing_angles=array([-0.9250245</em>, <em>-0.76059219</em>, <em>-0.61880925</em>, <em>-0.49017544</em>, <em>-0.36987162</em>, <em>-0.25496423</em>, <em>-0.14341699</em>, <em>-0.03364725</em>, <em>0.07571637</em>, <em>0.1859996</em>, <em>0.29863294</em>, <em>0.41533762</em>, <em>0.53842424</em>, <em>0.67138216</em>, <em>0.82030475])</em>, <em>secondary_phasing_angles=array([-0.84280835</em>, <em>-0.68970072</em>, <em>-0.55449235</em>, <em>-0.43002353</em>, <em>-0.31241792</em>, <em>-0.19919061</em>, <em>-0.08853212</em>, <em>0.02103456</em>, <em>0.13085798</em>, <em>0.24231627</em>, <em>0.35698528</em>, <em>0.47688093</em>, <em>0.6049032</em>, <em>0.74584345</em>, <em>0.88139127])</em>, <em>set_not_triggered=False</em>, <em>window_time=10.67</em>, <em>only_primary=False</em>, <em>coupled=True</em>, <em>ref_index=1.55</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulates phased array trigger for each event</p>
 <p>Several channels are phased by delaying their signals by an amount given
 by a pointing angle. Several pointing angles are possible in order to cover

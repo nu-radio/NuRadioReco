@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -461,7 +461,7 @@
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_triggered">
 <code class="descname">set_triggered</code><span class="sig-paren">(</span><em>triggered=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_triggered" title="Permalink to this definition">¶</a></dt>
-<dd><p>convenience function to set a simple trigger. The recommended interface is to set triggers through the 
+<dd><p>convenience function to set a simple trigger. The recommended interface is to set triggers through the
 set_trigger() interface.</p>
 </dd></dl>
 
@@ -734,6 +734,45 @@ up to date.</p>
 <dt id="NuRadioReco.framework.event.Event.get_stations">
 <code class="descname">get_stations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_stations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.framework.event.Event.iter_modules">
+<code class="descname">iter_modules</code><span class="sig-paren">(</span><em>station_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.iter_modules" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns an interator that loops over all modules. If a station id is provided it loops
+over all modules that are applied on event or station level (on this particular station). If no
+station_id is provided, the loop is only over the event modules.
+The order follows the sequence these modules were applied</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.framework.event.Event.register_module_event">
+<code class="descname">register_module_event</code><span class="sig-paren">(</span><em>instance</em>, <em>name</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.register_module_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>registers modules applied to this event</p>
+<dl class="docutils">
+<dt>instance: module instance</dt>
+<dd>the instance of the module that should be registered</dd>
+<dt>name: module name</dt>
+<dd>the name of the module</dd>
+<dt>kwargs:</dt>
+<dd>the key word arguments of the run method</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.framework.event.Event.register_module_station">
+<code class="descname">register_module_station</code><span class="sig-paren">(</span><em>station_id</em>, <em>instance</em>, <em>name</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.register_module_station" title="Permalink to this definition">¶</a></dt>
+<dd><p>registers modules applied to this event</p>
+<dl class="docutils">
+<dt>station_id: int</dt>
+<dd>the station id</dd>
+<dt>instance: module instance</dt>
+<dd>the instance of the module that should be registered</dd>
+<dt>name: module name</dt>
+<dd>the name of the module</dd>
+<dt>kwargs:</dt>
+<dd>the key word arguments of the run method</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.serialize">

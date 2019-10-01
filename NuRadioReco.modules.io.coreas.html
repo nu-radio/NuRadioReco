@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -327,11 +327,84 @@ weight: weight of individual station</p>
 </dd></dl>
 
 </div>
-<div class="section" id="nuradioreco-modules-io-coreas-readcoreas-module">
-<h2>NuRadioReco.modules.io.coreas.readCoREAS module<a class="headerlink" href="#nuradioreco-modules-io-coreas-readcoreas-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-NuRadioReco.modules.io.coreas.readCoREAS">
+<span id="nuradioreco-modules-io-coreas-readcoreas-module"></span><h2>NuRadioReco.modules.io.coreas.readCoREAS module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.readCoREAS" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.coreas.readCoREAS.</code><code class="descname">readCoREAS</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>input_files</em>, <em>station_id</em>, <em>n_cores=10</em>, <em>max_distance=2000.0</em>, <em>seed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>begin method</p>
+<p>initialize readCoREAS module</p>
+<dl class="docutils">
+<dt>input_files: input files</dt>
+<dd>list of coreas hdf5 files</dd>
+<dt>station_id: station id</dt>
+<dd>id number of the station</dd>
+<dt>n_cores: number of cores (integer)</dt>
+<dd>the number of random core positions to generate for each input file</dd>
+<dt>max_distance: radius of random cores (double or None)</dt>
+<dd>if None: max distance is set to the maximum ground distance of the
+star pattern simulation</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>read in CoREAS simulation</p>
+<dl class="docutils">
+<dt>output_mode: integer (default 0)</dt>
+<dd><p class="first">0: only the event object is returned
+1: the function reuturns the event object, the current inputfilename, the distance between the choosen station and the requested core position,</p>
+<blockquote class="last">
+<div>and the area in which the core positions are randomly distributed</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="nuradioreco-modules-io-coreas-readcoreasstation-module">
-<h2>NuRadioReco.modules.io.coreas.readCoREASStation module<a class="headerlink" href="#nuradioreco-modules-io-coreas-readcoreasstation-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-NuRadioReco.modules.io.coreas.readCoREASStation">
+<span id="nuradioreco-modules-io-coreas-readcoreasstation-module"></span><h2>NuRadioReco.modules.io.coreas.readCoREASStation module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.readCoREASStation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation">
+<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.coreas.readCoREASStation.</code><code class="descname">readCoREASStation</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><em>input_files</em>, <em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>begin method</p>
+<p>initialize readCoREAS module</p>
+<dl class="docutils">
+<dt>input_files: input files</dt>
+<dd>list of coreas hdf5 files</dd>
+<dt>station_id: station id</dt>
+<dd>id number of the radio station as defined in detector</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>run method</p>
+<p>initialize readCoREAS module</p>
+<p>detector: containing station ID</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-NuRadioReco.modules.io.coreas.simulationSelector">
 <span id="nuradioreco-modules-io-coreas-simulationselector-module"></span><h2>NuRadioReco.modules.io.coreas.simulationSelector module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.simulationSelector" title="Permalink to this headline">¶</a></h2>
@@ -353,7 +426,7 @@ certain arrival directions, energies, etc.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>evt, sim_station, det, frequency_window=[0.1, 0.5], n_std=8</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run method, selects CoREAS simulations that have any signal in
 desired frequency_window.
 Crude approximation with n_std sigma * noise</p>

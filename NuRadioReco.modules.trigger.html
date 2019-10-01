@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -354,7 +354,7 @@ and then coincidences between antennas can be required.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>threshold_high=0.06</em>, <em>threshold_low=-0.06</em>, <em>high_low_window=5</em>, <em>coinc_window=200</em>, <em>number_concidences=2</em>, <em>triggered_channels=None</em>, <em>trigger_name='default_high_low'</em>, <em>set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARIANNA trigger logic</p>
 <dl class="docutils">
 <dt>threshold_high: float</dt>
@@ -436,7 +436,7 @@ and then coincidences between antennas can be required.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>evt, station, det, threshold_high=0.06, threshold_low=-0.06, high_low_window=5, n_high_lows=5, coinc_window=200, number_concidences=2, triggered_channels=[0, 1, 2, 3], trigger_name='default_high_low', set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARIANNA trigger logic</p>
 <dl class="docutils">
 <dt>threshold_high: float</dt>
@@ -500,7 +500,7 @@ max trace length is set according to detector description)</dd>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>evt</em>, <em>station</em>, <em>det</em>, <em>threshold=0.06</em>, <em>number_concidences=1</em>, <em>triggered_channels=None</em>, <em>coinc_window=200</em>, <em>trigger_name='default_simple_threshold'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate simple trigger logic, no time window, just threshold in all channels</p>
 <dl class="docutils">
 <dt>number_concidences: int</dt>
