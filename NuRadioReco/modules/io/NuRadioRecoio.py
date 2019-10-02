@@ -54,7 +54,7 @@ class NuRadioRecoio(object):
 
     def _get_file(self, iF):
         if(iF not in self.__open_files):
-            logger.info("file {} is not yet open, opening file".format(iF))
+            logger.info(f"file {iF} ({self._filenames[iF]}) is not yet open, opening file")
             self.__open_files[iF] = {}
             self.__open_files[iF]['file'] = open(self._filenames[iF], 'rb')
             self.__open_files[iF]['time'] = time.time()
