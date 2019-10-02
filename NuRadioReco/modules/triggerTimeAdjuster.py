@@ -40,7 +40,7 @@ class triggerTimeAdjuster:
         else:
             min_trigger_time = None
             for trig in station.get_triggers().values():
-                if min_trigger_time is None or trig.get_trigger_time() < min_trigger_time:
+                if min_trigger_time is None or (trig.has_triggered() and trig.get_trigger_time() < min_trigger_time):
                     min_trigger_time = trig.get_trigger_time()
                     trigger = trig
         if trigger is None:
