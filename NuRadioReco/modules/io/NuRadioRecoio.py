@@ -54,20 +54,20 @@ class NuRadioRecoio(object):
 
     def _get_file(self, iF):
         if(iF not in self.__open_files):
-            logger.debug("file {} is not yet open, opening file".format(iF))
+            logger.info("file {} is not yet open, opening file".format(iF))
             self.__open_files[iF] = {}
             self.__open_files[iF]['file'] = open(self._filenames[iF], 'rb')
             self.__open_files[iF]['time'] = time.time()
             self.__check_file_version(iF)
             if(len(self.__open_files) > self.__max_open_files):
-                logger.debug("more than {} file are open, closing oldest file".format(self.__max_open_files))
+                logger.info("more than {} file are open, closing oldest file".format(self.__max_open_files))
                 tnow = time.time()
                 iF_close = 0
                 for key, value in self.__open_files.items():
                     if(value['time'] < tnow):
                         tnow = value['time']
                         iF_close = key
-                logger.debug("closing file {} that was opened at {}".format(iF_close, tnow))
+                logger.info("closing file {} that was opened at {}".format(iF_close, tnow))
                 self.__open_files[iF_close]['file'].close()
                 del self.__open_files[iF_close]
         return self.__open_files[iF]['file']
@@ -153,7 +153,6 @@ class NuRadioRecoio(object):
             for key, value in station.items():
                 self.__event_headers[station_id][key] = np.array(value)
 
-
     def get_header(self):
         if(not self.__file_scanned):
             self.__scan_files()
@@ -224,6 +223,7 @@ class NuRadioRecoio(object):
             self.__detectors[self._current_file_id] = NuRadioReco.detector.detector.Detector.__new__(NuRadioReco.detector.detector.Detector)
             self.__detectors[self._current_file_id].__init__(source='dictionary', json_filename='', dictionary=self._detector_dicts[self._current_file_id])
         return self.__detectors[self._current_file_id]
+
     def get_n_events(self):
         if(not self.__file_scanned):
             self.__scan_files()
