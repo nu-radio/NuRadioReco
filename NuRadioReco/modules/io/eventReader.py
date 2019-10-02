@@ -33,12 +33,19 @@ class eventReader:
     def end(self):
         self.__fin.close_file()
 
+    def get_n_events(self):
+        """
+        returns the total number of events
+        """
+        return self.__fin.get_n_events()
+
     def get_header(self):
         """
         returns the header information of all events, useful to get a quick overview of all events without
         looping through all events
         """
         return self.__fin.get_header()
+
     def get_detector(self):
         """
         If read_detector was set True in the begin() function, this function return
