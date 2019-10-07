@@ -15,7 +15,7 @@ VERSION_MINOR = 2
 class NuRadioRecoio(object):
 
     def __init__(self, filenames, parse_header=True, parse_detector=True, fail_on_version_mismatch=True,
-                 fail_on_minor_version_mismatch=False,
+                 fail_on_minor_version_mismatch=False, skip_broken_files=False,
                  max_open_files=10, log_level=logging.WARNING):
         """
         Initialize NuRadioReco io
@@ -45,6 +45,7 @@ class NuRadioRecoio(object):
         logger.setLevel(log_level)
         self.__fail_on_version_mismatch = fail_on_version_mismatch
         self.__fail_on_minor_version_mismatch = fail_on_minor_version_mismatch
+        self.__skip_broken_files = skip_broken_files
         self.__parse_header = parse_header
         self.__parse_detector = parse_detector
         self.__read_lock = False
@@ -79,14 +80,22 @@ class NuRadioRecoio(object):
             logger.error("data file not readable. File has version {}.{} but current version is {}.{}".format(self.__file_version, self.__file_version_minor,
                                                                                                               VERSION, VERSION_MINOR))
             if(self.__fail_on_version_mismatch):
-                raise IOError
+                if(self.__skip_broken_files):
+                    return False
+                else:
+                    raise IOError
+
         if(self.__file_version_minor != VERSION_MINOR):
             logger.error("data file might not readable. File has version {}.{} but current version is {}.{}".format(self.__file_version, self.__file_version_minor,
                                                                                                                     VERSION, VERSION_MINOR))
             if(self.__fail_on_minor_version_mismatch):
-                raise IOError
+                if(self.__skip_broken_files):
+                    return False
+                else:
+                    raise IOError
         self.__scan_files = NuRadioReco.modules.io.event_parser_factory.scan_files_function(self.__file_version, self.__file_version_minor)
         self.__iter_events = NuRadioReco.modules.io.event_parser_factory.iter_events_function(self.__file_version, self.__file_version_minor)
+        return True
 
     def openFile(self, filenames):
         self._filenames = filenames
