@@ -145,18 +145,20 @@ def iter_events_function(version_major, version_minor):
             bytes_to_read = int.from_bytes(bytes_to_read_hex, 'little')
             if(bytes_to_read == 0):
                 # we are at the end of the file
+                if not (self._current_file_id < (len(self._filenames) - 1)):
+                    break
                 while(self._current_file_id < (len(self._filenames) - 1)):  # are there more files to be parsed?
                     self._current_file_id += 1
-                    if(not self.__check_file_version(self._current_file_id)):
+                    self._logger.debug(f"opening file {self._current_file_id}")
+                    if(not self._check_file_version(self._current_file_id)):
                         self._logger.warning("skipping broken file")
                         continue
+
                     self._get_file(self._current_file_id).seek(12)  # skip datafile header
                     object_type_hex = self._get_file(self._current_file_id).read(6)
                     object_type = int.from_bytes(object_type_hex, 'little')
                     bytes_to_read_hex = self._get_file(self._current_file_id).read(6)
                     bytes_to_read = int.from_bytes(bytes_to_read_hex, 'little')
-                else:
-                    break
             if object_type == 0:
                 evt_header_str = self._get_file(self._current_file_id).read(bytes_to_read)
                 bytes_to_read_hex = self._get_file(self._current_file_id).read(6)

@@ -24,7 +24,8 @@ class eventReader:
         log_level: logging enum
         """
 
-        self.__fin = NuRadioRecoio.NuRadioRecoio(filename, parse_header=read_detector, log_level=log_level)
+        self.__fin = NuRadioRecoio.NuRadioRecoio(filename, parse_header=read_detector, log_level=log_level,
+                                                 skip_broken_files=True)
 
     @register_run()
     def run(self):
