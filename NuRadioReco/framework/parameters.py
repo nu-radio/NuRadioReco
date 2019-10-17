@@ -28,7 +28,7 @@ class stationParameters(Enum):
     cr_xmax = 28  # Depth of shower maximum of the air shower
 
     reconstruction_status = 100  # needs to be key of type NuRadioReco.framework.base_station.reconstructionStatus
-
+    signal_search_window_start = 101
 
 
 class channelParameters(Enum):
@@ -61,6 +61,7 @@ class electricFieldParameters(Enum):
     cr_spectrum_quadratic_term = 16  # result of the second order correction to the spectrum fitted by the voltageToAnalyticEfieldConverter
     noise_energy_fluence = 17  # Energy/area in the radio measurement out side the signal region
     signal_to_noise_ratio = 18  # signal to noise ratio
+
 
 
 class ARIANNAParameters(Enum):  # this class stores parameters specific to the ARIANNA data taking
