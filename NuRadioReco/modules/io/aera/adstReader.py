@@ -245,25 +245,36 @@ class ADSTReader:
             if rec_station.HasPulse():
                 station.set_reconstruction_status(recs.has_signal)
 
-            electric_field = NuRadioReco.framework.electric_field.ElectricField([0, 1, 2], position=station_position)
+            electric_field = NuRadioReco.framework.electric_field.ElectricField([0, 1], position=station_position)
             electric_field.set_parameter(efp.signal_time, rec_station.GetParameter(rdstQ.eSignalTime))
             electric_field.set_parameter(efp.signal_to_noise_ratio, rec_station.GetParameter(rdstQ.eSignalToNoise))
 
-            electric_field.set_parameter(efp.signal_energy_fluence, np.array([rdstQ.eSignalEnergyFluenceNS,
-                                                                              rdstQ.eSignalEnergyFluenceEW,
-                                                                              rdstQ.eSignalEnergyFluenceV]))
+            electric_field.set_parameter(efp.signal_energy_fluence, np.array([rec_station.GetParameter(rdstQ.eSignalEnergyFluenceNS),
+                                                                              rec_station.GetParameter(rdstQ.eSignalEnergyFluenceEW),
+                                                                              rec_station.GetParameter(rdstQ.eSignalEnergyFluenceV)]))
 
-            electric_field.set_parameter(efp.noise_energy_fluence, np.array([rdstQ.eNoiseEnergyFluenceNS,
-                                                                              rdstQ.eNoiseEnergyFluenceEW,
-                                                                              rdstQ.eNoiseEnergyFluenceV]))
+            electric_field.set_parameter(efp.noise_energy_fluence, np.array([rec_station.GetParameter(rdstQ.eNoiseEnergyFluenceNS),
+                                                                              rec_station.GetParameter(rdstQ.eNoiseEnergyFluenceEW),
+                                                                              rec_station.GetParameter(rdstQ.eNoiseEnergyFluenceV)]))
 
             if self.__read_efield_traces:
                 # yep this assumes the the sampling rates are the same for all polarisations, lets pray to god that this is always true ...
-                electric_field.set_trace(np.array([np.array(rec_station.GetRdTrace(0).GetTimeTrace()),
-                                                   np.array(rec_station.GetRdTrace(1).GetTimeTrace()),
-                                                   np.array(rec_station.GetRdTrace(2).GetTimeTrace())]),
-                                                   sampling_rate=rec_station.GetRdTrace(0).GetSamplingRate())
+                electric_field.set_trace(np.array([np.array(rec_station.GetRdTrace(0).GetTimeTrace()) * 1e-6,  # conversion from muV/m in V/m
+                                                   np.array(rec_station.GetRdTrace(1).GetTimeTrace()) * 1e-6,  # conversion from muV/m in V/m
+                                                   np.array(rec_station.GetRdTrace(2).GetTimeTrace()) * 1e-6]),  # conversion from muV/m in V/m
+                                                   # The factor "/2" is needed to get the correct bandwidth of the spectra
+                                                   # and was also verified recalculating the energy fluence
+                                                   sampling_rate=rec_station.GetRdTrace(0).GetSamplingRate() / 2)
+
                 electric_field.set_trace_start_time(rec_station.GetParameter(rdstQ.eTraceStartTime))
+
+                if 1:
+                    samples = -120
+                    # move signal (placed in the middle of the trace) to the beginning of the trace to get a large noise window.
+                    electric_field.set_trace(np.roll(electric_field.get_trace(), samples, axis=-1),
+                                             sampling_rate=electric_field.get_sampling_rate())  # move traces a bit
+                    # check this!
+                    electric_field.set_trace_start_time(electric_field.get_trace_start_time() + samples * 1 / electric_field.get_sampling_rate())
 
             station.set_electric_fields([electric_field])
 
@@ -276,14 +287,13 @@ class ADSTReader:
             if self.__read_channel_traces:
                 raise NotImplementedError
 
-            # copy_parameters = [(stp.station_signal, rdstQ.eSignalEnergyFluenceMag),
-            #                    (stp.signal_to_noise_ratio, rdstQ.eSignalToNoise)]
-            #
-            # for para in copy_parameters:
-            #     try:
-            #         station.set_parameter(para[0], rec_station.GetParameter(para[1]))
-            #     except KeyError as e:
-            #         print("Key could not be copied: %s" % e)
+            copy_parameters = [(stp.signal_search_window_start, rdstQ.eSignalSearchWindowStart)]
+
+            for para in copy_parameters:
+                try:
+                    station.set_parameter(para[0], rec_station.GetParameter(para[1]))
+                except KeyError as e:
+                    print("Key could not be copied: %s" % e)
 
             yield station
 
