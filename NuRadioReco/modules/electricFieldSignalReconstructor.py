@@ -30,9 +30,10 @@ class electricFieldSignalReconstructor:
         self.begin()
 
     def begin(self, signal_window_pre=10 * units.ns, signal_window_post=40 * units.ns, noise_window=100 * units.ns,
-              log_level=None):
+              time_between_signal_and_noise_window=0 * units.ns, log_level=None):
         self.__signal_window_pre = signal_window_pre
         self.__signal_window_post = signal_window_post
+        self.__noise_window_gap = time_between_signal_and_noise_window
         self.__noise_window = noise_window
         if(log_level is not None):
             logger.setLevel(log_level)
@@ -104,7 +105,14 @@ class electricFieldSignalReconstructor:
             mask_signal_window = (times > (signal_time - self.__signal_window_pre)) & (times < (signal_time + self.__signal_window_post))
             mask_noise_window = np.zeros_like(mask_signal_window, dtype=np.bool)
             if(self.__noise_window > 0):
-                mask_noise_window[np.int(np.round((-self.__noise_window - 141.) * electric_field.get_sampling_rate())):np.int(np.round(-141. * electric_field.get_sampling_rate()))] = np.ones(np.int(np.round(self.__noise_window * electric_field.get_sampling_rate())), dtype=np.bool)  # the last n bins
+                if(self.__noise_window_gap != 0):
+                    if self.__noise_window_gap > 0:
+                        mask_noise_window = (times > (signal_time + self.__signal_window_post + self.__noise_window_gap)) & (times < (signal_time + self.__signal_window_post + self.__noise_window_gap + self.__noise_window))
+                    else:
+                        mask_noise_window = (times > (signal_time + self.__signal_window_pre + self.__noise_window_gap - self.__noise_window)) & (times < (signal_time + self.__signal_window_pre + self.__noise_window_gap))
+
+                else:
+                    mask_noise_window[np.int(np.round((-self.__noise_window - 141.) * electric_field.get_sampling_rate())):np.int(np.round(-141. * electric_field.get_sampling_rate()))] = np.ones(np.int(np.round(self.__noise_window * electric_field.get_sampling_rate())), dtype=np.bool)  # the last n bins
 
             signal_energy_fluence = trace_utilities.get_electric_field_energy_fluence(trace, times, mask_signal_window, mask_noise_window)
             dt = times[1] - times[0]
@@ -129,14 +137,15 @@ class electricFieldSignalReconstructor:
             electric_field.set_parameter(efp.polarization_angle, pol_angle)
             electric_field.set_parameter_error(efp.polarization_angle, pol_angle_error)
 
-            # compute expeted polarization
-            site = det.get_site(station.get_id())
-            exp_efield = hp.get_lorentzforce_vector(electric_field[efp.zenith], electric_field[efp.azimuth], hp.get_magnetic_field_vector(site))
-            cs = coordinatesystems.cstrafo(electric_field[efp.zenith], electric_field[efp.azimuth], site=site)
-            exp_efield_onsky = cs.transform_from_ground_to_onsky(exp_efield)
-            exp_pol_angle = np.arctan2(np.abs(exp_efield_onsky[2]), np.abs(exp_efield_onsky[1]))
-            logger.info("expected polarization angle = {:.1f}".format(exp_pol_angle / units.deg))
-            electric_field.set_parameter(efp.polarization_angle_expectation, exp_pol_angle)
+            if det is None:
+                # compute expeted polarization
+                site = det.get_site(station.get_id())
+                exp_efield = hp.get_lorentzforce_vector(electric_field[efp.zenith], electric_field[efp.azimuth], hp.get_magnetic_field_vector(site))
+                cs = coordinatesystems.cstrafo(electric_field[efp.zenith], electric_field[efp.azimuth], site=site)
+                exp_efield_onsky = cs.transform_from_ground_to_onsky(exp_efield)
+                exp_pol_angle = np.arctan2(np.abs(exp_efield_onsky[2]), np.abs(exp_efield_onsky[1]))
+                logger.info("expected polarization angle = {:.1f}".format(exp_pol_angle / units.deg))
+                electric_field.set_parameter(efp.polarization_angle_expectation, exp_pol_angle)
 
     def end(self):
         pass
