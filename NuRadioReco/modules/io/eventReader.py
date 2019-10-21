@@ -47,3 +47,6 @@ class eventReader:
         event is given.
         """
         return self.__fin.get_detector()
+
+    def get_n_events(self):
+        return self.__fin.get_n_events()

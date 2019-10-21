@@ -90,6 +90,9 @@ class Event:
     def set_id(self, evt_id):
         self._id = evt_id
 
+    def get_event_time(self):
+        return self.__event_time
+
     def get_run_number(self):
         return self.__run_number
 
