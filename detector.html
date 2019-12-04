@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>NuRadioReco.modules.ARIANNA package &mdash; NuRadioReco  documentation</title>
+  <title>Detector Description &mdash; NuRadioReco  documentation</title>
   
 
   
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NuRadioReco.modules.io package" href="NuRadioReco.modules.io.html" />
-    <link rel="prev" title="NuRadioReco.modules.ARA package" href="NuRadioReco.modules.ARA.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,8 +82,9 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Welcome to NuRadioReco, the Software Framework for the Radio Detector Community!</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="event_structure.html">Event Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="NuRadioReco.framework.html">NuRadioReco.framework package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework.base_station">NuRadioReco.framework.base_station module</a></li>
@@ -101,8 +100,8 @@
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.framework.html#module-NuRadioReco.framework">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="NuRadioReco.modules.html">NuRadioReco.modules package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="NuRadioReco.modules.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.html">NuRadioReco.modules package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.ARA.html">NuRadioReco.modules.ARA package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA.hardwareResponseIncorporator">NuRadioReco.modules.ARA.hardwareResponseIncorporator module</a></li>
@@ -110,10 +109,10 @@
 <li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARA.html#module-NuRadioReco.modules.ARA">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">NuRadioReco.modules.ARIANNA package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator">NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-NuRadioReco.modules.ARIANNA">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html">NuRadioReco.modules.ARIANNA package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#module-NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator">NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.ARIANNA.html#module-NuRadioReco.modules.ARIANNA">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.html">NuRadioReco.modules.io package</a><ul>
@@ -263,15 +262,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="NuRadioReco.modules.html">NuRadioReco.modules package</a> &raquo;</li>
-        
-      <li>NuRadioReco.modules.ARIANNA package</li>
+      <li>Detector Description</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/NuRadioReco.modules.ARIANNA.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/detector.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -284,95 +281,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="nuradioreco-modules-arianna-package">
-<h1>NuRadioReco.modules.ARIANNA package<a class="headerlink" href="#nuradioreco-modules-arianna-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator">
-<span id="nuradioreco-modules-arianna-hardwareresponseincorporator-module"></span><h2>NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator module<a class="headerlink" href="#module-NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.</code><code class="descname">hardwareResponseIncorporator</code><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Incorporates the gain and phase induced by the ARIANNA hardware.</p>
-<dl class="method">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.begin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_filter">
-<code class="descname">get_filter</code><span class="sig-paren">(</span><em>frequencies</em>, <em>station_id</em>, <em>channel_id</em>, <em>det</em>, <em>sim_to_data=False</em>, <em>phase_only=False</em>, <em>mode=None</em>, <em>mingainlin=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>helper function to return the filter that the module applies.</p>
-<dl class="docutils">
-<dt>frequencies: array of floats</dt>
-<dd>the frequency array for which the filter should be returned</dd>
-<dt>station_id: int</dt>
-<dd>the station id</dd>
-<dt>channel_id: int</dt>
-<dd>the channel id</dd>
-<dt>det: detector instance</dt>
-<dd>the detector</dd>
-</dl>
-<p>the remaining arguments are the arguments of the run method!</p>
-<dl class="docutils">
-<dt>Returns: array of complex floats</dt>
-<dd>the complex filter amplitudes</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_mingainlin">
-<code class="descname">get_mingainlin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_mingainlin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_time_delay">
-<code class="descname">get_time_delay</code><span class="sig-paren">(</span><em>amp_type</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_time_delay" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Switch sim_to_data to go from simulation to data or otherwise.
-The option zero_noise can be used to zero the noise around the pulse. It is unclear, how useful this is.</p>
-<dl class="docutils">
-<dt>sim_to_data: bool (default False)</dt>
-<dd>if False, deconvolve the hardware response
-if True, convolve with the hardware response</dd>
-<dt>phase_only: bool (default False)</dt>
-<dd>if True, only the phases response is applied but not the amplitude response</dd>
-<dt>mode: string</dt>
-<dd><dl class="first docutils">
-<dt>‘phase_only’: only the phases response is applied but not the amplitude response</dt>
-<dd>(identical to phase_only=True )</dd>
-<dt>‘relativ’: gain of amp is divided by maximum of the gain, i.e. at the maximum of the</dt>
-<dd>filter response is 1 (before applying cable response). This makes it easier
-to compare the filtered to unfiltered signal</dd>
-</dl>
-<p class="last">None : default, gain and phase effects are applied ‘normally’</p>
-</dd>
-<dt>mingainlin: float</dt>
-<dd>In frequency ranges where the gain gets very small, the reconstruction of the original signal (obtained by
-dividing the measured signal by the gain) leads to excessively high values, due to the effect of
-post-amplifier noise. In order to mitigate this effect, a minimum gain (linear scale!) as fraction of the
-maximum gain can be defined. If specified, any gain value smaller than mingainlin will be replaced by mingainlin.
-Note: The adjustment to the minimal gain is NOT visible when getting the amp response from
-analog_components.get_amplifier_response()</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-NuRadioReco.modules.ARIANNA">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NuRadioReco.modules.ARIANNA" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="detector-description">
+<h1>Detector Description<a class="headerlink" href="#detector-description" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -380,15 +290,6 @@ analog_components.get_amplifier_response()</dd>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="NuRadioReco.modules.io.html" class="btn btn-neutral float-right" title="NuRadioReco.modules.io package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="NuRadioReco.modules.ARA.html" class="btn btn-neutral float-left" title="NuRadioReco.modules.ARA package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
