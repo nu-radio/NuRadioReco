@@ -87,18 +87,27 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Data Structure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#event">Event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#radio-shower">Radio Shower</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simshower">SimShower</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#station">Station</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#trigger">Trigger</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simstation">SimStation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#basetrace">BaseTrace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#electric-field">Electric Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#channel">Channel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hybrid-information">Hybrid Information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hybrid-shower">Hybrid Shower</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hybrid-detector">Hybrid Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-and-writing-nur-files">Reading and Writing .nur Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-storage">Parameter Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list-of-data-classes">List of Data Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#event">Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#radio-shower">Radio Shower</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simshower">SimShower</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#station">Station</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trigger">Trigger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simstation">SimStation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basetrace">BaseTrace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#electric-field">Electric Field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#channel">Channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid-information">Hybrid Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid-shower">Hybrid Shower</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid-detector">Hybrid Detector</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="detector.html">Detector Description</a><ul>
@@ -282,16 +291,145 @@
             
   <div class="section" id="data-structure">
 <h1>Data Structure<a class="headerlink" href="#data-structure" title="Permalink to this headline">¶</a></h1>
-<a class="reference internal image-reference" href="../_images/event_structure.png"><img alt="../_images/event_structure.png" src="../_images/event_structure.png" style="width: 80%;" /></a>
+<div class="section" id="nur-files-and-how-to-use-them">
+<h2>.nur Files and How to Use Them<a class="headerlink" href="#nur-files-and-how-to-use-them" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="philosophy-and-basic-structure">
+<h3>Philosophy and Basic Structure<a class="headerlink" href="#philosophy-and-basic-structure" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>NuRadioReco comes with its own input and output format, called <em>.nur</em>. With
+the obvious exception of reading in data from other file formats, like
+<em>CoREAS</em> or the <em>SnowShovel</em> format of the <em>ARIANNA</em> experiment, every
+processing step in an event reconstruction is done in this format. The big
+advantage this provides, is that at any point the process can be interrupted
+and the current state of the event data can be saved. This makes it easy to
+split a reconstruction into several steps and to check the state of the data
+structure after every step.</p>
+<a class="reference internal image-reference" href="../_images/event_structure.png"><img alt="../_images/event_structure.png" src="../_images/event_structure.png" style="width: 90%;" /></a>
+<p>A NuRadioReco event is organized hierarchical, with an <code class="docutils literal notranslate"><span class="pre">Event</span></code> object at the
+top. Elements further down the hierarchy can be accessed via <em>get</em> functions or
+iterators from their parent object. For example, accessing the traces of a
+station’s channels would work like this:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#get station with ID 42</span>
+<span class="n">station</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_station</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># iterate over all channels in station</span>
+<span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">station</span><span class="o">.</span><span class="n">iter_channels</span><span class="p">():</span>
+  <span class="n">trace</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">get_trace</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="reading-and-writing-nur-files">
+<h3>Reading and Writing .nur Files<a class="headerlink" href="#reading-and-writing-nur-files" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Reading and writing <em>.nur</em> files is done by dedicated IO modules.
+Writing events is done by the eventWriter module. To save disc space it offers
+the option to not store channel and electric field traces, in case only
+the higher-level parameters are needed. It is also possible to <a class="reference external" href="detector.html#writing-the-detector">write the
+detector description onto a *.nur* file</a>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NuRadioReco.modules.io.eventWriter</span>
+
+<span class="n">event_writer</span> <span class="o">=</span> <span class="n">NuRadioReco</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">eventWriter</span><span class="o">.</span><span class="n">eventWriter</span><span class="p">()</span>
+<span class="n">event_writer</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="s1">&#39;output_filename.nur&#39;</span><span class="p">)</span>
+<span class="n">event_writer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To read <em>.nur</em> files, two different modules can be used: <code class="docutils literal notranslate"><span class="pre">NuRadioRecoio</span></code> is a
+general-purpose reader that provides different ways to access events e.g. by
+ID or by event number. The <code class="docutils literal notranslate"><span class="pre">eventReader</span></code> is a more streamlined wrapper around
+<code class="docutils literal notranslate"><span class="pre">NuRadioRecoio</span></code> that provides an iterator over all events. Both modules provide
+as way to <a class="reference external" href="detector.html#reading-the-detector">read the detector description from a *.nur* file</a>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NuRadioReco.modules.io.NuRadioRecoio</span>
+<span class="n">nuradioreco_io</span> <span class="o">=</span> <span class="n">NuRadioReco</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">NuRadioRecoio</span><span class="o">.</span><span class="n">NuRadioRecoio</span><span class="p">([</span><span class="s1">&#39;path/to/file&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/other/file&#39;</span><span class="p">])</span>
+<span class="c1"># get event with run number 0 and event ID 5</span>
+<span class="n">event_1</span> <span class="o">=</span> <span class="n">nuradioreco_io</span><span class="o">.</span><span class="n">get_event</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="c1"># get second event in files (counting starts at 0)</span>
+<span class="n">event_2</span> <span class="o">=</span> <span class="n">nuradioreco</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">get_event_i</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># iterate over all events</span>
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">nuradioreco_io</span><span class="o">.</span><span class="n">get_event</span><span class="p">():</span>
+  <span class="n">station</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_station</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">NuRadioReco.modules.io.eventReader</span>
+<span class="n">event_reader</span> <span class="o">=</span> <span class="n">NuRadioReco</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">eventReader</span><span class="o">.</span><span class="n">eventReader</span><span class="p">()</span>
+<span class="n">event_reader</span><span class="o">.</span><span class="n">begin</span><span class="p">([</span><span class="s1">&#39;path/to/file&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/other/file&#39;</span><span class="p">])</span>
+<span class="c1"># iterate over events</span>
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">event_reader</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+  <span class="n">station</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get_station</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additionally, <em>.nur</em> files store higher-level parameters in their headers, which
+makes them easily accessible for all events in a file. For example, if one wanted
+to make a histogram of the zenith angles in a given file, it would work like this:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">NuRadioReco.framework.parameters</span> <span class="kn">import</span> <span class="n">stationParameters</span> <span class="k">as</span> <span class="n">stnp</span>
+<span class="kn">from</span> <span class="nn">NuRadioReco.utilities</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">import</span> <span class="nn">NuRadioReco.modules.io.NuRadioRecoio</span>
+<span class="n">nuradioreco_io</span> <span class="o">=</span> <span class="n">NuRadioReco</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">NuRadioRecoio</span><span class="o">.</span><span class="n">NuRadioRecoio</span><span class="p">([</span><span class="s1">&#39;path/to/file&#39;</span><span class="p">])</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">nuradioreco_io</span><span class="o">.</span><span class="n">get_header</span><span class="p">()</span>
+<span class="n">station_id</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">zeniths</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="n">station_id</span><span class="p">][</span><span class="n">stnp</span><span class="o">.</span><span class="n">zenith</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">zeniths</span><span class="o">/</span><span class="n">units</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The way that writing and reading <em>.nur</em> files is handled internally is that
+every class in the framework has a <code class="docutils literal notranslate"><span class="pre">serialize</span></code> function that writes all
+information stored in the object into a <a class="reference external" href="https://docs.python.org/3/library/pickle.html">pickle</a> object
+and a <code class="docutils literal notranslate"><span class="pre">deserialize</span></code> function that writes the data from such a <em>pickle</em> into
+a class object. To write an event to disk, each object calls the <code class="docutils literal notranslate"><span class="pre">serialize</span></code>
+function on its child objects, stores the <em>pickles</em> they return and then
+serializes itself. The resulting <em>pickle</em> can then be written to disk. To read
+a <em>.nur</em> file the same is done in reverse, with each object calling the <code class="docutils literal notranslate"><span class="pre">deserialize</span></code>
+function on its children. Thanks to this implementation, it is easy to extend
+the framework, since all that has to be done is to define <code class="docutils literal notranslate"><span class="pre">serialize</span></code> and
+<code class="docutils literal notranslate"><span class="pre">deserialize</span></code> functions and adjust the ones of the parent object.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="parameter-storage">
+<h2>Parameter Storage<a class="headerlink" href="#parameter-storage" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>NuRadioReco offers a flexible way to store properties in the data structure via
+the parameter storage. Certain classes (<code class="docutils literal notranslate"><span class="pre">Station</span></code>, <code class="docutils literal notranslate"><span class="pre">SimStation</span></code>, <code class="docutils literal notranslate"><span class="pre">Channel</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ElectricField</span></code>, <code class="docutils literal notranslate"><span class="pre">RadioShower</span></code> and <code class="docutils literal notranslate"><span class="pre">HybridShower</span></code>) provide <code class="docutils literal notranslate"><span class="pre">get_parameter</span></code>
+and <code class="docutils literal notranslate"><span class="pre">set_parameter</span></code> functions that allow parameters to be stored in those
+objects along with their uncertainties and correlation to any other paramters.
+The parameters are defined in an enumerated type <em>enum</em>, so to add a new parameter,
+it just needs to be added to the
+<a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.parameters">list of parameters</a></p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">New parameters should always be added to the bottom of the list. Do not re-use old Enums!</p>
+</div>
+<p>Additionally, parameters can be written and accessed via indexing, like one
+would do to a dictionary:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">NuRadioReco.framework.parameters</span> <span class="kn">import</span> <span class="n">stationParameters</span> <span class="k">as</span> <span class="n">stnp</span>
+<span class="kn">from</span> <span class="nn">NuRadioReco.utilities</span> <span class="kn">import</span> <span class="n">units</span>
+
+<span class="c1"># both ways to set the parameter are equivalent</span>
+<span class="n">station</span><span class="o">.</span><span class="n">set_parameter</span><span class="p">(</span><span class="n">stnp</span><span class="o">.</span><span class="n">cr_zenith</span><span class="p">,</span> <span class="mi">45</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
+<span class="n">station</span><span class="p">[</span><span class="n">stnp</span><span class="o">.</span><span class="n">cr_zenith</span><span class="p">]</span> <span class="o">=</span> <span class="mi">45</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">deg</span>
+<span class="c1"># set parameter uncertainty</span>
+<span class="n">station</span><span class="o">.</span><span class="n">set_parameter_error</span><span class="p">(</span><span class="n">stnp</span><span class="o">.</span><span class="n">cr_zenith</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
+<span class="c1"># 2 ways of accessing parameters:</span>
+<span class="n">zenith</span> <span class="o">=</span> <span class="n">station</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">stnp</span><span class="o">.</span><span class="n">cr_zenith</span><span class="p">)</span>
+<span class="n">zenith</span> <span class="o">=</span> <span class="n">station</span><span class="p">[</span><span class="n">stnp</span><span class="o">.</span><span class="n">cr_zenith</span><span class="p">]</span>
+<span class="c1"># get parameter uncertainty</span>
+<span class="n">zenith_uncertainty</span> <span class="o">=</span> <span class="n">station</span><span class="o">.</span><span class="n">get_parameter_error</span><span class="p">(</span><span class="n">stnp</span><span class="o">.</span><span class="n">cr_zenith</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="list-of-data-classes">
+<h2>List of Data Classes<a class="headerlink" href="#list-of-data-classes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="event">
-<h2>Event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h2>
+<h3>Event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div>The <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.event">Event</a>
 is the upper-most element of the event structure and holds all simulated and reconstructed
 showers and stations as well as the event ID and run number.</div></blockquote>
 </div>
 <div class="section" id="radio-shower">
-<h2>Radio Shower<a class="headerlink" href="#radio-shower" title="Permalink to this headline">¶</a></h2>
+<h3>Radio Shower<a class="headerlink" href="#radio-shower" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>A <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.radio_shower">Radio Shower</a> is used to
 hold reconstructed shower parameters via the parameter storage. It should only be
@@ -302,7 +440,7 @@ used, respectrively.</p>
 </div></blockquote>
 </div>
 <div class="section" id="simshower">
-<h2>SimShower<a class="headerlink" href="#simshower" title="Permalink to this headline">¶</a></h2>
+<h3>SimShower<a class="headerlink" href="#simshower" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>A Sim Shower is used to hold parameters of simulated showers via the parameter storage.
 They are the same class as <code class="docutils literal notranslate"><span class="pre">RadioShower</span></code>, but are stored separately to distinguish
@@ -311,7 +449,7 @@ between simulated and reconstructed properties.</p>
 </div></blockquote>
 </div>
 <div class="section" id="station">
-<h2>Station<a class="headerlink" href="#station" title="Permalink to this headline">¶</a></h2>
+<h3>Station<a class="headerlink" href="#station" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>A <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.station">Station</a> is used to hold event properties
 reconstructed at the station level, i.e. reconstructed from the data of a single station.</p>
@@ -319,10 +457,10 @@ reconstructed at the station level, i.e. reconstructed from the data of a single
 </div></blockquote>
 </div>
 <div class="section" id="trigger">
-<h2>Trigger<a class="headerlink" href="#trigger" title="Permalink to this headline">¶</a></h2>
+<h3>Trigger<a class="headerlink" href="#trigger" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="simstation">
-<h2>SimStation<a class="headerlink" href="#simstation" title="Permalink to this headline">¶</a></h2>
+<h3>SimStation<a class="headerlink" href="#simstation" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>A <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.sim_station">SimStation</a> can hold the same
 properties as the <code class="docutils literal notranslate"><span class="pre">Station</span></code> (and inherits from it), but is used for the MC truth  of the simulation. This
@@ -331,7 +469,7 @@ also implies that events from measured data typically do not have a <code class=
 </div></blockquote>
 </div>
 <div class="section" id="basetrace">
-<h2>BaseTrace<a class="headerlink" href="#basetrace" title="Permalink to this headline">¶</a></h2>
+<h3>BaseTrace<a class="headerlink" href="#basetrace" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>The <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.base_trace">BaseTrace</a> class
 is used to store waveforms, both for voltages in the channels and electric fields.
@@ -350,7 +488,7 @@ the <code class="docutils literal notranslate"><span class="pre">Channel</span><
 </div></blockquote>
 </div>
 <div class="section" id="electric-field">
-<h2>Electric Field<a class="headerlink" href="#electric-field" title="Permalink to this headline">¶</a></h2>
+<h3>Electric Field<a class="headerlink" href="#electric-field" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>The <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.electric_field">ElectricField</a>
 is used to store information about electric fields, which can be accessed via the parameter storage
@@ -368,7 +506,7 @@ method or the <code class="docutils literal notranslate"><span class="pre">get_e
 </div></blockquote>
 </div>
 <div class="section" id="channel">
-<h2>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h2>
+<h3>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div>The <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.channel">Channel</a>
 is used to store information about the voltage traces recorded in a channel,
@@ -376,7 +514,7 @@ which can be accessed via the parameter storage and methods inherited from
 the <code class="docutils literal notranslate"><span class="pre">BaseTrace</span></code> class.</div></blockquote>
 </div>
 <div class="section" id="hybrid-information">
-<h2>Hybrid Information<a class="headerlink" href="#hybrid-information" title="Permalink to this headline">¶</a></h2>
+<h3>Hybrid Information<a class="headerlink" href="#hybrid-information" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>As many radio detectors are built as part of a hybrid detector whose data may be used in the
 radio event reconstruction, a way to make this data accessible in NuRadioReco is needed. The
@@ -391,7 +529,7 @@ or <code class="docutils literal notranslate"><span class="pre">get_hybrid_showe
 </div></blockquote>
 </div>
 <div class="section" id="hybrid-shower">
-<h2>Hybrid Shower<a class="headerlink" href="#hybrid-shower" title="Permalink to this headline">¶</a></h2>
+<h3>Hybrid Shower<a class="headerlink" href="#hybrid-shower" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>The <a class="reference external" href="../NuRadioReco.framework.html#module-NuRadioReco.framework.hybrid_shower">HybridShower</a> is
 used to store information about a shower that was reconstructed with a complementary detector,
@@ -401,7 +539,7 @@ mainly via the parameter storage.</p>
 </div></blockquote>
 </div>
 <div class="section" id="hybrid-detector">
-<h2>Hybrid Detector<a class="headerlink" href="#hybrid-detector" title="Permalink to this headline">¶</a></h2>
+<h3>Hybrid Detector<a class="headerlink" href="#hybrid-detector" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>A <code class="docutils literal notranslate"><span class="pre">HybridDetector</span></code> can be used to store more detailed and experiment-specific information
 about a complementary detector. The diversity of hybrid radio detectors makes it
@@ -414,6 +552,7 @@ well as a <code class="docutils literal notranslate"><span class="pre">serialize
 <p>An example for the implementation of a custom <code class="docutils literal notranslate"><span class="pre">HybridDetector</span></code> can be found in the
 NuRadioReco/example folder.</p>
 </div></blockquote>
+</div>
 </div>
 </div>
 
