@@ -313,8 +313,44 @@
             
   <div class="section" id="modules">
 <h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
+<p>In NuRadioReco, the process of reconstruction event properties from data is done
+by modules. In principle, each step of an analysis should be done by a dedicated
+module. For example, one module applies a filter to the channel spectrum and a
+different module reconstructs the electric field from that channel afterwards.
+In the case of simulation studies, modules can also be used to simulate aspects
+of the detector response, e.g. the efieldToVoltageConverter, which calculates the
+voltages in the antennas from the electric field at each antenna.
+In principle, modules can be arranged in any order, including loops and if/or
+branching, though some some modules may require others to be run beforehand. For
+example, using a module to apply a filter to an electric field only makes sense
+if the field has been reconstructed by another module beforehand.
+It is event possible, to combine several modules into a single module, for example
+to make a standard reconstruction model, that performs a reconstruction with the
+default settings deemed best for a given experiment.</p>
 <div class="section" id="basic-module-structure">
 <h2>Basic Module Structure<a class="headerlink" href="#basic-module-structure" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Each module consists of four components:</dt>
+<dd><ul class="first simple">
+<li>A constructor to create the module. In a reconstruction, this is usually</li>
+</ul>
+<p>called to create the modules before looping over all events in the event file.</p>
+<ul class="simple">
+<li>The <em>begin</em> method. This is used to specify settings that will not change on</li>
+</ul>
+<p>an event-by-event basis.</p>
+<ul class="simple">
+<li>The <em>run</em> method. This is executed for each event and executes the task that</li>
+</ul>
+<p>the module was built for.</p>
+<ul class="simple">
+<li>The <em>end</em> Method. This is run after the last event was processed for cleanup</li>
+</ul>
+<p class="last">or to print information on what the module has done.</p>
+</dd>
+</dl>
+<p>These methods should all be called in that order, though the <em>begin</em> and <em>end</em>
+function can be skipped for some modules.</p>
 </div>
 </div>
 
