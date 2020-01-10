@@ -1,3 +1,4 @@
+from NuRadioReco.modules.base.module import register_run
 import numpy as np
 import os
 import copy
@@ -17,6 +18,7 @@ logger = logging.getLogger('voltageToEfieldConverter')
 from NuRadioReco.framework.parameters import stationParameters as stnp
 from NuRadioReco.framework.parameters import channelParameters as chp
 from NuRadioReco.framework.parameters import electricFieldParameters as efp
+
 
 def get_array_of_channels(station, use_channels, det, zenith, azimuth,
                           antenna_pattern_provider, time_domain=False):
@@ -117,6 +119,7 @@ class voltageToEfieldConverter:
         self.antenna_provider = antennapattern.AntennaPatternProvider()
         pass
 
+    @register_run()
     def run(self, evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], use_MC_direction=False):
         """
         run method. This function is executed for each event
@@ -147,7 +150,6 @@ class voltageToEfieldConverter:
             azimuth = station[stnp.azimuth]
             sim_present = False
 
-
         efield_antenna_factor, V = get_array_of_channels(station, use_channels, det, zenith, azimuth, self.antenna_provider)
         n_frequencies = len(V[0])
         denom = (efield_antenna_factor[0][0] * efield_antenna_factor[1][1] - efield_antenna_factor[0][1] * efield_antenna_factor[1][0])
@@ -169,11 +171,11 @@ class voltageToEfieldConverter:
                              efield3_f[0],
                              efield3_f[1]])
 
-        electric_field = NuRadioReco.framework.electric_field.ElectricField(use_channels, [0,0,0])
+        electric_field = NuRadioReco.framework.electric_field.ElectricField(use_channels, [0, 0, 0])
         electric_field.set_frequency_spectrum(efield3_f, station.get_channel(0).get_sampling_rate())
         electric_field.set_parameter(efp.zenith, zenith)
         electric_field.set_parameter(efp.azimuth, azimuth)
-        #figure out the timing of the E-field
+        # figure out the timing of the E-field
         t_shifts = np.zeros(V.shape[0])
         site = det.get_site(station_id)
         if(zenith > 0.5 * np.pi):
@@ -183,67 +185,10 @@ class voltageToEfieldConverter:
             refractive_index = ice.get_refractive_index(1, site)  # if signal comes from above, in-air propagation speed
         for i_ch, channel_id in enumerate(use_channels):
             antenna_position = det.get_relative_position(station.get_id(), channel_id)
-            t_shifts[i_ch] = station.get_channel(channel_id).get_trace_start_time() -geo_utl.get_time_delay_from_direction(zenith, azimuth, antenna_position, n=refractive_index)
+            t_shifts[i_ch] = station.get_channel(channel_id).get_trace_start_time() - geo_utl.get_time_delay_from_direction(zenith, azimuth, antenna_position, n=refractive_index)
 
         electric_field.set_trace_start_time(t_shifts.max())
         station.add_electric_field(electric_field)
-
-        if debug:
-            fig, (ax2, ax2f) = plt.subplots(2, 1, figsize=(10, 8))
-            lw = 2
-            times = station.get_times() / units.ns
-            ax2.plot(times, station.get_trace()[1] / units.mV * units.m, "-C0", label="reconstructed eTheta", lw=lw)
-            ax2.plot(times, station.get_trace()[2] / units.mV * units.m, "-C1", label="reconstructed ePhi", lw=lw)
-            ax2.set_xlim(400, 600)
-            ff = station.get_frequencies() / units.MHz
-            ax2f.plot(ff[ff < 500], np.abs(station.get_frequency_spectrum()[1][ff < 500]) / units.mV * units.m, "-C0", label="4 stations lsqr eTheta", lw=lw)
-            ax2f.plot(ff[ff < 500], np.abs(station.get_frequency_spectrum()[2][ff < 500]) / units.mV * units.m, "-C1", label="4 stations lsqr ePhi", lw=lw)
-
-            if station.has_sim_station():
-                sim_station = station.get_sim_station()
-                logger.debug("station start time {:.1f}ns, relativ sim station time = {:.1f}".format(station.get_trace_start_time(), sim_station.get_trace_start_time()))
-                ax2.plot(sim_station.get_times() / units.ns, sim_station.get_trace()[1] / units.mV * units.m, "--C2", label="simulation eTheta", lw=lw)
-                ax2.plot(sim_station.get_times() / units.ns, sim_station.get_trace()[2] / units.mV * units.m, "--C3", label="simulation ePhi", lw=lw)
-                ax2f.plot(sim_station.get_frequencies() / units.MHz, np.abs(sim_station.get_frequency_spectrum()[1] / units.mV * units.m), "--C2", label="simulation eTheta", lw=lw)
-                ax2f.plot(sim_station.get_frequencies() / units.MHz, np.abs(sim_station.get_frequency_spectrum()[2] / units.mV * units.m), "--C3", label="simulation ePhi", lw=lw)
-
-            ax2.legend(fontsize="xx-small")
-            ax2.set_xlabel("time [ns]")
-            ax2.set_ylabel("electric-field [mV/m]")
-            ax2f.set_ylim(1e-3, 5)
-            ax2f.set_xlabel("Frequency [MHz]")
-            ax2f.set_xlim(100, 500)
-            ax2f.semilogy(True)
-            if sim_present:
-                sim = station.get_sim_station()
-                fig.suptitle("Simulation: Zenith {:.1f}, Azimuth {:.1f}".format(np.rad2deg(sim[stnp.zenith]), np.rad2deg(sim[stnp.azimuth])))
-            else:
-                fig.suptitle("Data: reconstructed zenith {:.1f}, azimuth {:.1f}".format(np.rad2deg(zenith), np.rad2deg(azimuth)))
-            fig.tight_layout()
-            fig.subplots_adjust(top=0.95)
-            if(debug_plotpath is not None):
-                fig.savefig(os.path.join(debug_plotpath, 'run_{:05d}_event_{:06d}_efield.png'.format(evt.get_run_number(), evt.get_id())))
-                plt.close(fig)
-
-            # plot antenna response and channels
-            fig, ax = plt.subplots(len(V), 2, sharex='col', sharey='col')
-            for iCh in range(len(V)):
-                ax[iCh, 0].plot(ff, np.abs(efield_antenna_factor[iCh][0]), label="theta, channel {}".format(use_channels[iCh]), lw=lw)
-                ax[iCh, 0].plot(ff, np.abs(efield_antenna_factor[iCh][1]), label="phi, channel {}".format(use_channels[iCh]), lw=lw)
-                ax[iCh, 0].legend(fontsize='xx-small')
-                ax[iCh, 0].set_xlim(0, 500)
-                ax[iCh, 1].set_xlim(400, 600)
-                ax[iCh, 1].plot(times, fft.freq2time(V[iCh]) / units.micro / units.V, lw=lw)
-                ax[iCh, 0].set_ylabel("H [m]")
-                ax[iCh, 1].set_ylabel(r"V [$\mu$V]")
-                RMS = det.get_noise_RMS(station.get_id(), 0)
-                ax[iCh, 1].text(0.6, 0.8, 'S/N={:.1f}'.format(np.max(np.abs(fft.freq2time(V[iCh])) / RMS)), transform=ax[iCh, 1].transAxes)
-            ax[-1, 1].set_xlabel("time [ns]")
-            ax[-1, 0].set_xlabel("frequency [MHz]")
-            fig.tight_layout()
-            if(debug_plotpath is not None):
-                fig.savefig(os.path.join(debug_plotpath, 'run_{:05d}_event_{:06d}_channels.png'.format(evt.get_run_number(), evt.get_id())))
-                plt.close(fig)
 
     def end(self):
         pass

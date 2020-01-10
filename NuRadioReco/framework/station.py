@@ -3,10 +3,7 @@ import NuRadioReco.framework.base_station
 import NuRadioReco.framework.sim_station
 import NuRadioReco.framework.channel
 from six import iteritems
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import pickle
 import logging
 import collections
 logger = logging.getLogger('Station')
@@ -39,7 +36,7 @@ class Station(NuRadioReco.framework.base_station.BaseStation):
 
     def get_channel(self, channel_id):
         return self.__channels[channel_id]
-        
+
     def get_number_of_channels(self):
         return len(self.__channels)
 
@@ -71,15 +68,6 @@ class Station(NuRadioReco.framework.base_station.BaseStation):
             from radiotools import helper
             return helper.get_magnetic_field_vector('arianna')
 
-    def get_trace_vBvvB(self):
-        from radiotools import coordinatesystems
-        zenith = self.get_parameter("zenith")
-        azimuth = self.get_parameter("azimuth")
-        magnetic_field_vector = self.get_magnetic_field_vector()
-        cs = coordinatesystems.cstrafo(zenith, azimuth, magnetic_field_vector)
-        temp_trace = cs.transform_from_onsky_to_ground(self.get_trace())
-        return cs.transform_to_vxB_vxvxB(temp_trace)
-
     def serialize(self, mode):
         base_station_pkl = NuRadioReco.framework.base_station.BaseStation.serialize(self, mode)
         channels_pkl = []
@@ -93,7 +81,7 @@ class Station(NuRadioReco.framework.base_station.BaseStation):
                 'channels': channels_pkl,
                 'base_station': base_station_pkl,
                 'sim_station': sim_station_pkl}
-        return pickle.dumps(data, protocol=2)
+        return pickle.dumps(data, protocol=4)
 
     def deserialize(self, data_pkl):
         data = pickle.loads(data_pkl)
@@ -101,7 +89,7 @@ class Station(NuRadioReco.framework.base_station.BaseStation):
         if(data['sim_station'] is None):
             self.__sim_station = None
         else:
-            self.__sim_station = NuRadioReco.framework.sim_station.SimStation(None, None, None, None)
+            self.__sim_station = NuRadioReco.framework.sim_station.SimStation(None, None, None)
             self.__sim_station.deserialize(data['sim_station'])
         for channel_pkl in data['channels']:
             channel = NuRadioReco.framework.channel.Channel(0)

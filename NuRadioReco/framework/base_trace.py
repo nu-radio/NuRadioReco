@@ -23,13 +23,13 @@ class BaseTrace:
         returns the time trace. If the frequency spectrum was modified before,
         an ifft is performed automatically to have the time domain representation
         up to date.
-        
+
         Returns: 1 or N dimensional np.array of floats
             the time trace
         """
         if(not self.__time_domain_up_to_date):
 #             logger.debug("time domain is not up to date, calculating FFT on the fly")
-            self._time_trace = fft.freq2time(self._frequency_spectrum)
+            self._time_trace = fft.freq2time(self._frequency_spectrum, self._sampling_rate)
             self.__time_domain_up_to_date = True
             self._frequency_spectrum = None
         return self._time_trace
@@ -38,7 +38,7 @@ class BaseTrace:
         if(self.__time_domain_up_to_date):
 #             logger.debug("frequency domain is not up to date, calculating FFT on the fly")
 #             logger.debug("time trace has shape {}".format(self._time_trace.shape))
-            self._frequency_spectrum = fft.time2freq(self._time_trace)
+            self._frequency_spectrum = fft.time2freq(self._time_trace, self._sampling_rate)
             self._time_trace = None
 #             logger.debug("frequency spectrum has shape {}".format(self._frequency_spectrum.shape))
             self.__time_domain_up_to_date = False
@@ -47,7 +47,7 @@ class BaseTrace:
     def set_trace(self, trace, sampling_rate):
         """
         sets the time trace
-        
+
         Parameters
         -----------
         trace: np.array of floats
@@ -72,7 +72,7 @@ class BaseTrace:
     def get_sampling_rate(self):
         """
         returns the sampling rate of the trace
-        
+
         Return: float
             sampling rate, i.e., the inverse of the bin width
         """
@@ -113,7 +113,7 @@ class BaseTrace:
     def get_number_of_samples(self):
         """
         returns the number of samples in the time domain
-        
+
         Return: int
             number of samples in time domain
         """
@@ -128,11 +128,10 @@ class BaseTrace:
         data = {'sampling_rate': self.get_sampling_rate(),
                 'time_trace': self.get_trace(),
                 'trace_start_time': self.get_trace_start_time()}
-        return pickle.dumps(data, protocol=2)
+        return pickle.dumps(data, protocol=4)
 
     def deserialize(self, data_pkl):
         data = pickle.loads(data_pkl)
         self.set_trace(data['time_trace'], data['sampling_rate'])
         if('trace_start_time' in data.keys()):
             self.set_trace_start_time(data['trace_start_time'])
-            

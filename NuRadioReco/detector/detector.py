@@ -14,6 +14,7 @@ import six  # # used for compatibility between py2 and py3
 logger = logging.getLogger('detector')
 logging.basicConfig()
 
+
 class DateTimeSerializer(Serializer):
     """
     helper class to serialize datetime objects with TinyDB
@@ -131,15 +132,16 @@ class Detector(object):
     """
 
     def __init__(self, source='json', json_filename='ARIANNA/arianna_detector_db.json',
-                 assume_inf=True):
+                 dictionary=None, assume_inf=True):
         """
         Initialize the stations detector properties.
 
         Parameters
         ----------
         source : str
-            'json' or 'sql'
+            'json', 'dictionary' or 'sql'
             default value is 'json'
+            if dictionary is specified, the dictionary passed to __init__ is used
             if 'sql' is specified, the file 'detector_sql_auth.json' file needs to be present in this folder that
             specifies the sql server credentials (see 'detector_sql_auth.json.sample' for an example of the syntax)
         json_filename : str
@@ -150,7 +152,16 @@ class Detector(object):
             Default to True, if true forces antenna madels to have infinite boundary conditions, otherwise the antenna madel will be determined by the station geometry.
         """
         if(source == 'sql'):
-            self.__db = buffer_db(in_memory=True)
+            self._db = buffer_db(in_memory=True)
+        elif source == 'dictionary':
+            self._db = TinyDB(storage=MemoryStorage)
+            self._db.purge()
+            stations_table = self._db.table('stations', cache_size=1000)
+            for station in dictionary['stations'].values():
+                stations_table.insert(station)
+            channels_table = self._db.table('channels', cache_size=1000)
+            for channel in dictionary['channels'].values():
+                channels_table.insert(channel)
         else:
             dir_path = os.path.dirname(os.path.realpath(__file__))  # get the directory of this file
             filename = os.path.join(dir_path, json_filename)
@@ -162,12 +173,12 @@ class Detector(object):
                     raise NameError
                 filename = filename2
             logger.warning("loading detector description from {}".format(os.path.abspath(filename)))
-            self.__db = TinyDB(filename, storage=serialization,
+            self._db = TinyDB(filename, storage=serialization,
                                sort_keys=True, indent=4, separators=(',', ': '))
 
-        self._stations = self.__db.table('stations', cache_size=1000)
-        self._channels = self.__db.table('channels', cache_size=1000)
-        self.__positions = self.__db.table('positions', cache_size=1000)
+        self._stations = self._db.table('stations', cache_size=1000)
+        self._channels = self._db.table('channels', cache_size=1000)
+        self.__positions = self._db.table('positions', cache_size=1000)
 
         logger.info("database initialized")
 
@@ -239,10 +250,13 @@ class Detector(object):
                 station_ids.append(a['station_id'])
         return sorted(station_ids)
 
-    def __get_station(self, station_id):
+    def _get_station(self, station_id):
         if(station_id not in self._buffered_stations.keys()):
             self._buffer(station_id)
         return self._buffered_stations[station_id]
+
+    def get_station(self, station_id):
+        return self._get_station(station_id)
 
     def __get_position(self, position_id):
         if(position_id not in self.__buffered_positions.keys()):
@@ -380,7 +394,7 @@ class Detector(object):
         Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
         time of measurement
         """
-        res = self.__get_station(station_id)
+        res = self._get_station(station_id)
         easting, northing, altitude = 0, 0, 0
         unit_xy = units.m
         if('pos_zone' in res and res['pos_zone'] == "SP-grid"):
@@ -415,7 +429,6 @@ class Detector(object):
         if(res['pos_altitude'] is not None):
             altitude = res['pos_altitude'] * units.m
         return np.array([easting, northing, altitude])
-
 
     def get_relative_position(self, station_id, channel_id):
         """
@@ -463,7 +476,7 @@ class Detector(object):
         Returns string
         """
 
-        res = self.__get_station(station_id)
+        res = self._get_station(station_id)
         return res['pos_site']
 
     def get_number_of_channels(self, station_id):
@@ -515,7 +528,7 @@ class Detector(object):
             channel_id = ch['channel_id']
             channel_ids.append(channel_id)
             antenna_types.append(self.get_antenna_type(station_id, channel_id))
-            orientations[iCh] = self.get_antanna_orientation(station_id, channel_id)
+            orientations[iCh] = self.get_antenna_orientation(station_id, channel_id)
             orientations[iCh][3] = hp.get_normalized_angle(orientations[iCh][3], interval=np.deg2rad([0, 180]))
         channel_ids = np.array(channel_ids)
         antenna_types = np.array(antenna_types)
@@ -597,7 +610,7 @@ class Detector(object):
         res = self.__get_channel(station_id, channel_id)
         return res['ant_deployment_time']
 
-    def get_antanna_orientation(self, station_id, channel_id):
+    def get_antenna_orientation(self, station_id, channel_id):
         """
         returns the orientation of a specific antenna
 
@@ -611,8 +624,8 @@ class Detector(object):
         Returns typle of floats
             * orientation theta: boresight direction (zenith angle, 0deg is the zenith, 180deg is straight down)
             * orientation phi: boresight direction (azimuth angle counting from East counterclockwise)
-            * rotation theta: rotation of the antenna, vector in plane of tines pointing away from connector
-            * rotation phi: rotation of the antenna, vector in plane of tines pointing away from connector
+            * rotation theta: rotation of the antenna, is perpendicular to 'orientation', for LPDAs: vector in plane of tines pointing away from connector
+            * rotation phi: rotation of the antenna, is perpendicular to 'orientation', for LPDAs: vector in plane of tines pointing away from connector
         """
         res = self.__get_channel(station_id, channel_id)
         return np.deg2rad([res['ant_orientation_theta'], res['ant_orientation_phi'], res['ant_rotation_theta'], res['ant_rotation_phi']])
