@@ -59,8 +59,8 @@ import os
 import numpy as np
 import h5py
 
-import metadata as md
-import utilities as util
+import NuRadioReco.modules.io.lofar.metadata as md
+import NuRadioReco.modules.io.lofar.utilities as util
 
 
 #nyquist_zone = {'LBA_10_90' : 1, 'LBA_30_90' : 1, 'HBA_110_190' : 2, 'HBA_170_230' : 3, 'HBA_210_250' : 3}

@@ -11,7 +11,7 @@ Modified by Brian Hare for use with LOFAR for Lightning Imaging
 import numpy as np
 import struct
 
-from utilities import SId_to_Sname, latlonCS002, RTD, MetaData_directory
+from NuRadioReco.modules.io.lofar.utilities import SId_to_Sname, latlonCS002, RTD, MetaData_directory
 
 #### first some simple utility functions ###
 

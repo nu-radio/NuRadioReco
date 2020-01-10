@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #LOFAR library
-import raw_tbb_IO as IO
-import metadata as md
+import NuRadioReco.modules.io.lofar.raw_tbb_IO as IO
+import NuRadioReco.modules.io.lofar.metadata as md
 
 import NuRadioReco.framework.event
 import NuRadioReco.framework.station
@@ -133,6 +133,8 @@ class readLOFAR:
 
             # LOFAR does not operate with run numbers
             evt = NuRadioReco.framework.event.Event(1, evt_number)
+
+            yield evt
 
     def end(self):
         pass
