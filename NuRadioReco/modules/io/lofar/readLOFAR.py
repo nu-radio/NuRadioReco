@@ -134,10 +134,13 @@ class readLOFAR:
             # LOFAR does not operate with run numbers
             evt = NuRadioReco.framework.event.Event(1, evt_number)
 
+    def end(self):
+        pass
+
 
 
 if __name__ == "__main__":
 
-    f = readLOFAR(['/Users/anelles/Experiments/LOFAR/A_NuRadioReco_Test/L78862_D20121205T051644.039Z_CS002_R000_tbb.h5'])
+    f = readLOFAR(['/Users/anelles/Experiments/LOFAR/A_NuRadioReco_Test/L78862_D20121205T051644.039Z_CS002_R000_tbb.h5'],DAL=1)
 
     f.run()
