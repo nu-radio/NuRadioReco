@@ -359,7 +359,7 @@ subbeam can be specified.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.phased_trigger">
-<code class="descname">phased_trigger</code><span class="sig-paren">(</span><em>station</em>, <em>beam_rolls</em>, <em>sec_beam_rolls</em>, <em>triggered_channels</em>, <em>threshold</em>, <em>window_time=10.67</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.phased_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="descname">phased_trigger</code><span class="sig-paren">(</span><em>station</em>, <em>beam_rolls</em>, <em>sec_beam_rolls</em>, <em>triggered_channels</em>, <em>threshold</em>, <em>window_time=10.67</em>, <em>cut_times=(None</em>, <em>None)</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.phased_trigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the trigger for a certain phasing configuration.
 Beams are formed. A set of overlapping time windows is created and
 the square of the voltage is averaged within each window.
@@ -380,10 +380,18 @@ This is an ARA-like power trigger.</p>
 square root of the number of antennas.</dd>
 <dt>window_time: float</dt>
 <dd>Width of the time window used in the power integration</dd>
+<dt>cut_times: (float, float) tuple</dt>
+<dd>Times for cutting the trace. This helps reducing the number of noise-induced triggers.</dd>
 </dl>
 <dl class="docutils">
 <dt>is_triggered: bool</dt>
 <dd>True if the triggering condition is met</dd>
+<dt>trigger_delays: dictionary</dt>
+<dd>the delays for the primary channels that have caused a trigger.
+If there is no trigger, it’s an empty dictionary</dd>
+<dt>sec_trigger_delays: dictionary</dt>
+<dd>the delays for the secondary channels that have caused a trigger.
+If there is no trigger or no secondary channels, it’s an empty dictionary</dd>
 </dl>
 </dd></dl>
 
@@ -421,6 +429,8 @@ if None, no channels are taken</dd>
 if False, the primary sub-beams and the secondary sub-beams specify independent beams.</dd>
 <dt>ref_index: float</dt>
 <dd>refractive index for beam forming</dd>
+<dt>cut_times: (float, float) tuple</dt>
+<dd>Times for cutting the trace. This helps reducing the number of noise-induced triggers.</dd>
 </dl>
 <dl class="docutils">
 <dt>is_triggered: bool</dt>

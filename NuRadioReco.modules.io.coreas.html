@@ -340,7 +340,7 @@ Note: The volume of a 2d convex hull is the area.</p>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.io.coreas.coreas.make_sim_shower">
-<code class="descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="descname">make_sim_shower</code><span class="sig-paren">(</span><em>corsika</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.make_sim_shower" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="descname">make_sim_shower</code><span class="sig-paren">(</span><em>corsika</em>, <em>observer=None</em>, <em>detector=None</em>, <em>station_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.make_sim_shower" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -396,8 +396,13 @@ star pattern simulation</dd>
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>read in CoREAS simulation</p>
+<dd><p>Read in a random sample of stations from a CoREAS file.
+A number of random positions is selected within a certain radius.
+For each position the closest observer is selected and a simulated
+event is created for that observer.</p>
 <dl class="docutils">
+<dt>detector: Detector object</dt>
+<dd>Detector description of the detector that shall be simulated</dd>
 <dt>output_mode: integer (default 0)</dt>
 <dd><p class="first">0: only the event object is returned
 1: the function reuturns the event object, the current inputfilename, the distance between the choosen station and the requested core position,</p>
@@ -436,9 +441,12 @@ star pattern simulation</dd>
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>run method</p>
-<p>initialize readCoREAS module</p>
-<p>detector: containing station ID</p>
+<dd><p>Reads in all observers in the CoREAS files and returns a new simulated
+event for each.</p>
+<dl class="docutils">
+<dt>detector: Detector object</dt>
+<dd>Detector description of the detector that shall be simulated</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

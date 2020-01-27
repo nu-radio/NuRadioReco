@@ -352,19 +352,7 @@
 <em class="property">class </em><code class="descclassname">NuRadioReco.modules.ARA.triggerSimulator.</code><code class="descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the trigger of an event.
 Uses the ARA trigger logic of a tunnel diode.
-Implementation as in PyRex by Ben Hokanson-Fasig/</p>
-<dl class="method">
-<dt id="NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>antenna_resistance=1.3618499927e-09</em>, <em>power_mean=None</em>, <em>power_std=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate a signal as processed by the tunnel diode.
-The given signal is convolved with the tunnel diodde response as in
-AraSim.</p>
-<dl class="docutils">
-<dt>antenna_resistance <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Value of the resistance of the ARA antennas</dd>
-</dl>
-</dd></dl>
-
+Implementation similar to PyRex by Ben Hokanson-Fasig/</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.end">
 <code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
@@ -410,31 +398,6 @@ If not given, it is calculated from generic noise</dd>
 If not given, it is calculated from generic noise</dd>
 <dt>trigger_name: string</dt>
 <dd>a unique name of this particular trigger</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.tunnel_diode">
-<code class="descname">tunnel_diode</code><span class="sig-paren">(</span><em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.tunnel_diode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate a signal as processed by the tunnel diode.
-The given signal is convolved with the tunnel diodde response as in
-AraSim.
-Parameters
-———-
-channel : Channel</p>
-<blockquote>
-<div>Signal to be processed by the tunnel diode.</div></blockquote>
-<dl class="docutils">
-<dt>power_mean <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Parameter extracted in ARA from noise.
-If not given, it is calculated from generic noise</dd>
-<dt>power_std <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Parameter extracted in ARA from noise.
-If not given, it is calculated from generic noise</dd>
-</dl>
-<dl class="docutils">
-<dt>trace_after_tunnel_diode: array</dt>
-<dd>Signal output of the tunnel diode for the input <cite>channel</cite>.</dd>
 </dl>
 </dd></dl>
 

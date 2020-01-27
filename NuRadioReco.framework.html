@@ -1511,11 +1511,6 @@ The order follows the sequence these modules were applied</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="NuRadioReco.framework.station.Station.get_trace_vBvvB">
-<code class="descname">get_trace_vBvvB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_trace_vBvvB" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="NuRadioReco.framework.station.Station.has_sim_station">
 <code class="descname">has_sim_station</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.has_sim_station" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1546,6 +1541,18 @@ The order follows the sequence these modules were applied</p>
 <div class="section" id="module-NuRadioReco.framework.trigger">
 <span id="nuradioreco-framework-trigger-module"></span><h2>NuRadioReco.framework.trigger module<a class="headerlink" href="#module-NuRadioReco.framework.trigger" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="NuRadioReco.framework.trigger.EnvelopePhasedTrigger">
+<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">EnvelopePhasedTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold_factor</em>, <em>power_mean</em>, <em>power_std</em>, <em>triggered_channels=None</em>, <em>phasing_angles=None</em>, <em>trigger_delays=None</em>, <em>output_passband=(None</em>, <em>None)</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.EnvelopePhasedTrigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="NuRadioReco.framework.trigger.EnvelopeTrigger">
+<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">EnvelopeTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>passband</em>, <em>order</em>, <em>threshold</em>, <em>number_of_coincidences=2</em>, <em>channel_coincidence_window=None</em>, <em>channels=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.EnvelopeTrigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
 <dt id="NuRadioReco.framework.trigger.HighLowTrigger">
 <em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">HighLowTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold_high</em>, <em>threshold_low</em>, <em>high_low_window</em>, <em>channel_coincidence_window</em>, <em>channels=None</em>, <em>number_of_coincidences=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.HighLowTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
@@ -1553,13 +1560,13 @@ The order follows the sequence these modules were applied</p>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.IntegratedPowerTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">IntegratedPowerTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channel_coincidence_window</em>, <em>channels=None</em>, <em>number_of_coincidences=1</em>, <em>power_mean=None</em>, <em>power_std=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.IntegratedPowerTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">IntegratedPowerTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channel_coincidence_window</em>, <em>channels=None</em>, <em>number_of_coincidences=1</em>, <em>power_mean=None</em>, <em>power_std=None</em>, <em>integration_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.IntegratedPowerTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.SimplePhasedTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">SimplePhasedTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channels=None</em>, <em>secondary_channels=None</em>, <em>primary_angles=None</em>, <em>secondary_angles=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.SimplePhasedTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">SimplePhasedTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channels=None</em>, <em>secondary_channels=None</em>, <em>primary_angles=None</em>, <em>secondary_angles=None</em>, <em>trigger_delays=None</em>, <em>sec_trigger_delays=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.SimplePhasedTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 

@@ -141,7 +141,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#submitting-pull-requests">Submitting Pull Requests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#coding-conventions">Coding Conventions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#versioning">Versioning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unit-tests">Unit Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
@@ -389,9 +392,46 @@ overridden, but one should of course be careful when doing so.</p>
 <blockquote>
 <div>After every commit <a class="reference external" href="https://travis-ci.com/">Travis CI</a> will run a test on
 the repository that executes a number of test scripts, checks for errors
-and compares the results to a reference. Whether the test passes or fails
+and compares the results to a reference. For safety, the tests implemented in
+NuRadioMC are run as well, since it uses some elements of NuRadioReco.
+Whether the test passes or fails
 is shown as a green tick or red cross next to the commit on the GitHub page.
 Pull requests can not be merged until all tests pass.</div></blockquote>
+<div class="section" id="what-to-do-if-unit-tests-fail">
+<h4>What to do if Unit Tests Fail<a class="headerlink" href="#what-to-do-if-unit-tests-fail" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>If a unit test fails, it usually means that your changes have some unintended
+side effects that cause the event simulation or reconstruction to lead to
+different results. In that case, please find out which of your changes caused
+this and fix it.</p>
+<p>In rare cases, the tests can fail for other reasons:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Travis fails to download some necessary package. In that case, restarting the
+test usually fixes the issue.</li>
+<li>Changes in NuRadioMC cause the tests to fail. A good sign for this is that
+the tests fail on the master branch as well. In this case, the issue with
+NuRadioMC needs to be fixed instead</li>
+<li>Some elements of NuRadioMC use random numbers, which can cause random
+fluctuations to lead to failing tests. Especially the V_eff test in
+NuRadioMC is susceptible to this. Usually re-running the test solves this.</li>
+<li>The C++ raytracer in NuRadioMC is numerically unstable. The effect is small,
+but results can vary slightly between different systems. Therefore, some
+margin of error is given when comparing tests that involve raytracing.</li>
+<li>The changes in the reconstruction may be intended, i.e. because a
+reconstruction method was improved or a bug was found. In this case, the
+references have to be updated. All test scripts can be run with the option
+<code class="docutils literal notranslate"><span class="pre">--create_reference</span></code>, which will make them produce a new reference file.
+Just create a new reference and commit it to the repository.</li>
+</ul>
+</div></blockquote>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Only change the references if you are absolutely sure that all changes are
+intentional!</p>
+</div>
+</div></blockquote>
+</div>
 </div>
 </div>
 <div class="section" id="documentation">
