@@ -12,10 +12,14 @@ logger = logging.getLogger('Event')
 
 class Event:
 
-    def __init__(self, run_number, event_id):
+    def __init__(self, run_number, event_id, event_group_id = None):
         self._parameters = {}
         self.__run_number = run_number
         self._id = event_id
+        if event_group_id is None:
+            self._event_group_id = event_id
+        else:
+            self._event_group_id = event_group_id
         self.__stations = collections.OrderedDict()
         self.__radio_showers = []
         self.__sim_showers = []
@@ -108,6 +112,12 @@ class Event:
 
     def get_station(self, station_id):
         return self.__stations[station_id]
+
+    def get_event_group_id(self):
+        return self._event_group_id
+
+    def set_event_group_id(self, event_group_id):
+        self._event_group_id = event_group_id
 
     def get_stations(self):
         for station in itervalues(self.__stations):
