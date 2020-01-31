@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Contributing to NuRadioReco" href="contributing.html" />
+    <link rel="next" title="Utilities" href="utilities.html" />
     <link rel="prev" title="Modules" href="nur_modules.html" /> 
 </head>
 
@@ -132,16 +132,24 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nur_modules.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nur_modules.html#basic-module-structure">Basic Module Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nur_modules.html#logging">Logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Event Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#unit-system">Unit System</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to NuRadioReco</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html#workflow">Workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="contributing.html#filing-tickets">Filing Tickets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contributing.html#submitting-pull-requests">Submitting Pull Requests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contributing.html#coding-conventions">Coding Conventions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contributing.html#versioning">Versioning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#unit-tests">Unit Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#unit-tests">Unit Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentation</a><ul>
@@ -313,6 +321,24 @@
             
   <div class="section" id="event-display">
 <h1>Event Display<a class="headerlink" href="#event-display" title="Permalink to this headline">¶</a></h1>
+<p>We use Dash and plot.ly as a foundation, so you need to
+<a class="reference external" href="https://dash.plot.ly/installation">install it first.</a>.</p>
+<p>The eventbrowser is a web application, meaning that you can use your webbrowser
+to browse through the NuRadioReco events. You start the eventbrowser
+(in the subfolder eventbrowser) with
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">index.py</span> <span class="pre">/path/to/folder/containing/nur/data/files</span></code>.
+If all dependencies are installed correctly you should see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+Restarting with inotify reloader
+Debugger is active!
+Debugger PIN: 224-474-503
+</pre></div>
+</div>
+<p>Then just open <a class="reference external" href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> in your favorite web browser and select the
+file you want to see.</p>
+<p>Alternatively, you can use the file <em>NuRadioViewer</em> in the <em>eventbrowser</em> directory.
+Add the directory to you system <em>$PATH</em> and you can open the eventbrowser by
+typing <code class="docutils literal notranslate"><span class="pre">NuRadioViewer</span> <span class="pre">filename.nur</span></code>.</p>
 </div>
 
 
@@ -323,7 +349,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to NuRadioReco" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="utilities.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="nur_modules.html" class="btn btn-neutral float-left" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

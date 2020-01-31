@@ -1,4 +1,0 @@
-Modules
-===========
-Basic Module Structure
------------
