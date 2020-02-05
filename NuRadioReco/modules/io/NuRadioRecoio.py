@@ -3,6 +3,7 @@ import NuRadioReco.framework.event
 import NuRadioReco.detector.detector
 import NuRadioReco.detector.generic_detector
 import NuRadioReco.modules.io.event_parser_factory
+import NuRadioReco.utilities.event_id
 import numpy as np
 import logging
 import pickle
@@ -142,6 +143,9 @@ class NuRadioRecoio(object):
                 break
 
         self.__event_ids = np.array(self.__event_ids)
+        id_provider = NuRadioReco.utilities.event_id.eventIdProvider()
+        for id in self.__event_ids:
+            id_provider.add_event_id(id[0], id[1])
         self.__file_scanned = True
 
         # compute number of events

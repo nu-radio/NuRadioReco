@@ -4,6 +4,7 @@ import NuRadioReco.framework.station
 import NuRadioReco.framework.radio_shower
 import NuRadioReco.framework.hybrid_information
 import NuRadioReco.framework.parameters as parameters
+import NuRadioReco.utilities.event_id
 from six import itervalues
 import collections
 import logging
@@ -27,7 +28,8 @@ class Event:
         self.__hybrid_information = NuRadioReco.framework.hybrid_information.HybridInformation()
         self.__modules_event = []  # saves which modules were executed with what parameters on event level
         self.__modules_station = {}  # saves which modules were executed with what parameters on station level
-
+        event_id_provider = NuRadioReco.utilities.event_id.eventIdProvider()
+        event_id_provider.add_event_id(run_number, event_id)
     def register_module_event(self, instance, name, kwargs):
         """
         registers modules applied to this event

@@ -1,5 +1,6 @@
 import numpy as np
 from NuRadioReco.utilities import units
+from NuRadioReco.utilities.metaclasses import Singleton
 from radiotools import helper as hp
 import os
 import inspect
@@ -111,15 +112,6 @@ def buffer_db(in_memory, filename=None):
 
     logger.info("sql database buffered")
     return db
-
-
-class Singleton(type):
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        if Singleton._instances.get(cls, None) is None:
-            Singleton._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return Singleton._instances[cls]
 
 
 @six.add_metaclass(Singleton)
