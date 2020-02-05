@@ -231,6 +231,7 @@ class Event:
         data = {'_parameters': self._parameters,
                 '__run_number': self.__run_number,
                 '_id': self._id,
+                '_event_group_id': self._event_group_id,
                 '__event_time': self.__event_time,
                 'stations': stations_pkl,
                 'showers': showers_pkl,
@@ -264,6 +265,8 @@ class Event:
         self._parameters = data['_parameters']
         self.__run_number = data['__run_number']
         self._id = data['_id']
+        if '_event_group_id' in data.keys():
+            self._event_group_id = data['_event_group_id']
         self.__event_time = data['__event_time']
         if("__modules_event" in data):
             self.__modules_event = data['__modules_event']
