@@ -232,6 +232,15 @@ class NuRadioRecoio(object):
                         self.__detectors[self._current_file_id].set_event(self._current_run_number, self._current_event_id)
             yield event
 
+    def get_associated_events(self, event):
+        group_id = event.get_event_group_id()
+        run_number = event.get_run_number()
+        event_id = event.get_id()
+        for evt in self.get_events():
+            if evt.get_event_group_id() == group_id:
+                if evt.get_run_number() != run_number or evt.get_id() != event_id:
+                    yield evt
+
     def get_detector(self):
         """
         If parse_detector was set True in the __init__() function, this function return

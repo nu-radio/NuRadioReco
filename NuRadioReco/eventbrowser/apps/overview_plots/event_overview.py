@@ -17,12 +17,20 @@ provider = dataprovider.DataProvider()
 layout = [
     html.Div([
         html.Div([
+            dcc.Checklist(
+                id='overview-draw-associated',
+                options=[
+                    {'label': 'Draw associated events', 'value': 'associated'}
+                ],
+                value=[]
+            ),
             html.Div('Draw Stations'),
             dcc.RadioItems(
                 id='overview-station-mode',
                 options=[
                     {'label': 'All', 'value': 'all'},
-                    {'label': 'Only selected', 'value': 'selected'}
+                    {'label': 'Data', 'value': 'data'},
+                    {'label': 'Selected', 'value': 'selected'}
                 ],
                 value='selected'
             ),
@@ -37,7 +45,7 @@ layout = [
         ], style={'flex':1}),
         html.Div([
             dcc.Graph(id='event-overview', style={'flex': '1'})
-        ], style={'flex':2})
+        ], style={'flex':4})
     ], style={'display': 'flex'})
 ]
 
@@ -69,117 +77,125 @@ def get_cherenkov_cone(medium, vertex, nu_dir):
         n += 3
     return np.array(cherenkov_points), i, j, k
 
-@app.callback(Output('event-overview', 'figure'),
-              [Input('event-counter-slider', 'value'),
-               Input('filename', 'value'),
-               Input('station-id-dropdown', 'value'),
-               Input('overview-station-mode', 'value'),
-               Input('overview-channel-station', 'value')],
-              [State('user_id', 'children')])
-def plot_event_overview(evt_counter, filename, station_id, station_mode, channel_station, juser_id):
-    if filename is None or station_id is None:
-        return {}
-    user_id = json.loads(juser_id)
-    ariio = provider.get_arianna_io(user_id, filename)
-    evt = ariio.get_event_i(evt_counter)
-    station = evt.get_station(station_id)
-    plots = []
-    if station.is_neutrino():
-        if station.has_sim_station():
-            sim_station = station.get_sim_station()
-            sim_vertex = sim_station.get_parameter(stnp.nu_vertex)
-            sim_zenith = sim_station.get_parameter(stnp.nu_zenith)
-            sim_azimuth = sim_station.get_parameter(stnp.nu_azimuth)
-            sim_direction = hp.spherical_to_cartesian(sim_zenith, sim_azimuth)*300.+sim_vertex
-            plots.append(plotly.graph_objs.Scatter3d(
-                x=[sim_vertex[0]],
-                y=[sim_vertex[1]],
-                z=[sim_vertex[2]],
-                text=['Sim Vertex'],
-                mode='markers',
-                marker={'size':3, 'color':'red'},
-                showlegend=False,
-                name='Vertex'
-            ))
-            plots.append(plotly.graph_objs.Scatter3d(
-                x=[sim_vertex[0], sim_direction[0]],
-                y=[sim_vertex[1], sim_direction[1]],
-                z=[sim_vertex[2], sim_direction[2]],
-                mode='lines',
-                line={'color': 'red'},
-                showlegend=False,
-                name='Neutrino direction'
-            ))
-            if evt.has_parameter(evp.sim_config) and ariio.get_detector() is not None:
-                det = ariio.get_detector()
-                det.update(station.get_station_time())
-                sim_config = evt.get_parameter(evp.sim_config)
-                import NuRadioMC.SignalProp.analyticraytracing
-                import NuRadioMC.utilities.medium
-                attenuation_model = sim_config['propagation']['attenuation_model']
-                ice_model = NuRadioMC.utilities.medium.get_ice_model(sim_config['propagation']['ice_model'])
-                n_reflections = sim_config['propagation']['n_reflections']
-                for channel_id in det.get_channel_ids(station_id):
-                    channel_pos = det.get_relative_position(station_id, channel_id) + det.get_absolute_position(station_id)
-                    raytracer = NuRadioMC.SignalProp.analyticraytracing.ray_tracing(sim_vertex, channel_pos, ice_model, attenuation_model, n_reflections=n_reflections)
-                    raytracer.find_solutions()
-                    for iS,solution in enumerate(raytracer.get_results()):
-                        path = raytracer.get_path(iS, 100)
-                        plots.append(plotly.graph_objs.Scatter3d(
-                            x=path[:,0],
-                            y=path[:,1],
-                            z=path[:,2],
-                            mode='lines',
-                            line={'color': 'orange'},
-                            showlegend=False,
-                            name='Ch. {}, {}'.format(channel_id, NuRadioMC.SignalProp.analyticraytracing.solution_types[solution['type']])
-                        ))
-                cherenkov_cone, i_ch, j_ch, k_ch = get_cherenkov_cone(ice_model, sim_vertex, hp.spherical_to_cartesian(sim_zenith, sim_azimuth))
-                plots.append(plotly.graph_objs.Mesh3d(
-                    x=cherenkov_cone[:,0],
-                    y=cherenkov_cone[:,1],
-                    z=cherenkov_cone[:,2],
-                    i=i_ch,
-                    j=j_ch,
-                    k=k_ch,
-                    color='red',
-                    opacity=.5,
-                    name='Cherenkov ring'))
-    if station.is_cosmic_ray():
-        for sim_shower in evt.get_sim_showers():
-            sim_core = sim_shower.get_parameter(shp.core)
-            sim_zenith = sim_shower.get_parameter(shp.zenith)
-            sim_azimuth = sim_shower.get_parameter(shp.azimuth)
-            sim_direction = hp.spherical_to_cartesian(sim_zenith, sim_azimuth)
-            plots.append(plotly.graph_objs.Scatter3d(
-                x=[sim_core[0]],
-                y=[sim_core[1]],
-                z=[sim_core[2]],
-                mode='markers',
-                marker={'color':'red'},
-                showlegend=False,
-                name='Core position'
-            ))
-            dir_points = np.array([sim_core, sim_core+100*sim_direction])
-            plots.append(plotly.graph_objs.Scatter3d(
-                x=dir_points[:,0],
-                y=dir_points[:,1],
-                z=dir_points[:,2],
-                mode='lines',
-                line={'color':'red'},
-                showlegend=False,
-                name='Shower direction'
-            ))
+def plot_neutrino_vertex(evt, station, plots):
+    sim_vertex = station.get_parameter(stnp.nu_vertex)
+    sim_zenith = station.get_parameter(stnp.nu_zenith)
+    sim_azimuth = station.get_parameter(stnp.nu_azimuth)
+    sim_direction = hp.spherical_to_cartesian(sim_zenith, sim_azimuth)*300.+sim_vertex
+    plots.append(plotly.graph_objs.Scatter3d(
+        x=[sim_vertex[0]],
+        y=[sim_vertex[1]],
+        z=[sim_vertex[2]],
+        text=['Sim Vertex'],
+        mode='markers',
+        marker={'size':3, 'color':'red'},
+        showlegend=False,
+        name='Vertex'
+    ))
+    plots.append(plotly.graph_objs.Scatter3d(
+        x=[sim_vertex[0], sim_direction[0]],
+        y=[sim_vertex[1], sim_direction[1]],
+        z=[sim_vertex[2], sim_direction[2]],
+        mode='lines',
+        line={'color': 'red'},
+        showlegend=False,
+        name='Neutrino direction'
+    ))
+    sim_config = evt.get_parameter(evp.sim_config)
+    import NuRadioMC.utilities.medium
+    ice_model = NuRadioMC.utilities.medium.get_ice_model(sim_config['propagation']['ice_model'])
+    cherenkov_cone, i_ch, j_ch, k_ch = get_cherenkov_cone(ice_model, sim_vertex, hp.spherical_to_cartesian(sim_zenith, sim_azimuth))
+    plots.append(plotly.graph_objs.Mesh3d(
+        x=cherenkov_cone[:,0],
+        y=cherenkov_cone[:,1],
+        z=cherenkov_cone[:,2],
+        i=i_ch,
+        j=j_ch,
+        k=k_ch,
+        color='red',
+        opacity=.5,
+        name='Cherenkov ring'))
 
-    if ariio.get_detector() is not None:
+def plot_ray_paths(evt, station, station_id, ariio, plots):
+    if evt.has_parameter(evp.sim_config) and ariio.get_detector() is not None:
+        sim_vertex = station.get_parameter(stnp.nu_vertex)
         det = ariio.get_detector()
         det.update(station.get_station_time())
+        sim_config = evt.get_parameter(evp.sim_config)
+        import NuRadioMC.SignalProp.analyticraytracing
+        import NuRadioMC.utilities.medium
+        attenuation_model = sim_config['propagation']['attenuation_model']
+        ice_model = NuRadioMC.utilities.medium.get_ice_model(sim_config['propagation']['ice_model'])
+        n_reflections = sim_config['propagation']['n_reflections']
+        for channel_id in det.get_channel_ids(station_id):
+            channel_pos = det.get_relative_position(station_id, channel_id) + det.get_absolute_position(station_id)
+            raytracer = NuRadioMC.SignalProp.analyticraytracing.ray_tracing(sim_vertex, channel_pos, ice_model, attenuation_model, n_reflections=n_reflections)
+            raytracer.find_solutions()
+            for iS,solution in enumerate(raytracer.get_results()):
+                path = raytracer.get_path(iS, 100)
+                plots.append(plotly.graph_objs.Scatter3d(
+                    x=path[:,0],
+                    y=path[:,1],
+                    z=path[:,2],
+                    mode='lines',
+                    line={'color': 'orange'},
+                    showlegend=False,
+                    name='Ch. {}, {}'.format(channel_id, NuRadioMC.SignalProp.analyticraytracing.solution_types[solution['type']])
+                ))
+
+def plot_cosmic_ray(evt, station, plots):
+    for sim_shower in evt.get_sim_showers():
+        sim_core = sim_shower.get_parameter(shp.core)
+        sim_zenith = sim_shower.get_parameter(shp.zenith)
+        sim_azimuth = sim_shower.get_parameter(shp.azimuth)
+        sim_direction = hp.spherical_to_cartesian(sim_zenith, sim_azimuth)
+        plots.append(plotly.graph_objs.Scatter3d(
+            x=[sim_core[0]],
+            y=[sim_core[1]],
+            z=[sim_core[2]],
+            mode='markers',
+            marker={'color':'red'},
+            showlegend=False,
+            name='Core position'
+        ))
+        dir_points = np.array([sim_core, sim_core+100*sim_direction])
+        plots.append(plotly.graph_objs.Scatter3d(
+            x=dir_points[:,0],
+            y=dir_points[:,1],
+            z=dir_points[:,2],
+            mode='lines',
+            line={'color':'red'},
+            showlegend=False,
+            name='Shower direction'
+        ))
+
+def draw_event_plot(evt, station_id, event_mode, station_mode, channel_station, juser_id, ariio, detector_time, drawn_vertex_positions, plots):
+    for stn in evt.get_stations():
+        if stn.get_id() == station_id or station_mode != 'selected':
+            if stn.has_sim_station():
+                sim_station = stn.get_sim_station()
+                if sim_station.is_neutrino():
+                    plot_ray_paths(evt, sim_station, stn.get_id(), ariio, plots)
+                    vertex = sim_station.get_parameter(stnp.nu_vertex)
+                    if len(drawn_vertex_positions) == 0:
+                        plot_neutrino_vertex(evt, sim_station, plots)
+                        drawn_vertex_positions.append(vertex)
+                    elif not any(np.array_equal(vertex, x) for x in drawn_vertex_positions):
+                        plot_neutrino_vertex(evt, sim_station, plots)
+                        drawn_vertex_positions.append(vertex)
+    if ariio.get_detector() is not None:
+        det = ariio.get_detector()
+        det.update(detector_time)
         channel_positions = []
         channel_comments = []
         station_positions = []
         station_comments = []
         if station_mode == 'selected':
             draw_stations = [station_id]
+        elif station_mode == 'data':
+            draw_stations = []
+            for stn in evt.get_stations():
+                draw_stations.append(stn.get_id())
         else:
             draw_stations = det.get_station_ids()
         for stat_id in draw_stations:
@@ -197,7 +213,8 @@ def plot_event_overview(evt_counter, filename, station_id, station_mode, channel
             z=station_positions[:,2],
             text=station_comments,
             mode='markers',
-            marker={'size': 4},
+            marker={'size': 4,
+                'color': 'black'},
             showlegend=False,
             name='Stations'
             ))
@@ -208,9 +225,53 @@ def plot_event_overview(evt_counter, filename, station_id, station_mode, channel
             z=channel_positions[:,2],
             text=channel_comments,
             mode='markers',
-            marker={'size': 3},
+            marker={'size': 3,
+                'color': 'gray'},
             showlegend=False,
             name='Channels'
             ))
+
+@app.callback(Output('event-overview', 'figure'),
+              [Input('event-counter-slider', 'value'),
+               Input('filename', 'value'),
+               Input('station-id-dropdown', 'value'),
+               Input('overview-draw-associated', 'value'),
+               Input('overview-station-mode', 'value'),
+               Input('overview-channel-station', 'value')],
+              [State('user_id', 'children')])
+def plot_event_overview(evt_counter, filename, station_id, event_mode, station_mode, channel_station, juser_id):
+    if filename is None or station_id is None:
+        return {}
+    user_id = json.loads(juser_id)
+    ariio = provider.get_arianna_io(user_id, filename)
+    event = ariio.get_event_i(evt_counter)
+    station = event.get_station(station_id)
+    detector_time = station.get_station_time()
+    plots = []
+    drawn_vertex_positions = []
+    draw_event_plot(event, station_id, event_mode, station_mode, channel_station, juser_id, ariio, detector_time, drawn_vertex_positions, plots)
+    if 'associated' in event_mode:
+        for evt in ariio.get_associated_events(event):
+            draw_event_plot(evt, station_id, event_mode, station_mode, channel_station, juser_id, ariio, detector_time, drawn_vertex_positions, plots)
+
+
+
     fig = plotly.graph_objs.Figure(data=plots)
+    fig.update_layout(
+        width=1000,
+        height=800,
+        margin=dict(
+            l=10,
+            r=10,
+            t=10,
+            b=10
+        ),
+        scene=dict(
+            aspectmode='data',
+            aspectratio=dict(
+            x=1,
+            y=1,
+            z=1)
+        )
+    )
     return fig
