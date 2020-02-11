@@ -1,5 +1,6 @@
 import pickle
 import NuRadioReco.framework.event
+import time
 
 def scan_files_function(version_major, version_minor):
     """
@@ -148,11 +149,18 @@ def iter_events_function(version_major, version_minor):
             yield event
 
     def iter_events_2_2(self):
+        current_byte = 12
         while True:
+            while(self._read_lock):
+                time.sleep(100)
+                self.logger.debug("read lock waiting 1ms")
+            self._read_lock = True
+            self._get_file(self._current_file_id).seek(current_byte, 0)
             object_type_hex = self._get_file(self._current_file_id).read(6)
             object_type = int.from_bytes(object_type_hex, 'little')
             bytes_to_read_hex = self._get_file(self._current_file_id).read(6)
             bytes_to_read = int.from_bytes(bytes_to_read_hex, 'little')
+            current_byte += 12
             if(bytes_to_read == 0):
                 # we are at the end of the file
                 if(self._current_file_id < (len(self._filenames) - 1)):  # are there more files to be parsed?
@@ -162,18 +170,26 @@ def iter_events_function(version_major, version_minor):
                     object_type = int.from_bytes(object_type_hex, 'little')
                     bytes_to_read_hex = self._get_file(self._current_file_id).read(6)
                     bytes_to_read = int.from_bytes(bytes_to_read_hex, 'little')
+                    current_byte = 24
+                    self._read_lock = False
                 else:
+                    self._read_lock = False
                     break
             if object_type == 0:
+                current_byte += bytes_to_read
                 evt_header_str = self._get_file(self._current_file_id).read(bytes_to_read)
                 bytes_to_read_hex = self._get_file(self._current_file_id).read(6)
                 bytes_to_read = int.from_bytes(bytes_to_read_hex, 'little')
                 evtstr = self._get_file(self._current_file_id).read(bytes_to_read)
                 event = NuRadioReco.framework.event.Event(0, 0)
                 event.deserialize(evtstr)
+                current_byte += 6 + bytes_to_read
+                self._read_lock = False
                 yield event
             elif object_type == 1 or object_type == 2:
                 self._get_file(self._current_file_id).read(bytes_to_read)
+                current_byte += bytes_to_read
+                self._read_lock = False
     if version_major == 2:
         if version_minor < 2:
             return iter_events_2_0

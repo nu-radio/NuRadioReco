@@ -50,7 +50,7 @@ class NuRadioRecoio(object):
         self.__fail_on_minor_version_mismatch = fail_on_minor_version_mismatch
         self.__parse_header = parse_header
         self.__parse_detector = parse_detector
-        self.__read_lock = False
+        self._read_lock = False
         self.__max_open_files = max_open_files
         self.openFile(filenames)
         self._current_file_id = 0
@@ -170,10 +170,10 @@ class NuRadioRecoio(object):
         return self.__event_ids
 
     def get_event_i(self, event_number):
-        while(self.__read_lock):
+        while(self._read_lock):
             time.sleep(1)
             self.logger.debug("read lock waiting 1ms")
-        self.__read_lock = True
+        self._read_lock = True
 
         if(not self.__file_scanned):
             self.__scan_files()
@@ -196,7 +196,7 @@ class NuRadioRecoio(object):
         evtstr = self._get_file(file_id).read(self._bytes_length[file_id][event_id])
         event = NuRadioReco.framework.event.Event(0, 0)
         event.deserialize(evtstr)
-        self.__read_lock = False
+        self._read_lock = False
         self._current_file_id = file_id
         self._current_event_id = event.get_id()
         self._current_run_number = event.get_run_number()
