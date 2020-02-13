@@ -149,13 +149,13 @@ def iter_events_function(version_major, version_minor):
             yield event
 
     def iter_events_2_2(self):
-        current_byte = 12
+        current_byte = 12   # Count variable to keep track of where to continue reading
         while True:
-            while(self._read_lock):
-                time.sleep(100)
+            while(self._read_lock): # Make sure that only one process is accessing the file at a time
+                time.sleep(10)
                 self.logger.debug("read lock waiting 1ms")
             self._read_lock = True
-            self._get_file(self._current_file_id).seek(current_byte, 0)
+            self._get_file(self._current_file_id).seek(current_byte, 0) # Go to correct location in file
             object_type_hex = self._get_file(self._current_file_id).read(6)
             object_type = int.from_bytes(object_type_hex, 'little')
             bytes_to_read_hex = self._get_file(self._current_file_id).read(6)
