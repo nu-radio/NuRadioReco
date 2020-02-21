@@ -256,6 +256,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pages/detector_database_fields.html">Properties of Detector Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#adc-table">ADC Table</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -384,7 +389,7 @@ Very simple script for currently NTU amps.</p>
 <dd><p>base class of utility class that handles access and buffering to antenna pattern</p>
 <dl class="method">
 <dt id="NuRadioReco.detector.antennapattern.AntennaPatternBase.get_antenna_response_vectorized">
-<code class="descname">get_antenna_response_vectorized</code><span class="sig-paren">(</span><em>freq</em>, <em>zenith</em>, <em>azimuth</em>, <em>zen_boresight</em>, <em>azi_boresight</em>, <em>zen_ori</em>, <em>azi_ori</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.AntennaPatternBase.get_antenna_response_vectorized" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_antenna_response_vectorized</code><span class="sig-paren">(</span><em>freq</em>, <em>zenith</em>, <em>azimuth</em>, <em>orientation_theta</em>, <em>orientation_phi</em>, <em>rotation_theta</em>, <em>rotation_phi</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.AntennaPatternBase.get_antenna_response_vectorized" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the antenna response for a specific frequency, zenith and azimuth angle</p>
 <p>All angles are specified in the ARIANNA coordinate system. All units are in ARIANNA default units</p>
 <dl class="docutils">
@@ -394,14 +399,14 @@ Very simple script for currently NTU amps.</p>
 <dd>zenith angle of incoming signal direction</dd>
 <dt>azimuth <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
 <dd>azimuth angle of incoming signal direction</dd>
-<dt>zen_boresight <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>zenith angle of the boresight direction of the antenna. Specifies the orientation of the antenna in the field</dd>
-<dt>azi_boresight <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>azimuth angle of the boresight direction of the antenna. Specifies the orientation of the antenna in the field</dd>
-<dt>zen_ori <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>zenith angle of the vector perpendicular to the plane defined by the antenna tines, and into the direction of the connector</dd>
-<dt>azi_ori <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>azimuth angle of the vector perpendicular to the plane defined by the antenna tines, and into the direction of the connector</dd>
+<dt>orientation_theta: float </dt>
+<dd>boresight direction (zenith angle, 0deg is the zenith, 180deg is straight down)</dd>
+<dt>orientation_phi: float </dt>
+<dd>boresight direction (azimuth angle counting from East counterclockwise)</dd>
+<dt>rotation_theta: float</dt>
+<dd>rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</dd>
+<dt>rotation_phi: float </dt>
+<dd>rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</dd>
 </dl>
 <dl class="docutils">
 <dt>VEL: dictonary of complex arrays</dt>
@@ -638,10 +643,10 @@ relates the incident electric field to the open circuit voltage and not the volt
 <dd>determines which s-parametr to extract (ex: [1,2] extracts S_12 parameter).</dd>
 <dt>Returns:</dt>
 <dd><ul class="first last simple">
-<li>zen_boresight: zenith angle of the boresight direction of the antenna</li>
-<li>azi_boresight: azimuth angle of the boresight direction of the antenna</li>
-<li>zen_ori: zenith angle of the orientation of the antenna (the vector perpendicular to the boresight direction and the tines (for LPDAs)</li>
-<li>azi_ori: azimuth angle of the orientation of the antenna (the vector perpendicular to the boresight direction and the tines (for LPDAs)</li>
+<li>orientation theta: boresight direction (zenith angle, 0deg is the zenith, 180deg is straight down)</li>
+<li>orientation phi: boresight direction (azimuth angle counting from East counterclockwise)</li>
+<li>rotation theta: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</li>
+<li>rotation phi: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</li>
 <li>ff2: array of frequencies</li>
 <li>theta: zenith angle of inicdent electric field</li>
 <li>phi: azimuth angle of incident electric field</li>
@@ -667,10 +672,10 @@ relates the incident electric field to the open circuit voltage and not the volt
 <dd>determines which s-parametr to extract (ex: [1,2] extracts S_12 parameter).</dd>
 <dt>Returns:</dt>
 <dd><ul class="first last simple">
-<li>zen_boresight: zenith angle of the boresight direction of the antenna</li>
-<li>azi_boresight: azimuth angle of the boresight direction of the antenna</li>
-<li>zen_ori: zenith angle of the orientation of the antenna (the vector perpendicular to the boresight direction and the tines (for LPDAs)</li>
-<li>azi_ori: azimuth angle of the orientation of the antenna (the vector perpendicular to the boresight direction and the tines (for LPDAs)</li>
+<li>orientation theta: boresight direction (zenith angle, 0deg is the zenith, 180deg is straight down)</li>
+<li>orientation phi: boresight direction (azimuth angle counting from East counterclockwise)</li>
+<li>rotation theta: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</li>
+<li>rotation phi: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector in plane of tines pointing away from connector</li>
 <li>ff2: array of frequencies</li>
 <li>theta: zenith angle of inicdent electric field</li>
 <li>phi: azimuth angle of incident electric field</li>
@@ -1263,6 +1268,17 @@ will be ignored</p>
 <dd>Run number of the event the detector should be set to</dd>
 <dt>event_id: integer</dt>
 <dd>ID of the event the detector should be set to</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.detector.generic_detector.GenericDetector.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.generic_detector.GenericDetector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>updates the detector description to a new time</p>
+<dl class="docutils">
+<dt>timestamp: astropy.time.Time</dt>
+<dd>the time to update the detectordescription to
+for backward compatibility datetime is also accepted, but astropy.time is prefered</dd>
 </dl>
 </dd></dl>
 

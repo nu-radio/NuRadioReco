@@ -138,6 +138,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pages/event_display.html">Event Display</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/utilities.html">Utilities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/utilities.html#unit-system">Unit System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/utilities.html#fourier-transformation">Fourier Transformation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/contributing.html">Contributing to NuRadioReco</a><ul>
@@ -253,6 +254,11 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities">Module contents</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/detector_database_fields.html">Properties of Detector Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#adc-table">ADC Table</a></li>
 </ul>
 </li>
 </ul>
@@ -828,7 +834,7 @@ all stations in the list is returned</dd>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_parameter">
-<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>attribute</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -861,6 +867,11 @@ all stations in the list are returned</dd>
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_stations">
 <code class="descname">get_stations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_stations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.framework.event.Event.has_parameter">
+<code class="descname">has_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.has_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1187,6 +1198,17 @@ The order follows the sequence these modules were applied</p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.zenith">
 <code class="descname">zenith</code><em class="property"> = &lt;electricFieldParameters.zenith: 7&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.zenith" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="NuRadioReco.framework.parameters.eventParameters">
+<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">eventParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.eventParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
+<dl class="attribute">
+<dt id="NuRadioReco.framework.parameters.eventParameters.sim_config">
+<code class="descname">sim_config</code><em class="property"> = &lt;eventParameters.sim_config: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.eventParameters.sim_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
