@@ -213,7 +213,7 @@ class NuRadioRecoio(object):
             self.logger.error('event number {} not found in file'.format(event_id))
             return None
         elif(np.sum(mask) > 1):
-            self.logger.warning(f"{np.sum(mask):d} events with the same run event id pair found. Returning first occurence.")
+            self.logger.warning("{:d} events with the same run event id pair found. Returning first occurence.".format(np.sum(mask)))
         self._current_run_number = event_id[0]
         self._current_event_id = event_id[1]
         i = np.argwhere(mask)[0][0]
