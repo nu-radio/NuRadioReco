@@ -367,7 +367,6 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 						ax[iCh][1].set_xlabel("frequecy [MHz]")
 				
 				fig.tight_layout()
-			fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/ForwardFolding/test.pdf")
 			
 			fig2, ax2 = plt.subplots(1, 2, sharex=False, figsize=(20, 10))
 			E = np.logspace(17, 20, num = 50)
@@ -407,7 +406,7 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			ax2[1].set_xlabel("polarization angle [degrees]", fontsize = 'xx-large')
 			ax2[1].legend(fontsize = 'xx-large')
 			fig2.tight_layout()
-			fig2.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/ForwardFolding/E.pdf")
+		
 
 		
 	def end(self):
