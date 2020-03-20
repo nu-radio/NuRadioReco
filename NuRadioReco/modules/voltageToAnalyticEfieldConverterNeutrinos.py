@@ -17,13 +17,10 @@ from NuRadioReco.modules.voltageToEfieldConverter import get_array_of_channels
 from NuRadioReco.framework.parameters import stationParameters as stnp
 from NuRadioReco.framework.parameters import electricFieldParameters as efp
 import NuRadioReco.framework.electric_field
-import NuRadioReco.modules.channelResampler
 from NuRadioReco.utilities.geometryUtilities import get_time_delay_from_direction
 
 from NuRadioMC.SignalProp import propagation
 from NuRadioMC.SignalGen.parametrizations import get_time_trace
-
-channelResampler = NuRadioReco.modules.channelResampler.channelResampler()
 
 
 
@@ -58,8 +55,7 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			channel_Vpol = 0, channel_Hpol = 1, channels_phasing_Vpol = [2,4,5],
 			channels_phasing_Hpol = [3], phasing =False, 
 			passband = [200* units.MHz, 500 * units.MHz], bandpass = True, 
-			use_MC=True, attenuation = True,  attenuation_model = 'GL1', 
-			sampling_rate = 5*units.GHz, parametrization = 'Alvarez2009'):
+			use_MC=True, attenuation = True,  attenuation_model = 'GL1', parametrization = 'Alvarez2009'):
 	
 		"""
 		run method. This function is executed for each event
@@ -76,7 +72,7 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 		channel_Vpol: int
 			the channel id for the VPol used for the electric field reconstruction
 		channel_Hpol: int
-			the channel id for the VPol used for the electric field reconstruction
+			the channel id for the HPol used for the electric field reconstruction
 		channels_phasing_Vpol: array of ints
 			the channel ids for the antennas used to obtain a phased trace
 		channels_phasing_Hpol: array of ints
@@ -94,8 +90,6 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			if True attenuation is included in the reconstruction
 		attenuation_model:
 			the attenuation model used
-		sampling_rate:
-			sampling rate for upsampling the channel traces
 		parametrization:
 			parametrization model used for the reconstruction. At the moment 
 			only optimized for Alvarez2009
@@ -128,7 +122,6 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 
 		use_channels_efield.sort()
 		
-		station_id = station.get_id()
 		if use_MC and (station.get_sim_station() is not None):
 			#find ray type with maximum amplitude
 			efield_max = 0 
@@ -151,9 +144,7 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 		
 		noise_RMS = det.get_noise_RMS(station.get_id(), 0) #assume noise is the same in all channels
 		
-		channelResampler.run(evt, station, det, sampling_rate=sampling_rate) # upsample the traces 
-
-		sampling_rate = station.get_channel(0).get_sampling_rate()
+		sampling_rate = station.get_channel(channel_Vpol).get_sampling_rate()
 		
 		dt = 1./sampling_rate
 		order = 10
@@ -305,6 +296,14 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 				
 
 		def get_phased_trace( channel_id, channel_ids_phasing, band_pass = bandpass):
+			"""
+			channel_id: int
+				channel id of channel used for reconstruction 
+			channel_ids_phasing: list of ints
+				channel ids of the channels used for phasing
+			band_pass: bool
+				if True, filter is applied 
+			"""
 			phased_trace= np.zeros(len(V_timedomain[0]))
 			for iCh, trace in enumerate(V_timedomain): 
 				if use_channels_efield[iCh] in channel_ids_phasing:
