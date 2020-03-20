@@ -101,8 +101,31 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			only optimized for Alvarez2009
 		"""
 		
+		station_id = station.get_id()
 		use_channels_efield = [channel_Vpol, channel_Hpol]
-		if phasing: use_channels_efield += channels_phasing_Vpol + channels_phasing_Hpol
+		if phasing: 
+			use_channels_efield += channels_phasing_Vpol + channels_phasing_Hpol
+			phasing_dict = {channel_Vpol: channels_phasing_Vpol + [channel_Vpol], 
+						channel_Hpol: channels_phasing_Hpol + [channel_Hpol]}
+			
+			channel_position_Vpol = det.get_relative_position(station_id, channel_Vpol)
+			for channel_id in phasing_dict[channel_Vpol]:
+				pos = det.get_relative_position(station_id, channel_id)
+				# Check if channels are on the same string and close by
+				if np.abs(pos[0] - channel_position_Vpol[0]) > 1.*units.m or np.abs(pos[1] - channel_position_Vpol[1]) > 1.*units.m:
+					raise ValueError('All channels have to be on the same string')
+				if np.abs(pos[2] - channel_position_Vpol[2]) > 5 * units.m :
+				 	raise ValueError('Channel to be phased is to far from original channel')
+			for channel_id in phasing_dict[channel_Hpol]:
+				pos = det.get_relative_position(station_id, channel_id)
+				# Check if channels are on the same string and close by
+				if np.abs(pos[0] - channel_position_Vpol[0]) > 1.*units.m or np.abs(pos[1] - channel_position_Vpol[1]) > 1.*units.m:
+					raise ValueError('All channels have to be on the same string')
+				if np.abs(pos[2] - channel_position_Vpol[2]) > 5 * units.m :
+				 	raise ValueError('Channel to be phased is to far from original channel')
+
+
+
 		use_channels_efield.sort()
 		
 		station_id = station.get_id()
@@ -123,8 +146,9 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			n_index = icemodel.get_index_of_refraction(vertex_position)
 			cherenkov_angle = np.rad2deg(np.arccos(1./n_index))
 		
-		phasing_dict = {channel_Vpol: channels_phasing_Vpol + [channel_Vpol], 
-						channel_Hpol: channels_phasing_Hpol + [channel_Hpol]}
+		
+		
+		
 		noise_RMS = det.get_noise_RMS(station.get_id(), 0) #assume noise is the same in all channels
 		
 		channelResampler.run(evt, station, det, sampling_rate=sampling_rate) # upsample the traces 
@@ -284,8 +308,8 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			phased_trace= np.zeros(len(V_timedomain[0]))
 			for iCh, trace in enumerate(V_timedomain): 
 				if use_channels_efield[iCh] in channel_ids_phasing:
-					positions = np.array([det.get_relative_position(101,channel_id),
-										  det.get_relative_position(101,use_channels_efield[iCh])])
+					positions = np.array([det.get_relative_position(station_id,channel_id),
+										  det.get_relative_position(station_id,use_channels_efield[iCh])])
 					time_delay1 = get_time_delay_from_direction(zenith, azimuth, 
 																positions[0], n = n_index)
 					time_delay2 = get_time_delay_from_direction(zenith, azimuth, 
@@ -296,7 +320,7 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			return phased_trace
 
 		prop = propagation.get_propagation_module(name = 'analytic')
-		antenna_position = det.get_relative_position(101, channel_Vpol)
+		antenna_position = det.get_relative_position(station_id, channel_Vpol)
 		r = prop(vertex_position, antenna_position, icemodel, 
 				 attenuation_model = attenuation_model)
 		r.find_solutions()
@@ -337,20 +361,18 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 		results = opt.minimize(minimizer_theta_component, x0 = (10**18), 
 							   method = 'Nelder-Mead', args = (R, n_index, toffset),
 							   bounds = bnds, options = options) #Fit amplitude theta component with viewing angle fixed to 55 degrees
-		print("results", results)
 
 		bnds = ((10**17, 10**19), (np.deg2rad(40), np.deg2rad(70)))
 		results = opt.minimize(minimizer_theta_component, 
 							   x0 = [results.x[0], np.deg2rad(55)], 
 							   method = 'Nelder-Mead', args = (R, n_index, toffset),
 							   bounds = bnds) #Fit amplitude theta component and viewing angle
-		print("results ", results)
 
 		
 		
 		#adapt the time for the fit for the shift of the Hpol wrt Vpol
-		positions = np.array([det.get_relative_position(101,channel_Vpol),
-							  det.get_relative_position(101,channel_Hpol)])
+		positions = np.array([det.get_relative_position(station_id,channel_Vpol),
+							  det.get_relative_position(station_id,channel_Hpol)])
 		time_delay1 = get_time_delay_from_direction(zenith, azimuth, positions[0], 
 													n = n_index)
 		time_delay2 = get_time_delay_from_direction(zenith, azimuth, positions[1], 
@@ -360,9 +382,8 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 		
 		bnds = ((10**17, 10**19))
 		results1 = opt.minimize(minimizer, x0=(results.x[0]), method = 'Nelder-Mead', 
-								args = (R, n_index, time_shift_Hpol, False, False, True), 
+								args = (R, n_index, time_shift_Hpol, False, True), 
 								bounds = bnds, options = options) #Fit amplitude phi component
-		print("results", results1)
 
 
 		
@@ -471,8 +492,7 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 			for energy in E:
 				for view_angle in theta:
 					zplot[i] = np.exp(-1*minimizer_theta_component([energy, view_angle], 
-																   R, n_index, toffset, 
-																   minimizer = True))
+																   R, n_index, toffset))
 					xplot[i] = energy
 					yplot[i] = view_angle
 					i += 1
@@ -500,7 +520,6 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 												 n_index, toffset, minimizer = True)))
 			ax2[1].plot(np.rad2deg(xplot), yplot, 'o-')
 			ax2[1].set_ylabel("probability (not normalized)", fontsize = 'xx-large')
-			print("results x1", results1.x[0])
 			ax2[1].axvline(np.rad2deg(np.arctan2(np.sqrt(results1.x[0]), np.sqrt(results.x[0]))), 
 						   label = 'reconstructed polarization', color = 'orange', linewidth = 3)
 			ax2[1].set_xlabel("polarization angle [degrees]", fontsize = 'xx-large')
