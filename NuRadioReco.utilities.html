@@ -86,6 +86,16 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/event_structure.html#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/event_structure.html#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
@@ -198,7 +208,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
@@ -244,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -558,67 +568,8 @@ load the file with a specific encoding.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-NuRadioReco.utilities.templates">
-<span id="nuradioreco-utilities-templates-module"></span><h2>NuRadioReco.utilities.templates module<a class="headerlink" href="#module-NuRadioReco.utilities.templates" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.utilities.templates.Templates">
-<em class="property">class </em><code class="descclassname">NuRadioReco.utilities.templates.</code><code class="descname">Templates</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_cr_ref_template">
-<code class="descname">get_cr_ref_template</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_cr_ref_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns one cosmic ray template for the reference direction, the same for all channels</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_cr_ref_templates">
-<code class="descname">get_cr_ref_templates</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_cr_ref_templates" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns one cosmic ray template per channel for the reference direction</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_nu_ref_template">
-<code class="descname">get_nu_ref_template</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_nu_ref_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns one neutrino template for the reference direction and on the cherenkov cone, the same for all channels</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_nu_ref_templates">
-<code class="descname">get_nu_ref_templates</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_nu_ref_templates" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns one neutrino template per channel for the reference direction and on the cherenkov cone</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_set_of_cr_templates">
-<code class="descname">get_set_of_cr_templates</code><span class="sig-paren">(</span><em>station_id</em>, <em>n=100</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_set_of_cr_templates" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets set of n templates to allow for the calculation of average templates</p>
-<p>loops first over different coreas pulses with different frequency content
-and then over azimuth angles of 0, 22.5 and 45 degree
-and then over zenith angles of 60, 50 and 70 degree</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_set_of_cr_templates_full">
-<code class="descname">get_set_of_cr_templates_full</code><span class="sig-paren">(</span><em>station_id</em>, <em>n=100</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_set_of_cr_templates_full" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets set of n templates to allow for the calculation of average templates</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.get_set_of_nu_templates">
-<code class="descname">get_set_of_nu_templates</code><span class="sig-paren">(</span><em>station_id</em>, <em>n=100</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.get_set_of_nu_templates" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets set of n templates to allow for the calculation of average templates</p>
-<p>loops first over different viewing angles
-and then over azimuth angles of 0, 22.5 and 45 degree
-and then over zenith angles of 100, 120 and 140 degree</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.utilities.templates.Templates.set_template_directory">
-<code class="descname">set_template_directory</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.templates.Templates.set_template_directory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="nuradioreco-utilities-templates-module">
+<h2>NuRadioReco.utilities.templates module<a class="headerlink" href="#nuradioreco-utilities-templates-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-NuRadioReco.utilities.timing">
 <span id="nuradioreco-utilities-timing-module"></span><h2>NuRadioReco.utilities.timing module<a class="headerlink" href="#module-NuRadioReco.utilities.timing" title="Permalink to this headline">¶</a></h2>

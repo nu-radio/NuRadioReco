@@ -86,6 +86,10 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/event_structure.html#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/event_structure.html#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
@@ -198,7 +202,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
@@ -244,7 +248,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -488,6 +492,11 @@
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.remove_parameter">
 <code class="descname">remove_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.remove_parameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.framework.base_station.BaseStation.remove_triggers">
+<code class="descname">remove_triggers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.remove_triggers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1228,6 +1237,11 @@ The order follows the sequence these modules were applied</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="NuRadioReco.framework.parameters.showerParameters.charge_excess_profile_id">
+<code class="descname">charge_excess_profile_id</code><em class="property"> = &lt;showerParameters.charge_excess_profile_id: 105&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.charge_excess_profile_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.core">
 <code class="descname">core</code><em class="property"> = &lt;showerParameters.core: 3&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.core" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1290,6 +1304,11 @@ The order follows the sequence these modules were applied</p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.shower_maximum">
 <code class="descname">shower_maximum</code><em class="property"> = &lt;showerParameters.shower_maximum: 9&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.shower_maximum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="NuRadioReco.framework.parameters.showerParameters.type">
+<code class="descname">type</code><em class="property"> = &lt;showerParameters.type: 106&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

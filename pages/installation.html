@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Modules &mdash; NuRadioReco  documentation</title>
+  <title>Installing NuRadioReco &mdash; NuRadioReco  documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Event Display" href="event_display.html" />
-    <link rel="prev" title="Detector Description" href="detector.html" /> 
+    <link rel="next" title="Data Structure" href="event_structure.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,8 +86,14 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing NuRadioReco</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="event_structure.html">Data Structure</a><ul>
@@ -134,9 +140,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#basic-module-structure">Basic Module Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nur_modules.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nur_modules.html#basic-module-structure">Basic Module Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nur_modules.html#logging">Logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="event_display.html">Event Display</a></li>
@@ -310,13 +316,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Modules</li>
+      <li>Installing NuRadioReco</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/pages/nur_modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/installation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -329,64 +335,125 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="modules">
-<h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
-<p>In NuRadioReco, the process of reconstruction event properties from data is done
-by modules. In principle, each step of an analysis should be done by a dedicated
-module. For example, one module applies a filter to the channel spectrum and a
-different module reconstructs the electric field from that channel afterwards.
-In the case of simulation studies, modules can also be used to simulate aspects
-of the detector response, e.g. the efieldToVoltageConverter, which calculates the
-voltages in the antennas from the electric field at each antenna.
-In principle, modules can be arranged in any order, including loops and if/or
-branching, though some some modules may require others to be run beforehand. For
-example, using a module to apply a filter to an electric field only makes sense
-if the field has been reconstructed by another module beforehand.
-It is event possible, to combine several modules into a single module, for example
-to make a standard reconstruction model, that performs a reconstruction with the
-default settings deemed best for a given experiment.</p>
-<div class="section" id="basic-module-structure">
-<h2>Basic Module Structure<a class="headerlink" href="#basic-module-structure" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Each module consists of four components:</dt>
-<dd><ul class="first simple">
-<li>A constructor to create the module. In a reconstruction, this is usually</li>
-</ul>
-<p>called to create the modules before looping over all events in the event file.</p>
-<ul class="simple">
-<li>The <em>begin</em> method. This is used to specify settings that will not change on</li>
-</ul>
-<p>an event-by-event basis.</p>
-<ul class="simple">
-<li>The <em>run</em> method. This is executed for each event and executes the task that</li>
-</ul>
-<p>the module was built for.</p>
-<ul class="simple">
-<li>The <em>end</em> Method. This is run after the last event was processed for cleanup</li>
-</ul>
-<p class="last">or to print information on what the module has done.</p>
-</dd>
-</dl>
-<p>These methods should all be called in that order, though the <em>begin</em> and <em>end</em>
-function can be skipped for some modules.</p>
-</div>
-<div class="section" id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="installing-nuradioreco">
+<h1>Installing NuRadioReco<a class="headerlink" href="#installing-nuradioreco" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-using-pip">
+<h2>Installation using Pip<a class="headerlink" href="#installation-using-pip" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><p>Every module MODULE should have in the init function the initalization of a
-logger with</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;NuRadioReco.MODULE&#39;</span><span class="p">)</span>
+<div><p>The latest NuRadioReco release can be installed using pip:</p>
+<blockquote>
+<div><div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install NuRadioReco
 </pre></div>
 </div>
-<p>This expects that the script containing the module sequence initalized a
-general logger with</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">NuRadioReco.modules.base</span> <span class="kn">import</span> <span class="n">module</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">setup_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This initalizes a parent logger, which determines the overall logging level that is inherited by all modules. This allows to turn DEBUG on for all, for example. It is still possible to change the logging level for individual modules as an overwrite.</p>
 </div></blockquote>
+<p>This will also install the required dependencies.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">If you want the current version or you want to contribute to NuRadioReco, you need to install if manually.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="manual-installation">
+<h2>Manual Installation<a class="headerlink" href="#manual-installation" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>If you don’t already have it installed, install <a class="reference external" href="https://git-scm.com/">Git</a>.</p>
+<p>Then clone the NuRadioReco repository</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nu-radio/NuRadioReco.git
+</pre></div>
+</div>
+<p>and add it to you PYTHONPATH.</p>
+</div></blockquote>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="core-dependencies">
+<h3>Core Dependencies<a class="headerlink" href="#core-dependencies" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>NuRadioReco requires the following packages to work properly:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/nu-radio/radiotools">radiotools</a>: Can also be installed using git and needs to be added to the PYTHONPATH</li>
+</ul>
+<p>All other dependencies can be installed using pip</p>
+<ul>
+<li><p class="first">numpy:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install numpy
+</pre></div>
+</div>
+</li>
+<li><p class="first">scipy:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install scipy
+</pre></div>
+</div>
+</li>
+<li><p class="first">matplotlib:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install matplotlib
+</pre></div>
+</div>
+</li>
+<li><p class="first">astropy:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install astropy
+</pre></div>
+</div>
+</li>
+<li><p class="first">tinydb:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install tinydb tinydb-serialization
+</pre></div>
+</div>
+</li>
+<li><p class="first">Advanced enum:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install aenum
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="optional-dependencies">
+<h3>Optional Dependencies<a class="headerlink" href="#optional-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>These packages are recommended to be able to use all of NuRadioReco’s features:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">h5py to open HDF5 files:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install h5py
+</pre></div>
+</div>
+</li>
+<li><p class="first">To access detector databases:</p>
+<ul>
+<li><p class="first">For SQL datbases install <a class="reference external" href="https://www.mysql.com/">MySQL</a> and mysql-python:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install mysql-python
+</pre></div>
+</div>
+</li>
+<li><p class="first">For <a class="reference external" href="https://www.mongodb.com">MongoDB</a> databases install:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install pymongo
+</pre></div>
+</div>
+</li>
+<li><p class="first">To use the <a class="reference external" href="./event_display.html">Event Display</a> you need plotly and dash:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install dash
+pip install plotly
+</pre></div>
+</div>
+<p>If you want templates to show up in the Event Display, you need to set up an environment variable NURADIORECOTEMPLATES and have it point to the template directory.</p>
+</li>
+<li><p class="first">The documentation is created using <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a></p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install sphinx
+</pre></div>
+</div>
+</li>
+<li><p class="first">Some debug plots need peakutils:</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install peakutils
+</pre></div>
+</div>
+</li>
+<li><p class="first">To read ARIANNA files, <a class="reference external" href="https://arianna.ps.uci.edu/mediawiki/index.php/Local_DAQ_Instructions">Snowshovel</a> need to be installed.</p>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
 </div>
 </div>
 
@@ -398,10 +465,10 @@ general logger with</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="event_display.html" class="btn btn-neutral float-right" title="Event Display" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="event_structure.html" class="btn btn-neutral float-right" title="Data Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="detector.html" class="btn btn-neutral float-left" title="Detector Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

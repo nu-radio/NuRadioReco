@@ -87,6 +87,16 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/event_structure.html#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/event_structure.html#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
@@ -199,7 +209,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
@@ -245,7 +255,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -412,11 +422,6 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.eventbrowser.html#module-NuRadioReco.eventbrowser.dataprovider"><code class="xref">NuRadioReco.eventbrowser.dataprovider</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="NuRadioReco.eventbrowser.html#module-NuRadioReco.eventbrowser.default_layout"><code class="xref">NuRadioReco.eventbrowser.default_layout</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -567,11 +572,6 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation"><code class="xref">NuRadioReco.modules.channelTemplateCorrelation</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow"><code class="xref">NuRadioReco.modules.channelTimeWindow</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -672,27 +672,7 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventReader"><code class="xref">NuRadioReco.modules.io.eventReader</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventWriter"><code class="xref">NuRadioReco.modules.io.eventWriter</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise"><code class="xref">NuRadioReco.modules.io.noise</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise.noiseImporter"><code class="xref">NuRadioReco.modules.io.noise.noiseImporter</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.NuRadioRecoio"><code class="xref">NuRadioReco.modules.io.NuRadioRecoio</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -788,11 +768,6 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise"><code class="xref">NuRadioReco.utilities.noise</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates"><code class="xref">NuRadioReco.utilities.templates</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>

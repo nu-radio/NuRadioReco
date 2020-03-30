@@ -86,6 +86,16 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/event_structure.html#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/event_structure.html#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
@@ -198,7 +208,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
@@ -244,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -365,7 +375,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.io.noise.html">NuRadioReco.modules.io.noise package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise.noiseImporter">NuRadioReco.modules.io.noise.noiseImporter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#nuradioreco-modules-io-noise-noiseimporter-module">NuRadioReco.modules.io.noise.noiseImporter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#nuradioreco-modules-io-noise-noiseimporterroot-module">NuRadioReco.modules.io.noise.noiseImporterROOT module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise">Module contents</a></li>
 </ul>
@@ -380,9 +390,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.NuRadioRecoio">NuRadioReco.modules.io.NuRadioRecoio module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventReader">NuRadioReco.modules.io.eventReader module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io.eventWriter">NuRadioReco.modules.io.eventWriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#nuradioreco-modules-io-nuradiorecoio-module">NuRadioReco.modules.io.NuRadioRecoio module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#nuradioreco-modules-io-eventreader-module">NuRadioReco.modules.io.eventReader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#nuradioreco-modules-io-eventwriter-module">NuRadioReco.modules.io.eventWriter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.html#module-NuRadioReco.modules.io">Module contents</a></li>
 </ul>
 </li>
@@ -750,47 +760,8 @@ default is 0.1, i.e. the first 5% and the last 5% of the trace are filtered</dd>
 </dd></dl>
 
 </div>
-<div class="section" id="module-NuRadioReco.modules.channelTemplateCorrelation">
-<span id="nuradioreco-modules-channeltemplatecorrelation-module"></span><h2>NuRadioReco.modules.channelTemplateCorrelation module<a class="headerlink" href="#module-NuRadioReco.modules.channelTemplateCorrelation" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.channelTemplateCorrelation.</code><code class="descname">channelTemplateCorrelation</code><span class="sig-paren">(</span><em>template_directory</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates correlation of waveform with neutrino/cr templates</p>
-<dl class="method">
-<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.begin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.match_sampling">
-<code class="descname">match_sampling</code><span class="sig-paren">(</span><em>ref_template</em>, <em>resampling_factor</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.match_sampling" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>cosmic_ray: bool</dt>
-<dd>Switch for cosmic ray and neutrino analysis. Default is neutrino templates.</dd>
-<dt>n_templates: int</dt>
-<dd>default is 1: use just on standard template for all channels
-if n_templates is larger than one multiple templates are used and the
-average cross correlation for all templates is calculated. The set
-of templates contains several coreas input pulses and different
-incoming directions. The index first loops first over 6 different
-coreas pulses with different frequency content
-and then over azimuth angles of 0, 22.5 and 45 degree
-and then over zenith angles of 60, 50 and 70 degree</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="nuradioreco-modules-channeltemplatecorrelation-module">
+<h2>NuRadioReco.modules.channelTemplateCorrelation module<a class="headerlink" href="#nuradioreco-modules-channeltemplatecorrelation-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-NuRadioReco.modules.channelTimeWindow">
 <span id="nuradioreco-modules-channeltimewindow-module"></span><h2>NuRadioReco.modules.channelTimeWindow module<a class="headerlink" href="#module-NuRadioReco.modules.channelTimeWindow" title="Permalink to this headline">¶</a></h2>
@@ -823,6 +794,10 @@ and then over zenith angles of 60, 50 and 70 degree</dd>
 <dt>around_pulse: float or None</dt>
 <dd>if not None: specifies time interval around ‘signal_time’,
 if this option is set, ‘window’ is ignored</dd>
+<dt>window_width: float</dt>
+<dd>if around_pulse is set, defines the time width of the trace where the filter is 1.</dd>
+<dt>window_rise_time: float</dt>
+<dd>if window_function is not rectangular, defines the rise time where the filter goes from 0 to 1.</dd>
 </dl>
 </dd></dl>
 
@@ -1337,6 +1312,12 @@ debug: bool</p>
 be save into the <cite>debug_plotpath</cite> directory</dd>
 <dt>use_channels: array of ints</dt>
 <dd>the channel ids to use for the electric field reconstruction</dd>
+<dt>use_MC_direction: bool</dt>
+<dd>if True uses zenith and azimuth direction from simulated station
+if False uses reconstructed direction from station parameters.</dd>
+<dt>force_Polarization: str</dt>
+<dd>if eTheta or ePhi, then only reconstructs chosen polarization of electric field,
+assuming the other is 0. Otherwise, reconstructs electric field for both eTheta and ePhi</dd>
 </dl>
 </dd></dl>
 

@@ -86,6 +86,16 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/event_structure.html#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/event_structure.html#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
@@ -198,7 +208,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
@@ -244,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -352,7 +362,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="NuRadioReco.modules.io.noise.html">NuRadioReco.modules.io.noise package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise.noiseImporter">NuRadioReco.modules.io.noise.noiseImporter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#nuradioreco-modules-io-noise-noiseimporter-module">NuRadioReco.modules.io.noise.noiseImporter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#nuradioreco-modules-io-noise-noiseimporterroot-module">NuRadioReco.modules.io.noise.noiseImporterROOT module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NuRadioReco.modules.io.noise.html#module-NuRadioReco.modules.io.noise">Module contents</a></li>
 </ul>
@@ -370,168 +380,14 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-NuRadioReco.modules.io.NuRadioRecoio">
-<span id="nuradioreco-modules-io-nuradiorecoio-module"></span><h2>NuRadioReco.modules.io.NuRadioRecoio module<a class="headerlink" href="#module-NuRadioReco.modules.io.NuRadioRecoio" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.NuRadioRecoio.</code><code class="descname">NuRadioRecoio</code><span class="sig-paren">(</span><em>filenames</em>, <em>parse_header=True</em>, <em>parse_detector=True</em>, <em>fail_on_version_mismatch=True</em>, <em>fail_on_minor_version_mismatch=False</em>, <em>max_open_files=10</em>, <em>log_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.close_files">
-<code class="descname">close_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.close_files" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_detector">
-<code class="descname">get_detector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_detector" title="Permalink to this definition">¶</a></dt>
-<dd><p>If parse_detector was set True in the __init__() function, this function return
-the detector description (assuming there is one in the files). If several
-files with different detectors are read, the detector for the last returned
-event is given.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_event">
-<code class="descname">get_event</code><span class="sig-paren">(</span><em>event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_event" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_event_i">
-<code class="descname">get_event_i</code><span class="sig-paren">(</span><em>event_number</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_event_i" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_event_ids">
-<code class="descname">get_event_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_event_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a list of (run, eventid) tuples of all events contained in the data file</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_events">
-<code class="descname">get_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_events" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_filenames">
-<code class="descname">get_filenames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_filenames" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_header">
-<code class="descname">get_header</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_header" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_n_events">
-<code class="descname">get_n_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_n_events" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.openFile">
-<code class="descname">openFile</code><span class="sig-paren">(</span><em>filenames</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.openFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="nuradioreco-modules-io-nuradiorecoio-module">
+<h2>NuRadioReco.modules.io.NuRadioRecoio module<a class="headerlink" href="#nuradioreco-modules-io-nuradiorecoio-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-NuRadioReco.modules.io.eventReader">
-<span id="nuradioreco-modules-io-eventreader-module"></span><h2>NuRadioReco.modules.io.eventReader module<a class="headerlink" href="#module-NuRadioReco.modules.io.eventReader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.modules.io.eventReader.eventReader">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.eventReader.</code><code class="descname">eventReader</code><a class="headerlink" href="#NuRadioReco.modules.io.eventReader.eventReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>read events from file</p>
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventReader.eventReader.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>filename</em>, <em>read_detector=False</em>, <em>log_level=30</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventReader.eventReader.begin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setup function for the eventReader module</p>
-<dl class="docutils">
-<dt>filename: array if strings</dt>
-<dd>names of the input files</dd>
-<dt>read_detector: boolean</dt>
-<dd><dl class="first last docutils">
-<dt>If True, the eventReader will parse the detector description and event event headers</dt>
-<dd>in the event files. This is necessary to use the get_detector functions</dd>
-</dl>
-</dd>
-</dl>
-<p>log_level: logging enum</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventReader.eventReader.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventReader.eventReader.end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventReader.eventReader.get_detector">
-<code class="descname">get_detector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventReader.eventReader.get_detector" title="Permalink to this definition">¶</a></dt>
-<dd><p>If read_detector was set True in the begin() function, this function return
-the detector description (assuming there is one in the files). If several
-files with different detectors are read, the detector for the last returned
-event is given.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventReader.eventReader.get_header">
-<code class="descname">get_header</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventReader.eventReader.get_header" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the header information of all events, useful to get a quick overview of all events without
-looping through all events</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventReader.eventReader.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventReader.eventReader.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="nuradioreco-modules-io-eventreader-module">
+<h2>NuRadioReco.modules.io.eventReader module<a class="headerlink" href="#nuradioreco-modules-io-eventreader-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-NuRadioReco.modules.io.eventWriter">
-<span id="nuradioreco-modules-io-eventwriter-module"></span><h2>NuRadioReco.modules.io.eventWriter module<a class="headerlink" href="#module-NuRadioReco.modules.io.eventWriter" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.modules.io.eventWriter.eventWriter">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.eventWriter.</code><code class="descname">eventWriter</code><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>save events to file</p>
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventWriter.eventWriter.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>filename</em>, <em>max_file_size=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter.begin" title="Permalink to this definition">¶</a></dt>
-<dd><p>begin method</p>
-<dl class="docutils">
-<dt>max_file_size: maximum file size in Mbytes</dt>
-<dd>(if the file exceeds the maximum file the output will be split into another file)</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventWriter.eventWriter.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter.end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.eventWriter.eventWriter.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>writes NuRadioReco event into a file</p>
-<p>evt: NuRadioReco event object
-det: detector object</p>
-<blockquote>
-<div>If a detector object is passed, the detector description for the
-events is written in the file as well</div></blockquote>
-<dl class="docutils">
-<dt>mode: string</dt>
-<dd>specifies the output mode:
-* ‘full’ (default): the full event content is written to disk
-* ‘mini’: only station traces are written to disc
-* ‘micro’: no traces are written to disc</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="NuRadioReco.modules.io.eventWriter.get_header">
-<code class="descclassname">NuRadioReco.modules.io.eventWriter.</code><code class="descname">get_header</code><span class="sig-paren">(</span><em>evt</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.get_header" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="nuradioreco-modules-io-eventwriter-module">
+<h2>NuRadioReco.modules.io.eventWriter module<a class="headerlink" href="#nuradioreco-modules-io-eventwriter-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-NuRadioReco.modules.io">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NuRadioReco.modules.io" title="Permalink to this headline">¶</a></h2>

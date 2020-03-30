@@ -86,6 +86,16 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/event_structure.html#nur-files-and-how-to-use-them">.nur Files and How to Use Them</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/event_structure.html#philosophy-and-basic-structure">Philosophy and Basic Structure</a></li>
@@ -198,7 +208,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
@@ -244,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -336,54 +346,8 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-NuRadioReco.modules.io.noise.noiseImporter">
-<span id="nuradioreco-modules-io-noise-noiseimporter-module"></span><h2>NuRadioReco.modules.io.noise.noiseImporter module<a class="headerlink" href="#module-NuRadioReco.modules.io.noise.noiseImporter" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="NuRadioReco.modules.io.noise.noiseImporter.noiseImporter">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.noise.noiseImporter.</code><code class="descname">noiseImporter</code><a class="headerlink" href="#NuRadioReco.modules.io.noise.noiseImporter.noiseImporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Imports recorded noise from ARIANNA station. The recorded noise needs to match the station geometry and sampling
-as chosen with channelResampler and channelLengthAdjuster</p>
-<p>For different stations, new noise files need to be used.
-Collect forced triggers from any type of station to use for analysis.
-A seizable fraction of data is recommended for accuracy.</p>
-<p>The noise will be random. This module therefore might produce non-reproducible results on a single event basis,
-if run several times.</p>
-<dl class="method">
-<dt id="NuRadioReco.modules.io.noise.noiseImporter.noiseImporter.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>noise_folder</em>, <em>station_id=None</em>, <em>noise_files=None</em>, <em>channel_mapping=None</em>, <em>log_level=30</em>, <em>mean_opt=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.noise.noiseImporter.noiseImporter.begin" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>noise_folder: string</dt>
-<dd>the folder containing the noise files</dd>
-<dt>station_id: int</dt>
-<dd>the station id, specifies from which station the forced triggers are used
-as a noise sample. The data must have the naming convention ‘<a href="#id1"><span class="problematic" id="id2">forced_station_</span></a>??.nur’
-where ?? is replaced with the station id. If station_id is None, the noiseImporter
-will try to find the station with the same iD as the one passed to the run
-function in the noise file</dd>
-<dt>channel_mapping: dict or None</dt>
-<dd>option relevant for MC studies of new station designs where we do not
-have forced triggers for. The channel_mapping dictionary maps the channel
-ids of the MC station to the channel ids of the noise data
-Default is None which is 1-to-1 mapping</dd>
-<dt>log_level: loggging log level</dt>
-<dd>the log level, default logging.WARNING</dd>
-<dt>mean_opt: boolean</dt>
-<dd>option to subtract mean from trace. Set mean_opt=False to remove mean subtraction from trace.</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.noise.noiseImporter.noiseImporter.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.noise.noiseImporter.noiseImporter.end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.io.noise.noiseImporter.noiseImporter.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.noise.noiseImporter.noiseImporter.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="nuradioreco-modules-io-noise-noiseimporter-module">
+<h2>NuRadioReco.modules.io.noise.noiseImporter module<a class="headerlink" href="#nuradioreco-modules-io-noise-noiseimporter-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="nuradioreco-modules-io-noise-noiseimporterroot-module">
 <h2>NuRadioReco.modules.io.noise.noiseImporterROOT module<a class="headerlink" href="#nuradioreco-modules-io-noise-noiseimporterroot-module" title="Permalink to this headline">¶</a></h2>
