@@ -36,8 +36,10 @@ def get_high_low_triggers(trace, high_threshold, low_threshold,
     logger.debug("length of trace {} bins, coincidence window {} bins".format(len(trace), len(c)))
 
     c2 = np.array([1, -1])
-    m1 = np.convolve(trace > high_threshold, c, mode='full')[:-(n_bins_coincidence - 1)]
-    m2 = np.convolve(trace < low_threshold, c, mode='full')[:-(n_bins_coincidence - 1)]
+    tmp1 = np.convolve(trace > high_threshold, c2, mode='same') > 0
+    m1 = np.convolve(tmp1, c, mode='full')[:-(n_bins_coincidence - 1)]
+    tmp2 = np.convolve(trace < low_threshold, c2, mode='same') > 0
+    m2 = np.convolve(tmp2, c, mode='full')[:-(n_bins_coincidence - 1)]
     return np.convolve(m1 & m2, c2, mode='same') > 0
 
 
@@ -186,8 +188,8 @@ class triggerSimulator:
             trigger.set_trigger_time(0)
         else:
             trigger.set_triggered(True)
-            trigger.set_trigger_time(triggered_times.min()+channel_trace_start_time)
-            trigger.set_trigger_times(triggered_times+channel_trace_start_time)
+            trigger.set_trigger_time(triggered_times.min() + channel_trace_start_time)
+            trigger.set_trigger_times(triggered_times + channel_trace_start_time)
             logger.info("Station has passed trigger, trigger time is {:.1f} ns".format(
                 trigger.get_trigger_time() / units.ns))
 
