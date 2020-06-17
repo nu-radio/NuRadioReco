@@ -75,7 +75,8 @@ class BaseStation():
 
     def set_station_time(self, time):
         if isinstance(time, datetime.datetime):
-            self._station_time = astropy.time.Time(time)
+            time_strings = str(time).split(' ')
+            self._station_time = astropy.time.Time('{}T{}'.format(time_strings[0], time_strings[1]), format='isot')
         else:
             self._station_time = time
 
@@ -97,6 +98,9 @@ class BaseStation():
 
     def get_id(self):
         return self._station_id
+
+    def remove_triggers(self):
+        self._triggers = collections.OrderedDict()
 
     def get_trigger(self, name):
         if(name not in self._triggers):

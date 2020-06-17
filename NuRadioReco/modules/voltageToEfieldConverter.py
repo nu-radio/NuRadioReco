@@ -35,8 +35,11 @@ def get_array_of_channels(station, use_channels, det, zenith, azimuth,
         antenna_position = det.get_relative_position(station_id, channel_id)
         # determine refractive index of signal propagation speed between antennas
         refractive_index = ice.get_refractive_index(1, site)  # if signal comes from above, in-air propagation speed
-        if(zenith > 0.5 * np.pi):
-            refractive_index = ice.get_refractive_index(antenna_position[2], site)  # if signal comes from below, use refractivity at antenna position
+        if station.get_sim_station().is_cosmic_ray():
+            if(zenith > 0.5 * np.pi):
+                refractive_index = ice.get_refractive_index(antenna_position[2], site)  # if signal comes from below, use refractivity at antenna position
+        if station.get_sim_station().is_neutrino():
+            refractive_index = ice.get_refractive_index(antenna_position[2], site)
         time_shift = -geo_utl.get_time_delay_from_direction(zenith, azimuth, antenna_position, n=refractive_index)
         t_geos[iCh] = time_shift
         t_cables[iCh] = channel.get_trace_start_time()
@@ -120,7 +123,7 @@ class voltageToEfieldConverter:
         pass
 
     @register_run()
-    def run(self, evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], use_MC_direction=False):
+    def run(self, evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], use_MC_direction=False, force_Polarization=''):
         """
         run method. This function is executed for each event
 
@@ -136,6 +139,12 @@ class voltageToEfieldConverter:
             be save into the `debug_plotpath` directory
         use_channels: array of ints
             the channel ids to use for the electric field reconstruction
+        use_MC_direction: bool
+            if True uses zenith and azimuth direction from simulated station
+            if False uses reconstructed direction from station parameters.
+        force_Polarization: str
+            if eTheta or ePhi, then only reconstructs chosen polarization of electric field,
+            assuming the other is 0. Otherwise, reconstructs electric field for both eTheta and ePhi
         """
         event_time = station.get_station_time()
         station_id = station.get_id()
@@ -165,7 +174,12 @@ class voltageToEfieldConverter:
         E2[mask] = (V[-1] - efield_antenna_factor[-1][0] * E1)[mask] / efield_antenna_factor[-1][1][mask]
         # solve it in a vectorized way
         efield3_f = np.zeros((2, n_frequencies), dtype=np.complex)
-        efield3_f[:, mask] = np.moveaxis(stacked_lstsq(np.moveaxis(efield_antenna_factor[:, :, mask], 2, 0), np.moveaxis(V[:, mask], 1, 0)), 0, 1)
+        if force_Polarization == 'eTheta':
+            efield3_f[:1, mask] = np.moveaxis(stacked_lstsq(np.moveaxis(efield_antenna_factor[:, 0, mask], 1, 0)[:,:,np.newaxis], np.moveaxis(V[:, mask], 1, 0)), 0, 1)
+        elif force_Polarization == 'ePhi':
+            efield3_f[1:, mask] = np.moveaxis(stacked_lstsq(np.moveaxis(efield_antenna_factor[:, 1, mask], 1, 0)[:,:,np.newaxis], np.moveaxis(V[:, mask], 1, 0)), 0, 1)
+        else:
+            efield3_f[:, mask] = np.moveaxis(stacked_lstsq(np.moveaxis(efield_antenna_factor[:, :, mask], 2, 0), np.moveaxis(V[:, mask], 1, 0)), 0, 1)
         # add eR direction
         efield3_f = np.array([np.zeros_like(efield3_f[0], dtype=np.complex),
                              efield3_f[0],
