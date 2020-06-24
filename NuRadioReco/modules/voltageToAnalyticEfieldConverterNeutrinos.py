@@ -663,13 +663,10 @@ class voltageToAnalyticEfieldConverterNeutrinos:
 				
 					
 			fmin = minimizer_theta_component([reconstructed_viewing_angle, reconstructed_energy_theta], R, n_index, time_shift_Vpol, hilbert = False, fit = 'both')
-			print("FMIN", fmin)
 			plot_range = [fmin-10 , fmin + 50]
-			print('plot range', plot_range)
-			print('zplot', zplot)
+			
 			cs = ax2[0].pcolor(xplot.reshape(len(E), len(theta)), np.rad2deg(yplot).reshape(len(E), len(theta)), zplot.reshape(len(E), len(theta)), cmap = 'gnuplot_r', vmin = plot_range[0], vmax = plot_range[1])
-			print('vmax', max(zplot))
-			ax2[0].axhline(np.rad2deg(viewing_angle), color = 'red', 
+			ax2[0].axhline(np.rad2deg(viewing_angle), color = 'red',
 						   label = 'simulated viewing angle', linewidth = 2)
 			
 			
