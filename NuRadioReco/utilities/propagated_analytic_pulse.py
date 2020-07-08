@@ -9,7 +9,7 @@ from NuRadioReco.utilities import geometryUtilities as geo_utl
 from NuRadioReco.detector import antennapattern
 from scipy import signal
 from NuRadioReco.utilities import trace_utilities
-
+from NuRadioReco.modules.RNO_G import hardwareResponseIncorporator
 import NuRadioReco.modules.io.eventReader
 import datetime
 from NuRadioReco.framework.parameters import stationParameters as stnp
@@ -27,12 +27,12 @@ prop = propagation.get_propagation_module('analytic')
 attenuate_ice = True
 sampling_rate = 5
 
-det = detector.Detector(json_filename = "../station.json")
+det = detector.Detector(json_filename = "/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/station_amp.json")
 det.update(datetime.datetime(2018, 1, 1))
 
 
 
-
+hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
 class simulation():
 	
@@ -61,13 +61,18 @@ class simulation():
 		self._shower_axis = -1 * hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
 		n_index = ice.get_index_of_refraction(x1)
 		cherenkov_angle = np.arccos(1. / n_index)
-		dt = 1. / (sampling_rate * units.GHz)
+#		dt = 1. / (sampling_rate * units.GHz)
 		
 		
 		sampling_rate_detector = det.get_sampling_frequency(station.get_id(), 0)
+		channl = station.get_channel(use_channels[0])
+		n_samples = channl.get_number_of_samples()
+		sampling_rate = channl.get_sampling_rate()
+		dt = 1./sampling_rate
+		
+		#n_samples = det.get_number_of_samples(station.get_id(), 0) / sampling_rate_detector / dt
 	
-		n_samples = det.get_number_of_samples(station.get_id(), 0) / sampling_rate_detector / dt
-		n_samples = int(np.ceil(n_samples / 2.) * 2) # round to nearest even integer
+		#n_samples = int(np.ceil(n_samples / 2.) * 2) # round to nearest even integer
 		ff = np.fft.rfftfreq(n_samples, dt)
 		tt = np.arange(0, n_samples * dt, dt)
 		
@@ -180,8 +185,20 @@ class simulation():
 				analytic_trace_fft = np.sum(efield_antenna_factor[0] * np.array([eTheta, ePhi]), axis = 0)	
 
                 ### filter the trace
-				analytic_trace_fft *= h
+				analytic_trace_fft *=h
+		#### add amplifier
+				sim_to_data = True
 			
+				analytic_trace_fft *= hardwareResponseIncorporator.get_filter(ff, station.get_id(), channel_id, det, sim_to_data)
+            # zero first bins to avoid DC offs
+				analytic_trace_fft[0] = 0
+		#### filter becuase of amplifier response 
+				f = np.ones_like(ff)
+				passband = [20* units.MHz, 1150 * units.MHz]
+				f[np.where(ff < passband[0])] = 0.
+				f[np.where(ff > passband[1])] = 0.
+				analytic_trace_fft *= f
+	
                 ### store traces
 				traces[channel_id][iS] = fft.freq2time(analytic_trace_fft, 1/dt)
                 ### store timing

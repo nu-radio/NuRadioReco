@@ -84,7 +84,7 @@ class neutrinoDirectionReconstructor:
                         maximum_trace1 = maximum_trace
         
         
-            traces_sim, timing_sim = simulation.simulation(station, vertex_x, vertex_y, vertex_z, zenith, azimuth, energy, use_channels, fit, first_iter = first_iter)
+            traces_sim, timing_sim = simulation.simulation(station, vertex_x, vertex_y, vertex_z, simulated_zenith, simulated_azimuth, energy, use_channels, fit, first_iter = first_iter)
             traces, timing = simulation.simulation(station, vertex_x, vertex_y, vertex_z, zenith, azimuth, energy, use_channels, fit, first_iter = first_iter)
 
             
@@ -111,7 +111,7 @@ class neutrinoDirectionReconstructor:
                     T_ref_sim = timing_sim[maxchannelid][key]## for maximum ray type, take timing as reference timing
                     key_used = key
 
-                    
+       #     print("T ref sim", T_ref_sim) 
             T_ref = T_ref_sim     
             
             for key in traces[maxchannelid]:
@@ -131,7 +131,10 @@ class neutrinoDirectionReconstructor:
 
             for ich, channel in enumerate(station.iter_channels()):
                 if channel.get_id() in use_channels: #iterate over channels
+        #            print('channel', channel.get_id())
                     data_trace = np.copy(channel.get_trace())
+                #    print("number of samples", channel.get_number_of_samples())
+                    
                     max_trace = 0
                     ### if no solution exist, than analytic voltage is zero
                     rec_trace = np.zeros(len(data_trace))# if there is no raytracing solution, the trace is only zeros
@@ -144,33 +147,58 @@ class neutrinoDirectionReconstructor:
 
                         rec_trace = rec_trace_i
                         max_trace = max(abs(rec_trace_i))
+                   #    	print("timing", timing[channel.get_id()][key])
                         delta_T =  timing[channel.get_id()][key] - T_ref
+                    #    print("delta T", delta_T)
+         #               print("T  ref", T_ref)
                         ## before correlating, set values around maximum voltage trace data to zero
                         delta_toffset = delta_T * sampling_rate
-
-                        rec_trace2 = np.pad(rec_trace, (0, len(data_trace) - len(rec_trace)), 'constant') ## add zeros to simulated trace to mmke same length as data
+                        #print("len data", len(data_trace))
+                        #print("len rec trace", len(rec_trace))
+                #        print(stop)
+                 #       rec_trace2 = np.pad(rec_trace, (0, len(data_trace) - len(rec_trace)), 'constant') ## add zeros to simulated trace to mmke same length as data
 
                         ### figuring out the time offset for specfic trace
-                        dk = int(k_ref + delta_toffset)
-                        
-
+                        dk = int(k_ref + delta_toffset )
+                     #   print("kref", k_ref)
+                      #  print("delta toffset", delta_toffset) 
+                       # print("dk", dk)
                         ## for ARZ, we need to correlate and cannot just use delta_toffset
-                        rec_trace1 = np.roll(rec_trace2, int(toffset+delta_toffset)) # roll simulated trace
+                        rec_trace1 = np.roll(rec_trace, int(toffset+delta_toffset)) # roll simulated trace
 
                         ### now correlate rectrace1 with the cut data, and look for the offset
                         ## cut data:
                         data_trace_timing = np.copy(data_trace) ## cut data around timing
-                        data_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 20] = 0
+                        data_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 100] = 0
                         rec_trace_timing = np.copy(rec_trace1) ## cut rec around timing
-                        rec_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 20] = 0
+          #              fig = plt.figure()
+           #             ax = fig.add_subplot(111)
+            #            ax.plot(rec_trace_timing)
+                        #fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
+                        
+                        rec_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 100] = 0
+             #           plt.plot(rec_trace_timing)
+              #          fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
+                       
                         normdata = max(abs(data_trace_timing))
                         normrec = max(abs(rec_trace_timing))
+               #         print("norm rec", normrec)
+                        #if normrec == 0: ### if this really is zero, then it should not matter; does not contribute
+                        #    print(stop)
                         corr = signal.hilbert(signal.correlate(data_trace_timing, rec_trace_timing*normdata/normrec)) ## correlate
+                   #     fig = plt.figure()
+                   #     ax = fig.add_subplot(111)
+                   #     ax.plot(data_trace_timing)
+                        
+                   #     ax.plot(rec_trace_timing*normdata/normrec)
+                   #     ax.set_xlim((1800, 2000))
+                   #     fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/t.pdf")
                         dt = np.argmax(corr) - (len(corr)/2) +1 ## find offset
+                       # print("len corr", len(corr))
                         ## rotate for ARZ correction
                         rec_trace1 = np.roll(rec_trace1, int(dt)) # roll reconstruction trace with ARZ extra offset
-
-                        delta_k.append(int(k_ref + delta_toffset + dt )) ## for overlapping pulses this does not work
+                       # print("dt", dt)
+                        delta_k.append(int(k_ref + delta_toffset + dt)) ## for overlapping pulses this does not work
                         rec_trace3 += rec_trace1 ## add two voltage traces in time domain
                     ks[channel.get_id()] = delta_k
 
@@ -210,12 +238,18 @@ class neutrinoDirectionReconstructor:
                             if len(params) != 2: # we fit energy for seperate fit, so no scaling factor
                                 rec_traces.append(rec_trace3)
                                 if len(delta_k) > 0:
+                #                    print("delta k[0]", delta_k[0])
+                 #                   print('delta k[1]', delta_k[1])
                                     chi2 += np.sum(-1*abs((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2))##
                                     #print("chi2", np.sum(-1*abs((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2)))
 
                                 if len(delta_k) > 1:
                                     chi2 += np.sum(-1*abs((rec_trace3)[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) ## second ray type solution
-
+                                    #fig = plt.figure()
+                                    #ax = fig.add_subplot(111)
+                                    #ax.plot(rec_trace3[delta_k[1]-N : delta_k[1] +3*N])
+                                    #ax.plot(data_trace[delta_k[1] -N: delta_k[1] + 3*N])
+                                    #fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
 
                     if fit == 'combined':
                         rec_traces.append(rec_trace3)
@@ -238,15 +272,16 @@ class neutrinoDirectionReconstructor:
             simulated_energy = station.get_sim_station()[stnp.nu_energy]
             simulated_vertex = station.get_sim_station()[stnp.nu_vertex]
             print("simulated vertex position is", simulated_vertex)
+            SNR = []
             for ich, channel in enumerate(station.iter_channels()): ## checks SNR of channels
                 Vrms = 1.6257*10**(-5)
                 print("channel {}, SNR {}".format(channel.get_id(),(abs(min(channel.get_trace())) + max(channel.get_trace())) / (2*Vrms) ))
-                if channel.get_id() == 13:
+                if channel.get_id() in use_channels:
                     Vrms = 1.6257*10**(-5) # 16 micro volt
-                    SNR = (abs(abs(min(channel.get_trace()))) + max(channel.get_trace())) / (2*Vrms)
+                    SNR.append((abs(abs(min(channel.get_trace()))) + max(channel.get_trace())) / (2*Vrms))
                     print("SNR", SNR)
 
-        if SNR > 4:
+        if min(SNR) > 4:
             uncertainties = 0 ## check influence of vertex position
             if uncertainties:
                 for ie, efield in enumerate(station.get_sim_station().get_electric_fields()):
@@ -277,10 +312,10 @@ class neutrinoDirectionReconstructor:
             tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)
          
             
+            fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
             #fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
-            #fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
-            #print("fsim", fsim)
-            #print(stop)
+            print("fsim", fsim)
+           # print(stop)
             
             
             if seperate_fit:
@@ -292,38 +327,38 @@ class neutrinoDirectionReconstructor:
                 #rec_azimuth = results.x[1]
                 #bnds = ((10**17, 10**19 ), )
                 
-                energies = np.logspace(17, 19, 50)
-                zvalues = []
-                az = np.arange(simulated_azimuth - np.deg2rad(5), simulated_azimuth + np.deg2rad(5), np.deg2rad(.5))
-                zen = np.arange(simulated_zenith - np.deg2rad(5), simulated_zenith + np.deg2rad(5), np.deg2rad(.5))
-                azimuth = []
-                zenith = []
-                zplot = []
-                zvalue_lowest = 1000000
-                print("first iteration for direction fit  ...")
-                for a in az:
-                    for z in zen:
-                        zvalue = minimizer([z, a], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure)
-                        if zvalue < zvalue_lowest:
-                            global_az = a
-                            global_zen = z
-                            zvalue_lowest = zvalue
+                #energies = np.logspace(17, 19, 50)
+                #zvalues = []
+                #az = np.arange(simulated_azimuth - np.deg2rad(5), simulated_azimuth + np.deg2rad(5), np.deg2rad(.5))
+                #zen = np.arange(simulated_zenith - np.deg2rad(5), simulated_zenith + np.deg2rad(5), np.deg2rad(.5))
+                #azimuth = []
+                #zenith = []
+                #zplot = []
+                #zvalue_lowest = 1000000
+                #print("first iteration for direction fit  ...")
+                #for a in az:
+                #    for z in zen:
+                #        zvalue = minimizer([z, a], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure)
+                 #       if zvalue < zvalue_lowest:
+                 #           global_az = a
+                 #           global_zen = z
+                 #           zvalue_lowest = zvalue
                 
                 
                 
-                rec_zenith = global_zen
-                rec_azimuth = global_az
-                print("     reconstructed zenith = {}".format(np.rad2deg(rec_zenith)))
-                print("     reconstructed azimuth = {}".format(np.rad2deg(rec_azimuth)))
-                print("min value", zvalue_lowest)
-                
-                energies = np.logspace(17, 19, 50)
-                zvalues = []
-                for ener in energies:
-                    zvalues.append(minimizer([ener],  simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = 'seperate', timing_k = False, first_iter = False))
+                #rec_zenith = global_zen
+                #rec_azimuth = global_az
+                #print("     reconstructed zenith = {}".format(np.rad2deg(rec_zenith)))
+                #print("     reconstructed azimuth = {}".format(np.rad2deg(rec_azimuth)))
+                #print("min value", zvalue_lowest)
+               # 
+                #energies = np.logspace(17, 19, 50)
+                #zvalues = []
+                #for ener in energies:
+                 #   zvalues.append(minimizer([ener],  simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = 'seperate', timing_k = False, first_iter = False))
             
                 #results = opt.minimize(minimizer, x0 = ( [1*10**19]), args = ( simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], 'True', 'seperate'), method = 'Nelder-Mead', options = options, bounds = bnds)
-                rec_energy = energies[np.argmin(zvalues)]#results.x[0] ## we need the L-BFGS-B method because we want to set bounds
+                rec_energy = 10**18#simulated_energy#energies[np.argmin(zvalues)]#results.x[0] ## we need the L-BFGS-B method because we want to set bounds
                 
                 zvalues = []
                 az = np.arange(simulated_azimuth - np.deg2rad(5), simulated_azimuth + np.deg2rad(5), np.deg2rad(.5))
@@ -331,7 +366,7 @@ class neutrinoDirectionReconstructor:
                 azimuth = []
                 zenith = []
                 zplot = []
-                zvalue_lowest = 1000000
+                zvalue_lowest = np.inf
                 print("second iteration for direction fit  ...")
                 for a in az:
                     for z in zen:
@@ -379,7 +414,7 @@ class neutrinoDirectionReconstructor:
                 cbar.set_label('-1 * log(L)', rotation=270)
                 fig.tight_layout()
                 
-                fig.savefig("direction_{}.pdf".format(event.get_id()))
+                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/bash_plots/amp/direction_{}.pdf".format(event.get_id()))
                 
                 
                 print("     reconstructed zenith = {}".format(np.rad2deg(rec_zenith)))
@@ -423,14 +458,15 @@ class neutrinoDirectionReconstructor:
             print("FMIN RECONSTRUCTED VALUE", fminrec)
             
             
-            
-            
+            station.set_parameter(stnp.nu_zenith, rec_zenith)
+            station.set_parameter(stnp.nu_azimuth, rec_azimuth)
+            station.set_parameter(stnp.nu_energy, rec_energy)
             
             
             minimizer_plot = 0
             if minimizer_plot:
-                az = np.arange(simulated_azimuth - np.deg2rad(5), simulated_azimuth + np.deg2rad(5), np.deg2rad(.5))
-                zen = np.arange(simulated_zenith - np.deg2rad(5), simulated_zenith + np.deg2rad(5), np.deg2rad(.5))
+                az = np.arange(simulated_azimuth , simulated_azimuth + np.deg2rad(10), np.deg2rad(.5))
+                zen = np.arange(simulated_zenith, simulated_zenith + np.deg2rad(10), np.deg2rad(.5))
                 azimuth = []
                 zenith = []
                 zplot = []
@@ -482,9 +518,9 @@ class neutrinoDirectionReconstructor:
             
             debug_plot = 1
             if debug_plot:
-                print("reconstruction value global", minimizer([global_zen, global_az], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = fitprocedure))
-                print("reconstruction value simulation", minimizer([simulated_zenith,simulated_azimuth], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure))
-                tracglobal = minimizer([global_zen, global_az], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = fitprocedure)
+                #print("reconstruction value global", minimizer([global_zen, global_az], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = fitprocedure))
+                print("reconstruction value simulation", minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure))
+               # tracglobal = minimizer([global_zen, global_az], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = fitprocedure)
                 
                 tracglobal_k = minimizer([rec_zenith, rec_azimuth, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = fitprocedure, timing_k = True)
                 
@@ -496,7 +532,7 @@ class neutrinoDirectionReconstructor:
                     if channel.get_id() in use_channels: # use channels needs to be sorted
                         
                         k1 = tracglobal_k[channel.get_id()]
-                        print("k1", k1)
+                       # print("k1", k1)
                         if len(k1) > 0:
                             k = k1[0]
                             ax[ich][0].plot(channel.get_trace(), label = 'data', color = 'black')
@@ -506,7 +542,7 @@ class neutrinoDirectionReconstructor:
                             #ax[ich][0].plot(tracglobal[ich], label = 'global reconstruction', color = 'lightblue')
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[ich]), 1/sampling_rate), abs(fft.time2freq(tracsim[ich], sampling_rate)), color = 'orange')
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[ich]), 1/sampling_rate), abs(fft.time2freq(tracrec[ich], sampling_rate)), color = 'green')
-                            ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
+                            #ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
                             N = 50
                             ax[ich][0].axvline((k-N), label = 'fitting area')
                             ax[ich][0].axvline((k+2*N))
@@ -521,7 +557,7 @@ class neutrinoDirectionReconstructor:
                             #ax[ich][1].plot(tracglobal[ich], label = 'global reconstruction', color = 'lightblue')
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[ich]), 1/sampling_rate), abs(fft.time2freq(tracsim[ich], sampling_rate)), color = 'orange')
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[ich]), 1/sampling_rate), abs(fft.time2freq(tracrec[ich], sampling_rate)), color = 'green')
-                            ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
+                           # ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
                             
                             
                             N = 50
@@ -533,7 +569,7 @@ class neutrinoDirectionReconstructor:
                         
                         ich += 1
                 fig.tight_layout()
-                fig.savefig("fit_{}.pdf".format(event.get_id()))
+                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/bash_plots/amp/fit_{}.pdf".format(event.get_id()))
 
 
 
