@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="NuRadioReco.detector package" href="NuRadioReco.detector.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> NuRadioReco
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> NuRadioReco
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,6 +90,12 @@
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
@@ -202,14 +210,14 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -232,7 +240,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.amp">NuRadioReco.detector.amp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.antennapattern">NuRadioReco.detector.antennapattern module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector">NuRadioReco.detector.detector module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-detector-sql-module">NuRadioReco.detector.detector_sql module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector_sql">NuRadioReco.detector.detector_sql module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.filterresponse">NuRadioReco.detector.filterresponse module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.generic_detector">NuRadioReco.detector.generic_detector module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-sql-to-json-module">NuRadioReco.detector.sql_to_json module</a></li>
@@ -248,7 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -261,7 +269,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/detector_database_fields.html">Properties of Detector Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector_database_fields.html#further-discussion-on-antenna-coordinates">Further Discussion on Antenna Coordinates</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#adc-table">ADC Table</a></li>
 </ul>
 </li>
@@ -270,6 +281,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -308,7 +320,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="pages/code_documentation.html">Code Documentation</a> &raquo;</li>
         
@@ -342,90 +354,91 @@
 <span id="nuradioreco-modules-trigger-highlowthreshold-module"></span><h2>NuRadioReco.modules.trigger.highLowThreshold module<a class="headerlink" href="#module-NuRadioReco.modules.trigger.highLowThreshold" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.get_high_low_triggers">
-<code class="descclassname">NuRadioReco.modules.trigger.highLowThreshold.</code><code class="descname">get_high_low_triggers</code><span class="sig-paren">(</span><em>trace</em>, <em>high_threshold</em>, <em>low_threshold</em>, <em>time_coincidence=5</em>, <em>dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.get_high_low_triggers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.highLowThreshold.</code><code class="sig-name descname">get_high_low_triggers</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">high_threshold</em>, <em class="sig-param">low_threshold</em>, <em class="sig-param">time_coincidence=5</em>, <em class="sig-param">dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.get_high_low_triggers" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculats a high low trigger in a time coincidence window</p>
-<dl class="docutils">
-<dt>trace: array of floats</dt>
-<dd>the signal trace</dd>
-<dt>high_threshold: float</dt>
-<dd>the high threshold</dd>
-<dt>low_threshold: float</dt>
-<dd>the low threshold</dd>
-<dt>time_coincidence: float</dt>
-<dd>the time coincidence window between a high + low</dd>
-<dt>dt: float</dt>
-<dd>the width of a time bin (inverse of sampling rate)</dd>
+<dl class="simple">
+<dt>trace: array of floats</dt><dd><p>the signal trace</p>
+</dd>
+<dt>high_threshold: float</dt><dd><p>the high threshold</p>
+</dd>
+<dt>low_threshold: float</dt><dd><p>the low threshold</p>
+</dd>
+<dt>time_coincidence: float</dt><dd><p>the time coincidence window between a high + low</p>
+</dd>
+<dt>dt: float</dt><dd><p>the width of a time bin (inverse of sampling rate)</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>triggered bins: array of bools</dt>
-<dd>the bins where the trigger condition is satisfied</dd>
+<dl class="simple">
+<dt>triggered bins: array of bools</dt><dd><p>the bins where the trigger condition is satisfied</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.get_majority_logic">
-<code class="descclassname">NuRadioReco.modules.trigger.highLowThreshold.</code><code class="descname">get_majority_logic</code><span class="sig-paren">(</span><em>tts</em>, <em>number_of_coincidences=2</em>, <em>time_coincidence=32</em>, <em>dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.get_majority_logic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.highLowThreshold.</code><code class="sig-name descname">get_majority_logic</code><span class="sig-paren">(</span><em class="sig-param">tts</em>, <em class="sig-param">number_of_coincidences=2</em>, <em class="sig-param">time_coincidence=32</em>, <em class="sig-param">dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.get_majority_logic" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculates a majority logic trigger</p>
-<dl class="docutils">
-<dt>tts: array/list of array of bools</dt>
-<dd>an array of bools that indicate a single channel trigger per channel</dd>
-<dt>number_of_coincidences: int (default: 2)</dt>
-<dd>the number of coincidences between channels</dd>
-<dt>time_coincidence: float</dt>
-<dd>the time coincidence window between channels</dd>
-<dt>dt: float</dt>
-<dd>the width of a time bin (inverse of sampling rate)</dd>
+<dl class="simple">
+<dt>tts: array/list of array of bools</dt><dd><p>an array of bools that indicate a single channel trigger per channel</p>
+</dd>
+<dt>number_of_coincidences: int (default: 2)</dt><dd><p>the number of coincidences between channels</p>
+</dd>
+<dt>time_coincidence: float</dt><dd><p>the time coincidence window between channels</p>
+</dd>
+<dt>dt: float</dt><dd><p>the width of a time bin (inverse of sampling rate)</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>triggerd: bool</dt>
-<dd>returns True if majority logic is fulfilled</dd>
-<dt>triggerd_bins: array of ints</dt>
-<dd>the bins that fulfilled the trigger</dd>
-<dt>triggered_times: array of floats</dt>
-<dd>the trigger times</dd>
+<dl class="simple">
+<dt>triggerd: bool</dt><dd><p>returns True if majority logic is fulfilled</p>
+</dd>
+<dt>triggerd_bins: array of ints</dt><dd><p>the bins that fulfilled the trigger</p>
+</dd>
+<dt>triggered_times: array of floats</dt><dd><p>the trigger times</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.trigger.highLowThreshold.</code><code class="descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the trigger of an event.
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.trigger.highLowThreshold.</code><code class="sig-name descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculates the trigger of an event.
 Uses the ARIANNA trigger logic, that a single antenna needs to cross a high and a low threshold value,
 and then coincidences between antennas can be required.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>log_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">log_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">threshold_high=0.06</em>, <em class="sig-param">threshold_low=-0.06</em>, <em class="sig-param">high_low_window=5</em>, <em class="sig-param">coinc_window=200</em>, <em class="sig-param">number_concidences=2</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">trigger_name='default_high_low'</em>, <em class="sig-param">set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARIANNA trigger logic</p>
-<dl class="docutils">
-<dt>threshold_high: float</dt>
-<dd>the threshold voltage that needs to be crossed on a single channel on the high side</dd>
-<dt>threshold_low: float</dt>
-<dd>the threshold voltage that needs to be crossed on a single channel on the low side</dd>
-<dt>high_low_window: float</dt>
-<dd>time window in which a high+low crossing needs to occur to trigger a channel</dd>
-<dt>coinc_window: float</dt>
-<dd>time window in which number_concidences channels need to trigger</dd>
-<dt>number_concidences: int</dt>
-<dd>number of channels that are requried in coincidence to trigger a station</dd>
-<dt>triggered_channels: array of ints or None</dt>
-<dd>channels ids that are triggered on, if None trigger will run on all channels</dd>
-<dt>cut_trace: bool</dt>
-<dd>if true, trace is cut to the correct length (50ns before the trigger,
-max trace length is set according to detector description)</dd>
-<dt>trigger_name: string</dt>
-<dd>a unique name of this particular trigger</dd>
-<dt>set_not_triggered: bool (default: False)</dt>
-<dd>if True not trigger simulation will be performed and this trigger will be set to not_triggered</dd>
+<dl class="simple">
+<dt>threshold_high: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the high side</p>
+</dd>
+<dt>threshold_low: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the low side</p>
+</dd>
+<dt>high_low_window: float</dt><dd><p>time window in which a high+low crossing needs to occur to trigger a channel</p>
+</dd>
+<dt>coinc_window: float</dt><dd><p>time window in which number_concidences channels need to trigger</p>
+</dd>
+<dt>number_concidences: int</dt><dd><p>number of channels that are requried in coincidence to trigger a station</p>
+</dd>
+<dt>triggered_channels: array of ints or None</dt><dd><p>channels ids that are triggered on, if None trigger will run on all channels</p>
+</dd>
+<dt>cut_trace: bool</dt><dd><p>if true, trace is cut to the correct length (50ns before the trigger,
+max trace length is set according to detector description)</p>
+</dd>
+<dt>trigger_name: string</dt><dd><p>a unique name of this particular trigger</p>
+</dd>
+<dt>set_not_triggered: bool (default: False)</dt><dd><p>if True not trigger simulation will be performed and this trigger will be set to not_triggered</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -436,80 +449,81 @@ max trace length is set according to detector description)</dd>
 <span id="nuradioreco-modules-trigger-multihighlowthreshold-module"></span><h2>NuRadioReco.modules.trigger.multiHighLowThreshold module<a class="headerlink" href="#module-NuRadioReco.modules.trigger.multiHighLowThreshold" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.get_high_triggers">
-<code class="descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="descname">get_high_triggers</code><span class="sig-paren">(</span><em>trace</em>, <em>threshold</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_high_triggers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="sig-name descname">get_high_triggers</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">threshold</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_high_triggers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.get_low_triggers">
-<code class="descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="descname">get_low_triggers</code><span class="sig-paren">(</span><em>trace</em>, <em>threshold</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_low_triggers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="sig-name descname">get_low_triggers</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">threshold</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_low_triggers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.get_multiple_high_low_trigger">
-<code class="descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="descname">get_multiple_high_low_trigger</code><span class="sig-paren">(</span><em>trace</em>, <em>high_threshold</em>, <em>low_threashold</em>, <em>n_high_lows</em>, <em>time_coincidence=10</em>, <em>dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_multiple_high_low_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="sig-name descname">get_multiple_high_low_trigger</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">high_threshold</em>, <em class="sig-param">low_threashold</em>, <em class="sig-param">n_high_lows</em>, <em class="sig-param">time_coincidence=10</em>, <em class="sig-param">dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_multiple_high_low_trigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculats a multiple high low threshold crossings in a time coincidence window</p>
-<dl class="docutils">
-<dt>trace: array of floats</dt>
-<dd>the signal trace</dd>
-<dt>high_threshold: float</dt>
-<dd>the high threshold</dd>
-<dt>low_threshold: float</dt>
-<dd>the low threshold</dd>
-<dt>n_high_lows: int</dt>
-<dd>the required number of high or low crossings in a given coincidence window</dd>
-<dt>time_coincidence: float</dt>
-<dd>the time coincidence window between the high or low threshold crossings</dd>
-<dt>dt: float</dt>
-<dd>the width of a time bin (inverse of sampling rate)</dd>
+<dl class="simple">
+<dt>trace: array of floats</dt><dd><p>the signal trace</p>
+</dd>
+<dt>high_threshold: float</dt><dd><p>the high threshold</p>
+</dd>
+<dt>low_threshold: float</dt><dd><p>the low threshold</p>
+</dd>
+<dt>n_high_lows: int</dt><dd><p>the required number of high or low crossings in a given coincidence window</p>
+</dd>
+<dt>time_coincidence: float</dt><dd><p>the time coincidence window between the high or low threshold crossings</p>
+</dd>
+<dt>dt: float</dt><dd><p>the width of a time bin (inverse of sampling rate)</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>triggered bins: array of bools</dt>
-<dd>the bins where the trigger condition is satisfied</dd>
+<dl class="simple">
+<dt>triggered bins: array of bools</dt><dd><p>the bins where the trigger condition is satisfied</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the trigger of an event.
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="sig-name descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculates the trigger of an event.
 Uses the ARIANNA trigger logic, that a single antenna needs to cross a high and a low threshold value,
 and then coincidences between antennas can be required.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, threshold_high=0.06, threshold_low=-0.06, high_low_window=5, n_high_lows=5, coinc_window=200, number_concidences=2, triggered_channels=[0, 1, 2, 3], trigger_name='default_high_low', set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARIANNA trigger logic</p>
-<dl class="docutils">
-<dt>threshold_high: float</dt>
-<dd>the threshold voltage that needs to be crossed on a single channel on the high side</dd>
-<dt>threshold_low: float</dt>
-<dd>the threshold voltage that needs to be crossed on a single channel on the low side</dd>
-<dt>high_low_window: float</dt>
-<dd>time window in which a high+low crossing needs to occur to trigger a channel</dd>
-<dt>n_high_lows: int</dt>
-<dd>the required number of high or low crossings in a given coincidence window</dd>
-<dt>coinc_window: float</dt>
-<dd>time window in which number_concidences channels need to trigger</dd>
-<dt>number_concidences: int</dt>
-<dd>number of channels that are requried in coincidence to trigger a station</dd>
-<dt>triggered_channels: array of ints or None</dt>
-<dd>channels ids that are triggered on, if None trigger will run on all channels</dd>
-<dt>cut_trace: bool</dt>
-<dd>if true, trace is cut to the correct length (50ns before the trigger,
-max trace length is set according to detector description)</dd>
-<dt>trigger_name: string</dt>
-<dd>a unique name of this particular trigger</dd>
-<dt>set_not_triggered: bool (default: False)</dt>
-<dd>if True not trigger simulation will be performed and this trigger will be set to not_triggered</dd>
+<dl class="simple">
+<dt>threshold_high: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the high side</p>
+</dd>
+<dt>threshold_low: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the low side</p>
+</dd>
+<dt>high_low_window: float</dt><dd><p>time window in which a high+low crossing needs to occur to trigger a channel</p>
+</dd>
+<dt>n_high_lows: int</dt><dd><p>the required number of high or low crossings in a given coincidence window</p>
+</dd>
+<dt>coinc_window: float</dt><dd><p>time window in which number_concidences channels need to trigger</p>
+</dd>
+<dt>number_concidences: int</dt><dd><p>number of channels that are requried in coincidence to trigger a station</p>
+</dd>
+<dt>triggered_channels: array of ints or None</dt><dd><p>channels ids that are triggered on, if None trigger will run on all channels</p>
+</dd>
+<dt>cut_trace: bool</dt><dd><p>if true, trace is cut to the correct length (50ns before the trigger,
+max trace length is set according to detector description)</p>
+</dd>
+<dt>trigger_name: string</dt><dd><p>a unique name of this particular trigger</p>
+</dd>
+<dt>set_not_triggered: bool (default: False)</dt><dd><p>if True not trigger simulation will be performed and this trigger will be set to not_triggered</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -520,49 +534,50 @@ max trace length is set according to detector description)</dd>
 <span id="nuradioreco-modules-trigger-simplethreshold-module"></span><h2>NuRadioReco.modules.trigger.simpleThreshold module<a class="headerlink" href="#module-NuRadioReco.modules.trigger.simpleThreshold" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.get_threshold_triggers">
-<code class="descclassname">NuRadioReco.modules.trigger.simpleThreshold.</code><code class="descname">get_threshold_triggers</code><span class="sig-paren">(</span><em>trace</em>, <em>threshold</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.get_threshold_triggers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.simpleThreshold.</code><code class="sig-name descname">get_threshold_triggers</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">threshold</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.get_threshold_triggers" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculats a simple threshold trigger</p>
-<dl class="docutils">
-<dt>trace: array of floats</dt>
-<dd>the signal trace</dd>
-<dt>threshold: float</dt>
-<dd>the threshold</dd>
+<dl class="simple">
+<dt>trace: array of floats</dt><dd><p>the signal trace</p>
+</dd>
+<dt>threshold: float</dt><dd><p>the threshold</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>triggered bins: array of bools</dt>
-<dd>the bins where the trigger condition is satisfied</dd>
+<dl class="simple">
+<dt>triggered bins: array of bools</dt><dd><p>the bins where the trigger condition is satisfied</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.trigger.simpleThreshold.</code><code class="descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate a very simple amplitude trigger.</p>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.trigger.simpleThreshold.</code><code class="sig-name descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculate a very simple amplitude trigger.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">threshold=0.06</em>, <em class="sig-param">number_concidences=1</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">coinc_window=200</em>, <em class="sig-param">trigger_name='default_simple_threshold'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate simple trigger logic, no time window, just threshold in all channels</p>
-<dl class="docutils">
-<dt>number_concidences: int</dt>
-<dd>number of channels that are requried in coincidence to trigger a station</dd>
-<dt>threshold: float</dt>
-<dd>threshold above (or below) a trigger is issued, absolute amplitude</dd>
-<dt>triggered_channels: array of ints or None</dt>
-<dd>channels ids that are triggered on, if None trigger will run on all channels</dd>
-<dt>coinc_window: float</dt>
-<dd>time window in which number_concidences channels need to trigger</dd>
-<dt>trigger_name: string</dt>
-<dd>a unique name of this particular trigger</dd>
+<dl class="simple">
+<dt>number_concidences: int</dt><dd><p>number of channels that are requried in coincidence to trigger a station</p>
+</dd>
+<dt>threshold: float</dt><dd><p>threshold above (or below) a trigger is issued, absolute amplitude</p>
+</dd>
+<dt>triggered_channels: array of ints or None</dt><dd><p>channels ids that are triggered on, if None trigger will run on all channels</p>
+</dd>
+<dt>coinc_window: float</dt><dd><p>time window in which number_concidences channels need to trigger</p>
+</dd>
+<dt>trigger_name: string</dt><dd><p>a unique name of this particular trigger</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -594,11 +609,19 @@ max trace length is set according to detector description)</dd>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, The NuRadioReco Team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -609,7 +632,6 @@ max trace length is set according to detector description)</dd>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

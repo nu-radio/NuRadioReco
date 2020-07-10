@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="NuRadioReco.modules.trigger package" href="NuRadioReco.modules.trigger.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> NuRadioReco
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> NuRadioReco
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,6 +90,12 @@
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
@@ -202,14 +210,14 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -232,7 +240,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.amp">NuRadioReco.detector.amp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.antennapattern">NuRadioReco.detector.antennapattern module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector">NuRadioReco.detector.detector module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-detector-sql-module">NuRadioReco.detector.detector_sql module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector_sql">NuRadioReco.detector.detector_sql module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.filterresponse">NuRadioReco.detector.filterresponse module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.generic_detector">NuRadioReco.detector.generic_detector module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-sql-to-json-module">NuRadioReco.detector.sql_to_json module</a></li>
@@ -248,7 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -261,7 +269,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/detector_database_fields.html">Properties of Detector Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector_database_fields.html#further-discussion-on-antenna-coordinates">Further Discussion on Antenna Coordinates</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#adc-table">ADC Table</a></li>
 </ul>
 </li>
@@ -270,6 +281,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -308,7 +320,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="pages/code_documentation.html">Code Documentation</a> &raquo;</li>
         
@@ -342,90 +354,106 @@
 <span id="nuradioreco-modules-phasedarray-triggersimulator-module"></span><h2>NuRadioReco.modules.phasedarray.triggerSimulator module<a class="headerlink" href="#module-NuRadioReco.modules.phasedarray.triggerSimulator" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.phasedarray.triggerSimulator.</code><code class="descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the trigger for a phased array with a primary and a secondary beam.
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.phasedarray.triggerSimulator.</code><code class="sig-name descname">triggerSimulator</code><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculates the trigger for a phased array with a primary and a secondary beam.
 The channels that participate in both beams and the pointing angle for each
 subbeam can be specified.</p>
 <p>See <a class="reference external" href="https://arxiv.org/pdf/1809.04573.pdf">https://arxiv.org/pdf/1809.04573.pdf</a></p>
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em>, <em>pre_trigger_time=100</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em>, <em class="sig-param">pre_trigger_time=100</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.check_vertical_string">
-<code class="descname">check_vertical_string</code><span class="sig-paren">(</span><em>station</em>, <em>det</em>, <em>triggered_channels</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.check_vertical_string" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">check_vertical_string</code><span class="sig-paren">(</span><em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">triggered_channels</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.check_vertical_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the triggering antennas lie in a straight vertical line</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_antenna_positions">
-<code class="descname">get_antenna_positions</code><span class="sig-paren">(</span><em>station</em>, <em>det</em>, <em>triggered_channels=None</em>, <em>component=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_antenna_positions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_antenna_positions</code><span class="sig-paren">(</span><em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">component=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_antenna_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the vertical coordinates of the antennas of the detector</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_beam_rolls">
-<code class="descname">get_beam_rolls</code><span class="sig-paren">(</span><em>station</em>, <em>det</em>, <em>triggered_channels</em>, <em>phasing_angles=array([-0.9250245</em>, <em>-0.76059219</em>, <em>-0.61880925</em>, <em>-0.49017544</em>, <em>-0.36987162</em>, <em>-0.25496423</em>, <em>-0.14341699</em>, <em>-0.03364725</em>, <em>0.07571637</em>, <em>0.1859996</em>, <em>0.29863294</em>, <em>0.41533762</em>, <em>0.53842424</em>, <em>0.67138216</em>, <em>0.82030475])</em>, <em>ref_index=1.55</em>, <em>trigger_adc=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_beam_rolls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_beam_rolls</code><span class="sig-paren">(</span><em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">triggered_channels</em>, <em class="sig-param">phasing_angles=array([-0.9250245</em>, <em class="sig-param">-0.76059219</em>, <em class="sig-param">-0.61880925</em>, <em class="sig-param">-0.49017544</em>, <em class="sig-param">-0.36987162</em>, <em class="sig-param">-0.25496423</em>, <em class="sig-param">-0.14341699</em>, <em class="sig-param">-0.03364725</em>, <em class="sig-param">0.07571637</em>, <em class="sig-param">0.1859996</em>, <em class="sig-param">0.29863294</em>, <em class="sig-param">0.41533762</em>, <em class="sig-param">0.53842424</em>, <em class="sig-param">0.67138216</em>, <em class="sig-param">0.82030475])</em>, <em class="sig-param">ref_index=1.55</em>, <em class="sig-param">trigger_adc=False</em>, <em class="sig-param">upsampling_factor=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_beam_rolls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the delays needed for phasing the array.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_channel_trace_start_time">
-<code class="descname">get_channel_trace_start_time</code><span class="sig-paren">(</span><em>station</em>, <em>triggered_channels</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_channel_trace_start_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_channel_trace_start_time</code><span class="sig-paren">(</span><em class="sig-param">station</em>, <em class="sig-param">triggered_channels</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.get_channel_trace_start_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.phased_trigger">
-<code class="descname">phased_trigger</code><span class="sig-paren">(</span><em>station</em>, <em>det</em>, <em>beam_rolls</em>, <em>sec_beam_rolls</em>, <em>triggered_channels</em>, <em>threshold</em>, <em>window_time=10.67</em>, <em>cut_times=(None</em>, <em>None)</em>, <em>trigger_adc=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.phased_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">phased_trigger</code><span class="sig-paren">(</span><em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">beam_rolls</em>, <em class="sig-param">sec_beam_rolls</em>, <em class="sig-param">triggered_channels</em>, <em class="sig-param">threshold</em>, <em class="sig-param">window_time=10.67</em>, <em class="sig-param">cut_times=(None</em>, <em class="sig-param">None)</em>, <em class="sig-param">trigger_adc=False</em>, <em class="sig-param">upsampling_factor=None</em>, <em class="sig-param">nyquist_zone=None</em>, <em class="sig-param">bandwidth_edge=0.02</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.phased_trigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the trigger for a certain phasing configuration.
 Beams are formed. A set of overlapping time windows is created and
 the square of the voltage is averaged within each window.
 If the average surpasses the given threshold squared times the
 number of antennas in any of these windows, a trigger is created.
 This is an ARA-like power trigger.</p>
-<dl class="docutils">
-<dt>station: Station object</dt>
-<dd>Description of the current station</dd>
-<dt>det: Detector object</dt>
-<dd>Description of the current detector</dd>
-<dt>beam_rolls: array of ints</dt>
-<dd>Contains the integers for rolling the voltage traces (delays)</dd>
-<dt>sec_beam_rolls: array of ints</dt>
-<dd>Contains the secondary beam integers for rolling the voltage traces (delays)</dd>
-<dt>triggered_channels: array of ints</dt>
-<dd>Ids of the triggering channels</dd>
-<dt>threshold: float</dt>
-<dd>Voltage threshold for a SINGLE antenna. It will be rescaled with the
-square root of the number of antennas.</dd>
-<dt>window_time: float</dt>
-<dd>Width of the time window used in the power integration</dd>
-<dt>cut_times: (float, float) tuple</dt>
-<dd>Times for cutting the trace. This helps reducing the number of noise-induced triggers.</dd>
-<dt>trigger_adc: bool</dt>
-<dd>If True, analog to digital conversion is performed. It must be specified in the
-detector file. See analogToDigitalConverter module for information</dd>
+<dl class="simple">
+<dt>station: Station object</dt><dd><p>Description of the current station</p>
+</dd>
+<dt>det: Detector object</dt><dd><p>Description of the current detector</p>
+</dd>
+<dt>beam_rolls: array of ints</dt><dd><p>Contains the integers for rolling the voltage traces (delays)</p>
+</dd>
+<dt>sec_beam_rolls: array of ints</dt><dd><p>Contains the secondary beam integers for rolling the voltage traces (delays)</p>
+</dd>
+<dt>triggered_channels: array of ints</dt><dd><p>Ids of the triggering channels</p>
+</dd>
+<dt>threshold: float</dt><dd><p>Voltage threshold for a SINGLE antenna. It will be rescaled with the
+square root of the number of antennas.</p>
+</dd>
+<dt>window_time: float</dt><dd><p>Width of the time window used in the power integration</p>
+</dd>
+<dt>cut_times: (float, float) tuple</dt><dd><p>Times for cutting the trace. This helps reducing the number of noise-induced triggers.</p>
+</dd>
+<dt>trigger_adc: bool</dt><dd><p>If True, analog to digital conversion is performed. It must be specified in the
+detector file. See analogToDigitalConverter module for information</p>
+</dd>
+<dt>upsampling_factor: integer</dt><dd><p>Upsampling factor. The trace will be a upsampled to a
+sampling frequency int_factor times higher than the original one
+before conversion to digital</p>
+</dd>
+<dt>nyquist_zone: integer</dt><dd><p>To be used with the trigger_adc function
+If None, the trace is not filtered
+If n, it uses the n-th Nyquist zone by applying an 8th-order
+Butterworth filter with critical frequencies:
+(n-1) * adc_sampling_frequency/2 + bandwidth_edge
+and
+n * adc_sampling_frequency/2 - bandwidth_edge</p>
+</dd>
+<dt>bandwidth_edge: float</dt><dd><p>Frequency interval used for filtering the chosen Nyquist zone.
+See above</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>is_triggered: bool</dt>
-<dd>True if the triggering condition is met</dd>
-<dt>trigger_delays: dictionary</dt>
-<dd>the delays for the primary channels that have caused a trigger.
-If there is no trigger, it’s an empty dictionary</dd>
-<dt>sec_trigger_delays: dictionary</dt>
-<dd>the delays for the secondary channels that have caused a trigger.
-If there is no trigger or no secondary channels, it’s an empty dictionary</dd>
+<dl class="simple">
+<dt>is_triggered: bool</dt><dd><p>True if the triggering condition is met</p>
+</dd>
+<dt>trigger_delays: dictionary</dt><dd><p>the delays for the primary channels that have caused a trigger.
+If there is no trigger, it’s an empty dictionary</p>
+</dd>
+<dt>sec_trigger_delays: dictionary</dt><dd><p>the delays for the secondary channels that have caused a trigger.
+If there is no trigger or no secondary channels, it’s an empty dictionary</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">threshold=0.06</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">secondary_channels=None</em>, <em class="sig-param">trigger_name='simple_phased_threshold'</em>, <em class="sig-param">phasing_angles=array([-0.9250245</em>, <em class="sig-param">-0.76059219</em>, <em class="sig-param">-0.61880925</em>, <em class="sig-param">-0.49017544</em>, <em class="sig-param">-0.36987162</em>, <em class="sig-param">-0.25496423</em>, <em class="sig-param">-0.14341699</em>, <em class="sig-param">-0.03364725</em>, <em class="sig-param">0.07571637</em>, <em class="sig-param">0.1859996</em>, <em class="sig-param">0.29863294</em>, <em class="sig-param">0.41533762</em>, <em class="sig-param">0.53842424</em>, <em class="sig-param">0.67138216</em>, <em class="sig-param">0.82030475])</em>, <em class="sig-param">secondary_phasing_angles=array([-0.84280835</em>, <em class="sig-param">-0.68970072</em>, <em class="sig-param">-0.55449235</em>, <em class="sig-param">-0.43002353</em>, <em class="sig-param">-0.31241792</em>, <em class="sig-param">-0.19919061</em>, <em class="sig-param">-0.08853212</em>, <em class="sig-param">0.02103456</em>, <em class="sig-param">0.13085798</em>, <em class="sig-param">0.24231627</em>, <em class="sig-param">0.35698528</em>, <em class="sig-param">0.47688093</em>, <em class="sig-param">0.6049032</em>, <em class="sig-param">0.74584345</em>, <em class="sig-param">0.88139127])</em>, <em class="sig-param">set_not_triggered=False</em>, <em class="sig-param">window_time=10.67</em>, <em class="sig-param">coupled=True</em>, <em class="sig-param">ref_index=1.75</em>, <em class="sig-param">cut_times=(None</em>, <em class="sig-param">None)</em>, <em class="sig-param">trigger_adc=False</em>, <em class="sig-param">upsampling_factor=None</em>, <em class="sig-param">nyquist_zone=None</em>, <em class="sig-param">bandwidth_edge=0.02</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.phasedarray.triggerSimulator.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulates phased array trigger for each event</p>
 <p>Several channels are phased by delaying their signals by an amount given
 by a pointing angle. Several pointing angles are possible in order to cover
@@ -433,45 +461,60 @@ the sky. The array triggered_channels controls the channels that are phased,
 according to the angles phasing_angles. A secondary phasing that is added
 to this primary phasing is possible, and it is controlled by the parametres
 secondary_channels and secondary_phasing_angles.</p>
-<dl class="docutils">
-<dt>evt: Event object</dt>
-<dd>Description of the current event</dd>
-<dt>station: Station object</dt>
-<dd>Description of the current station</dd>
-<dt>det: Detector object</dt>
-<dd>Description of the current detector</dd>
-<dt>threshold: float</dt>
-<dd>threshold above (or below) a trigger is issued, absolute amplitude</dd>
-<dt>triggered_channels: array of ints</dt>
-<dd>channels ids of the channels that form the primary phasing array
-if None, all channels are taken</dd>
-<dt>secondary_channels: array of int</dt>
-<dd>channel ids of the channels that form the secondary phasing array
-if None, no channels are taken</dd>
-<dt>trigger_name: string</dt>
-<dd>name for the trigger</dd>
-<dt>phasing_angles: array of float</dt>
-<dd>pointing angles for the primary beam</dd>
-<dt>secondary_phasing_angles: array of float</dt>
-<dd>pointing angles for the secondary beam</dd>
-<dt>set_not_triggered: bool (default: False)</dt>
-<dd>if True not trigger simulation will be performed and this trigger will be set to not_triggered</dd>
-<dt>window_time: float</dt>
-<dd>Width of the time window used in the power integration</dd>
-<dt>coupled: bool</dt>
-<dd>if True, the primary sub-beams are paired to the secondary sub-beams.
-if False, the primary sub-beams and the secondary sub-beams specify independent beams.</dd>
-<dt>ref_index: float</dt>
-<dd>refractive index for beam forming</dd>
-<dt>cut_times: (float, float) tuple</dt>
-<dd>Times for cutting the trace. This helps reducing the number of noise-induced triggers.</dd>
-<dt>trigger_adc: bool</dt>
-<dd>If True, analog to digital conversion is performed. It must be specified in the
-detector file. See analogToDigitalConverter module for information</dd>
+<dl class="simple">
+<dt>evt: Event object</dt><dd><p>Description of the current event</p>
+</dd>
+<dt>station: Station object</dt><dd><p>Description of the current station</p>
+</dd>
+<dt>det: Detector object</dt><dd><p>Description of the current detector</p>
+</dd>
+<dt>threshold: float</dt><dd><p>threshold above (or below) a trigger is issued, absolute amplitude</p>
+</dd>
+<dt>triggered_channels: array of ints</dt><dd><p>channels ids of the channels that form the primary phasing array
+if None, all channels are taken</p>
+</dd>
+<dt>secondary_channels: array of int</dt><dd><p>channel ids of the channels that form the secondary phasing array
+if None, no channels are taken</p>
+</dd>
+<dt>trigger_name: string</dt><dd><p>name for the trigger</p>
+</dd>
+<dt>phasing_angles: array of float</dt><dd><p>pointing angles for the primary beam</p>
+</dd>
+<dt>secondary_phasing_angles: array of float</dt><dd><p>pointing angles for the secondary beam</p>
+</dd>
+<dt>set_not_triggered: bool (default: False)</dt><dd><p>if True not trigger simulation will be performed and this trigger will be set to not_triggered</p>
+</dd>
+<dt>window_time: float</dt><dd><p>Width of the time window used in the power integration</p>
+</dd>
+<dt>coupled: bool</dt><dd><p>if True, the primary sub-beams are paired to the secondary sub-beams.
+if False, the primary sub-beams and the secondary sub-beams specify independent beams.</p>
+</dd>
+<dt>ref_index: float</dt><dd><p>refractive index for beam forming</p>
+</dd>
+<dt>cut_times: (float, float) tuple</dt><dd><p>Times for cutting the trace. This helps reducing the number of noise-induced triggers.</p>
+</dd>
+<dt>trigger_adc: bool</dt><dd><p>If True, analog to digital conversion is performed. It must be specified in the
+detector file. See analogToDigitalConverter module for information</p>
+</dd>
+<dt>upsampling_factor: integer</dt><dd><p>Upsampling factor. The trace will be a upsampled to a
+sampling frequency int_factor times higher than the original one
+before conversion to digital</p>
+</dd>
+<dt>nyquist_zone: integer</dt><dd><p>To be used with the trigger_adc function
+If None, the trace is not filtered
+If n, it uses the n-th Nyquist zone by applying an 8th-order
+Butterworth filter with critical frequencies:
+(n-1) * adc_sampling_frequency/2 + bandwidth_edge
+and
+n * adc_sampling_frequency/2 - bandwidth_edge</p>
+</dd>
+<dt>bandwidth_edge: float</dt><dd><p>Frequency interval used for filtering the chosen Nyquist zone.
+See above</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>is_triggered: bool</dt>
-<dd>True if the triggering condition is met</dd>
+<dl class="simple">
+<dt>is_triggered: bool</dt><dd><p>True if the triggering condition is met</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -503,11 +546,19 @@ detector file. See analogToDigitalConverter module for information</dd>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, The NuRadioReco Team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -518,7 +569,6 @@ detector file. See analogToDigitalConverter module for information</dd>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

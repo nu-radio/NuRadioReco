@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="NuRadioReco.modules package" href="NuRadioReco.modules.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> NuRadioReco
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> NuRadioReco
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,6 +90,12 @@
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
@@ -202,14 +210,14 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -232,7 +240,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.amp">NuRadioReco.detector.amp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.antennapattern">NuRadioReco.detector.antennapattern module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector">NuRadioReco.detector.detector module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-detector-sql-module">NuRadioReco.detector.detector_sql module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector_sql">NuRadioReco.detector.detector_sql module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.filterresponse">NuRadioReco.detector.filterresponse module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.generic_detector">NuRadioReco.detector.generic_detector module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-sql-to-json-module">NuRadioReco.detector.sql_to_json module</a></li>
@@ -248,7 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -261,7 +269,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/detector_database_fields.html">Properties of Detector Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector_database_fields.html#further-discussion-on-antenna-coordinates">Further Discussion on Antenna Coordinates</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#adc-table">ADC Table</a></li>
 </ul>
 </li>
@@ -270,6 +281,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -308,7 +320,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="pages/code_documentation.html">Code Documentation</a> &raquo;</li>
         
@@ -340,30 +352,31 @@
 <span id="nuradioreco-framework-base-shower-module"></span><h2>NuRadioReco.framework.base_shower module<a class="headerlink" href="#module-NuRadioReco.framework.base_shower" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.base_shower.BaseShower">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.base_shower.</code><code class="descname">BaseShower</code><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.base_shower.</code><code class="sig-name descname">BaseShower</code><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.framework.base_shower.BaseShower.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_shower.BaseShower.get_parameter">
-<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_shower.BaseShower.has_parameter">
-<code class="descname">has_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.has_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.has_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_shower.BaseShower.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_shower.BaseShower.set_parameter">
-<code class="descname">set_parameter</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.set_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_shower.BaseShower.set_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -373,107 +386,107 @@
 <span id="nuradioreco-framework-base-station-module"></span><h2>NuRadioReco.framework.base_station module<a class="headerlink" href="#module-NuRadioReco.framework.base_station" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.base_station.BaseStation">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.base_station.</code><code class="descname">BaseStation</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.base_station.</code><code class="sig-name descname">BaseStation</code><span class="sig-paren">(</span><em class="sig-param">station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.add_electric_field">
-<code class="descname">add_electric_field</code><span class="sig-paren">(</span><em>electric_field</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.add_electric_field" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_electric_field</code><span class="sig-paren">(</span><em class="sig-param">electric_field</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.add_electric_field" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_ARIANNA_parameter">
-<code class="descname">get_ARIANNA_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_ARIANNA_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_ARIANNA_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_ARIANNA_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_ARIANNA_parameters">
-<code class="descname">get_ARIANNA_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_ARIANNA_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_ARIANNA_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_ARIANNA_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_electric_fields">
-<code class="descname">get_electric_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_electric_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_electric_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_electric_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_electric_fields_for_channels">
-<code class="descname">get_electric_fields_for_channels</code><span class="sig-paren">(</span><em>channel_ids=None</em>, <em>ray_path_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_electric_fields_for_channels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_electric_fields_for_channels</code><span class="sig-paren">(</span><em class="sig-param">channel_ids=None</em>, <em class="sig-param">ray_path_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_electric_fields_for_channels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_id">
-<code class="descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_parameter">
-<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_parameter_error">
-<code class="descname">get_parameter_error</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_parameter_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter_error</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_parameter_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_parameters">
-<code class="descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_station_time">
-<code class="descname">get_station_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_station_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_station_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_station_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_trigger">
-<code class="descname">get_trigger</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_trigger</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_trigger" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.get_triggers">
-<code class="descname">get_triggers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_triggers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_triggers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.get_triggers" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns a dictionary of the triggers. key is the trigger name, value is a trigger object</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.has_ARIANNA_parameter">
-<code class="descname">has_ARIANNA_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_ARIANNA_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_ARIANNA_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_ARIANNA_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.has_parameter">
-<code class="descname">has_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.has_trigger">
-<code class="descname">has_trigger</code><span class="sig-paren">(</span><em>trigger_name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_trigger</code><span class="sig-paren">(</span><em class="sig-param">trigger_name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_trigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>checks if station has a trigger with a certain name</p>
-<dl class="docutils">
-<dt>trigger_name: string</dt>
-<dd>the name of the trigger</dd>
+<dl class="simple">
+<dt>trigger_name: string</dt><dd><p>the name of the trigger</p>
+</dd>
 </dl>
 <p>Returns bool</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.has_triggered">
-<code class="descname">has_triggered</code><span class="sig-paren">(</span><em>trigger_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_triggered" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_triggered</code><span class="sig-paren">(</span><em class="sig-param">trigger_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.has_triggered" title="Permalink to this definition">¶</a></dt>
 <dd><p>convenience function.</p>
-<dl class="docutils">
-<dt>trigger_name: string or None (default None)</dt>
-<dd><ul class="first last simple">
-<li><dl class="first docutils">
-<dt>if None: The function returns False if not trigger was set. If one or multiple triggers were set,</dt>
-<dd>it returns True if any of those triggers triggered</dd>
+<dl class="simple">
+<dt>trigger_name: string or None (default None)</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>if None: The function returns False if not trigger was set. If one or multiple triggers were set,</dt><dd><p>it returns True if any of those triggers triggered</p>
+</dd>
 </dl>
 </li>
-<li>if trigger name is set: return if the trigger with name ‘trigger_name’ has a trigger</li>
+<li><p>if trigger name is set: return if the trigger with name ‘trigger_name’ has a trigger</p></li>
 </ul>
 </dd>
 </dl>
@@ -481,74 +494,74 @@
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.is_cosmic_ray">
-<code class="descname">is_cosmic_ray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.is_cosmic_ray" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_cosmic_ray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.is_cosmic_ray" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.is_neutrino">
-<code class="descname">is_neutrino</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.is_neutrino" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_neutrino</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.is_neutrino" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.remove_parameter">
-<code class="descname">remove_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.remove_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.remove_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.remove_triggers">
-<code class="descname">remove_triggers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.remove_triggers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove_triggers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.remove_triggers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_ARIANNA_parameter">
-<code class="descname">set_ARIANNA_parameter</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_ARIANNA_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_ARIANNA_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_ARIANNA_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_electric_fields">
-<code class="descname">set_electric_fields</code><span class="sig-paren">(</span><em>electric_fields</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_electric_fields" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_electric_fields</code><span class="sig-paren">(</span><em class="sig-param">electric_fields</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_electric_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_is_cosmic_ray">
-<code class="descname">set_is_cosmic_ray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_is_cosmic_ray" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_is_cosmic_ray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_is_cosmic_ray" title="Permalink to this definition">¶</a></dt>
 <dd><p>set station type to cosmic rays (relevant e.g. for refraction into the snow)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_is_neutrino">
-<code class="descname">set_is_neutrino</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_is_neutrino" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_is_neutrino</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_is_neutrino" title="Permalink to this definition">¶</a></dt>
 <dd><p>set station type to neutrino</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_parameter">
-<code class="descname">set_parameter</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_parameter_error">
-<code class="descname">set_parameter_error</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_parameter_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter_error</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_parameter_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_station_time">
-<code class="descname">set_station_time</code><span class="sig-paren">(</span><em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_station_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_station_time</code><span class="sig-paren">(</span><em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_station_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_trigger">
-<code class="descname">set_trigger</code><span class="sig-paren">(</span><em>trigger</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_trigger</code><span class="sig-paren">(</span><em class="sig-param">trigger</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_trigger" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_station.BaseStation.set_triggered">
-<code class="descname">set_triggered</code><span class="sig-paren">(</span><em>triggered=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_triggered" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_triggered</code><span class="sig-paren">(</span><em class="sig-param">triggered=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_station.BaseStation.set_triggered" title="Permalink to this definition">¶</a></dt>
 <dd><p>convenience function to set a simple trigger. The recommended interface is to set triggers through the
 set_trigger() interface.</p>
 </dd></dl>
@@ -560,104 +573,105 @@ set_trigger() interface.</p>
 <span id="nuradioreco-framework-base-trace-module"></span><h2>NuRadioReco.framework.base_trace module<a class="headerlink" href="#module-NuRadioReco.framework.base_trace" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.base_trace.</code><code class="descname">BaseTrace</code><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.base_trace.</code><code class="sig-name descname">BaseTrace</code><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.add_trace_start_time">
-<code class="descname">add_trace_start_time</code><span class="sig-paren">(</span><em>start_time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.add_trace_start_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_trace_start_time</code><span class="sig-paren">(</span><em class="sig-param">start_time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.add_trace_start_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_frequencies">
-<code class="descname">get_frequencies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_frequencies" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_frequencies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_frequencies" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_frequency_spectrum">
-<code class="descname">get_frequency_spectrum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_frequency_spectrum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_frequency_spectrum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_frequency_spectrum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope">
-<code class="descname">get_hilbert_envelope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hilbert_envelope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope_mag">
-<code class="descname">get_hilbert_envelope_mag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope_mag" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hilbert_envelope_mag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope_mag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_number_of_samples">
-<code class="descname">get_number_of_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_number_of_samples" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_number_of_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_number_of_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the number of samples in the time domain</p>
-<dl class="docutils">
-<dt>Return: int</dt>
-<dd>number of samples in time domain</dd>
+<dl class="simple">
+<dt>Return: int</dt><dd><p>number of samples in time domain</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_sampling_rate">
-<code class="descname">get_sampling_rate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_sampling_rate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_sampling_rate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_sampling_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the sampling rate of the trace</p>
-<dl class="docutils">
-<dt>Return: float</dt>
-<dd>sampling rate, i.e., the inverse of the bin width</dd>
+<dl class="simple">
+<dt>Return: float</dt><dd><p>sampling rate, i.e., the inverse of the bin width</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_times">
-<code class="descname">get_times</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_times" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_times</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_times" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_trace">
-<code class="descname">get_trace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_trace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_trace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the time trace. If the frequency spectrum was modified before,
 an ifft is performed automatically to have the time domain representation
 up to date.</p>
-<dl class="docutils">
-<dt>Returns: 1 or N dimensional np.array of floats</dt>
-<dd>the time trace</dd>
+<dl class="simple">
+<dt>Returns: 1 or N dimensional np.array of floats</dt><dd><p>the time trace</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.get_trace_start_time">
-<code class="descname">get_trace_start_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_trace_start_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_trace_start_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.get_trace_start_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.set_frequency_spectrum">
-<code class="descname">set_frequency_spectrum</code><span class="sig-paren">(</span><em>frequency_spectrum</em>, <em>sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.set_frequency_spectrum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_frequency_spectrum</code><span class="sig-paren">(</span><em class="sig-param">frequency_spectrum</em>, <em class="sig-param">sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.set_frequency_spectrum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.set_trace">
-<code class="descname">set_trace</code><span class="sig-paren">(</span><em>trace</em>, <em>sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.set_trace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_trace</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.set_trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the time trace</p>
-<dl class="docutils">
-<dt>trace: np.array of floats</dt>
-<dd>the time series</dd>
-<dt>sampling_rate: float</dt>
-<dd>the sampling rage of the trace, i.e., the inverse of the bin width</dd>
+<dl class="simple">
+<dt>trace: np.array of floats</dt><dd><p>the time series</p>
+</dd>
+<dt>sampling_rate: float</dt><dd><p>the sampling rage of the trace, i.e., the inverse of the bin width</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.base_trace.BaseTrace.set_trace_start_time">
-<code class="descname">set_trace_start_time</code><span class="sig-paren">(</span><em>start_time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.set_trace_start_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_trace_start_time</code><span class="sig-paren">(</span><em class="sig-param">start_time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.base_trace.BaseTrace.set_trace_start_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -667,41 +681,41 @@ up to date.</p>
 <span id="nuradioreco-framework-channel-module"></span><h2>NuRadioReco.framework.channel module<a class="headerlink" href="#module-NuRadioReco.framework.channel" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.channel.Channel">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.channel.</code><code class="descname">Channel</code><span class="sig-paren">(</span><em>channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.channel.</code><code class="sig-name descname">Channel</code><span class="sig-paren">(</span><em class="sig-param">channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.base_trace.BaseTrace" title="NuRadioReco.framework.base_trace.BaseTrace"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.base_trace.BaseTrace</span></code></a></p>
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.get_id">
-<code class="descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.get_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.get_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.get_parameter">
-<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.get_parameters">
-<code class="descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.get_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.get_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.has_parameter">
-<code class="descname">has_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.has_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.has_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.channel.Channel.set_parameter">
-<code class="descname">set_parameter</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.set_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.channel.Channel.set_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -711,77 +725,77 @@ up to date.</p>
 <span id="nuradioreco-framework-electric-field-module"></span><h2>NuRadioReco.framework.electric_field module<a class="headerlink" href="#module-NuRadioReco.framework.electric_field" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.electric_field.ElectricField">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.electric_field.</code><code class="descname">ElectricField</code><span class="sig-paren">(</span><em>channel_ids, position=[0, 0, 0]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.electric_field.</code><code class="sig-name descname">ElectricField</code><span class="sig-paren">(</span><em class="sig-param">channel_ids, position=[0, 0, 0]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.base_trace.BaseTrace" title="NuRadioReco.framework.base_trace.BaseTrace"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.base_trace.BaseTrace</span></code></a></p>
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.get_channel_ids">
-<code class="descname">get_channel_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_channel_ids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_channel_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_channel_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.get_parameter">
-<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.get_parameter_error">
-<code class="descname">get_parameter_error</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_parameter_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter_error</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_parameter_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.get_parameters">
-<code class="descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.get_position">
-<code class="descname">get_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_position" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.get_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>get position of the electric field relative to station position</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.has_channel_ids">
-<code class="descname">has_channel_ids</code><span class="sig-paren">(</span><em>channel_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.has_channel_ids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_channel_ids</code><span class="sig-paren">(</span><em class="sig-param">channel_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.has_channel_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.has_parameter">
-<code class="descname">has_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.has_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.has_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.has_parameter_error">
-<code class="descname">has_parameter_error</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.has_parameter_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_parameter_error</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.has_parameter_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.set_channel_ids">
-<code class="descname">set_channel_ids</code><span class="sig-paren">(</span><em>channel_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_channel_ids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_channel_ids</code><span class="sig-paren">(</span><em class="sig-param">channel_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_channel_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.set_parameter">
-<code class="descname">set_parameter</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.set_parameter_error">
-<code class="descname">set_parameter_error</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_parameter_error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter_error</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_parameter_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.electric_field.ElectricField.set_position">
-<code class="descname">set_position</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_position" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_position</code><span class="sig-paren">(</span><em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.electric_field.ElectricField.set_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>set position of the electric field relative to station position</p>
 </dd></dl>
 
@@ -792,106 +806,107 @@ up to date.</p>
 <span id="nuradioreco-framework-event-module"></span><h2>NuRadioReco.framework.event module<a class="headerlink" href="#module-NuRadioReco.framework.event" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.event.Event">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.event.</code><code class="descname">Event</code><span class="sig-paren">(</span><em>run_number</em>, <em>event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.event.</code><code class="sig-name descname">Event</code><span class="sig-paren">(</span><em class="sig-param">run_number</em>, <em class="sig-param">event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.framework.event.Event.add_shower">
-<code class="descname">add_shower</code><span class="sig-paren">(</span><em>shower</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.add_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_shower</code><span class="sig-paren">(</span><em class="sig-param">shower</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.add_shower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a radio shower to the event</p>
-<dl class="docutils">
-<dt>shower: RadioShower object</dt>
-<dd>The shower to be added to the event</dd>
+<dl class="simple">
+<dt>shower: RadioShower object</dt><dd><p>The shower to be added to the event</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.add_sim_shower">
-<code class="descname">add_sim_shower</code><span class="sig-paren">(</span><em>sim_shower</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.add_sim_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_sim_shower</code><span class="sig-paren">(</span><em class="sig-param">sim_shower</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.add_sim_shower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a simulated shower to the event</p>
-<dl class="docutils">
-<dt>shower: RadioShower object</dt>
-<dd>The shower to be added to the event</dd>
+<dl class="simple">
+<dt>shower: RadioShower object</dt><dd><p>The shower to be added to the event</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_first_shower">
-<code class="descname">get_first_shower</code><span class="sig-paren">(</span><em>ids=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_first_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_first_shower</code><span class="sig-paren">(</span><em class="sig-param">ids=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_first_shower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns only the first shower stored in the event. Useful in cases
 when there is only one shower in the event.</p>
-<dl class="docutils">
-<dt>ids: list of integers</dt>
-<dd>A list of station IDs. The first shower that is associated with
-all stations in the list is returned</dd>
+<dl class="simple">
+<dt>ids: list of integers</dt><dd><p>A list of station IDs. The first shower that is associated with
+all stations in the list is returned</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_hybrid_information">
-<code class="descname">get_hybrid_information</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_hybrid_information" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hybrid_information</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_hybrid_information" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get information about hybrid detector data stored in the event.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_id">
-<code class="descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_parameter">
-<code class="descname">get_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_run_number">
-<code class="descname">get_run_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_run_number" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_run_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_run_number" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_showers">
-<code class="descname">get_showers</code><span class="sig-paren">(</span><em>ids=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_showers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_showers</code><span class="sig-paren">(</span><em class="sig-param">ids=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_showers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over the showers stored in the event</p>
-<dl class="docutils">
-<dt>ids: list of integers</dt>
-<dd>A list of station IDs. Only showers that are associated with
-all stations in the list are returned</dd>
+<dl class="simple">
+<dt>ids: list of integers</dt><dd><p>A list of station IDs. Only showers that are associated with
+all stations in the list are returned</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_sim_showers">
-<code class="descname">get_sim_showers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_sim_showers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_sim_showers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_sim_showers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an iterator over all simulated showers in the event</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_station">
-<code class="descname">get_station</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_station</code><span class="sig-paren">(</span><em class="sig-param">station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_station" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.get_stations">
-<code class="descname">get_stations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_stations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_stations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.get_stations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.has_parameter">
-<code class="descname">has_parameter</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.has_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.has_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.has_sim_shower">
-<code class="descname">has_sim_shower</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.has_sim_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_sim_shower</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.has_sim_shower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if at least one simulated shower is stored in the event</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.iter_modules">
-<code class="descname">iter_modules</code><span class="sig-paren">(</span><em>station_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.iter_modules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">iter_modules</code><span class="sig-paren">(</span><em class="sig-param">station_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.iter_modules" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns an interator that loops over all modules. If a station id is provided it loops
 over all modules that are applied on event or station level (on this particular station). If no
 station_id is provided, the loop is only over the event modules.
@@ -900,52 +915,52 @@ The order follows the sequence these modules were applied</p>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.register_module_event">
-<code class="descname">register_module_event</code><span class="sig-paren">(</span><em>instance</em>, <em>name</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.register_module_event" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_module_event</code><span class="sig-paren">(</span><em class="sig-param">instance</em>, <em class="sig-param">name</em>, <em class="sig-param">kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.register_module_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>registers modules applied to this event</p>
-<dl class="docutils">
-<dt>instance: module instance</dt>
-<dd>the instance of the module that should be registered</dd>
-<dt>name: module name</dt>
-<dd>the name of the module</dd>
-<dt>kwargs:</dt>
-<dd>the key word arguments of the run method</dd>
+<dl class="simple">
+<dt>instance: module instance</dt><dd><p>the instance of the module that should be registered</p>
+</dd>
+<dt>name: module name</dt><dd><p>the name of the module</p>
+</dd>
+<dt>kwargs:</dt><dd><p>the key word arguments of the run method</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.register_module_station">
-<code class="descname">register_module_station</code><span class="sig-paren">(</span><em>station_id</em>, <em>instance</em>, <em>name</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.register_module_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_module_station</code><span class="sig-paren">(</span><em class="sig-param">station_id</em>, <em class="sig-param">instance</em>, <em class="sig-param">name</em>, <em class="sig-param">kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.register_module_station" title="Permalink to this definition">¶</a></dt>
 <dd><p>registers modules applied to this event</p>
-<dl class="docutils">
-<dt>station_id: int</dt>
-<dd>the station id</dd>
-<dt>instance: module instance</dt>
-<dd>the instance of the module that should be registered</dd>
-<dt>name: module name</dt>
-<dd>the name of the module</dd>
-<dt>kwargs:</dt>
-<dd>the key word arguments of the run method</dd>
+<dl class="simple">
+<dt>station_id: int</dt><dd><p>the station id</p>
+</dd>
+<dt>instance: module instance</dt><dd><p>the instance of the module that should be registered</p>
+</dd>
+<dt>name: module name</dt><dd><p>the name of the module</p>
+</dd>
+<dt>kwargs:</dt><dd><p>the key word arguments of the run method</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.set_id">
-<code class="descname">set_id</code><span class="sig-paren">(</span><em>evt_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.set_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_id</code><span class="sig-paren">(</span><em class="sig-param">evt_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.set_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.set_parameter">
-<code class="descname">set_parameter</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.set_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_parameter</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.set_parameter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.event.Event.set_station">
-<code class="descname">set_station</code><span class="sig-paren">(</span><em>station</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.set_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_station</code><span class="sig-paren">(</span><em class="sig-param">station</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.event.Event.set_station" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -955,30 +970,31 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-hybrid-information-module"></span><h2>NuRadioReco.framework.hybrid_information module<a class="headerlink" href="#module-NuRadioReco.framework.hybrid_information" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.hybrid_information.HybridInformation">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.hybrid_information.</code><code class="descname">HybridInformation</code><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.hybrid_information.</code><code class="sig-name descname">HybridInformation</code><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.framework.hybrid_information.HybridInformation.add_hybrid_shower">
-<code class="descname">add_hybrid_shower</code><span class="sig-paren">(</span><em>hybrid_shower</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.add_hybrid_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_hybrid_shower</code><span class="sig-paren">(</span><em class="sig-param">hybrid_shower</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.add_hybrid_shower" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_information.HybridInformation.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_shower">
-<code class="descname">get_hybrid_shower</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hybrid_shower</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_shower" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_showers">
-<code class="descname">get_hybrid_showers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_showers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hybrid_showers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_showers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_information.HybridInformation.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_information.HybridInformation.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -988,31 +1004,31 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-hybrid-shower-module"></span><h2>NuRadioReco.framework.hybrid_shower module<a class="headerlink" href="#module-NuRadioReco.framework.hybrid_shower" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.hybrid_shower.HybridShower">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.hybrid_shower.</code><code class="descname">HybridShower</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.hybrid_shower.</code><code class="sig-name descname">HybridShower</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.base_shower.BaseShower" title="NuRadioReco.framework.base_shower.BaseShower"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.base_shower.BaseShower</span></code></a></p>
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_shower.HybridShower.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_shower.HybridShower.get_hybrid_detector">
-<code class="descname">get_hybrid_detector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.get_hybrid_detector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hybrid_detector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.get_hybrid_detector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_shower.HybridShower.get_name">
-<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.get_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.get_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_shower.HybridShower.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.hybrid_shower.HybridShower.set_hybrid_detector">
-<code class="descname">set_hybrid_detector</code><span class="sig-paren">(</span><em>hybrid_detector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.set_hybrid_detector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_hybrid_detector</code><span class="sig-paren">(</span><em class="sig-param">hybrid_detector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.hybrid_shower.HybridShower.set_hybrid_detector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1022,12 +1038,12 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-parameter-serialization-module"></span><h2>NuRadioReco.framework.parameter_serialization module<a class="headerlink" href="#module-NuRadioReco.framework.parameter_serialization" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="NuRadioReco.framework.parameter_serialization.deserialize">
-<code class="descclassname">NuRadioReco.framework.parameter_serialization.</code><code class="descname">deserialize</code><span class="sig-paren">(</span><em>object</em>, <em>parameter_enum</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameter_serialization.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.framework.parameter_serialization.</code><code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">object</em>, <em class="sig-param">parameter_enum</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameter_serialization.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.framework.parameter_serialization.serialize">
-<code class="descclassname">NuRadioReco.framework.parameter_serialization.</code><code class="descname">serialize</code><span class="sig-paren">(</span><em>object</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameter_serialization.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.framework.parameter_serialization.</code><code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">object</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameter_serialization.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1035,411 +1051,411 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-parameters-module"></span><h2>NuRadioReco.framework.parameters module<a class="headerlink" href="#module-NuRadioReco.framework.parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">ARIANNAParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.parameters.</code><code class="sig-name descname">ARIANNAParameters</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.comm_duration">
-<code class="descname">comm_duration</code><em class="property"> = &lt;ARIANNAParameters.comm_duration: 5&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.comm_duration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">comm_duration</code><em class="property"> = 5</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.comm_duration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.comm_period">
-<code class="descname">comm_period</code><em class="property"> = &lt;ARIANNAParameters.comm_period: 4&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.comm_period" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">comm_period</code><em class="property"> = 4</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.comm_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.internal_clock_time">
-<code class="descname">internal_clock_time</code><em class="property"> = &lt;ARIANNAParameters.internal_clock_time: 8&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.internal_clock_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">internal_clock_time</code><em class="property"> = 8</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.internal_clock_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.l1_supression_value">
-<code class="descname">l1_supression_value</code><em class="property"> = &lt;ARIANNAParameters.l1_supression_value: 7&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.l1_supression_value" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">l1_supression_value</code><em class="property"> = 7</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.l1_supression_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.seq_num">
-<code class="descname">seq_num</code><em class="property"> = &lt;ARIANNAParameters.seq_num: 3&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.seq_num" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">seq_num</code><em class="property"> = 3</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.seq_num" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.seq_start_time">
-<code class="descname">seq_start_time</code><em class="property"> = &lt;ARIANNAParameters.seq_start_time: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.seq_start_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">seq_start_time</code><em class="property"> = 1</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.seq_start_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.seq_stop_time">
-<code class="descname">seq_stop_time</code><em class="property"> = &lt;ARIANNAParameters.seq_stop_time: 2&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.seq_stop_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">seq_stop_time</code><em class="property"> = 2</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.seq_stop_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.ARIANNAParameters.trigger_thresholds">
-<code class="descname">trigger_thresholds</code><em class="property"> = &lt;ARIANNAParameters.trigger_thresholds: 6&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.trigger_thresholds" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">trigger_thresholds</code><em class="property"> = 6</em><a class="headerlink" href="#NuRadioReco.framework.parameters.ARIANNAParameters.trigger_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.parameters.channelParameters">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">channelParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.parameters.</code><code class="sig-name descname">channelParameters</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.P2P_amplitude">
-<code class="descname">P2P_amplitude</code><em class="property"> = &lt;channelParameters.P2P_amplitude: 7&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.P2P_amplitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">P2P_amplitude</code><em class="property"> = 7</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.P2P_amplitude" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.SNR">
-<code class="descname">SNR</code><em class="property"> = &lt;channelParameters.SNR: 5&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.SNR" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">SNR</code><em class="property"> = 5</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.SNR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.azimuth">
-<code class="descname">azimuth</code><em class="property"> = &lt;channelParameters.azimuth: 2&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">azimuth</code><em class="property"> = 2</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.azimuth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.cr_xcorrelations">
-<code class="descname">cr_xcorrelations</code><em class="property"> = &lt;channelParameters.cr_xcorrelations: 8&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.cr_xcorrelations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_xcorrelations</code><em class="property"> = 8</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.cr_xcorrelations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.maximum_amplitude">
-<code class="descname">maximum_amplitude</code><em class="property"> = &lt;channelParameters.maximum_amplitude: 4&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.maximum_amplitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maximum_amplitude</code><em class="property"> = 4</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.maximum_amplitude" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.maximum_amplitude_envelope">
-<code class="descname">maximum_amplitude_envelope</code><em class="property"> = &lt;channelParameters.maximum_amplitude_envelope: 6&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.maximum_amplitude_envelope" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">maximum_amplitude_envelope</code><em class="property"> = 6</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.maximum_amplitude_envelope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.nu_xcorrelations">
-<code class="descname">nu_xcorrelations</code><em class="property"> = &lt;channelParameters.nu_xcorrelations: 9&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.nu_xcorrelations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_xcorrelations</code><em class="property"> = 9</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.nu_xcorrelations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.signal_time">
-<code class="descname">signal_time</code><em class="property"> = &lt;channelParameters.signal_time: 10&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.signal_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signal_time</code><em class="property"> = 10</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.signal_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.channelParameters.zenith">
-<code class="descname">zenith</code><em class="property"> = &lt;channelParameters.zenith: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zenith</code><em class="property"> = 1</em><a class="headerlink" href="#NuRadioReco.framework.parameters.channelParameters.zenith" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">electricFieldParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.parameters.</code><code class="sig-name descname">electricFieldParameters</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.azimuth">
-<code class="descname">azimuth</code><em class="property"> = &lt;electricFieldParameters.azimuth: 8&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">azimuth</code><em class="property"> = 8</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.azimuth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.cr_spectrum_quadratic_term">
-<code class="descname">cr_spectrum_quadratic_term</code><em class="property"> = &lt;electricFieldParameters.cr_spectrum_quadratic_term: 16&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.cr_spectrum_quadratic_term" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_spectrum_quadratic_term</code><em class="property"> = 16</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.cr_spectrum_quadratic_term" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.cr_spectrum_slope">
-<code class="descname">cr_spectrum_slope</code><em class="property"> = &lt;electricFieldParameters.cr_spectrum_slope: 5&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.cr_spectrum_slope" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_spectrum_slope</code><em class="property"> = 5</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.cr_spectrum_slope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.max_amp_antenna">
-<code class="descname">max_amp_antenna</code><em class="property"> = &lt;electricFieldParameters.max_amp_antenna: 12&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.max_amp_antenna" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">max_amp_antenna</code><em class="property"> = 12</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.max_amp_antenna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.max_amp_antenna_envelope">
-<code class="descname">max_amp_antenna_envelope</code><em class="property"> = &lt;electricFieldParameters.max_amp_antenna_envelope: 13&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.max_amp_antenna_envelope" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">max_amp_antenna_envelope</code><em class="property"> = 13</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.max_amp_antenna_envelope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.nu_vertex_distance">
-<code class="descname">nu_vertex_distance</code><em class="property"> = &lt;electricFieldParameters.nu_vertex_distance: 10&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.nu_vertex_distance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_vertex_distance</code><em class="property"> = 10</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.nu_vertex_distance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.nu_viewing_angle">
-<code class="descname">nu_viewing_angle</code><em class="property"> = &lt;electricFieldParameters.nu_viewing_angle: 11&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.nu_viewing_angle" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_viewing_angle</code><em class="property"> = 11</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.nu_viewing_angle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.polarization_angle">
-<code class="descname">polarization_angle</code><em class="property"> = &lt;electricFieldParameters.polarization_angle: 2&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.polarization_angle" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">polarization_angle</code><em class="property"> = 2</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.polarization_angle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.polarization_angle_expectation">
-<code class="descname">polarization_angle_expectation</code><em class="property"> = &lt;electricFieldParameters.polarization_angle_expectation: 3&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.polarization_angle_expectation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">polarization_angle_expectation</code><em class="property"> = 3</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.polarization_angle_expectation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.ray_path_type">
-<code class="descname">ray_path_type</code><em class="property"> = &lt;electricFieldParameters.ray_path_type: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.ray_path_type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ray_path_type</code><em class="property"> = 1</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.ray_path_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.reflection_coefficient_phi">
-<code class="descname">reflection_coefficient_phi</code><em class="property"> = &lt;electricFieldParameters.reflection_coefficient_phi: 15&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.reflection_coefficient_phi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reflection_coefficient_phi</code><em class="property"> = 15</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.reflection_coefficient_phi" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.reflection_coefficient_theta">
-<code class="descname">reflection_coefficient_theta</code><em class="property"> = &lt;electricFieldParameters.reflection_coefficient_theta: 14&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.reflection_coefficient_theta" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reflection_coefficient_theta</code><em class="property"> = 14</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.reflection_coefficient_theta" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.signal_energy_fluence">
-<code class="descname">signal_energy_fluence</code><em class="property"> = &lt;electricFieldParameters.signal_energy_fluence: 4&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.signal_energy_fluence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signal_energy_fluence</code><em class="property"> = 4</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.signal_energy_fluence" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.signal_time">
-<code class="descname">signal_time</code><em class="property"> = &lt;electricFieldParameters.signal_time: 9&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.signal_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signal_time</code><em class="property"> = 9</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.signal_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.electricFieldParameters.zenith">
-<code class="descname">zenith</code><em class="property"> = &lt;electricFieldParameters.zenith: 7&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zenith</code><em class="property"> = 7</em><a class="headerlink" href="#NuRadioReco.framework.parameters.electricFieldParameters.zenith" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.parameters.eventParameters">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">eventParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.eventParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.parameters.</code><code class="sig-name descname">eventParameters</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.eventParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.eventParameters.sim_config">
-<code class="descname">sim_config</code><em class="property"> = &lt;eventParameters.sim_config: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.eventParameters.sim_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sim_config</code><em class="property"> = 1</em><a class="headerlink" href="#NuRadioReco.framework.parameters.eventParameters.sim_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.parameters.showerParameters">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">showerParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.parameters.</code><code class="sig-name descname">showerParameters</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.atmospheric_model">
-<code class="descname">atmospheric_model</code><em class="property"> = &lt;showerParameters.atmospheric_model: 101&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.atmospheric_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">atmospheric_model</code><em class="property"> = 101</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.atmospheric_model" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.azimuth">
-<code class="descname">azimuth</code><em class="property"> = &lt;showerParameters.azimuth: 2&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">azimuth</code><em class="property"> = 2</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.azimuth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.charge_excess_profile_id">
-<code class="descname">charge_excess_profile_id</code><em class="property"> = &lt;showerParameters.charge_excess_profile_id: 105&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.charge_excess_profile_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">charge_excess_profile_id</code><em class="property"> = 105</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.charge_excess_profile_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.core">
-<code class="descname">core</code><em class="property"> = &lt;showerParameters.core: 3&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.core" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">core</code><em class="property"> = 3</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.core" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.distance_shower_maximum_geometric">
-<code class="descname">distance_shower_maximum_geometric</code><em class="property"> = &lt;showerParameters.distance_shower_maximum_geometric: 10&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.distance_shower_maximum_geometric" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">distance_shower_maximum_geometric</code><em class="property"> = 10</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.distance_shower_maximum_geometric" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.distance_shower_maximum_grammage">
-<code class="descname">distance_shower_maximum_grammage</code><em class="property"> = &lt;showerParameters.distance_shower_maximum_grammage: 11&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.distance_shower_maximum_grammage" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">distance_shower_maximum_grammage</code><em class="property"> = 11</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.distance_shower_maximum_grammage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.electromagnetic_energy">
-<code class="descname">electromagnetic_energy</code><em class="property"> = &lt;showerParameters.electromagnetic_energy: 5&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.electromagnetic_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">electromagnetic_energy</code><em class="property"> = 5</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.electromagnetic_energy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.electromagnetic_radiation_energy">
-<code class="descname">electromagnetic_radiation_energy</code><em class="property"> = &lt;showerParameters.electromagnetic_radiation_energy: 7&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.electromagnetic_radiation_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">electromagnetic_radiation_energy</code><em class="property"> = 7</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.electromagnetic_radiation_energy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.energy">
-<code class="descname">energy</code><em class="property"> = &lt;showerParameters.energy: 4&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">energy</code><em class="property"> = 4</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.energy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.magnetic_field_rotation">
-<code class="descname">magnetic_field_rotation</code><em class="property"> = &lt;showerParameters.magnetic_field_rotation: 102&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.magnetic_field_rotation" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">magnetic_field_rotation</code><em class="property"> = 102</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.magnetic_field_rotation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.magnetic_field_vector">
-<code class="descname">magnetic_field_vector</code><em class="property"> = &lt;showerParameters.magnetic_field_vector: 103&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">magnetic_field_vector</code><em class="property"> = 103</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.observation_level">
-<code class="descname">observation_level</code><em class="property"> = &lt;showerParameters.observation_level: 104&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.observation_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">observation_level</code><em class="property"> = 104</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.observation_level" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.primary_particle">
-<code class="descname">primary_particle</code><em class="property"> = &lt;showerParameters.primary_particle: 8&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.primary_particle" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">primary_particle</code><em class="property"> = 8</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.primary_particle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.radiation_energy">
-<code class="descname">radiation_energy</code><em class="property"> = &lt;showerParameters.radiation_energy: 6&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.radiation_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">radiation_energy</code><em class="property"> = 6</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.radiation_energy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.refractive_index_at_ground">
-<code class="descname">refractive_index_at_ground</code><em class="property"> = &lt;showerParameters.refractive_index_at_ground: 100&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.refractive_index_at_ground" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">refractive_index_at_ground</code><em class="property"> = 100</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.refractive_index_at_ground" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.shower_maximum">
-<code class="descname">shower_maximum</code><em class="property"> = &lt;showerParameters.shower_maximum: 9&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.shower_maximum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">shower_maximum</code><em class="property"> = 9</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.shower_maximum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.type">
-<code class="descname">type</code><em class="property"> = &lt;showerParameters.type: 106&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">type</code><em class="property"> = 106</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.showerParameters.zenith">
-<code class="descname">zenith</code><em class="property"> = &lt;showerParameters.zenith: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zenith</code><em class="property"> = 1</em><a class="headerlink" href="#NuRadioReco.framework.parameters.showerParameters.zenith" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.parameters.stationParameters">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.parameters.</code><code class="descname">stationParameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.parameters.</code><code class="sig-name descname">stationParameters</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aenum.Enum</span></code></p>
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.azimuth">
-<code class="descname">azimuth</code><em class="property"> = &lt;stationParameters.azimuth: 14&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">azimuth</code><em class="property"> = 14</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.azimuth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.ccnc">
-<code class="descname">ccnc</code><em class="property"> = &lt;stationParameters.ccnc: 5&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.ccnc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ccnc</code><em class="property"> = 5</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.ccnc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.channels_max_amplitude">
-<code class="descname">channels_max_amplitude</code><em class="property"> = &lt;stationParameters.channels_max_amplitude: 12&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.channels_max_amplitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">channels_max_amplitude</code><em class="property"> = 12</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.channels_max_amplitude" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.chi2_efield_time_direction_fit">
-<code class="descname">chi2_efield_time_direction_fit</code><em class="property"> = &lt;stationParameters.chi2_efield_time_direction_fit: 26&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.chi2_efield_time_direction_fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">chi2_efield_time_direction_fit</code><em class="property"> = 26</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.chi2_efield_time_direction_fit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.cr_azimuth">
-<code class="descname">cr_azimuth</code><em class="property"> = &lt;stationParameters.cr_azimuth: 11&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_azimuth</code><em class="property"> = 11</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_azimuth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.cr_energy">
-<code class="descname">cr_energy</code><em class="property"> = &lt;stationParameters.cr_energy: 9&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_energy</code><em class="property"> = 9</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_energy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.cr_energy_em">
-<code class="descname">cr_energy_em</code><em class="property"> = &lt;stationParameters.cr_energy_em: 24&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_energy_em" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_energy_em</code><em class="property"> = 24</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_energy_em" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.cr_xcorrelations">
-<code class="descname">cr_xcorrelations</code><em class="property"> = &lt;stationParameters.cr_xcorrelations: 19&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_xcorrelations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_xcorrelations</code><em class="property"> = 19</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_xcorrelations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.cr_xmax">
-<code class="descname">cr_xmax</code><em class="property"> = &lt;stationParameters.cr_xmax: 28&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_xmax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_xmax</code><em class="property"> = 28</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_xmax" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.cr_zenith">
-<code class="descname">cr_zenith</code><em class="property"> = &lt;stationParameters.cr_zenith: 10&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cr_zenith</code><em class="property"> = 10</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.cr_zenith" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.inelasticity">
-<code class="descname">inelasticity</code><em class="property"> = &lt;stationParameters.inelasticity: 7&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.inelasticity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">inelasticity</code><em class="property"> = 7</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.inelasticity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.ndf_efield_time_direction_fit">
-<code class="descname">ndf_efield_time_direction_fit</code><em class="property"> = &lt;stationParameters.ndf_efield_time_direction_fit: 27&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.ndf_efield_time_direction_fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ndf_efield_time_direction_fit</code><em class="property"> = 27</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.ndf_efield_time_direction_fit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_azimuth">
-<code class="descname">nu_azimuth</code><em class="property"> = &lt;stationParameters.nu_azimuth: 2&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_azimuth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_azimuth</code><em class="property"> = 2</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_azimuth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_energy">
-<code class="descname">nu_energy</code><em class="property"> = &lt;stationParameters.nu_energy: 3&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_energy</code><em class="property"> = 3</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_energy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_flavor">
-<code class="descname">nu_flavor</code><em class="property"> = &lt;stationParameters.nu_flavor: 4&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_flavor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_flavor</code><em class="property"> = 4</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_flavor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_inttype">
-<code class="descname">nu_inttype</code><em class="property"> = &lt;stationParameters.nu_inttype: 25&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_inttype" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_inttype</code><em class="property"> = 25</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_inttype" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_vertex">
-<code class="descname">nu_vertex</code><em class="property"> = &lt;stationParameters.nu_vertex: 6&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_vertex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_vertex</code><em class="property"> = 6</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_vertex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_xcorrelations">
-<code class="descname">nu_xcorrelations</code><em class="property"> = &lt;stationParameters.nu_xcorrelations: 20&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_xcorrelations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_xcorrelations</code><em class="property"> = 20</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_xcorrelations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.nu_zenith">
-<code class="descname">nu_zenith</code><em class="property"> = &lt;stationParameters.nu_zenith: 1&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nu_zenith</code><em class="property"> = 1</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.nu_zenith" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.station_time">
-<code class="descname">station_time</code><em class="property"> = &lt;stationParameters.station_time: 21&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.station_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">station_time</code><em class="property"> = 21</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.station_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.triggered">
-<code class="descname">triggered</code><em class="property"> = &lt;stationParameters.triggered: 8&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.triggered" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">triggered</code><em class="property"> = 8</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.triggered" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.zenith">
-<code class="descname">zenith</code><em class="property"> = &lt;stationParameters.zenith: 13&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.zenith" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zenith</code><em class="property"> = 13</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.zenith" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.zenith_cr_templatefit">
-<code class="descname">zenith_cr_templatefit</code><em class="property"> = &lt;stationParameters.zenith_cr_templatefit: 15&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.zenith_cr_templatefit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zenith_cr_templatefit</code><em class="property"> = 15</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.zenith_cr_templatefit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="NuRadioReco.framework.parameters.stationParameters.zenith_nu_templatefit">
-<code class="descname">zenith_nu_templatefit</code><em class="property"> = &lt;stationParameters.zenith_nu_templatefit: 16&gt;</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.zenith_nu_templatefit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zenith_nu_templatefit</code><em class="property"> = 16</em><a class="headerlink" href="#NuRadioReco.framework.parameters.stationParameters.zenith_nu_templatefit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1449,26 +1465,26 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-radio-shower-module"></span><h2>NuRadioReco.framework.radio_shower module<a class="headerlink" href="#module-NuRadioReco.framework.radio_shower" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.radio_shower.RadioShower">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.radio_shower.</code><code class="descname">RadioShower</code><span class="sig-paren">(</span><em>station_ids=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.radio_shower.</code><code class="sig-name descname">RadioShower</code><span class="sig-paren">(</span><em class="sig-param">station_ids=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.base_shower.BaseShower" title="NuRadioReco.framework.base_shower.BaseShower"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.base_shower.BaseShower</span></code></a></p>
 <dl class="method">
 <dt id="NuRadioReco.framework.radio_shower.RadioShower.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.radio_shower.RadioShower.get_station_ids">
-<code class="descname">get_station_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.get_station_ids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_station_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.get_station_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.radio_shower.RadioShower.has_station_ids">
-<code class="descname">has_station_ids</code><span class="sig-paren">(</span><em>ids</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.has_station_ids" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_station_ids</code><span class="sig-paren">(</span><em class="sig-param">ids</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.has_station_ids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.radio_shower.RadioShower.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.radio_shower.RadioShower.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1478,36 +1494,36 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-sim-station-module"></span><h2>NuRadioReco.framework.sim_station module<a class="headerlink" href="#module-NuRadioReco.framework.sim_station" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.sim_station.SimStation">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.sim_station.</code><code class="descname">SimStation</code><span class="sig-paren">(</span><em>station_id</em>, <em>sampling_rate=None</em>, <em>trace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.sim_station.</code><code class="sig-name descname">SimStation</code><span class="sig-paren">(</span><em class="sig-param">station_id</em>, <em class="sig-param">sampling_rate=None</em>, <em class="sig-param">trace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.base_station.BaseStation" title="NuRadioReco.framework.base_station.BaseStation"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.base_station.BaseStation</span></code></a></p>
 <dl class="method">
 <dt id="NuRadioReco.framework.sim_station.SimStation.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.sim_station.SimStation.get_magnetic_field_vector">
-<code class="descname">get_magnetic_field_vector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.get_magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_magnetic_field_vector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.get_magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.sim_station.SimStation.get_simulation_weight">
-<code class="descname">get_simulation_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.get_simulation_weight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_simulation_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.get_simulation_weight" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.sim_station.SimStation.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.sim_station.SimStation.set_magnetic_field_vector">
-<code class="descname">set_magnetic_field_vector</code><span class="sig-paren">(</span><em>magnetic_field_vector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.set_magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_magnetic_field_vector</code><span class="sig-paren">(</span><em class="sig-param">magnetic_field_vector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.set_magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.sim_station.SimStation.set_simulation_weight">
-<code class="descname">set_simulation_weight</code><span class="sig-paren">(</span><em>simulation_weight</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.set_simulation_weight" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_simulation_weight</code><span class="sig-paren">(</span><em class="sig-param">simulation_weight</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.sim_station.SimStation.set_simulation_weight" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1517,71 +1533,71 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-station-module"></span><h2>NuRadioReco.framework.station module<a class="headerlink" href="#module-NuRadioReco.framework.station" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.station.Station">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.station.</code><code class="descname">Station</code><span class="sig-paren">(</span><em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.station.</code><code class="sig-name descname">Station</code><span class="sig-paren">(</span><em class="sig-param">station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.base_station.BaseStation" title="NuRadioReco.framework.base_station.BaseStation"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.base_station.BaseStation</span></code></a></p>
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.add_channel">
-<code class="descname">add_channel</code><span class="sig-paren">(</span><em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.add_channel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_channel</code><span class="sig-paren">(</span><em class="sig-param">channel</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.add_channel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.get_channel">
-<code class="descname">get_channel</code><span class="sig-paren">(</span><em>channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_channel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_channel</code><span class="sig-paren">(</span><em class="sig-param">channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_channel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.get_magnetic_field_vector">
-<code class="descname">get_magnetic_field_vector</code><span class="sig-paren">(</span><em>time=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_magnetic_field_vector</code><span class="sig-paren">(</span><em class="sig-param">time=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_magnetic_field_vector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.get_number_of_channels">
-<code class="descname">get_number_of_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_number_of_channels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_number_of_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_number_of_channels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.get_reference_direction">
-<code class="descname">get_reference_direction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_reference_direction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_reference_direction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_reference_direction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.get_reference_reconstruction">
-<code class="descname">get_reference_reconstruction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_reference_reconstruction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_reference_reconstruction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_reference_reconstruction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.get_sim_station">
-<code class="descname">get_sim_station</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_sim_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_sim_station</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.get_sim_station" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.has_sim_station">
-<code class="descname">has_sim_station</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.has_sim_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_sim_station</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.has_sim_station" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.iter_channels">
-<code class="descname">iter_channels</code><span class="sig-paren">(</span><em>use_channels=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.iter_channels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">iter_channels</code><span class="sig-paren">(</span><em class="sig-param">use_channels=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.iter_channels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">mode</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.set_reference_reconstruction">
-<code class="descname">set_reference_reconstruction</code><span class="sig-paren">(</span><em>reference</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.set_reference_reconstruction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_reference_reconstruction</code><span class="sig-paren">(</span><em class="sig-param">reference</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.set_reference_reconstruction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.station.Station.set_sim_station">
-<code class="descname">set_sim_station</code><span class="sig-paren">(</span><em>sim_station</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.set_sim_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_sim_station</code><span class="sig-paren">(</span><em class="sig-param">sim_station</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.station.Station.set_sim_station" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1591,131 +1607,132 @@ The order follows the sequence these modules were applied</p>
 <span id="nuradioreco-framework-trigger-module"></span><h2>NuRadioReco.framework.trigger module<a class="headerlink" href="#module-NuRadioReco.framework.trigger" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.EnvelopePhasedTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">EnvelopePhasedTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold_factor</em>, <em>power_mean</em>, <em>power_std</em>, <em>triggered_channels=None</em>, <em>phasing_angles=None</em>, <em>trigger_delays=None</em>, <em>output_passband=(None</em>, <em>None)</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.EnvelopePhasedTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">EnvelopePhasedTrigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">threshold_factor</em>, <em class="sig-param">power_mean</em>, <em class="sig-param">power_std</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">phasing_angles=None</em>, <em class="sig-param">trigger_delays=None</em>, <em class="sig-param">output_passband=(None</em>, <em class="sig-param">None)</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.EnvelopePhasedTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.EnvelopeTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">EnvelopeTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>passband</em>, <em>order</em>, <em>threshold</em>, <em>number_of_coincidences=2</em>, <em>channel_coincidence_window=None</em>, <em>channels=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.EnvelopeTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">EnvelopeTrigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">passband</em>, <em class="sig-param">order</em>, <em class="sig-param">threshold</em>, <em class="sig-param">number_of_coincidences=2</em>, <em class="sig-param">channel_coincidence_window=None</em>, <em class="sig-param">channels=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.EnvelopeTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.HighLowTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">HighLowTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold_high</em>, <em>threshold_low</em>, <em>high_low_window</em>, <em>channel_coincidence_window</em>, <em>channels=None</em>, <em>number_of_coincidences=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.HighLowTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">HighLowTrigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">threshold_high</em>, <em class="sig-param">threshold_low</em>, <em class="sig-param">high_low_window</em>, <em class="sig-param">channel_coincidence_window</em>, <em class="sig-param">channels=None</em>, <em class="sig-param">number_of_coincidences=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.HighLowTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.IntegratedPowerTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">IntegratedPowerTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channel_coincidence_window</em>, <em>channels=None</em>, <em>number_of_coincidences=1</em>, <em>power_mean=None</em>, <em>power_std=None</em>, <em>integration_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.IntegratedPowerTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">IntegratedPowerTrigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">threshold</em>, <em class="sig-param">channel_coincidence_window</em>, <em class="sig-param">channels=None</em>, <em class="sig-param">number_of_coincidences=1</em>, <em class="sig-param">power_mean=None</em>, <em class="sig-param">power_std=None</em>, <em class="sig-param">integration_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.IntegratedPowerTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.SimplePhasedTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">SimplePhasedTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channels=None</em>, <em>secondary_channels=None</em>, <em>primary_angles=None</em>, <em>secondary_angles=None</em>, <em>trigger_delays=None</em>, <em>sec_trigger_delays=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.SimplePhasedTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">SimplePhasedTrigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">threshold</em>, <em class="sig-param">channels=None</em>, <em class="sig-param">secondary_channels=None</em>, <em class="sig-param">primary_angles=None</em>, <em class="sig-param">secondary_angles=None</em>, <em class="sig-param">trigger_delays=None</em>, <em class="sig-param">sec_trigger_delays=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.SimplePhasedTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.SimpleThresholdTrigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">SimpleThresholdTrigger</code><span class="sig-paren">(</span><em>name</em>, <em>threshold</em>, <em>channels=None</em>, <em>number_of_coincidences=1</em>, <em>channel_coincidence_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.SimpleThresholdTrigger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">SimpleThresholdTrigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">threshold</em>, <em class="sig-param">channels=None</em>, <em class="sig-param">number_of_coincidences=1</em>, <em class="sig-param">channel_coincidence_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.SimpleThresholdTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#NuRadioReco.framework.trigger.Trigger" title="NuRadioReco.framework.trigger.Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">NuRadioReco.framework.trigger.Trigger</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="NuRadioReco.framework.trigger.Trigger">
-<em class="property">class </em><code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">Trigger</code><span class="sig-paren">(</span><em>name</em>, <em>channels=None</em>, <em>trigger_type='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger" title="Permalink to this definition">¶</a></dt>
-<dd><p>base class to store different triggers</p>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">Trigger</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">channels=None</em>, <em class="sig-param">trigger_type='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>base class to store different triggers</p>
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.deserialize">
-<code class="descname">deserialize</code><span class="sig-paren">(</span><em>data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">data_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.get_name">
-<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>get trigger name</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.get_trigger_settings">
-<code class="descname">get_trigger_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_trigger_settings" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_trigger_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_trigger_settings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.get_trigger_time">
-<code class="descname">get_trigger_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_trigger_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_trigger_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_trigger_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the trigger time (time with respect to beginning of trace)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.get_trigger_times">
-<code class="descname">get_trigger_times</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_trigger_times" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_trigger_times</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_trigger_times" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the trigger times (time with respect to beginning of trace)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.get_triggered_channels">
-<code class="descname">get_triggered_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_triggered_channels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_triggered_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_triggered_channels" title="Permalink to this definition">¶</a></dt>
 <dd><p>get IDs of channels that have triggered</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.get_type">
-<code class="descname">get_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.get_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>get trigger type</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.has_triggered">
-<code class="descname">has_triggered</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.has_triggered" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_triggered</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.has_triggered" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns true if station has trigger, false otherwise</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.serialize">
-<code class="descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.serialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">serialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.serialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.set_trigger_time">
-<code class="descname">set_trigger_time</code><span class="sig-paren">(</span><em>time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_trigger_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_trigger_time</code><span class="sig-paren">(</span><em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_trigger_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the trigger time</p>
-<dl class="docutils">
-<dt>time: float</dt>
-<dd>the trigger time from the beginning of the trace</dd>
+<dl class="simple">
+<dt>time: float</dt><dd><p>the trigger time from the beginning of the trace</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.set_trigger_times">
-<code class="descname">set_trigger_times</code><span class="sig-paren">(</span><em>times</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_trigger_times" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_trigger_times</code><span class="sig-paren">(</span><em class="sig-param">times</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_trigger_times" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the trigger times</p>
-<dl class="docutils">
-<dt>times: array</dt>
-<dd>all trigger times</dd>
+<dl class="simple">
+<dt>times: array</dt><dd><p>all trigger times</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.set_triggered">
-<code class="descname">set_triggered</code><span class="sig-paren">(</span><em>triggered=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_triggered" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_triggered</code><span class="sig-paren">(</span><em class="sig-param">triggered=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_triggered" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the trigger to True or False</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.framework.trigger.Trigger.set_triggered_channels">
-<code class="descname">set_triggered_channels</code><span class="sig-paren">(</span><em>triggered_channels</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_triggered_channels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_triggered_channels</code><span class="sig-paren">(</span><em class="sig-param">triggered_channels</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.Trigger.set_triggered_channels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.framework.trigger.deserialize">
-<code class="descclassname">NuRadioReco.framework.trigger.</code><code class="descname">deserialize</code><span class="sig-paren">(</span><em>triggers_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.deserialize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.framework.trigger.</code><code class="sig-name descname">deserialize</code><span class="sig-paren">(</span><em class="sig-param">triggers_pkl</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.framework.trigger.deserialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1744,11 +1761,19 @@ The order follows the sequence these modules were applied</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, The NuRadioReco Team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1759,7 +1784,6 @@ The order follows the sequence these modules were applied</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

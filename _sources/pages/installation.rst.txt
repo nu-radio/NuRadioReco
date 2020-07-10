@@ -30,6 +30,12 @@ Manual Installation
 Dependencies
 --------------------------
 
+  To install all (optional and non-optional) dependencies available in pip at once, use the command
+
+  .. code-block:: Bash
+
+    pip install numpy scipy matplotlib astropy tinydb tinydb-serialization aenum h5py mysql-python pymongo dash plotly sphinx peakutils
+
 Core Dependencies
 ______________________
 
@@ -64,6 +70,7 @@ ______________________
       pip install astropy
 
   - tinydb:
+    tinydb version 4.1.1 or newer is required.
 
     .. code-block:: Bash
 

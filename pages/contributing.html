@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Code Documentation" href="code_documentation.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> NuRadioReco
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> NuRadioReco
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,6 +90,12 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing NuRadioReco</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="event_structure.html">Data Structure</a><ul>
@@ -202,14 +210,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -232,7 +240,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#module-NuRadioReco.detector.amp">NuRadioReco.detector.amp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#module-NuRadioReco.detector.antennapattern">NuRadioReco.detector.antennapattern module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#module-NuRadioReco.detector.detector">NuRadioReco.detector.detector module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#nuradioreco-detector-detector-sql-module">NuRadioReco.detector.detector_sql module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#module-NuRadioReco.detector.detector_sql">NuRadioReco.detector.detector_sql module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#module-NuRadioReco.detector.filterresponse">NuRadioReco.detector.filterresponse module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#module-NuRadioReco.detector.generic_detector">NuRadioReco.detector.generic_detector module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.detector.html#nuradioreco-detector-sql-to-json-module">NuRadioReco.detector.sql_to_json module</a></li>
@@ -248,7 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -261,7 +269,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="detector_database_fields.html">Properties of Detector Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector_database_fields.html#antenna-table">Antenna Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="detector_database_fields.html#further-discussion-on-antenna-coordinates">Further Discussion on Antenna Coordinates</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="detector_database_fields.html#adc-table">ADC Table</a></li>
 </ul>
 </li>
@@ -270,6 +281,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -308,7 +320,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Contributing to NuRadioReco</li>
     
@@ -345,10 +357,11 @@ activities. Both will also be able to provide commit access to the repository.</
 <div class="section" id="filing-tickets">
 <h3>Filing Tickets<a class="headerlink" href="#filing-tickets" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>If you work with NuRadioReco and you encounter a problem that you CANNOT solve,
+<div><p>If you work with NuRadioReco and you encounter a problem that you CANNOT solve,
 please file an issue. Please provide as much information as you can. Best, if
 you provide us with a minimal working example that reproduces the problem or
-refer to specific lines of code.</div></blockquote>
+refer to specific lines of code.</p>
+</div></blockquote>
 </div>
 <div class="section" id="submitting-pull-requests">
 <h3>Submitting Pull Requests<a class="headerlink" href="#submitting-pull-requests" title="Permalink to this headline">¶</a></h3>
@@ -366,8 +379,8 @@ to allow for additional comments or concerns. Before merging the pull request,
 document the relevant changes in “changelog.txt”. We use this information for
 our releases.</p>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">It is not permitted (or possible) to push changes directly to the master branch. Please always use pull requests!</p>
+<p class="admonition-title">Important</p>
+<p>It is not permitted (or possible) to push changes directly to the master branch. Please always use pull requests!</p>
 </div>
 </div></blockquote>
 </div>
@@ -405,13 +418,14 @@ overridden, but one should of course be careful when doing so.</p>
 <div class="section" id="unit-tests">
 <h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>After every commit <a class="reference external" href="https://travis-ci.com/">Travis CI</a> will run a test on
+<div><p>After every commit <a class="reference external" href="https://travis-ci.com/">Travis CI</a> will run a test on
 the repository that executes a number of test scripts, checks for errors
 and compares the results to a reference. For safety, the tests implemented in
 NuRadioMC are run as well, since it uses some elements of NuRadioReco.
 Whether the test passes or fails
 is shown as a green tick or red cross next to the commit on the GitHub page.
-Pull requests can not be merged until all tests pass.</div></blockquote>
+Pull requests can not be merged until all tests pass.</p>
+</div></blockquote>
 <div class="section" id="what-to-do-if-unit-tests-fail">
 <h4>What to do if Unit Tests Fail<a class="headerlink" href="#what-to-do-if-unit-tests-fail" title="Permalink to this headline">¶</a></h4>
 <blockquote>
@@ -422,27 +436,27 @@ this and fix it.</p>
 <p>In rare cases, the tests can fail for other reasons:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Travis fails to download some necessary package. In that case, restarting the
-test usually fixes the issue.</li>
-<li>Changes in NuRadioMC cause the tests to fail. A good sign for this is that
+<li><p>Travis fails to download some necessary package. In that case, restarting the
+test usually fixes the issue.</p></li>
+<li><p>Changes in NuRadioMC cause the tests to fail. A good sign for this is that
 the tests fail on the master branch as well. In this case, the issue with
-NuRadioMC needs to be fixed instead</li>
-<li>Some elements of NuRadioMC use random numbers, which can cause random
+NuRadioMC needs to be fixed instead</p></li>
+<li><p>Some elements of NuRadioMC use random numbers, which can cause random
 fluctuations to lead to failing tests. Especially the V_eff test in
-NuRadioMC is susceptible to this. Usually re-running the test solves this.</li>
-<li>The C++ raytracer in NuRadioMC is numerically unstable. The effect is small,
+NuRadioMC is susceptible to this. Usually re-running the test solves this.</p></li>
+<li><p>The C++ raytracer in NuRadioMC is numerically unstable. The effect is small,
 but results can vary slightly between different systems. Therefore, some
-margin of error is given when comparing tests that involve raytracing.</li>
-<li>The changes in the reconstruction may be intended, i.e. because a
+margin of error is given when comparing tests that involve raytracing.</p></li>
+<li><p>The changes in the reconstruction may be intended, i.e. because a
 reconstruction method was improved or a bug was found. In this case, the
 references have to be updated. All test scripts can be run with the option
 <code class="docutils literal notranslate"><span class="pre">--create_reference</span></code>, which will make them produce a new reference file.
-Just create a new reference and commit it to the repository.</li>
+Just create a new reference and commit it to the repository.</p></li>
 </ul>
 </div></blockquote>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">Only change the references if you are absolutely sure that all changes are
+<p class="admonition-title">Important</p>
+<p>Only change the references if you are absolutely sure that all changes are
 intentional!</p>
 </div>
 </div></blockquote>
@@ -472,7 +486,7 @@ be included.</p>
 <div class="section" id="deploying-the-documentation">
 <h3>Deploying the Documentation<a class="headerlink" href="#deploying-the-documentation" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>We update the documentation regularly (about weekly), but if you don’t want
+<div><p>We update the documentation regularly (about weekly), but if you don’t want
 to wait that long, here is how to update it yourself:
 First you need to set up a repository for the gh-pages branch. Just follow
 the steps in the section Setting up cloned repos on another machine from
@@ -484,12 +498,13 @@ docs_NuRadioReco next to your NuRadioReco repo.
 Once you set everything up, go into the NuRadioReco/autodoc directory and
 execute the command <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>. This generates the documentation into the
 docs_NuRadioReco directory. Go into that directory and commit all changes to
-the html files. Push them to GitHub and the documentation is updated.</div></blockquote>
+the html files. Push them to GitHub and the documentation is updated.</p>
+</div></blockquote>
 </div>
 <div class="section" id="technical-implementation">
 <h3>Technical Implementation<a class="headerlink" href="#technical-implementation" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>To generate the documentation from scratch,
+<div><p>To generate the documentation from scratch,
 <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html">sphinx-apidoc</a>
 is used.
 The documentation uses the sphinx rtd theme, which has to be installed before
@@ -497,7 +512,8 @@ generating the documentation html files (<code class="docutils literal notransla
 custom css code is stored under <em>custom_scripts/styling.css</em>.
 The generated html documentation has to be pushed onto the <em>gh-pages</em> branch in
 order to be hosted on github. To set this up, follow
-<a class="reference external" href="https://daler.github.io/sphinxdoc-test/includeme.html">this tutorial</a>.</div></blockquote>
+<a class="reference external" href="https://daler.github.io/sphinxdoc-test/includeme.html">this tutorial</a>.</p>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="usage-convention">
@@ -532,11 +548,19 @@ code will be included in such a publication.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, The NuRadioReco Team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -547,7 +571,6 @@ code will be included in such a publication.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="/home/christoph/Software/NuRadioReco/NuRadioReco/autodoc/custom_scripts/styling.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="NuRadioReco.modules.io.noise package" href="NuRadioReco.modules.io.noise.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> NuRadioReco
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> NuRadioReco
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -88,6 +90,12 @@
 <li class="toctree-l1"><a class="reference internal" href="pages/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/installation.html">Installing NuRadioReco</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pages/installation.html#installation-using-pip">Installation using Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#manual-installation">Manual Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#core-dependencies">Core Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/installation.html#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/event_structure.html">Data Structure</a><ul>
@@ -202,14 +210,14 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelSignalReconstructor">NuRadioReco.modules.channelSignalReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelStopFilter">NuRadioReco.modules.channelStopFilter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-channeltemplatecorrelation-module">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTemplateCorrelation">NuRadioReco.modules.channelTemplateCorrelation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelTimeWindow">NuRadioReco.modules.channelTimeWindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.correlationDirectionFitter">NuRadioReco.modules.correlationDirectionFitter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.cosmicRayEnergyReconstructor">NuRadioReco.modules.cosmicRayEnergyReconstructor module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldAirToIcePropagator">NuRadioReco.modules.efieldAirToIcePropagator module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldGenericNoiseAdder">NuRadioReco.modules.efieldGenericNoiseAdder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldTimeDirectionFitter">NuRadioReco.modules.efieldTimeDirectionFitter module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#nuradioreco-modules-efieldtovoltageconverter-module">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.efieldToVoltageConverter">NuRadioReco.modules.efieldToVoltageConverter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldBandPassFilter">NuRadioReco.modules.electricFieldBandPassFilter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldResampler">NuRadioReco.modules.electricFieldResampler module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.modules.html#module-NuRadioReco.modules.electricFieldSignalReconstructor">NuRadioReco.modules.electricFieldSignalReconstructor module</a></li>
@@ -232,7 +240,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.amp">NuRadioReco.detector.amp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.antennapattern">NuRadioReco.detector.antennapattern module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector">NuRadioReco.detector.detector module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-detector-sql-module">NuRadioReco.detector.detector_sql module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.detector_sql">NuRadioReco.detector.detector_sql module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.filterresponse">NuRadioReco.detector.filterresponse module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#module-NuRadioReco.detector.generic_detector">NuRadioReco.detector.generic_detector module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.detector.html#nuradioreco-detector-sql-to-json-module">NuRadioReco.detector.sql_to_json module</a></li>
@@ -248,7 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.ice">NuRadioReco.utilities.ice module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.io_utilities">NuRadioReco.utilities.io_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.noise">NuRadioReco.utilities.noise module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#nuradioreco-utilities-templates-module">NuRadioReco.utilities.templates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.templates">NuRadioReco.utilities.templates module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.timing">NuRadioReco.utilities.timing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.trace_utilities">NuRadioReco.utilities.trace_utilities module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NuRadioReco.utilities.html#module-NuRadioReco.utilities.units">NuRadioReco.utilities.units module</a><ul>
@@ -261,7 +269,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pages/detector_database_fields.html">Properties of Detector Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#antenna-table">Antenna Table</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector_database_fields.html#further-discussion-on-antenna-coordinates">Further Discussion on Antenna Coordinates</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pages/detector_database_fields.html#adc-table">ADC Table</a></li>
 </ul>
 </li>
@@ -270,6 +281,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -308,7 +320,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="pages/code_documentation.html">Code Documentation</a> &raquo;</li>
         
@@ -344,7 +356,7 @@
 <span id="nuradioreco-modules-io-coreas-coreas-module"></span><h2>NuRadioReco.modules.io.coreas.coreas module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.coreas" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="NuRadioReco.modules.io.coreas.coreas.calculate_simulation_weights">
-<code class="descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="descname">calculate_simulation_weights</code><span class="sig-paren">(</span><em>positions</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.calculate_simulation_weights" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="sig-name descname">calculate_simulation_weights</code><span class="sig-paren">(</span><em class="sig-param">positions</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.calculate_simulation_weights" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate weights according to the area that one simulated position represents.
 Weights are therefore given in units of area.
 Note: The volume of a 2d convex hull is the area.</p>
@@ -352,33 +364,34 @@ Note: The volume of a 2d convex hull is the area.</p>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.io.coreas.coreas.get_angles">
-<code class="descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="descname">get_angles</code><span class="sig-paren">(</span><em>corsika</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.get_angles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="sig-name descname">get_angles</code><span class="sig-paren">(</span><em class="sig-param">corsika</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.get_angles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converting angles in corsika coordinates to local coordinates</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.io.coreas.coreas.make_sim_shower">
-<code class="descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="descname">make_sim_shower</code><span class="sig-paren">(</span><em>corsika</em>, <em>observer=None</em>, <em>detector=None</em>, <em>station_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.make_sim_shower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="sig-name descname">make_sim_shower</code><span class="sig-paren">(</span><em class="sig-param">corsika</em>, <em class="sig-param">observer=None</em>, <em class="sig-param">detector=None</em>, <em class="sig-param">station_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.make_sim_shower" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.io.coreas.coreas.make_sim_station">
-<code class="descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="descname">make_sim_station</code><span class="sig-paren">(</span><em>station_id</em>, <em>corsika</em>, <em>observer</em>, <em>channel_ids</em>, <em>weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.make_sim_station" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.coreas.</code><code class="sig-name descname">make_sim_station</code><span class="sig-paren">(</span><em class="sig-param">station_id</em>, <em class="sig-param">corsika</em>, <em class="sig-param">observer</em>, <em class="sig-param">channel_ids</em>, <em class="sig-param">weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.coreas.make_sim_station" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates an NuRadioReco sim station from the observer object of the coreas hdf5 file</p>
-<dl class="docutils">
-<dt>station_id <span class="classifier-delimiter">:</span> <span class="classifier">station id</span></dt>
-<dd>the id of the station to create</dd>
-<dt>corsika <span class="classifier-delimiter">:</span> <span class="classifier">hdf5 file object</span></dt>
-<dd>the open hdf5 file object of the corsika hdf5 file</dd>
+<dl class="simple">
+<dt>station_id<span class="classifier">station id</span></dt><dd><p>the id of the station to create</p>
+</dd>
+<dt>corsika<span class="classifier">hdf5 file object</span></dt><dd><p>the open hdf5 file object of the corsika hdf5 file</p>
+</dd>
 </dl>
 <p>observer : hdf5 observer object
 channel_ids :
 weight : weight of individual station</p>
 <blockquote>
-<div>weight corresponds to area covered by station</div></blockquote>
-<dl class="docutils">
-<dt>sim_station: sim station</dt>
-<dd>ARIANNA simulated station object</dd>
+<div><p>weight corresponds to area covered by station</p>
+</div></blockquote>
+<dl class="simple">
+<dt>sim_station: sim station</dt><dd><p>ARIANNA simulated station object</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -387,45 +400,46 @@ weight : weight of individual station</p>
 <span id="nuradioreco-modules-io-coreas-readcoreas-module"></span><h2>NuRadioReco.modules.io.coreas.readCoREAS module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.readCoREAS" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.coreas.readCoREAS.</code><code class="descname">readCoREAS</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.readCoREAS.</code><code class="sig-name descname">readCoREAS</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>input_files</em>, <em>station_id</em>, <em>n_cores=10</em>, <em>max_distance=2000.0</em>, <em>seed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">input_files</em>, <em class="sig-param">station_id</em>, <em class="sig-param">n_cores=10</em>, <em class="sig-param">max_distance=2000.0</em>, <em class="sig-param">seed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin" title="Permalink to this definition">¶</a></dt>
 <dd><p>begin method</p>
 <p>initialize readCoREAS module</p>
-<dl class="docutils">
-<dt>input_files: input files</dt>
-<dd>list of coreas hdf5 files</dd>
-<dt>station_id: station id</dt>
-<dd>id number of the station</dd>
-<dt>n_cores: number of cores (integer)</dt>
-<dd>the number of random core positions to generate for each input file</dd>
-<dt>max_distance: radius of random cores (double or None)</dt>
-<dd>if None: max distance is set to the maximum ground distance of the
-star pattern simulation</dd>
+<dl class="simple">
+<dt>input_files: input files</dt><dd><p>list of coreas hdf5 files</p>
+</dd>
+<dt>station_id: station id</dt><dd><p>id number of the station</p>
+</dd>
+<dt>n_cores: number of cores (integer)</dt><dd><p>the number of random core positions to generate for each input file</p>
+</dd>
+<dt>max_distance: radius of random cores (double or None)</dt><dd><p>if None: max distance is set to the maximum ground distance of the
+star pattern simulation</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">detector</em>, <em class="sig-param">output_mode=0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read in a random sample of stations from a CoREAS file.
 A number of random positions is selected within a certain radius.
 For each position the closest observer is selected and a simulated
 event is created for that observer.</p>
-<dl class="docutils">
-<dt>detector: Detector object</dt>
-<dd>Detector description of the detector that shall be simulated</dd>
-<dt>output_mode: integer (default 0)</dt>
-<dd><p class="first">0: only the event object is returned
+<dl>
+<dt>detector: Detector object</dt><dd><p>Detector description of the detector that shall be simulated</p>
+</dd>
+<dt>output_mode: integer (default 0)</dt><dd><p>0: only the event object is returned
 1: the function reuturns the event object, the current inputfilename, the distance between the choosen station and the requested core position,</p>
-<blockquote class="last">
-<div>and the area in which the core positions are randomly distributed</div></blockquote>
+<blockquote>
+<div><p>and the area in which the core positions are randomly distributed</p>
+</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -437,33 +451,34 @@ event is created for that observer.</p>
 <span id="nuradioreco-modules-io-coreas-readcoreasstation-module"></span><h2>NuRadioReco.modules.io.coreas.readCoREASStation module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.readCoREASStation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.coreas.readCoREASStation.</code><code class="descname">readCoREASStation</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.readCoREASStation.</code><code class="sig-name descname">readCoREASStation</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>input_files</em>, <em>station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">input_files</em>, <em class="sig-param">station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.begin" title="Permalink to this definition">¶</a></dt>
 <dd><p>begin method</p>
 <p>initialize readCoREAS module</p>
-<dl class="docutils">
-<dt>input_files: input files</dt>
-<dd>list of coreas hdf5 files</dd>
-<dt>station_id: station id</dt>
-<dd>id number of the radio station as defined in detector</dd>
+<dl class="simple">
+<dt>input_files: input files</dt><dd><p>list of coreas hdf5 files</p>
+</dd>
+<dt>station_id: station id</dt><dd><p>id number of the radio station as defined in detector</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">detector</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREASStation.readCoREASStation.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads in all observers in the CoREAS files and returns a new simulated
 event for each.</p>
-<dl class="docutils">
-<dt>detector: Detector object</dt>
-<dd>Detector description of the detector that shall be simulated</dd>
+<dl class="simple">
+<dt>detector: Detector object</dt><dd><p>Detector description of the detector that shall be simulated</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -474,41 +489,44 @@ event for each.</p>
 <span id="nuradioreco-modules-io-coreas-simulationselector-module"></span><h2>NuRadioReco.modules.io.coreas.simulationSelector module<a class="headerlink" href="#module-NuRadioReco.modules.io.coreas.simulationSelector" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector">
-<em class="property">class </em><code class="descclassname">NuRadioReco.modules.io.coreas.simulationSelector.</code><code class="descname">simulationSelector</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Module that let’s you select CoREAS simulations
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.io.coreas.simulationSelector.</code><code class="sig-name descname">simulationSelector</code><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Module that let’s you select CoREAS simulations
 based on certain criteria, e.g. signal in a relevant band
 certain arrival directions, energies, etc.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.begin">
-<code class="descname">begin</code><span class="sig-paren">(</span><em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.end" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.end" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, sim_station, det, frequency_window=[0.1, 0.5], n_std=8</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.simulationSelector.simulationSelector.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run method, selects CoREAS simulations that have any signal in
 desired frequency_window.
 Crude approximation with n_std sigma * noise</p>
 <p>evt: Event
 sim_station: sim_station</p>
 <blockquote>
-<div>CoREAS simulated efields</div></blockquote>
+<div><p>CoREAS simulated efields</p>
+</div></blockquote>
 <p>det: Detector
 frequency_window: list</p>
 <blockquote>
-<div>[lower, upper] frequencies that will be used for analysis</div></blockquote>
-<dl class="docutils">
-<dt>n_std: int</dt>
-<dd>number of std deviations needed, can make cut stricter, if needed</dd>
+<div><p>[lower, upper] frequencies that will be used for analysis</p>
+</div></blockquote>
+<dl class="simple">
+<dt>n_std: int</dt><dd><p>number of std deviations needed, can make cut stricter, if needed</p>
+</dd>
 </dl>
-<dl class="docutils">
-<dt>selected_sim: bool</dt>
-<dd>if True then simulation has signal in desired range</dd>
+<dl class="simple">
+<dt>selected_sim: bool</dt><dd><p>if True then simulation has signal in desired range</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -540,11 +558,19 @@ frequency_window: list</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, The NuRadioReco Team
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -555,7 +581,6 @@ frequency_window: list</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
