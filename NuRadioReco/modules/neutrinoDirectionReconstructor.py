@@ -14,6 +14,9 @@ from matplotlib import rc
 from matplotlib.lines import Line2D
 
 
+#### there is a small deviation due to the attenuation. The frequencies used in the simulation are different than for the reconstruction (some factor to in determining the number of samples), and since the attenuation only uses a few points and interpolates linear between them, this result in a small offset. 
+
+
 ###### still to do:
 ###### - sampling rate, test for 5 GHZ
 ###### - precision is not good enough ( event 449 19 3)
@@ -41,8 +44,10 @@ class neutrinoDirectionReconstructor:
             use_channels=[9, 13]):
         
         
-        sampling_rate = 5
-
+  #      sampling_rate = 5
+        channl = station.get_channel(use_channels[0])
+        n_samples = channl.get_number_of_samples()
+        sampling_rate = channl.get_sampling_rate()
         combined_fit = False #direction and energy are fitted simultaneously
         seperate_fit = True ##direction is first fitted and then values are used to fit energy
         if seperate_fit:
@@ -56,6 +61,7 @@ class neutrinoDirectionReconstructor:
         
     
         def minimizer(params, vertex_x, vertex_y, vertex_z, minimize = True, fit = 'seperate', timing_k = False, first_iter = False):
+            
             sigma = 1.7*10**(-5)
             if len(params) == 2: ##hadronic shower direction fit
                 if fit == 'seperate':
@@ -73,7 +79,7 @@ class neutrinoDirectionReconstructor:
             if fit == 'combined':
                 if len(params) == 3: ## hadronic or electromagnetic total fit
                     zenith, azimuth, energy = params
-
+            print('zenith {}, azimuth {}, energy {}'.format(np.rad2deg( zenith), np.rad2deg(azimuth), energy))
             ###### Get channel with maximum amplitude to find reference timing
             maximum_trace1 = 0
             for ich, channel in enumerate(station.iter_channels()):
@@ -171,10 +177,10 @@ class neutrinoDirectionReconstructor:
                         data_trace_timing = np.copy(data_trace) ## cut data around timing
                         data_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 100] = 0
                         rec_trace_timing = np.copy(rec_trace1) ## cut rec around timing
-          #              fig = plt.figure()
-           #             ax = fig.add_subplot(111)
+            #            fig = plt.figure()
+            #            ax = fig.add_subplot(111)
             #            ax.plot(rec_trace_timing)
-                        #fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
+            #            fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
                         
                         rec_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 100] = 0
              #           plt.plot(rec_trace_timing)
@@ -197,12 +203,12 @@ class neutrinoDirectionReconstructor:
                        # print("len corr", len(corr))
                         ## rotate for ARZ correction
                         rec_trace1 = np.roll(rec_trace1, int(dt)) # roll reconstruction trace with ARZ extra offset
-                       # print("dt", dt)
-                        delta_k.append(int(k_ref + delta_toffset + dt)) ## for overlapping pulses this does not work
+                        #print("dt", dt)
+                        delta_k.append(int(k_ref + delta_toffset + dt )) ## for overlapping pulses this does not work
                         rec_trace3 += rec_trace1 ## add two voltage traces in time domain
                     ks[channel.get_id()] = delta_k
 
-                    N= 50
+                    N= 80
                     if fit == 'seperate':
                         if 1:#abs(np.diff([delta_k[0], delta_k[1]])[0]) > 50):    ## for now exclude overlapping pulses, because i don't know how to treat them
                             if len(params) == 2: # if we fit direction, we scale the pulse
@@ -210,8 +216,11 @@ class neutrinoDirectionReconstructor:
                             
                                 if len(delta_k) > 0:
                                     SNR = (abs(abs(min(data_trace[delta_k[0]-N: delta_k[0]+3*N])) + max(data_trace[delta_k[0]-N: delta_k[0]+3*N]))) / (2*Vrms)
+                                    #fig = plt.figure()
+                                    
+                                    #plt.plot(rec_trace3[delta_k[0]-N:delta_k[0] + 3*N])
                                     #plt.plot(data_trace[delta_k[0]-N: delta_k[0]+3*N])
-                                    #plt.show()
+                                    #fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
                                     if SNR > 4:## for first iteration only use channels with high SNR
                                         if (max(rec_trace3[delta_k[0]-N: delta_k[0]+3*N]) != 0): ## determine normalization factor from maximum pulse
                                             norm = max(abs(data_trace[delta_k[0]-N: delta_k[0]+3*N]))
@@ -242,10 +251,14 @@ class neutrinoDirectionReconstructor:
                  #                   print('delta k[1]', delta_k[1])
                                     chi2 += np.sum(-1*abs((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2))##
                                     #print("chi2", np.sum(-1*abs((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2)))
-
+            #                        fig = plt.figure()
+            #                        plt.plot((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N])
+            #                        plt.plot(data_trace[delta_k[0]-N:delta_k[0]+3*N])
+            #                        fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
+                                    print(stop)
                                 if len(delta_k) > 1:
                                     chi2 += np.sum(-1*abs((rec_trace3)[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) ## second ray type solution
-                                    #fig = plt.figure()
+                                    # fig = plt.figure()
                                     #ax = fig.add_subplot(111)
                                     #ax.plot(rec_trace3[delta_k[1]-N : delta_k[1] +3*N])
                                     #ax.plot(data_trace[delta_k[1] -N: delta_k[1] + 3*N])
@@ -262,7 +275,7 @@ class neutrinoDirectionReconstructor:
                 return ks
             if not minimize:
                 return rec_traces
-
+            print("chi2", chi2)
             return -1*chi2
     
         station.set_is_neutrino()
@@ -310,12 +323,10 @@ class neutrinoDirectionReconstructor:
             
             print("SIMULATED INPUT VALUES")
             tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)
-         
-            
             fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
             #fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
             print("fsim", fsim)
-           # print(stop)
+           
             
             
             if seperate_fit:
@@ -358,11 +369,11 @@ class neutrinoDirectionReconstructor:
                  #   zvalues.append(minimizer([ener],  simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = 'seperate', timing_k = False, first_iter = False))
             
                 #results = opt.minimize(minimizer, x0 = ( [1*10**19]), args = ( simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], 'True', 'seperate'), method = 'Nelder-Mead', options = options, bounds = bnds)
-                rec_energy = 10**18#simulated_energy#energies[np.argmin(zvalues)]#results.x[0] ## we need the L-BFGS-B method because we want to set bounds
+                rec_energy = 10**19#simulated_energy#energies[np.argmin(zvalues)]#results.x[0] ## we need the L-BFGS-B method because we want to set bounds
                 
                 zvalues = []
-                az = np.arange(simulated_azimuth - np.deg2rad(5), simulated_azimuth + np.deg2rad(5), np.deg2rad(.5))
-                zen = np.arange(simulated_zenith - np.deg2rad(5), simulated_zenith + np.deg2rad(5), np.deg2rad(.5))
+                az = np.arange(simulated_azimuth - np.deg2rad(1), simulated_azimuth + np.deg2rad(1), np.deg2rad(.5))
+                zen = np.arange(simulated_zenith - np.deg2rad(1), simulated_zenith + np.deg2rad(1), np.deg2rad(.5))
                 azimuth = []
                 zenith = []
                 zplot = []
@@ -374,15 +385,19 @@ class neutrinoDirectionReconstructor:
                         zplot.append(zvalue)
                         azimuth.append(a)
                         zenith.append(z)
+                        print("zenith {}, azimuth {}, zmin {}".format(np.rad2deg(z), np.rad2deg(a), np.rad2deg(zvalue)))
                         if zvalue < zvalue_lowest:
                             global_az = a
                             global_zen = z
                             zvalue_lowest = zvalue
-                
-                
-                
+                #results = opt.brute(minimizer, ranges=(slice(simulated_zenith - np.deg2rad(1), simulated_zenith + np.deg2rad(1), np.deg2rad(1)), slice(simulated_azimuth - np.deg2rad(1), simulated_azimuth + np.deg2rad(1), np.deg2rad(1)), slice(9*10**18, 11*10**18, 10**18)), args = (simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], True,fitprocedure, False, False))
+                #global_zen = results[0][0]
+                #print(stop)
+                #print("results", results)
+                #global_az = results[0][1]
                 rec_zenith = global_zen
                 rec_azimuth = global_az
+                #rec_energy = results[0][2]
                 
                 fig = plt.figure()
                 matplotlib.rc('xtick', labelsize = 10)
@@ -543,7 +558,7 @@ class neutrinoDirectionReconstructor:
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[ich]), 1/sampling_rate), abs(fft.time2freq(tracsim[ich], sampling_rate)), color = 'orange')
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[ich]), 1/sampling_rate), abs(fft.time2freq(tracrec[ich], sampling_rate)), color = 'green')
                             #ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
-                            N = 50
+                            N = 80
                             ax[ich][0].axvline((k-N), label = 'fitting area')
                             ax[ich][0].axvline((k+2*N))
                             ax[ich][0].set_xlim((k-2*N, k+4*N))
@@ -560,7 +575,7 @@ class neutrinoDirectionReconstructor:
                            # ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
                             
                             
-                            N = 50
+                           # N = 50
                             ax[ich][1].axvline((k-N), label = 'fitting area')
                             ax[ich][1].axvline((k+2*N))
                             ax[ich][1].set_xlim((k-2*N, k+4*N))
