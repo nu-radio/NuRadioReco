@@ -25,7 +25,7 @@ eventreader = NuRadioReco.modules.io.eventReader.eventReader()
 ice = medium.get_ice_model('greenland_simple')
 prop = propagation.get_propagation_module('analytic')
 attenuate_ice = True
-sampling_rate = 5
+#sampling_rate = 5
 
 det = detector.Detector(json_filename = "/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/station_amp.json")
 det.update(datetime.datetime(2018, 1, 1))
@@ -64,7 +64,7 @@ class simulation():
 #		dt = 1. / (sampling_rate * units.GHz)
 		
 		
-		sampling_rate_detector = det.get_sampling_frequency(station.get_id(), 0)
+#		sampling_rate_detector = det.get_sampling_frequency(station.get_id(), 0)
 		channl = station.get_channel(use_channels[0])
 		n_samples = channl.get_number_of_samples()
 		sampling_rate = channl.get_sampling_rate()
@@ -89,6 +89,8 @@ class simulation():
 					continue
 
 				# loop through all ray tracing solution
+				import matplotlib.pyplot as plt
+				fig = plt.figure()
 				for iS in range(r.get_number_of_solutions()):
 					raytracing[channel_id][iS] = {}
 					self._launch_vector = r.get_launch_vector(iS)
@@ -104,11 +106,19 @@ class simulation():
 					raytracing[channel_id][iS]["receive vector"] = receive_vector
 					raytracing[channel_id][iS]["zenith"] = zenith
 					raytracing[channel_id][iS]["azimuth"] = azimuth
-					attn = r.get_attenuation(iS, ff, 0.5 * sampling_rate_detector)
+					print('iS', iS)
+					print('ff', ff)
+					attn = r.get_attenuation(iS, ff, 0.5 * sampling_rate)
+					print(attn)
 					raytracing[channel_id][iS]["attenuation"] = attn
+					
+					plt.plot(ff,attn)
+					plt.grid()
+					
 					zenith_reflections = np.atleast_1d(r.get_reflection_angle(iS))
 					raytracing[channel_id][iS]["reflection angle"] = zenith_reflections
 					viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
+				fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
 
 		traces = {}
 		timing = {}
@@ -186,6 +196,8 @@ class simulation():
 
                 ### filter the trace
 				analytic_trace_fft *=h
+
+				
 		#### add amplifier
 				sim_to_data = True
 			
