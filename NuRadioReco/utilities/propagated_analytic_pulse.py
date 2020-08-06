@@ -90,7 +90,7 @@ class simulation():
 
 				# loop through all ray tracing solution
 				import matplotlib.pyplot as plt
-				fig = plt.figure()
+		#		fig = plt.figure()
 				for iS in range(r.get_number_of_solutions()):
 					raytracing[channel_id][iS] = {}
 					self._launch_vector = r.get_launch_vector(iS)
@@ -106,19 +106,19 @@ class simulation():
 					raytracing[channel_id][iS]["receive vector"] = receive_vector
 					raytracing[channel_id][iS]["zenith"] = zenith
 					raytracing[channel_id][iS]["azimuth"] = azimuth
-					print('iS', iS)
-					print('ff', ff)
+#					print('iS', iS)
+#					print('ff', ff)
 					attn = r.get_attenuation(iS, ff, 0.5 * sampling_rate)
-					print(attn)
+	#				print(attn)
 					raytracing[channel_id][iS]["attenuation"] = attn
 					
-					plt.plot(ff,attn)
-					plt.grid()
+		#			plt.plot(ff,attn)
+	#				plt.grid()
 					
 					zenith_reflections = np.atleast_1d(r.get_reflection_angle(iS))
 					raytracing[channel_id][iS]["reflection angle"] = zenith_reflections
 					viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
-				fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
+	#			fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
 
 		traces = {}
 		timing = {}

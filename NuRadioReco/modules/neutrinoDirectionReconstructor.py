@@ -12,7 +12,7 @@ from scipy import signal
 from scipy import optimize as opt
 from matplotlib import rc
 from matplotlib.lines import Line2D
-
+from lmfit import Minimizer, Parameters, fit_report
 
 #### there is a small deviation due to the attenuation. The frequencies used in the simulation are different than for the reconstruction (some factor to in determining the number of samples), and since the attenuation only uses a few points and interpolates linear between them, this result in a small offset. 
 
@@ -63,6 +63,7 @@ class neutrinoDirectionReconstructor:
         def minimizer(params, vertex_x, vertex_y, vertex_z, minimize = True, fit = 'seperate', timing_k = False, first_iter = False):
             
             sigma = 1.7*10**(-5)
+            #ar = params.valuesdict()
             if len(params) == 2: ##hadronic shower direction fit
                 if fit == 'seperate':
                     zenith, azimuth = params
@@ -79,6 +80,7 @@ class neutrinoDirectionReconstructor:
             if fit == 'combined':
                 if len(params) == 3: ## hadronic or electromagnetic total fit
                     zenith, azimuth, energy = params
+            print("nzen", zenith)
             print('zenith {}, azimuth {}, energy {}'.format(np.rad2deg( zenith), np.rad2deg(azimuth), energy))
             ###### Get channel with maximum amplitude to find reference timing
             maximum_trace1 = 0
@@ -255,7 +257,7 @@ class neutrinoDirectionReconstructor:
             #                        plt.plot((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N])
             #                        plt.plot(data_trace[delta_k[0]-N:delta_k[0]+3*N])
             #                        fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
-                                    print(stop)
+           #                         print(stop)
                                 if len(delta_k) > 1:
                                     chi2 += np.sum(-1*abs((rec_trace3)[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) ## second ray type solution
                                     # fig = plt.figure()
@@ -369,16 +371,66 @@ class neutrinoDirectionReconstructor:
                  #   zvalues.append(minimizer([ener],  simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = 'seperate', timing_k = False, first_iter = False))
             
                 #results = opt.minimize(minimizer, x0 = ( [1*10**19]), args = ( simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], 'True', 'seperate'), method = 'Nelder-Mead', options = options, bounds = bnds)
-                rec_energy = 10**19#simulated_energy#energies[np.argmin(zvalues)]#results.x[0] ## we need the L-BFGS-B method because we want to set bounds
+   #             rec_energy = 10**19#simulated_energy#energies[np.argmin(zvalues)]#results.x[0] ## we need the L-BFGS-B method because we want to set bounds
                 
+   #             zvalues = []
+   #             az = np.arange(simulated_azimuth - np.deg2rad(1), simulated_azimuth + np.deg2rad(1), np.deg2rad(.5))
+   #             zen = np.arange(simulated_zenith - np.deg2rad(1), simulated_zenith + np.deg2rad(1), np.deg2rad(.5))
+   #             azimuth = []
+   #             zenith = []
+   #             zplot = []
+   #             zvalue_lowest = np.inf
+    #            print("second iteration for direction fit  ...")
+                #for a in az:
+                #    for z in zen:
+                 #       zvalue = minimizer([z, a, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure)
+                #        zplot.append(zvalue)
+                #        azimuth.append(a)
+                #        zenith.append(z)
+                #        print("zenith {}, azimuth {}, zmin {}".format(np.rad2deg(z), np.rad2deg(a), np.rad2deg(zvalue)))
+                #        if zvalue < zvalue_lowest:
+                #            global_az = a
+                #            global_zen = z
+                #            zvalue_lowest = zvalue
+                delta = np.deg2rad(15)
+                zen_start = simulated_zenith - delta
+                zen_end = simulated_zenith + delta
+                az_start = simulated_azimuth - delta
+                az_end = simulated_azimuth + delta
+                results = opt.brute(minimizer, ranges=(slice(zen_start, zen_end, np.deg2rad(1)), slice(az_start, az_end, np.deg2rad(1)), slice(9*10**18, 11*10**18, 10**18)), full_output = True, args = (simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], True,fitprocedure, False, False))
+                #params = Parameters()
+                #params.add("zenith", min = simulated_zenith - np.deg2rad(1), max = simulated_zenith + np.deg2rad(1), brute_step = np.deg2rad(1))
+                #params.add("azimuth", min = simulated_azimuth - np.deg2rad(1), max = simulated_azimuth + np.deg2rad(1), brute_step = np.deg2rad(1))
+                #fitter = Minimizer(minimizer, params,fcn_args = (simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], True, fitprocedure, False, False))
+                #result = fitter.minimize(method = 'brute')
+                #global_zen = results[0][0]
+                #print(stop)
+                #print("grid 3", results[2][2])
+                #mask = (np.array(results[2][2]) == np.array(results[0][2])) ## select for reconstructed energy
+                #print("results mask", [mask])
+                #print("results", results)
+                #print("results[0]", results[0])
+                #print('results.grid', results[2])
+                #print("grid.shape", results[2].shape)
+                #print('results.Jout', results[3])
+                #print('Jout.shape', results[3].shape)
+                global_zen = results[0][0]
+                global_az = results[0][1]
+                rec_zenith = global_zen
+                rec_azimuth = global_az
+                rec_energy = results[0][2]
+                
+                
+
+
                 zvalues = []
-                az = np.arange(simulated_azimuth - np.deg2rad(1), simulated_azimuth + np.deg2rad(1), np.deg2rad(.5))
-                zen = np.arange(simulated_zenith - np.deg2rad(1), simulated_zenith + np.deg2rad(1), np.deg2rad(.5))
+                az = np.arange(az_start, az_end, np.deg2rad(.5))
+                zen = np.arange(zen_start, zen_end,  np.deg2rad(.5))
                 azimuth = []
                 zenith = []
                 zplot = []
                 zvalue_lowest = np.inf
-                print("second iteration for direction fit  ...")
+                print("plotting output for reconstructecd energy  ...")
                 for a in az:
                     for z in zen:
                         zvalue = minimizer([z, a, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure)
@@ -390,15 +442,8 @@ class neutrinoDirectionReconstructor:
                             global_az = a
                             global_zen = z
                             zvalue_lowest = zvalue
-                #results = opt.brute(minimizer, ranges=(slice(simulated_zenith - np.deg2rad(1), simulated_zenith + np.deg2rad(1), np.deg2rad(1)), slice(simulated_azimuth - np.deg2rad(1), simulated_azimuth + np.deg2rad(1), np.deg2rad(1)), slice(9*10**18, 11*10**18, 10**18)), args = (simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], True,fitprocedure, False, False))
-                #global_zen = results[0][0]
-                #print(stop)
-                #print("results", results)
-                #global_az = results[0][1]
-                rec_zenith = global_zen
-                rec_azimuth = global_az
-                #rec_energy = results[0][2]
-                
+
+
                 fig = plt.figure()
                 matplotlib.rc('xtick', labelsize = 10)
                 matplotlib.rc('ytick', labelsize = 10)
@@ -429,7 +474,7 @@ class neutrinoDirectionReconstructor:
                 cbar.set_label('-1 * log(L)', rotation=270)
                 fig.tight_layout()
                 
-                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/bash_plots/amp/direction_{}.pdf".format(event.get_id()))
+                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/bash_plots/test/direction_{}.pdf".format(event.get_id()))
                 
                 
                 print("     reconstructed zenith = {}".format(np.rad2deg(rec_zenith)))
@@ -584,7 +629,7 @@ class neutrinoDirectionReconstructor:
                         
                         ich += 1
                 fig.tight_layout()
-                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/bash_plots/amp/fit_{}.pdf".format(event.get_id()))
+                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/bash_plots/test/fit_{}.pdf".format(event.get_id()))
 
 
 
