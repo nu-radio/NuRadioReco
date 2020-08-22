@@ -108,6 +108,8 @@ def get_fresnel_t_p(zenith_incoming, n_2=1.3, n_1=1.):
     of the incoming radiation."
     """
     zenith_outgoing = get_fresnel_angle(zenith_incoming, n_2, n_1)
+    if(zenith_outgoing is None):
+        return 0
     t = 2 * n_1 * np.cos(zenith_incoming) / (n_1 * np.cos(zenith_outgoing) + n_2 * np.cos(zenith_incoming))
     return t
 
@@ -123,6 +125,8 @@ def get_fresnel_t_s(zenith_incoming, n_2=1.3, n_1=1.):
     of the incoming radiation."
     """
     zenith_outgoing = get_fresnel_angle(zenith_incoming, n_2, n_1)
+    if(zenith_outgoing is None):
+        return 0
     t = 2 * n_1 * np.cos(zenith_incoming) / (n_1 * np.cos(zenith_incoming) + n_2 * np.cos(zenith_outgoing))
     return t
 
@@ -136,10 +140,18 @@ def get_fresnel_r_p(zenith_incoming, n_2=1.3, n_1=1.):
     to the 'plane of incident' which is defindes as: "the plane of incidence
     is the plane which contains the surface normal and the propagation vector
     of the incoming radiation."
+    
+    see https://github.com/nu-radio/NuRadioReco/pull/97 for a derivation of the equation
     """
     n = n_2/n_1
-    return (-n**2 * np.cos(zenith_incoming) + SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
+    return (n**2 * np.cos(zenith_incoming) - SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
               (n**2 * np.cos(zenith_incoming) + SM.sqrt(n**2 - np.sin(zenith_incoming)**2))
+              
+              
+def get_fresnel_r_p2(zenith_incoming, n_2=1.3, n_1=1.):
+    n = n_1/n_2
+    return (np.cos(zenith_incoming) - 1j * n *(n**2 * np.sin(zenith_incoming) - 1) ** 0.5)  / \
+            (np.cos(zenith_incoming) + 1j * n *(n**2 * np.sin(zenith_incoming) - 1) ** 0.5)
 
 
 def get_fresnel_r_s(zenith_incoming, n_2=1.3, n_1=1.):
@@ -151,6 +163,8 @@ def get_fresnel_r_s(zenith_incoming, n_2=1.3, n_1=1.):
     to the 'plane of incident' which is defindes as: "the plane of incidence
     is the plane which contains the surface normal and the propagation vector
     of the incoming radiation."
+    
+    see https://github.com/nu-radio/NuRadioReco/pull/97 for a derivation of the equation
     """
     n = n_2/n_1
     return (np.cos(zenith_incoming) - SM.sqrt(n**2 - np.sin(zenith_incoming)**2)) / \
