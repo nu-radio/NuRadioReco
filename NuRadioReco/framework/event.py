@@ -70,7 +70,6 @@ class Event:
         """
         iE = 0
         iS = 0
-        useless_parameter_to_test_linter = 1*2
         while True:
             if(station_id in self.__modules_station and (len(self.__modules_station[station_id]) > iS) and self.__modules_station[station_id][iS][0] == iE):
                 iS += 1
