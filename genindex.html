@@ -137,6 +137,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -162,6 +163,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -351,6 +353,7 @@
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
@@ -367,8 +370,12 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.add_channel">add_channel() (NuRadioReco.framework.station.Station method)</a>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.sim_station.SimStation.add_channel">add_channel() (NuRadioReco.framework.sim_station.SimStation method)</a>
+
+      <ul>
+        <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.add_channel">(NuRadioReco.framework.station.Station method)</a>
 </li>
+      </ul></li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_station.BaseStation.add_electric_field">add_electric_field() (NuRadioReco.framework.base_station.BaseStation method)</a>
 </li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.generic_detector.GenericDetector.add_generic_station">add_generic_station() (NuRadioReco.detector.generic_detector.GenericDetector method)</a>
@@ -400,6 +407,8 @@
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.antennapattern.AntennaPatternProvider">AntennaPatternProvider (class in NuRadioReco.detector.antennapattern)</a>
 </li>
       <li><a href="NuRadioReco.utilities.html#NuRadioReco.utilities.trace_utilities.apply_butterworth">apply_butterworth() (in module NuRadioReco.utilities.trace_utilities)</a>
+</li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_trace.BaseTrace.apply_time_shift">apply_time_shift() (NuRadioReco.framework.base_trace.BaseTrace method)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.ARIANNAParameters">ARIANNAParameters (class in NuRadioReco.framework.parameters)</a>
 </li>
@@ -769,6 +778,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.showerParameters.flavor">flavor (NuRadioReco.framework.parameters.showerParameters attribute)</a>
+</li>
       <li><a href="NuRadioReco.utilities.html#NuRadioReco.utilities.fft.freq2time">freq2time() (in module NuRadioReco.utilities.fft)</a>
 </li>
   </ul></td>
@@ -872,6 +883,8 @@
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.detector.Detector.get_channel">get_channel() (NuRadioReco.detector.detector.Detector method)</a>
 
       <ul>
+        <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.sim_station.SimStation.get_channel">(NuRadioReco.framework.sim_station.SimStation method)</a>
+</li>
         <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.get_channel">(NuRadioReco.framework.station.Station method)</a>
 </li>
       </ul></li>
@@ -903,6 +916,8 @@
         <li><a href="NuRadioReco.modules.io.html#NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio.get_detector">(NuRadioReco.modules.io.NuRadioRecoio.NuRadioRecoio method)</a>
 </li>
       </ul></li>
+      <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.detector.Detector.get_detector_time">get_detector_time() (NuRadioReco.detector.detector.Detector method)</a>
+</li>
       <li><a href="NuRadioReco.utilities.html#NuRadioReco.utilities.trace_utilities.get_efield_antenna_factor">get_efield_antenna_factor() (in module NuRadioReco.utilities.trace_utilities)</a>
 </li>
       <li><a href="NuRadioReco.utilities.html#NuRadioReco.utilities.geometryUtilities.get_efield_in_spherical_coords">get_efield_in_spherical_coords() (in module NuRadioReco.utilities.geometryUtilities)</a>
@@ -937,6 +952,8 @@
         <li><a href="NuRadioReco.modules.html#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.get_filter">(NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter method)</a>
 </li>
       </ul></li>
+      <li><a href="NuRadioReco.modules.html#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.get_filter_arguments">get_filter_arguments() (NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter method)</a>
+</li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.filterresponse.get_filter_response">get_filter_response() (in module NuRadioReco.detector.filterresponse)</a>
 </li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.filterresponse.get_filter_response_mini_circuits">get_filter_response_mini_circuits() (in module NuRadioReco.detector.filterresponse)</a>
@@ -944,6 +961,8 @@
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.filterresponse.get_filter_response_mini_circuits2">get_filter_response_mini_circuits2() (in module NuRadioReco.detector.filterresponse)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_first_shower">get_first_shower() (NuRadioReco.framework.event.Event method)</a>
+</li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_first_sim_shower">get_first_sim_shower() (NuRadioReco.framework.event.Event method)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_trace.BaseTrace.get_frequencies">get_frequencies() (NuRadioReco.framework.base_trace.BaseTrace method)</a>
 </li>
@@ -977,19 +996,21 @@
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_trace.BaseTrace.get_hilbert_envelope_mag">get_hilbert_envelope_mag() (NuRadioReco.framework.base_trace.BaseTrace method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.hybrid_shower.HybridShower.get_hybrid_detector">get_hybrid_detector() (NuRadioReco.framework.hybrid_shower.HybridShower method)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_hybrid_information">get_hybrid_information() (NuRadioReco.framework.event.Event method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_shower">get_hybrid_shower() (NuRadioReco.framework.hybrid_information.HybridInformation method)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.hybrid_information.HybridInformation.get_hybrid_showers">get_hybrid_showers() (NuRadioReco.framework.hybrid_information.HybridInformation method)</a>
 </li>
-      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_station.BaseStation.get_id">get_id() (NuRadioReco.framework.base_station.BaseStation method)</a>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_shower.BaseShower.get_id">get_id() (NuRadioReco.framework.base_shower.BaseShower method)</a>
 
       <ul>
+        <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_station.BaseStation.get_id">(NuRadioReco.framework.base_station.BaseStation method)</a>
+</li>
         <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.channel.Channel.get_id">(NuRadioReco.framework.channel.Channel method)</a>
 </li>
         <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_id">(NuRadioReco.framework.event.Event method)</a>
@@ -1018,6 +1039,8 @@
 </li>
       </ul></li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.detector.Detector.get_noise_RMS">get_noise_RMS() (NuRadioReco.detector.detector.Detector method)</a>
+</li>
+      <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.detector.Detector.get_noise_temperature">get_noise_temperature() (NuRadioReco.detector.detector.Detector method)</a>
 </li>
       <li><a href="NuRadioReco.utilities.html#NuRadioReco.utilities.templates.Templates.get_nu_ref_template">get_nu_ref_template() (NuRadioReco.utilities.templates.Templates method)</a>
 </li>
@@ -1081,6 +1104,8 @@
 </li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.generic_detector.GenericDetector.get_raw_station">get_raw_station() (NuRadioReco.detector.generic_detector.GenericDetector method)</a>
 </li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.electric_field.ElectricField.get_ray_tracing_solution_id">get_ray_tracing_solution_id() (NuRadioReco.framework.electric_field.ElectricField method)</a>
+</li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.get_reference_direction">get_reference_direction() (NuRadioReco.framework.station.Station method)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.get_reference_reconstruction">get_reference_reconstruction() (NuRadioReco.framework.station.Station method)</a>
@@ -1117,7 +1142,13 @@
 </li>
       <li><a href="NuRadioReco.utilities.html#NuRadioReco.utilities.templates.Templates.get_set_of_nu_templates">get_set_of_nu_templates() (NuRadioReco.utilities.templates.Templates method)</a>
 </li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_shower">get_shower() (NuRadioReco.framework.event.Event method)</a>
+</li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.electric_field.ElectricField.get_shower_id">get_shower_id() (NuRadioReco.framework.electric_field.ElectricField method)</a>
+</li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_showers">get_showers() (NuRadioReco.framework.event.Event method)</a>
+</li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_sim_shower">get_sim_shower() (NuRadioReco.framework.event.Event method)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.get_sim_showers">get_sim_showers() (NuRadioReco.framework.event.Event method)</a>
 </li>
@@ -1181,6 +1212,8 @@
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.trigger.Trigger.get_type">get_type() (NuRadioReco.framework.trigger.Trigger method)</a>
 </li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.electric_field.ElectricField.get_unique_identifier">get_unique_identifier() (NuRadioReco.framework.electric_field.ElectricField method)</a>
+</li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.detector.Detector.get_unique_time_periods">get_unique_time_periods() (NuRadioReco.detector.detector.Detector method)</a>
 </li>
   </ul></td>
@@ -1213,6 +1246,8 @@
       </ul></li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.electric_field.ElectricField.has_parameter_error">has_parameter_error() (NuRadioReco.framework.electric_field.ElectricField method)</a>
 </li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.has_shower">has_shower() (NuRadioReco.framework.event.Event method)</a>
+</li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.has_sim_shower">has_sim_shower() (NuRadioReco.framework.event.Event method)</a>
 </li>
   </ul></td>
@@ -1237,6 +1272,10 @@
         <li><a href="NuRadioReco.modules.ARA.html#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.has_triggered">(NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator method)</a>
 </li>
       </ul></li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.eventParameters.hash_NuRadioMC">hash_NuRadioMC (NuRadioReco.framework.parameters.eventParameters attribute)</a>
+</li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.eventParameters.hash_NuRadioReco">hash_NuRadioReco (NuRadioReco.framework.parameters.eventParameters attribute)</a>
+</li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.trigger.HighLowTrigger">HighLowTrigger (class in NuRadioReco.framework.trigger)</a>
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.hybrid_information.HybridInformation">HybridInformation (class in NuRadioReco.framework.hybrid_information)</a>
@@ -1253,6 +1292,8 @@
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.trigger.IntegratedPowerTrigger">IntegratedPowerTrigger (class in NuRadioReco.framework.trigger)</a>
 </li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.showerParameters.interaction_type">interaction_type (NuRadioReco.framework.parameters.showerParameters attribute)</a>
+</li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.ARIANNAParameters.internal_clock_time">internal_clock_time (NuRadioReco.framework.parameters.ARIANNAParameters attribute)</a>
 </li>
       <li><a href="NuRadioReco.detector.html#NuRadioReco.detector.antennapattern.interpolate_linear">interpolate_linear() (in module NuRadioReco.detector.antennapattern)</a>
@@ -1265,9 +1306,21 @@
 </li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.base_station.BaseStation.is_neutrino">is_neutrino() (NuRadioReco.framework.base_station.BaseStation method)</a>
 </li>
-      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.iter_channels">iter_channels() (NuRadioReco.framework.station.Station method)</a>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.sim_station.SimStation.iter_channels">iter_channels() (NuRadioReco.framework.sim_station.SimStation method)</a>
+
+      <ul>
+        <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.station.Station.iter_channels">(NuRadioReco.framework.station.Station method)</a>
 </li>
+      </ul></li>
       <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.event.Event.iter_modules">iter_modules() (NuRadioReco.framework.event.Event method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.showerParameters.k_L">k_L (NuRadioReco.framework.parameters.showerParameters attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1377,6 +1430,14 @@
 </li>
       <li><a href="NuRadioReco.eventbrowser.apps.html#module-NuRadioReco.eventbrowser.apps.common">NuRadioReco.eventbrowser.apps.common (module)</a>
 </li>
+      <li><a href="NuRadioReco.eventbrowser.apps.html#module-NuRadioReco.eventbrowser.apps.cosmic_rays">NuRadioReco.eventbrowser.apps.cosmic_rays (module)</a>
+</li>
+      <li><a href="NuRadioReco.eventbrowser.apps.html#module-NuRadioReco.eventbrowser.apps.overview">NuRadioReco.eventbrowser.apps.overview (module)</a>
+</li>
+      <li><a href="NuRadioReco.eventbrowser.apps.html#module-NuRadioReco.eventbrowser.apps.simulation">NuRadioReco.eventbrowser.apps.simulation (module)</a>
+</li>
+      <li><a href="NuRadioReco.eventbrowser.apps.html#module-NuRadioReco.eventbrowser.apps.traces">NuRadioReco.eventbrowser.apps.traces (module)</a>
+</li>
       <li><a href="NuRadioReco.eventbrowser.html#module-NuRadioReco.eventbrowser.dataprovider">NuRadioReco.eventbrowser.dataprovider (module)</a>
 </li>
       <li><a href="NuRadioReco.eventbrowser.html#module-NuRadioReco.eventbrowser.default_layout">NuRadioReco.eventbrowser.default_layout (module)</a>
@@ -1427,12 +1488,12 @@
 </li>
       <li><a href="NuRadioReco.modules.base.html#module-NuRadioReco.modules.base.module">NuRadioReco.modules.base.module (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelBandPassFilter">NuRadioReco.modules.channelBandPassFilter (module)</a>
 </li>
       <li><a href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelGenericNoiseAdder">NuRadioReco.modules.channelGenericNoiseAdder (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelLengthAdjuster">NuRadioReco.modules.channelLengthAdjuster (module)</a>
 </li>
       <li><a href="NuRadioReco.modules.html#module-NuRadioReco.modules.channelResampler">NuRadioReco.modules.channelResampler (module)</a>
@@ -1933,10 +1994,14 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="NuRadioReco.modules.html#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter">voltageToAnalyticEfieldConverter (class in NuRadioReco.modules.voltageToAnalyticEfieldConverter)</a>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.showerParameters.vertex">vertex (NuRadioReco.framework.parameters.showerParameters attribute)</a>
+</li>
+      <li><a href="NuRadioReco.framework.html#NuRadioReco.framework.parameters.showerParameters.vertex_time">vertex_time (NuRadioReco.framework.parameters.showerParameters attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="NuRadioReco.modules.html#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter">voltageToAnalyticEfieldConverter (class in NuRadioReco.modules.voltageToAnalyticEfieldConverter)</a>
+</li>
       <li><a href="NuRadioReco.modules.html#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter">voltageToEfieldConverter (class in NuRadioReco.modules.voltageToEfieldConverter)</a>
 </li>
       <li><a href="NuRadioReco.modules.html#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel">voltageToEfieldConverterPerChannel (class in NuRadioReco.modules.voltageToEfieldConverterPerChannel)</a>

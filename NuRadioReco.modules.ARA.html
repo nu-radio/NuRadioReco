@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -412,9 +414,15 @@ channel : Channel</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, power_threshold=6.5, coinc_window=110, number_concidences=3, triggered_channels=[0, 1, 2, 3, 4, 5, 6, 7], power_mean=None, power_std=None, trigger_name='default_integrated_power'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">power_threshold=6.5</em>, <em class="sig-param">coinc_window=110</em>, <em class="sig-param">number_concidences=3</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">power_mean=None</em>, <em class="sig-param">power_std=None</em>, <em class="sig-param">trigger_name='default_integrated_power'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARA.triggerSimulator.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARA trigger logic</p>
 <dl class="simple">
+<dt>evt: Event</dt><dd><p>The event on which to run the module</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station on which to run the module</p>
+</dd>
+<dt>det: Detector or GenericDetector</dt><dd><p>The detector description</p>
+</dd>
 <dt>power_threshold: float</dt><dd><p>The factor of sigma that the signal needs to exceed the noise</p>
 </dd>
 <dt>coinc_window: float</dt><dd><p>time window in which number_concidences channels need to trigger</p>

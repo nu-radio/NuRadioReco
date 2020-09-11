@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -420,9 +422,17 @@ and then coincidences between antennas can be required.</p>
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">threshold_high=0.06</em>, <em class="sig-param">threshold_low=-0.06</em>, <em class="sig-param">high_low_window=5</em>, <em class="sig-param">coinc_window=200</em>, <em class="sig-param">number_concidences=2</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">trigger_name='default_high_low'</em>, <em class="sig-param">set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARIANNA trigger logic</p>
 <dl class="simple">
-<dt>threshold_high: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the high side</p>
+<dt>evt: Event</dt><dd><p>The event to run the module on</p>
 </dd>
-<dt>threshold_low: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the low side</p>
+<dt>station: Station</dt><dd><p>The station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
+<dt>threshold_high: float or dict of floats</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the high side
+a dict can be used to specify a different threshold per channel where the key is the channel id</p>
+</dd>
+<dt>threshold_low: float or dict of floats</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the low side
+a dict can be used to specify a different threshold per channel where the key is the channel id</p>
 </dd>
 <dt>high_low_window: float</dt><dd><p>time window in which a high+low crossing needs to occur to trigger a channel</p>
 </dd>
@@ -431,9 +441,6 @@ and then coincidences between antennas can be required.</p>
 <dt>number_concidences: int</dt><dd><p>number of channels that are requried in coincidence to trigger a station</p>
 </dd>
 <dt>triggered_channels: array of ints or None</dt><dd><p>channels ids that are triggered on, if None trigger will run on all channels</p>
-</dd>
-<dt>cut_trace: bool</dt><dd><p>if true, trace is cut to the correct length (50ns before the trigger,
-max trace length is set according to detector description)</p>
 </dd>
 <dt>trigger_name: string</dt><dd><p>a unique name of this particular trigger</p>
 </dd>
@@ -459,7 +466,7 @@ max trace length is set according to detector description)</p>
 
 <dl class="function">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.get_multiple_high_low_trigger">
-<code class="sig-prename descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="sig-name descname">get_multiple_high_low_trigger</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">high_threshold</em>, <em class="sig-param">low_threashold</em>, <em class="sig-param">n_high_lows</em>, <em class="sig-param">time_coincidence=10</em>, <em class="sig-param">dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_multiple_high_low_trigger" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.modules.trigger.multiHighLowThreshold.</code><code class="sig-name descname">get_multiple_high_low_trigger</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">high_threshold</em>, <em class="sig-param">low_threshold</em>, <em class="sig-param">n_high_lows</em>, <em class="sig-param">time_coincidence=10</em>, <em class="sig-param">dt=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.get_multiple_high_low_trigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculats a multiple high low threshold crossings in a time coincidence window</p>
 <dl class="simple">
 <dt>trace: array of floats</dt><dd><p>the signal trace</p>
@@ -500,12 +507,20 @@ and then coincidences between antennas can be required.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, threshold_high=0.06, threshold_low=-0.06, high_low_window=5, n_high_lows=5, coinc_window=200, number_concidences=2, triggered_channels=[0, 1, 2, 3], trigger_name='default_high_low', set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">threshold_high=0.06</em>, <em class="sig-param">threshold_low=-0.06</em>, <em class="sig-param">high_low_window=5</em>, <em class="sig-param">n_high_lows=5</em>, <em class="sig-param">coinc_window=200</em>, <em class="sig-param">number_concidences=2</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">trigger_name='default_high_low'</em>, <em class="sig-param">set_not_triggered=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.multiHighLowThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate ARIANNA trigger logic</p>
 <dl class="simple">
-<dt>threshold_high: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the high side</p>
+<dt>evt: Event</dt><dd><p>Event to run the module on</p>
 </dd>
-<dt>threshold_low: float</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the low side</p>
+<dt>station: Station</dt><dd><p>Station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
+<dt>threshold_high: float or dict of floats</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the high side
+a dict can be used to specify a different threshold per channel where the key is the channel id</p>
+</dd>
+<dt>threshold_low: float or dict of floats</dt><dd><p>the threshold voltage that needs to be crossed on a single channel on the low side
+a dict can be used to specify a different threshold per channel where the key is the channel id</p>
 </dd>
 <dt>high_low_window: float</dt><dd><p>time window in which a high+low crossing needs to occur to trigger a channel</p>
 </dd>
@@ -516,9 +531,6 @@ and then coincidences between antennas can be required.</p>
 <dt>number_concidences: int</dt><dd><p>number of channels that are requried in coincidence to trigger a station</p>
 </dd>
 <dt>triggered_channels: array of ints or None</dt><dd><p>channels ids that are triggered on, if None trigger will run on all channels</p>
-</dd>
-<dt>cut_trace: bool</dt><dd><p>if true, trace is cut to the correct length (50ns before the trigger,
-max trace length is set according to detector description)</p>
 </dd>
 <dt>trigger_name: string</dt><dd><p>a unique name of this particular trigger</p>
 </dd>
@@ -555,7 +567,7 @@ max trace length is set according to detector description)</p>
 <p>Calculate a very simple amplitude trigger.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -568,9 +580,16 @@ max trace length is set according to detector description)</p>
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">threshold=0.06</em>, <em class="sig-param">number_concidences=1</em>, <em class="sig-param">triggered_channels=None</em>, <em class="sig-param">coinc_window=200</em>, <em class="sig-param">trigger_name='default_simple_threshold'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.trigger.simpleThreshold.triggerSimulator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>simulate simple trigger logic, no time window, just threshold in all channels</p>
 <dl class="simple">
+<dt>evt: Event</dt><dd><p>The event to run the module on</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
 <dt>number_concidences: int</dt><dd><p>number of channels that are requried in coincidence to trigger a station</p>
 </dd>
-<dt>threshold: float</dt><dd><p>threshold above (or below) a trigger is issued, absolute amplitude</p>
+<dt>threshold: float or dict of floats</dt><dd><p>threshold above (or below) a trigger is issued, absolute amplitude
+a dict can be used to specify a different threshold per channel where the key is the channel id</p>
 </dd>
 <dt>triggered_channels: array of ints or None</dt><dd><p>channels ids that are triggered on, if None trigger will run on all channels</p>
 </dd>

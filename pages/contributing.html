@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
@@ -461,6 +463,32 @@ intentional!</p>
 </div>
 </div></blockquote>
 </div>
+</div>
+<div class="section" id="coding-standards-and-linting">
+<h3>Coding Standards and Linting<a class="headerlink" href="#coding-standards-and-linting" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Python code submitted to the NuRadioReco main branch has to follow PEP8 code standards,
+with some exceptions listed below. To ensure this, the GitHub Super Linter is run on
+every pull request. The linter checks the code for any potential errors or violations
+of PEP8 coding conventions. This is done to prevent bugs, ensure a better code quality
+and avoid changes in code style hiding the actually functional changes in a pull request.</p>
+<p>The code check is done via the <a class="reference external" href="https://flake8.pycqa.org/">flake8</a> linter, using mostly
+the default settings, with the following checks turned off:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>E501: Line too long</p></li>
+<li><p>W391: Blank line at end of file</p></li>
+<li><p>E722: Avoid bare ‘except’</p></li>
+<li><p>W503: Line break before a binary operator</p></li>
+</ul>
+</div></blockquote>
+<p>For anyone contributing to NuRadioReco, it is recommended to install flake8 locally and
+perform codechecks regularly. It can easily be installed using pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">flake8</span></code>.
+To ignore the checks listed above, add the line <code class="docutils literal notranslate"><span class="pre">ignore</span> <span class="pre">=</span> <span class="pre">E501,</span> <span class="pre">W391,</span> <span class="pre">E722,</span> <span class="pre">W503</span></code> to the
+flake8 config file.
+After this, flake8 can be run through the console. However, most modern code editors either
+provide their own flake8 code checks or support its use as an external tool.</p>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="documentation">

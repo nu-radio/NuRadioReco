@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -404,7 +406,7 @@ weight : weight of individual station</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">input_files</em>, <em class="sig-param">station_id</em>, <em class="sig-param">n_cores=10</em>, <em class="sig-param">max_distance=2000.0</em>, <em class="sig-param">seed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">input_files</em>, <em class="sig-param">station_id</em>, <em class="sig-param">n_cores=10</em>, <em class="sig-param">max_distance=2000.0</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.coreas.readCoREAS.readCoREAS.begin" title="Permalink to this definition">¶</a></dt>
 <dd><p>begin method</p>
 <p>initialize readCoREAS module</p>
 <dl class="simple">
@@ -416,6 +418,8 @@ weight : weight of individual station</p>
 </dd>
 <dt>max_distance: radius of random cores (double or None)</dt><dd><p>if None: max distance is set to the maximum ground distance of the
 star pattern simulation</p>
+</dd>
+<dt>seed: int (default: None)</dt><dd><p>Seed for the random number generation. If None is passed, no seed is set</p>
 </dd>
 </dl>
 </dd></dl>

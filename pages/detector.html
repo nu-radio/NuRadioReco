@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentation</a><ul>
@@ -526,6 +528,17 @@ have to be set to <code class="docutils literal notranslate"><span class="pre">T
 each time an event from another file is read to get the correct <code class="docutils literal notranslate"><span class="pre">Detector</span></code> or <code class="docutils literal notranslate"><span class="pre">GenericDetector</span></code>.</p>
 <p>We recommend calling <code class="docutils literal notranslate"><span class="pre">get_detector</span></code> after every new event request.</p>
 </div>
+</div>
+<div class="section" id="detector-viewer">
+<h3>Detector Viewer<a class="headerlink" href="#detector-viewer" title="Permalink to this headline">¶</a></h3>
+<p>NuRadioReco provides a visualization for detector description. It is stored in the folder
+<code class="docutils literal notranslate"><span class="pre">NuRadioReco/detector/detector_browser</span></code> and works similar to the event viewer.</p>
+<p>To start it, execute the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">index.py</span> <span class="pre">/path/to/folder</span></code>. Then open
+a web browser and go to the URL printed on the terminal (<a class="reference external" href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a>
+by default).</p>
+<p>The browser can read both the standard Detector and the GenericDetector format,
+as well as detector descriptions stored in event files. The input format can
+be selected from the dropdown, after which the detector file can be opened.</p>
 </div>
 </div>
 </div>

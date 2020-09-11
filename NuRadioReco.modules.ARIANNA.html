@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -371,7 +373,7 @@
 <dt id="NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_filter">
 <code class="sig-name descname">get_filter</code><span class="sig-paren">(</span><em class="sig-param">frequencies</em>, <em class="sig-param">station_id</em>, <em class="sig-param">channel_id</em>, <em class="sig-param">det</em>, <em class="sig-param">sim_to_data=False</em>, <em class="sig-param">phase_only=False</em>, <em class="sig-param">mode=None</em>, <em class="sig-param">mingainlin=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.ARIANNA.hardwareResponseIncorporator.hardwareResponseIncorporator.get_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>helper function to return the filter that the module applies.</p>
-<dl class="simple">
+<dl>
 <dt>frequencies: array of floats</dt><dd><p>the frequency array for which the filter should be returned</p>
 </dd>
 <dt>station_id: int</dt><dd><p>the station id</p>
@@ -380,12 +382,32 @@
 </dd>
 <dt>det: detector instance</dt><dd><p>the detector</p>
 </dd>
-</dl>
-<p>the remaining arguments are the arguments of the run method!</p>
-<dl class="simple">
-<dt>Returns: array of complex floats</dt><dd><p>the complex filter amplitudes</p>
+<dt>sim_to_data: bool (default False)</dt><dd><p>if False, deconvolve the hardware response
+if True, convolve with the hardware response</p>
+</dd>
+<dt>phase_only: bool (default False)</dt><dd><p>if True, only the phases response is applied but not the amplitude response</p>
+</dd>
+<dt>mode: string</dt><dd><dl class="simple">
+<dt>‘phase_only’: only the phases response is applied but not the amplitude response</dt><dd><p>(identical to phase_only=True )</p>
+</dd>
+<dt>‘relativ’: gain of amp is divided by maximum of the gain, i.e. at the maximum of the</dt><dd><p>filter response is 1 (before applying cable response). This makes it easier
+to compare the filtered to unfiltered signal</p>
 </dd>
 </dl>
+<p>None : default, gain and phase effects are applied ‘normally’</p>
+</dd>
+<dt>mingainlin: float</dt><dd><p>In frequency ranges where the gain gets very small, the reconstruction of the original signal (obtained by
+dividing the measured signal by the gain) leads to excessively high values, due to the effect of
+post-amplifier noise. In order to mitigate this effect, a minimum gain (linear scale!) as fraction of the
+maximum gain can be defined. If specified, any gain value smaller than mingainlin will be replaced by mingainlin.
+Note: The adjustment to the minimal gain is NOT visible when getting the amp response from
+analog_components.get_amplifier_response()</p>
+</dd>
+</dl>
+<blockquote>
+<div><p>array of complex floats
+the complex filter amplitudes</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -404,6 +426,12 @@
 <dd><p>Switch sim_to_data to go from simulation to data or otherwise.
 The option zero_noise can be used to zero the noise around the pulse. It is unclear, how useful this is.</p>
 <dl>
+<dt>evt: Event</dt><dd><p>the event on which to run the module</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station on which to run the module</p>
+</dd>
+<dt>det: Detector or GenericDetector</dt><dd><p>The detector description</p>
+</dd>
 <dt>sim_to_data: bool (default False)</dt><dd><p>if False, deconvolve the hardware response
 if True, convolve with the hardware response</p>
 </dd>

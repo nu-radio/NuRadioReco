@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -376,6 +378,8 @@ as a noise sample. The data must have the naming convention ‘<a href="#id1"><s
 where ?? is replaced with the station id. If station_id is None, the noiseImporter
 will try to find the station with the same iD as the one passed to the run
 function in the noise file</p>
+</dd>
+<dt>noise_files: list of strings (default: None)</dt><dd><p>List of noisefiles. If None is passed, all files in the noise_folder are used</p>
 </dd>
 <dt>channel_mapping: dict or None</dt><dd><p>option relevant for MC studies of new station designs where we do not
 have forced triggers for. The channel_mapping dictionary maps the channel

@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -445,7 +447,7 @@
 <dd><p>helper function to return the filter that the module applies.</p>
 <p>The unused parameters station_id, channel_id, det are needed to have the same signature as the
 <cite>get_filter</cite> functions of other modules, e.g. the hardwareResponseIncorporator.</p>
-<dl class="simple">
+<dl>
 <dt>frequencies: array of floats</dt><dd><p>the frequency array for which the filter should be returned</p>
 </dd>
 <dt>station_id: int</dt><dd><p>the station id</p>
@@ -454,31 +456,54 @@
 </dd>
 <dt>det: detector instance</dt><dd><p>the detector</p>
 </dd>
-</dl>
-<p>the remaining arguments are the arguments of the run method!</p>
-<dl class="simple">
-<dt>Returns: array of complex floats</dt><dd><p>the complex filter amplitudes</p>
+<dt>passband: list or dict of lists, (default: [55 * units.MHz, 1000 * units.MHz])</dt><dd><p>passband[0]: lower boundary of filter, passband[1]: upper boundary of filter
+a dict can be used to specify a different bandwidth per channel, the key is the channel_id</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, passband=[0.055, 1.0], filter_type='rectangular', order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the filter</p>
-<dl class="simple">
-<dt>evt, station, det</dt><dd><p>Event, Station, Detector</p>
-</dd>
-<dt>passband: list</dt><dd><p>passband[0]: lower boundary of filter, passband[1]: upper boundary of filter</p>
-</dd>
-<dt>filter_type: string</dt><dd><p>‘rectangular’: perfect straight line filter
+<dt>filter_type: string or dict</dt><dd><p>‘rectangular’: perfect straight line filter
 ‘butter’: butterworth filter from scipy
 ‘butterabs’: absolute of butterworth filter from scipy
 or any filter that is implemented in NuRadioReco.detector.filterresponse. In this case the
 passband parameter is ignored
 or ‘FIR &lt;type&gt; &lt;parameter&gt;’ - see below for FIR filter options</p>
+<p>a dict can be used to specify a different bandwidth per channel, the key is the channel_id</p>
 </dd>
-<dt>order: int (optional, default 2)</dt><dd><p>for a butterworth filter: specifies the order of the filter</p>
+<dt>order: int (optional, default 2) or dict</dt><dd><p>for a butterworth filter: specifies the order of the filter</p>
+<p>a dict can be used to specify a different bandwidth per channel, the key is the channel_id</p>
+</dd>
+</dl>
+<blockquote>
+<div><dl class="simple">
+<dt>array of complex floats</dt><dd><p>the complex filter amplitudes</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.get_filter_arguments">
+<code class="sig-name descname">get_filter_arguments</code><span class="sig-paren">(</span><em class="sig-param">channel_id</em>, <em class="sig-param">passband</em>, <em class="sig-param">filter_type</em>, <em class="sig-param">order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.get_filter_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">passband=None</em>, <em class="sig-param">filter_type='rectangular'</em>, <em class="sig-param">order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the filter</p>
+<dl>
+<dt>evt, station, det</dt><dd><p>Event, Station, Detector</p>
+</dd>
+<dt>passband: list or dict of lists, (default: [55 * units.MHz, 1000 * units.MHz])</dt><dd><p>passband[0]: lower boundary of filter, passband[1]: upper boundary of filter
+a dict can be used to specify a different bandwidth per channel, the key is the channel_id</p>
+</dd>
+<dt>filter_type: string or dict</dt><dd><p>‘rectangular’: perfect straight line filter
+‘butter’: butterworth filter from scipy
+‘butterabs’: absolute of butterworth filter from scipy
+or any filter that is implemented in NuRadioReco.detector.filterresponse. In this case the
+passband parameter is ignored
+or ‘FIR &lt;type&gt; &lt;parameter&gt;’ - see below for FIR filter options</p>
+<p>a dict can be used to specify a different bandwidth per channel, the key is the channel_id</p>
+</dd>
+<dt>order: int (optional, default 2) or dict</dt><dd><p>for a butterworth filter: specifies the order of the filter</p>
+<p>a dict can be used to specify a different bandwidth per channel, the key is the channel_id</p>
 </dd>
 </dl>
 <p>Added Jan-07-2018 by <a class="reference external" href="mailto:robert&#46;lahmann&#37;&#52;&#48;fau&#46;de">robert<span>&#46;</span>lahmann<span>&#64;</span>fau<span>&#46;</span>de</a>:
@@ -561,7 +586,7 @@ is implemented (RL 17-Sept-2018)</p></li>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -581,13 +606,14 @@ is implemented (RL 17-Sept-2018)</p></li>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">event</em>, <em class="sig-param">station</em>, <em class="sig-param">detector</em>, <em class="sig-param">amplitude=0.001</em>, <em class="sig-param">min_freq=0.05</em>, <em class="sig-param">max_freq=2.0</em>, <em class="sig-param">type='perfect_white'</em>, <em class="sig-param">excluded_channels=[]</em>, <em class="sig-param">bandwidth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">event</em>, <em class="sig-param">station</em>, <em class="sig-param">detector</em>, <em class="sig-param">amplitude=0.001</em>, <em class="sig-param">min_freq=0.05</em>, <em class="sig-param">max_freq=2.0</em>, <em class="sig-param">type='perfect_white'</em>, <em class="sig-param">excluded_channels=None</em>, <em class="sig-param">bandwidth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add noise to given event.</p>
 <p>event</p>
 <p>station</p>
 <p>detector</p>
 <dl class="simple">
-<dt>amplitude: float</dt><dd><p>desired voltage of noise as V_rms for the specified bandwidth</p>
+<dt>amplitude: float or dict of floats</dt><dd><p>desired voltage of noise as V_rms for the specified bandwidth
+a dict can be used to specify a different amplitude per channel, the key is the channel_id</p>
 </dd>
 <dt>min_freq: float</dt><dd><p>Minimum frequency of passband for noise generation</p>
 </dd>
@@ -618,14 +644,12 @@ If <cite>bandwidth</cite> is larger then (min(max_freq, 0.5 * sampling rate) - m
 <p>cuts the trace to detector specifications, uses a simple algorithm to determine the location of the pulse</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">number_of_samples=256</em>, <em class="sig-param">offset=50</em>, <em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">number_of_samples=256</em>, <em class="sig-param">offset=50</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelLengthAdjuster.channelLengthAdjuster.begin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines number of samples to cut the data to and how many samples before maximum in trace</p>
 <dl class="simple">
 <dt>number_of_samples: int</dt><dd><p>Number of samples desired in signal</p>
 </dd>
 <dt>offset: int</dt><dd><p>(roughly) How many samples before pulse</p>
-</dd>
-<dt>debug: bool</dt><dd><p>Debug</p>
 </dd>
 </dl>
 </dd></dl>
@@ -679,22 +703,25 @@ If <cite>bandwidth</cite> is larger then (min(max_freq, 0.5 * sampling rate) - m
 <span id="nuradioreco-modules-channelsignalreconstructor-module"></span><h2>NuRadioReco.modules.channelSignalReconstructor module<a class="headerlink" href="#module-NuRadioReco.modules.channelSignalReconstructor" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor">
-<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.channelSignalReconstructor.</code><code class="sig-name descname">channelSignalReconstructor</code><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.channelSignalReconstructor.</code><code class="sig-name descname">channelSignalReconstructor</code><span class="sig-paren">(</span><em class="sig-param">log_level=30</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Calculates basic signal parameters.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em>, <em class="sig-param">signal_start=20</em>, <em class="sig-param">signal_stop=100</em>, <em class="sig-param">noise_start=150</em>, <em class="sig-param">noise_stop=350</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em>, <em class="sig-param">signal_window_start=None</em>, <em class="sig-param">signal_window_length=120</em>, <em class="sig-param">noise_window_start=None</em>, <em class="sig-param">noise_window_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.begin" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
-<dt>signal_start: float</dt><dd><p>Start time (relative to the trace start time) of the window in which signal quantities will be calculated, with time units</p>
-</dd>
 <dt>debug: bool</dt><dd><p>Set module to debug output</p>
 </dd>
-<dt>signal_stop: float</dt><dd><p>Stop time (relative to the trace start time) of the window in which signal quantities will be calculated, with time units</p>
+<dt>signal_window_start: float or None</dt><dd><p>Start time (relative to the trace start time) of the window in which signal quantities will be calculated, with time units
+If None is passed as a parameter, the signal window is laid around the trace maximum</p>
 </dd>
-<dt>noise_start: float</dt><dd><p>Start time (relative to the trace start time) of the window in which noise quantities will be calculated, with time units</p>
+<dt>signal_window_length: float</dt><dd><p>Length of the signal window, with time units</p>
 </dd>
-<dt>noise_stop: float</dt><dd><p>Stop time (relative to the trace start time) of the window in which noise quantities will be calculated, with time units</p>
+<dt>noise_window_start: float or None</dt><dd><p>Start time (relative to the trace start time) of the window in which noise quantities will be calculated, with time units
+If noise_window_start or noise_window_length are None, the noise window is the part of the trace outside the signal window</p>
+</dd>
+<dt>noise_window_length: float or None</dt><dd><p>Length of the noise window, with time units
+If noise_window_start or noise_window_length are None, the noise window is the part of the trace outside the signal window</p>
 </dd>
 </dl>
 </dd></dl>
@@ -708,6 +735,8 @@ If <cite>bandwidth</cite> is larger then (min(max_freq, 0.5 * sampling rate) - m
 <dt id="NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.get_SNR">
 <code class="sig-name descname">get_SNR</code><span class="sig-paren">(</span><em class="sig-param">station_id</em>, <em class="sig-param">channel</em>, <em class="sig-param">det</em>, <em class="sig-param">stored_noise=False</em>, <em class="sig-param">rms_stage=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelSignalReconstructor.channelSignalReconstructor.get_SNR" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
+<dt>station_id: int</dt><dd><p>ID of the station</p>
+</dd>
 <dt>channel, det</dt><dd><p>Channel, Detector</p>
 </dd>
 <dt>stored_noise: bool</dt><dd><p>Calculates noise from pre-computed forced triggers</p>
@@ -759,6 +788,12 @@ this modules smoothly filters the beginning and the end of the trace</p>
 <dt id="NuRadioReco.modules.channelStopFilter.channelStopFilter.run">
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">filter_size=0.1</em>, <em class="sig-param">prepend=128</em>, <em class="sig-param">append=128</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelStopFilter.channelStopFilter.run" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
+<dt>evt: Event</dt><dd><p>The event to run the module on</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
 <dt>filter_size: size of tukey window (float)</dt><dd><p>specifies the percentage of the trace where the filter is active.
 default is 0.1, i.e. the first 5% and the last 5% of the trace are filtered</p>
 </dd>
@@ -796,8 +831,16 @@ default is 0.1, i.e. the first 5% and the last 5% of the trace are filtered</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, channels_to_use=[0, 1, 2, 3], cosmic_ray=False, n_templates=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">channels_to_use=None</em>, <em class="sig-param">cosmic_ray=False</em>, <em class="sig-param">n_templates=1</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.channelTemplateCorrelation.channelTemplateCorrelation.run" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
+<dt>evt: Event</dt><dd><p>Event to run the module on</p>
+</dd>
+<dt>station: Station</dt><dd><p>Station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
+<dt>channels_to_use: List of int (default: [0, 1, 2, 3])</dt><dd><p>List of channel IDs for which the template correlation shall be calculated</p>
+</dd>
 <dt>cosmic_ray: bool</dt><dd><p>Switch for cosmic ray and neutrino analysis. Default is neutrino templates.</p>
 </dd>
 <dt>n_templates: int</dt><dd><p>default is 1: use just on standard template for all channels
@@ -876,16 +919,20 @@ if this option is set, ‘window’ is ignored</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, n_index=None, ZenLim=[0.0, 1.5707963267948966], AziLim=[0.0, 6.283185307179586], channel_pairs=((0, 2), (1, 3)), use_envelope=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">n_index=None</em>, <em class="sig-param">ZenLim=None</em>, <em class="sig-param">AziLim=None</em>, <em class="sig-param">channel_pairs=((0</em>, <em class="sig-param">2)</em>, <em class="sig-param">(1</em>, <em class="sig-param">3))</em>, <em class="sig-param">use_envelope=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.correlationDirectionFitter.correlationDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>reconstruct signal arrival direction for all events</p>
 <dl class="simple">
+<dt>evt: Event</dt><dd><p>The event to run the module on</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
 <dt>n_index: float</dt><dd><p>the index of refraction</p>
 </dd>
-<dt>ZenLim: 2-dim array/list of floats</dt><dd><p>the zenith angle limits for the fit
-default if 0-90deg (upward coming signal)</p>
+<dt>ZenLim: 2-dim array/list of floats (default: [0 * units.deg, 90 * units.deg])</dt><dd><p>the zenith angle limits for the fit</p>
 </dd>
-<dt>AziLim: 2-dim array/list of floats</dt><dd><p>the azimuth angle limits for the fit
-default is 0-360deg</p>
+<dt>AziLim: 2-dim array/list of floats (default: [0 * units.deg, 360 * units.deg])</dt><dd><p>the azimuth angle limits for the fit</p>
 </dd>
 <dt>channel_pairs: pair of pair of integers</dt><dd><p>specify the two channel pairs to use, default ((0, 2), (1, 3))</p>
 </dd>
@@ -970,10 +1017,13 @@ Requires the following modules to be run beforehand:</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.run">
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">type</em>, <em class="sig-param">narrowband_freq</em>, <em class="sig-param">narrowband_power</em>, <em class="sig-param">passband</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldGenericNoiseAdder.efieldGenericNoiseAdder.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>event</p>
-<p>station</p>
-<p>detector</p>
-<dl class="simple">
+<dd><dl class="simple">
+<dt>evt: Event</dt><dd><p>The event to run the module on</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
 <dt>type: string</dt><dd><p>narrowband: single frequency background with FM
 galactic: galactic emission calculated from temperature plots</p>
 </dd>
@@ -1008,8 +1058,20 @@ galactic: galactic emission calculated from temperature plots</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, debug=True, channels_to_use=[0, 1, 2, 3], cosmic_ray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">channels_to_use=None</em>, <em class="sig-param">cosmic_ray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldTimeDirectionFitter.efieldTimeDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>evt: Event</dt><dd><p>The event to run the module on</p>
+</dd>
+<dt>station: Station</dt><dd><p>The station to run the module on</p>
+</dd>
+<dt>det: Detector</dt><dd><p>The detector description</p>
+</dd>
+<dt>channels_to_use: list of int (default: [0, 1, 2, 3])</dt><dd><p>List with the IDs of channels to use for reconstruction</p>
+</dd>
+<dt>cosmic_ray: Bool (default: False)</dt><dd><p>Flag to mark event as cosmic ray</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -1018,7 +1080,7 @@ galactic: galactic emission calculated from temperature plots</p>
 <span id="nuradioreco-modules-efieldtovoltageconverter-module"></span><h2>NuRadioReco.modules.efieldToVoltageConverter module<a class="headerlink" href="#module-NuRadioReco.modules.efieldToVoltageConverter" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter">
-<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.efieldToVoltageConverter.</code><code class="sig-name descname">efieldToVoltageConverter</code><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">NuRadioReco.modules.efieldToVoltageConverter.</code><code class="sig-name descname">efieldToVoltageConverter</code><span class="sig-paren">(</span><em class="sig-param">log_level=30</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Module that should be used to convert simulations to data.
 It assumes that at least one efield is given per channel as input. It will
@@ -1027,12 +1089,12 @@ incoming direction specified in the channel object.
 The station id, defines antenna location and antenna type.</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em>, <em class="sig-param">uncertainty={}</em>, <em class="sig-param">time_resolution=0.1</em>, <em class="sig-param">pre_pulse_time=200</em>, <em class="sig-param">post_pulse_time=200</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em>, <em class="sig-param">uncertainty=None</em>, <em class="sig-param">time_resolution=0.1</em>, <em class="sig-param">pre_pulse_time=200</em>, <em class="sig-param">post_pulse_time=200</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.efieldToVoltageConverter.efieldToVoltageConverter.begin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Begin method, sets general parameters of module</p>
 <dl>
 <dt>debug: bool</dt><dd><p>enable/disable debug mode (default: False -&gt; no debug output)</p>
 </dd>
-<dt>uncertainty: dictionary</dt><dd><dl class="simple">
+<dt>uncertainty: dictionary (default: {})</dt><dd><dl class="simple">
 <dt>optional argument to specify systematic uncertainties. currently supported keys</dt><dd><ul class="simple">
 <li><p>‘sys_dx’: systematic uncertainty of x position of antenna</p></li>
 <li><p>‘sys_dy’: systematic uncertainty of y position of antenna</p></li>
@@ -1093,21 +1155,19 @@ The station id, defines antenna location and antenna type.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, passband=[0.055, 1.0], filter_type='rectangular', order=2, debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">passband=None</em>, <em class="sig-param">filter_type='rectangular'</em>, <em class="sig-param">order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldBandPassFilter.electricFieldBandPassFilter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies bandpass filter to electric field</p>
 <p>evt: event</p>
 <p>station: station</p>
 <p>det: detector</p>
 <dl class="simple">
-<dt>passband: seq, array</dt><dd><p>passband for filter, in phys units</p>
+<dt>passband: seq, array (default: [55 * units.MHz, 1000 * units.MHz])</dt><dd><p>passband for filter, in phys units</p>
 </dd>
 <dt>filter_type: string</dt><dd><p>‘rectangular’: perfect straight line filter
 ‘butter’: butterworth filter from scipy
 ‘butterabs’: absolute of butterworth filter from scipy</p>
 </dd>
 <dt>order: int (optional, default 2)</dt><dd><p>for a butterworth filter: specifies the order of the filter</p>
-</dd>
-<dt>debug: bool</dt><dd><p>set debug</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1124,7 +1184,7 @@ The station id, defines antenna location and antenna type.</p>
 <p>resamples the electric field trace to a new sampling rate</p>
 <dl class="method">
 <dt id="NuRadioReco.modules.electricFieldResampler.electricFieldResampler.begin">
-<code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldResampler.electricFieldResampler.begin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldResampler.electricFieldResampler.begin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1169,7 +1229,7 @@ The station id, defines antenna location and antenna type.</p>
 <dt id="NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.run">
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.electricFieldSignalReconstructor.electricFieldSignalReconstructor.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>reconstructs quantities for electric field</p>
-<p>event: event</p>
+<p>evt: event</p>
 <p>station: station</p>
 <p>det: detector</p>
 <dl class="simple">
@@ -1203,8 +1263,8 @@ supported, but others can be added in the future.</p>
 <p>station: station</p>
 <dl class="simple">
 <dt>mode: string</dt><dd><p>specifies which criteria the decision to flag the event as cosmic ray
-or neutrino should be based on. Currently only supports ‘forced’, 
-which automatically flags the event to a specified type. Add new 
+or neutrino should be based on. Currently only supports ‘forced’,
+which automatically flags the event to a specified type. Add new
 modes to use different criteria</p>
 </dd>
 <dt>forced_event_type: string</dt><dd><p>if the mode is set to forced, this is the type the event will be set to.
@@ -1235,15 +1295,13 @@ Currently supported options are neutrino and cosmic_ray</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, debug=True, channels_to_use=[0, 1, 2, 3], cosmic_ray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">channels_to_use=None</em>, <em class="sig-param">cosmic_ray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.templateDirectionFitter.templateDirectionFitter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fits the direction using templates</p>
 <p>evt: event</p>
 <p>station: station</p>
 <p>det: detector</p>
 <dl class="simple">
-<dt>debug: bool</dt><dd><p>set debug</p>
-</dd>
-<dt>channels_to_use: list</dt><dd><p>antenna to use for fit</p>
+<dt>channels_to_use: list (default: [0, 1, 2, 3]</dt><dd><p>antenna to use for fit</p>
 </dd>
 <dt>cosmic_ray: bool</dt><dd><p>type to set correlation template</p>
 </dd>
@@ -1364,7 +1422,7 @@ from the fit parameters.</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], bandpass=[0.1, 0.5], use_MC_direction=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">debug=False</em>, <em class="sig-param">debug_plotpath=None</em>, <em class="sig-param">use_channels=None</em>, <em class="sig-param">bandpass=None</em>, <em class="sig-param">use_MC_direction=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToAnalyticEfieldConverter.voltageToAnalyticEfieldConverter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run method. This function is executed for each event</p>
 <p>evt
 station
@@ -1377,10 +1435,10 @@ debug: bool</p>
 <dt>debug_plotpath: string or None</dt><dd><p>if not None plots will be saved to a file rather then shown. Plots will
 be save into the <cite>debug_plotpath</cite> directory</p>
 </dd>
-<dt>use_channels: array of ints</dt><dd><p>the channel ids to use for the electric field reconstruction
+<dt>use_channels: array of ints (default: [0, 1, 2, 3])</dt><dd><p>the channel ids to use for the electric field reconstruction
 default: 0 - 3</p>
 </dd>
-<dt>bandpass: [float, float]</dt><dd><p>the lower and upper frequecy for which the analytic pulse is calculated.
+<dt>bandpass: [float, float] (default: [100 * units.MHz, 500 * units.MHz])</dt><dd><p>the lower and upper frequecy for which the analytic pulse is calculated.
 A butterworth filter of 10th order and a rectangular filter is applied.
 default 100 - 500 MHz</p>
 </dd>
@@ -1423,21 +1481,16 @@ Returns x of shape (…, N)</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt, station, det, debug=False, debug_plotpath=None, use_channels=[0, 1, 2, 3], use_MC_direction=False, force_Polarization=''</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">use_channels=None</em>, <em class="sig-param">use_MC_direction=False</em>, <em class="sig-param">force_Polarization=''</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverter.voltageToEfieldConverter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run method. This function is executed for each event</p>
 <p>evt
 station
 det
-debug: bool</p>
+use_channels: array of ints (default: [0, 1, 2, 3])</p>
 <blockquote>
-<div><p>if True debug plotting is enables</p>
+<div><p>the channel ids to use for the electric field reconstruction</p>
 </div></blockquote>
 <dl class="simple">
-<dt>debug_plotpath: string or None</dt><dd><p>if not None plots will be saved to a file rather then shown. Plots will
-be save into the <cite>debug_plotpath</cite> directory</p>
-</dd>
-<dt>use_channels: array of ints</dt><dd><p>the channel ids to use for the electric field reconstruction</p>
-</dd>
 <dt>use_MC_direction: bool</dt><dd><p>if True uses zenith and azimuth direction from simulated station
 if False uses reconstructed direction from station parameters.</p>
 </dd>
@@ -1470,7 +1523,7 @@ assuming the other is 0. Otherwise, reconstructs electric field for both eTheta 
 
 <dl class="method">
 <dt id="NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">pol=0</em>, <em class="sig-param">debug=True</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">station</em>, <em class="sig-param">det</em>, <em class="sig-param">pol=0</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.voltageToEfieldConverterPerChannel.voltageToEfieldConverterPerChannel.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs computation for voltage trace to electric field per channel</p>
 <p>Will provide a deconvoluted (electric field) trace for each channel from the stations input voltage traces</p>
 <dl class="simple">
@@ -1481,8 +1534,6 @@ assuming the other is 0. Otherwise, reconstructs electric field for both eTheta 
 <dt>det: detector object</dt><dd><p>the detector object</p>
 </dd>
 <dt>pol: polarization</dt><dd><p>0 = eTheta polarized, 1 = ePhi polarized</p>
-</dd>
-<dt>debug: bool</dt><dd><p>if True additional debug plot(s) are displayed - currently unused</p>
 </dd>
 </dl>
 </dd></dl>

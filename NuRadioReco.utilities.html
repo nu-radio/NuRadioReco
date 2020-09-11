@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -431,6 +433,8 @@
 <code class="sig-prename descclassname">NuRadioReco.utilities.fft.</code><code class="sig-name descname">time2freq</code><span class="sig-paren">(</span><em class="sig-param">trace</em>, <em class="sig-param">sampling_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.fft.time2freq" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs forward FFT with correct normalization that conserves the power</p>
 <dl class="simple">
+<dt>trace: np.array</dt><dd><p>time trace to be transformed into frequency space</p>
+</dd>
 <dt>sampling_rate: float</dt><dd><p>sampling rate of the trace</p>
 </dd>
 </dl>
@@ -502,7 +506,7 @@ of the incoming radiation.”</p>
 
 <dl class="function">
 <dt id="NuRadioReco.utilities.geometryUtilities.get_time_delay_from_direction">
-<code class="sig-prename descclassname">NuRadioReco.utilities.geometryUtilities.</code><code class="sig-name descname">get_time_delay_from_direction</code><span class="sig-paren">(</span><em class="sig-param">zenith</em>, <em class="sig-param">azimuth</em>, <em class="sig-param">positions</em>, <em class="sig-param">n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.geometryUtilities.get_time_delay_from_direction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.utilities.geometryUtilities.</code><code class="sig-name descname">get_time_delay_from_direction</code><span class="sig-paren">(</span><em class="sig-param">zenith</em>, <em class="sig-param">azimuth</em>, <em class="sig-param">positions</em>, <em class="sig-param">n=1.000293</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.geometryUtilities.get_time_delay_from_direction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the time delay between given positions for an arrival direction</p>
 <dl class="simple">
 <dt>zenith: float [rad]</dt><dd><p>Zenith angle in convention up = 0</p>
@@ -510,6 +514,8 @@ of the incoming radiation.”</p>
 <dt>azimuth: float [rad]</dt><dd><p>Azimuth angle in convention East = 0, counter-clock-wise</p>
 </dd>
 <dt>positions: array[N x 3]</dt><dd><p>Positions on ground</p>
+</dd>
+<dt>n: float (default: 1.000293)</dt><dd><p>Index of reflection of propagation medium. By default, air is assumed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -535,6 +541,7 @@ of the incoming radiation.”</p>
 </div>
 <div class="section" id="module-NuRadioReco.utilities.ice">
 <span id="nuradioreco-utilities-ice-module"></span><h2>NuRadioReco.utilities.ice module<a class="headerlink" href="#module-NuRadioReco.utilities.ice" title="Permalink to this headline">¶</a></h2>
+<p>implementation of ice models</p>
 <dl class="function">
 <dt id="NuRadioReco.utilities.ice.get_refractive_index">
 <code class="sig-prename descclassname">NuRadioReco.utilities.ice.</code><code class="sig-name descname">get_refractive_index</code><span class="sig-paren">(</span><em class="sig-param">depth</em>, <em class="sig-param">site='southpole'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.utilities.ice.get_refractive_index" title="Permalink to this definition">¶</a></dt>

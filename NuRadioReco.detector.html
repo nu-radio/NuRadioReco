@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -394,7 +396,7 @@ Very simple script for currently NTU amps.</p>
 <p>utility class that handles access and buffering to analytic antenna pattern</p>
 <dl class="method">
 <dt id="NuRadioReco.detector.antennapattern.AntennaPatternAnalytic.parametric_phase">
-<code class="sig-name descname">parametric_phase</code><span class="sig-paren">(</span><em class="sig-param">freq</em>, <em class="sig-param">type='theoretical'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.AntennaPatternAnalytic.parametric_phase" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parametric_phase</code><span class="sig-paren">(</span><em class="sig-param">freq</em>, <em class="sig-param">phase_type='theoretical'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.AntennaPatternAnalytic.parametric_phase" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -416,13 +418,13 @@ Very simple script for currently NTU amps.</p>
 </dd>
 <dt>azimuth<span class="classifier">float</span></dt><dd><p>azimuth angle of incoming signal direction</p>
 </dd>
-<dt>orientation_theta: float </dt><dd><p>orientation of the antenna, as a zenith angle (0deg is the zenith, 180deg is straight down); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p>
+<dt>orientation_theta: float</dt><dd><p>orientation of the antenna, as a zenith angle (0deg is the zenith, 180deg is straight down); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p>
 </dd>
-<dt>orientation_phi: float </dt><dd><p>orientation of the antenna, as an azimuth angle (counting from East counterclockwise); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p>
+<dt>orientation_phi: float</dt><dd><p>orientation of the antenna, as an azimuth angle (counting from East counterclockwise); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p>
 </dd>
 <dt>rotation_theta: float</dt><dd><p>rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector perpendicular to the plane containing the the tines</p>
 </dd>
-<dt>rotation_phi: float </dt><dd><p>rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector perpendicular to the plane containing the the tines</p>
+<dt>rotation_phi: float</dt><dd><p>rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector perpendicular to the plane containing the the tines</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -598,7 +600,7 @@ the file will be downloaded from a central data server</p>
 
 <dl class="function">
 <dt id="NuRadioReco.detector.antennapattern.parse_WIPLD_file">
-<code class="sig-prename descclassname">NuRadioReco.detector.antennapattern.</code><code class="sig-name descname">parse_WIPLD_file</code><span class="sig-paren">(</span><em class="sig-param">ad1, ra1, orientation, gen_num=1, s_paramateres=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.parse_WIPLD_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.detector.antennapattern.</code><code class="sig-name descname">parse_WIPLD_file</code><span class="sig-paren">(</span><em class="sig-param">ad1</em>, <em class="sig-param">ra1</em>, <em class="sig-param">orientation</em>, <em class="sig-param">gen_num=1</em>, <em class="sig-param">s_parameters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.parse_WIPLD_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>reads in WIPLD data</p>
 <dl class="simple">
 <dt>ad1: string</dt><dd><p>path to ad1 file</p>
@@ -612,7 +614,7 @@ the file will be downloaded from a central data server</p>
 <dt>s_parameters: list of 2 ints</dt><dd><p>determines which s-parametr to extract (ex: [1,2] extracts S_12 parameter).</p>
 </dd>
 </dl>
-<p>Returns: all parameters of the files</p>
+<p>all parameters of the files</p>
 </dd></dl>
 
 <dl class="function">
@@ -645,7 +647,7 @@ the output is saved to the NuRadioReco pickle format.</p>
 
 <dl class="function">
 <dt id="NuRadioReco.detector.antennapattern.preprocess_WIPLD">
-<code class="sig-prename descclassname">NuRadioReco.detector.antennapattern.</code><code class="sig-name descname">preprocess_WIPLD</code><span class="sig-paren">(</span><em class="sig-param">path, gen_num=1, s_paramateres=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.preprocess_WIPLD" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.detector.antennapattern.</code><code class="sig-name descname">preprocess_WIPLD</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">gen_num=1</em>, <em class="sig-param">s_parameters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.preprocess_WIPLD" title="Permalink to this definition">¶</a></dt>
 <dd><p>preprocesses WIPLD file</p>
 <p>this function implements the older insufficient calculation of the vector effective length. This VEL only
 relates the incident electric field to the open circuit voltage and not the voltage in a 50 Ohm system.</p>
@@ -656,7 +658,9 @@ relates the incident electric field to the open circuit voltage and not the volt
 </dd>
 <dt>s_parameters: list of 2 ints</dt><dd><p>determines which s-parametr to extract (ex: [1,2] extracts S_12 parameter).</p>
 </dd>
-<dt>Returns:</dt><dd><ul class="simple">
+</dl>
+<blockquote>
+<div><ul class="simple">
 <li><p>orientation theta: orientation of the antenna, as a zenith angle (0deg is the zenith, 180deg is straight down); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p></li>
 <li><p>orientation phi: orientation of the antenna, as an azimuth angle (counting from East counterclockwise); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p></li>
 <li><p>rotation theta: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector perpendicular to the plane containing the the tines</p></li>
@@ -667,13 +671,12 @@ relates the incident electric field to the open circuit voltage and not the volt
 <li><p>H_phi: the complex vector effective length of the ePhi polarization component</p></li>
 <li><p>H_theta: the complex vector effective length of the eTheta polarization component</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="NuRadioReco.detector.antennapattern.preprocess_WIPLD_old">
-<code class="sig-prename descclassname">NuRadioReco.detector.antennapattern.</code><code class="sig-name descname">preprocess_WIPLD_old</code><span class="sig-paren">(</span><em class="sig-param">path, gen_num=1, s_paramateres=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.preprocess_WIPLD_old" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">NuRadioReco.detector.antennapattern.</code><code class="sig-name descname">preprocess_WIPLD_old</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">gen_num=1</em>, <em class="sig-param">s_parameters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.antennapattern.preprocess_WIPLD_old" title="Permalink to this definition">¶</a></dt>
 <dd><p>preprocesses WIPLD file</p>
 <p>this function implements the older insufficient calculation of the vector effective length. This VEL only
 relates the incident electric field to the open circuit voltage and not the voltage in a 50 Ohm system.</p>
@@ -684,7 +687,9 @@ relates the incident electric field to the open circuit voltage and not the volt
 </dd>
 <dt>s_parameters: list of 2 ints</dt><dd><p>determines which s-parametr to extract (ex: [1,2] extracts S_12 parameter).</p>
 </dd>
-<dt>Returns:</dt><dd><ul class="simple">
+</dl>
+<blockquote>
+<div><ul class="simple">
 <li><p>orientation theta: orientation of the antenna, as a zenith angle (0deg is the zenith, 180deg is straight down); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p></li>
 <li><p>orientation phi: orientation of the antenna, as an azimuth angle (counting from East counterclockwise); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p></li>
 <li><p>rotation theta: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector perpendicular to the plane containing the the tines</p></li>
@@ -695,8 +700,7 @@ relates the incident electric field to the open circuit voltage and not the volt
 <li><p>H_phi: the complex vector effective length of the ePhi polarization component</p></li>
 <li><p>H_theta: the complex vector effective length of the eTheta polarization component</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -788,7 +792,7 @@ the output is saved to the NuRadioReco pickle format.</p>
 <dt>station_id: int</dt><dd><p>the station id</p>
 </dd>
 </dl>
-<p>Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
+<p>3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
 time of measurement</p>
 </dd></dl>
 
@@ -800,7 +804,7 @@ time of measurement</p>
 <dt>site: string</dt><dd><p>the position identifier e.g. “G”</p>
 </dd>
 </dl>
-<p>Returns: 3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
+<p>3-dim array of absolute station position in easting, northing and depth wrt. to snow level at
 time of measurement</p>
 </dd></dl>
 
@@ -868,7 +872,9 @@ time of measurement</p>
 </dd>
 <dt>channel_id: int</dt><dd><p>the channel id</p>
 </dd>
-<dt>Returns typle of floats</dt><dd><ul class="simple">
+</dl>
+<dl class="simple">
+<dt>tuple of floats</dt><dd><ul class="simple">
 <li><p>orientation theta: orientation of the antenna, as a zenith angle (0deg is the zenith, 180deg is straight down); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p></li>
 <li><p>orientation phi: orientation of the antenna, as an azimuth angle (counting from East counterclockwise); for LPDA: outward along boresight; for dipoles: upward along axis of azimuthal symmetry</p></li>
 <li><p>rotation theta: rotation of the antenna, is perpendicular to ‘orientation’, for LPDAs: vector perpendicular to the plane containing the the tines</p></li>
@@ -914,7 +920,7 @@ time of measurement</p>
 <dt>channel_id: int</dt><dd><p>the channel id</p>
 </dd>
 </dl>
-<p>Returns typle (string, float)</p>
+<p>Returns tuple (string, float)</p>
 </dd></dl>
 
 <dl class="method">
@@ -927,7 +933,7 @@ time of measurement</p>
 <dt>channel_id: int</dt><dd><p>the channel id</p>
 </dd>
 </dl>
-<p>Returns: dict of channel parameters</p>
+<p>dict of channel parameters</p>
 </dd></dl>
 
 <dl class="method">
@@ -939,6 +945,12 @@ time of measurement</p>
 </dd>
 </dl>
 <p>Returns list of ints</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="NuRadioReco.detector.detector.Detector.get_detector_time">
+<code class="sig-name descname">get_detector_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_detector_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the time that the detector is currently set to</p>
 </dd></dl>
 
 <dl class="method">
@@ -968,9 +980,21 @@ time of measurement</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="NuRadioReco.detector.detector.Detector.get_noise_temperature">
+<code class="sig-name descname">get_noise_temperature</code><span class="sig-paren">(</span><em class="sig-param">station_id</em>, <em class="sig-param">channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_noise_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the noise temperature of the channel</p>
+<dl class="simple">
+<dt>station_id: int</dt><dd><p>station id</p>
+</dd>
+<dt>channel_id: int</dt><dd><p>the channel id, not used at the moment, only station averages are computed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="NuRadioReco.detector.detector.Detector.get_number_of_channels">
 <code class="sig-name descname">get_number_of_channels</code><span class="sig-paren">(</span><em class="sig-param">station_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_number_of_channels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the number of channels per statoin</p>
+<dd><p>Get the number of channels per station</p>
 <dl class="simple">
 <dt>station_id: int</dt><dd><p>the station id</p>
 </dd>
@@ -1005,14 +1029,14 @@ time of measurement</p>
 <dl class="method">
 <dt id="NuRadioReco.detector.detector.Detector.get_relative_position">
 <code class="sig-name descname">get_relative_position</code><span class="sig-paren">(</span><em class="sig-param">station_id</em>, <em class="sig-param">channel_id</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.get_relative_position" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the relative position of a specific channels/antennas with respeect to the station center</p>
+<dd><p>get the relative position of a specific channels/antennas with respect to the station center</p>
 <dl class="simple">
 <dt>station_id: int</dt><dd><p>the station id</p>
 </dd>
 <dt>channel_id: int</dt><dd><p>the channel id</p>
 </dd>
 </dl>
-<p>Returns: 3-dim array of relative station position</p>
+<p>3-dim array of relative station position</p>
 </dd></dl>
 
 <dl class="method">
@@ -1077,7 +1101,7 @@ time of measurement</p>
 <code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.Detector.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>updates the detector description to a new time</p>
 <dl class="simple">
-<dt>timestamp: astropy.time.Time</dt><dd><p>the time to update the detectordescription to
+<dt>time: astropy.time.Time</dt><dd><p>the time to update the detector description to
 for backward compatibility datetime is also accepted, but astropy.time is prefered</p>
 </dd>
 </dl>
@@ -1094,7 +1118,7 @@ for backward compatibility datetime is also accepted, but astropy.time is prefer
 <dl class="function">
 <dt id="NuRadioReco.detector.detector.buffer_db">
 <code class="sig-prename descclassname">NuRadioReco.detector.detector.</code><code class="sig-name descname">buffer_db</code><span class="sig-paren">(</span><em class="sig-param">in_memory</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.detector.buffer_db" title="Permalink to this definition">¶</a></dt>
-<dd><p>buffers the complet SQL database into a TinyDB object (either in memory or into a local JSON file)</p>
+<dd><p>buffers the complete SQL database into a TinyDB object (either in memory or into a local JSON file)</p>
 </dd></dl>
 
 </div>
@@ -1111,15 +1135,16 @@ for backward compatibility datetime is also accepted, but astropy.time is prefer
 <dl class="simple">
 <dt>pos: string</dt><dd><p>the position identifier (e.g. “A” or “X”)</p>
 </dd>
-<dt>Returns:</dt><dd><ul class="simple">
+</dl>
+<blockquote>
+<div><ul class="simple">
 <li><p>easting (float)</p></li>
 <li><p>northing (float)</p></li>
 <li><p>UTM zone (string)</p></li>
 <li><p>altitude</p></li>
 <li><p>measurement time</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -1437,7 +1462,7 @@ will be ignored</p>
 <code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.detector.generic_detector.GenericDetector.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>updates the detector description to a new time</p>
 <dl class="simple">
-<dt>timestamp: astropy.time.Time</dt><dd><p>the time to update the detectordescription to
+<dt>time: astropy.time.Time</dt><dd><p>the time to update the detector description to
 for backward compatibility datetime is also accepted, but astropy.time is prefered</p>
 </dd>
 </dl>

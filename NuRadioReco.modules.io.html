@@ -138,6 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pages/detector.html#detector-description-in-event-files">Detector Description in Event Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#writing-the-detector">Writing the Detector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pages/detector.html#reading-the-detector">Reading the Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/detector.html#detector-viewer">Detector Viewer</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pages/contributing.html#what-to-do-if-unit-tests-fail">What to do if Unit Tests Fail</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pages/contributing.html#coding-standards-and-linting">Coding Standards and Linting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pages/contributing.html#documentation">Documentation</a><ul>
@@ -514,6 +516,8 @@ looping through all events</p>
 <code class="sig-name descname">begin</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">max_file_size=1024</em>, <em class="sig-param">check_for_duplicates=False</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter.begin" title="Permalink to this definition">¶</a></dt>
 <dd><p>begin method</p>
 <dl class="simple">
+<dt>filename: string</dt><dd><p>Name of the file into which events shall be written</p>
+</dd>
 <dt>max_file_size: maximum file size in Mbytes</dt><dd><p>(if the file exceeds the maximum file the output will be split into another file)</p>
 </dd>
 <dt>check_for_duplicates: bool (default False)</dt><dd><p>if True, the event writer raises an exception when an event with a (run,eventid) pair is written that is already
@@ -529,7 +533,7 @@ present in the data file</p>
 
 <dl class="method">
 <dt id="NuRadioReco.modules.io.eventWriter.eventWriter.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">det=None</em>, <em class="sig-param">mode='full'</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">evt</em>, <em class="sig-param">det=None</em>, <em class="sig-param">mode=None</em><span class="sig-paren">)</span><a class="headerlink" href="#NuRadioReco.modules.io.eventWriter.eventWriter.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>writes NuRadioReco event into a file</p>
 <p>evt: NuRadioReco event object
 det: detector object</p>
@@ -538,10 +542,12 @@ det: detector object</p>
 events is written in the file as well</p>
 </div></blockquote>
 <dl class="simple">
-<dt>mode: string</dt><dd><p>specifies the output mode:
-* ‘full’ (default): the full event content is written to disk
-* ‘mini’: only station traces are written to disc
-* ‘micro’: no traces are written to disc</p>
+<dt>mode: dictionary (default: {‘Channels’: True, ‘ElectricFields’: True, ‘SimChannels’: True, ‘SimElectricFields’: True})</dt><dd><p>specifies what will saved into the <a href="#id1"><span class="problematic" id="id2">*</span></a>.nur output file
+can contain the strings
+* ‘Channels’: if True channel traces of Stations will be saved
+* ‘ElectricFields’: if True (reconstructed) electric field traces of Stations will be saved
+* ‘SimChannels’: if True SimChannels of SimStations will be saved
+* ‘SimElectricFields’: if True electric field traces of SimStations will be saved</p>
 </dd>
 </dl>
 </dd></dl>
