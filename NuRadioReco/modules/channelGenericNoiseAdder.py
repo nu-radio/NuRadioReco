@@ -2,6 +2,7 @@ from __future__ import print_function
 from NuRadioReco.modules.base.module import register_run
 import numpy as np
 from NuRadioReco.utilities import units, fft
+from NuRadioReco.framework.parameters import channelParameters as chp
 import numpy.random
 import logging
 
@@ -174,7 +175,8 @@ class channelGenericNoiseAdder:
             max_freq=2000 * units.MHz,
             type='perfect_white',
             excluded_channels=None,
-            bandwidth=None):
+            bandwidth=None,
+            store_snr=False):
 
         """
         Add noise to given event.
@@ -205,7 +207,11 @@ class channelGenericNoiseAdder:
             if this parameter is specified, the amplitude is interpreted as the amplitude for the bandwidth specified here
             Otherwise the amplitude is interpreted for the bandwidth of min(max_freq, 0.5 * sampling rate) - min_freq
             If `bandwidth` is larger then (min(max_freq, 0.5 * sampling rate) - min_freq) it has the same effect as `None`
-
+        store_snr: bool (default False)
+            If true, the signal to noise ratio (SNR) of the trace is calculated
+            and written into the channel parameters. Properties for signal and
+            noise are calculated separately, e.g. the signal maximum is calculated
+            before adding noise and the RMS is calculated on the generated noise only
         """
         if excluded_channels is None:
             excluded_channels = []
@@ -230,9 +236,8 @@ class channelGenericNoiseAdder:
                                            type=type,
                                            bandwidth=bandwidth)
 
+            new_trace = trace + noise
             if self.__debug:
-                new_trace = trace + noise
-
                 self.logger.debug("imput amplitude {}".format(amplitude))
                 self.logger.debug("voltage RMS {}".format(np.sqrt(np.mean(noise ** 2))))
 
@@ -245,11 +250,22 @@ class channelGenericNoiseAdder:
                 plt.plot(np.abs(fft.time2freq(trace, channel.get_sampling_rate())))
                 plt.plot(np.abs(fft.time2freq(noise, channel.get_sampling_rate())))
                 plt.plot(np.abs(fft.time2freq(new_trace, channel.get_sampling_rate())))
-
                 plt.show()
 
-            new_trace = trace + noise
             channel.set_trace(new_trace, sampling_rate)
+            if store_snr:
+                signal_integrated_power = np.sum(np.square(trace))
+                noise_integrated_power = np.sum(np.square(noise))
+                signal_peak_to_peak = .5 * (np.max(trace) - np.min(trace))
+                signal_maximum = np.max(np.abs(trace))
+                noise_rms = np.sqrt(np.mean(np.square(noise)))
+                snr = {
+                    'integrated_power': signal_integrated_power / noise_integrated_power,
+                    'peak_amplitude': signal_maximum / noise_rms,
+                    'peak_2_peak_amplitude': signal_peak_to_peak / noise_rms,
+                    'Seckel_2_noise': 5.    # for consistency and to keep the joke going ;-)
+                }
+                channel.set_parameter(chp.SNR, snr)
 
     def end(self):
         pass
