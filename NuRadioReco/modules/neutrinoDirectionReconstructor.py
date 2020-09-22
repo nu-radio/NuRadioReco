@@ -139,7 +139,7 @@ class neutrinoDirectionReconstructor:
              # we use the simulated version because we want the maximum as reference, and that changes per direction. maybe just run a cross check if the maximum of the simulation corresponds to the maximum of the data. 
             ## if we use a different vertex position, then the timing changes slightly; do we really fit a different part of the trace then? I think that's true, because we only allow to correlate for a small range to correct for ARZ. So this way, the timing should be included. As well shape of the pulse as well as timing should tell us what direction and  vertex position is correct; check! 
             
-            if banana:
+            if banana: ## input values accoring to launch vector
                 
                 
                 signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*launch_vector_sim)
@@ -200,19 +200,11 @@ class neutrinoDirectionReconstructor:
             k_ref = np.argmax(abs(data_trace))
             trace_range = 10 * sampling_rate
             data_trace[ abs(np.arange(0, len(data_trace)) - k_ref) > trace_range] = 0
-        #print("len rec trace", len(rec_trace2))
-            #rec_trace2 = np.pad(rec_trace, (0, len(data_trace) - len(rec_trace)), 'constant') ## add zeros to simulated trace to mmake same length as data
-			#print("len rec trace", len(rec_trace2))
-
+       
             corr = signal.hilbert(signal.correlate(data_trace, rec_trace)) # correlate the two to find offset for simulated trace
             toffset = np.argmax(corr) - (len(corr)/2) +1 ## this is only done for the maximum channel, so not dffernt per channel 
             ks = {}
-           # fig = plt.figure()
-        #    ax = fig.add_subplot(111)
-        #    ax.plot(data_trace)
-        #    ax.plot(np.roll(rec_trace, int(toffset)))
-           # fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/test1.pdf")
-            
+        
 
             for ich, channel in enumerate(station.iter_channels()):
                 if channel.get_id() in use_channels: #iterate over channels
@@ -249,106 +241,28 @@ class neutrinoDirectionReconstructor:
                             rec_trace_timing = np.copy(rec_trace1) ## cut rec around timing
 
                             rec_trace_timing[ abs(np.arange(0, len(data_trace_timing)) - dk) > 600] = 0
-                            #fig = plt.figure()
-                            #ax = fig.add_subplot(111)
-                            #ax.plot(rec_trace_timing)
-                            
-                            
-                            #normdata = max(abs(data_trace_timing))
-                            #normrec = max(abs(rec_trace_timing))
-
+                           
                             corr = signal.hilbert(signal.correlate(data_trace_timing, rec_trace_timing)) ## correlate
 
                             dt = np.argmax(corr) - (len(corr)/2) +1 ## find offset
-                            ## rotate for ARZ correction
-                            #dt = 0
-                        #print("DT", dt)
-                            
-                            #ax.plot(rec_trace1)
+                          
                             rec_trace1 = np.roll(rec_trace1, int(dt)) # roll reconstruction trace with ARZ extra offset
                             
-                            #ax.plot(rec_trace1)
-                            #fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/test.pdf')
-                            #print(stop)
-                        #dt = 0
+                          
                         delta_k.append(int(k_ref + delta_toffset + dt )) ## for overlapping pulses this does not work
                         rec_trace3 += rec_trace1 ## add two voltage traces in time domain
                     ks[channel.get_id()] = delta_k
                     N= 80
                     
-                    if 0:#fit == 'seperate':
-                        if 1:#abs(np.diff([delta_k[0], delta_k[1]])[0]) > 50):    ## for now exclude overlapping pulses, because i don't know how to treat them
-                            if len(params) == 2: # if we fit direction, we scale the pulse
-                                normalization_factor = 1
-                            
-                                if len(delta_k) > 0:
-                                    SNR = (abs(abs(min(data_trace[delta_k[0]-N: delta_k[0]+3*N])) + max(data_trace[delta_k[0]-N: delta_k[0]+3*N]))) / (2*Vrms)
-                                    #fig = plt.figure()
-                                    
-                                    #plt.plot(rec_trace3[delta_k[0]-N:delta_k[0] + 3*N])
-                                    #plt.plot(data_trace[delta_k[0]-N: delta_k[0]+3*N])
-                                    #fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
-                                    if SNR > 4:## for first iteration only use channels with high SNR
-                                        if (max(rec_trace3[delta_k[0]-N: delta_k[0]+3*N]) != 0): ## determine normalization factor from maximum pulse
-                                            norm = max(abs(data_trace[delta_k[0]-N: delta_k[0]+3*N]))
-                                            normalization_factor = norm/ max(abs(rec_trace3[delta_k[0]-N: delta_k[0]+3*N]))
-
-                                            chi2 += np.sum(-1*abs((rec_trace3*normalization_factor)[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2)) ### first ray tracing solution
-                                          
-                                          
-                                           
-                                    rec_traces.append(rec_trace3*normalization_factor)
-                                
-                                if len(delta_k) > 1:
-                                    SNR = (abs(abs(min(data_trace[delta_k[1]-N: delta_k[1]+3*N])) + max(data_trace[delta_k[1]-N: delta_k[1]+3*N]))) / (2*Vrms)
-                                    if SNR > 4:
-                                        if (max(rec_trace3[delta_k[1]-N: delta_k[1]+3*N]) != 0): ## determine normalization factor from maximum pulse
-                                            norm = max(abs(data_trace[delta_k[1]-N: delta_k[1]+3*N]))
-                                            normalization_factor = norm/ max(abs(rec_trace3[delta_k[1]-N: delta_k[1]+3*N]))
-                                            chi2 += np.sum(-1*abs((rec_trace3*normalization_factor)[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) ### second ray tracing solution
-
-                                    rec_traces[-1][delta_k[1]-N: delta_k[1]+3*N] = (rec_trace3*normalization_factor)[delta_k[1]-N: delta_k[1]+3*N]
-                                if len(delta_k) == 0: ## no solutions
-                                    rec_traces.append(rec_trace3)
-                            if len(params) != 2: # we fit energy for seperate fit, so no scaling factor
-                                rec_traces.append(rec_trace3)
-                                if len(delta_k) > 0:
-               
-                                    chi2 += np.sum(-1*abs((rec_trace3)[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2))##
-                                
-            #                        fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
-                                if len(delta_k) > 1:
-                                    chi2 += np.sum(-1*abs((rec_trace3)[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) ## second ray type solution
-                                    # fig = plt.figure()
-                                    #ax = fig.add_subplot(111)
-                                    #ax.plot(rec_trace3[delta_k[1]-N : delta_k[1] +3*N])
-                                    #ax.plot(data_trace[delta_k[1] -N: delta_k[1] + 3*N])
-                                    #fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/test.pdf")
+              
                     if fit == 'combined':
                         rec_traces.append(rec_trace3)
                         if len(delta_k) > 0:
                             chi2 += np.sum((rec_trace3[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2))##
-                            #if channel.get_id() == 3:
-                            #    fig = plt.figure()
-                            #    ax = fig.add_subplot(111)
-                            #    ax.plot((rec_trace3), label = 'rec')
-                            #    ax.plot(data_trace, label = 'sim')
-                            #    ax.axvline(delta_k[0]-N)
-                            #    ax.axvline(delta_k[0]+3*N)
-                            #    ax.legend()
-                            #    fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/test.pdf')
-                             #   print(stop)
-                            
-                            
+                           
                         if len(delta_k) > 1:
                             chi2 += np.sum((rec_trace3[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) 
                            
-                          
-                            
-                            
-                           #
-                          
-                            
 
                             
             if timing_k:
@@ -411,8 +325,7 @@ class neutrinoDirectionReconstructor:
         
             print("simulated vertex", simulated_vertex)
             print('new vertex', new_vertex)
-            #traces_sim, timing_sim, launch_vector_sim = simulation.simulation(det, station, new_vertex[0], new_vertex[1], new_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
-			
+           
             traces_sim, timing_sim, launch_vector_sim = simulation.simulation(det, station, new_vertex[0], new_vertex[1], new_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             
             options = {'maxiter':500, 'disp':True}
@@ -421,11 +334,7 @@ class neutrinoDirectionReconstructor:
             traces_sim, timing_sim, launch_vector_sim = simulation.simulation(det, station, simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             
             tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)
-            #simulated_energy = 7.840249360274586e+18
-            #simulated_zenith = np.deg2rad(53.6815)
-            #print("sim zenith", np.rad2deg(simulated_zenith))
-            #print("sim azimuth", np.rad2deg(simulated_azimuth))
-            #simulated_azimuth = np.deg2rad(344.131)
+          
             fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
             print("FSIM", fsim)
             tot_N = 80 * 4 * 2 * 2 # number of datapoints # samples * ray solutions * channels
@@ -442,10 +351,7 @@ class neutrinoDirectionReconstructor:
           
             
             print("SIMULATED INPUT VALUES")
-            #tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)
-            #fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
-            
-            #fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
+          
             print("fsim", fsim)
             
             
@@ -477,10 +383,6 @@ class neutrinoDirectionReconstructor:
                     vector = hp.cartesian_to_spherical(p2[0], p2[1], p2[2])
                     print("delta", 180 - (np.rad2deg(vector[0])))
                     sim_view = 180 - (np.rad2deg(vector[0]))
-                    
-                    
-                    
-                    
                     
                     signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*launch_vector_sim)
                     print("signal zenith", np.rad2deg(signal_zenith))
@@ -546,9 +448,7 @@ class neutrinoDirectionReconstructor:
                 
                 if banana: ## convert reconstructed viewing angle and R to azimuth and zenith
                 
-                   
-                #    print("reconstructed cherenkov angle", np.rad2deg(results[0][0]))
-                #    print("reconstructed angle", np.rad2deg(results[0][1]))
+           
                     if 1:
                         rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
                         cherenkov_angle = results[0][0]
@@ -596,41 +496,7 @@ class neutrinoDirectionReconstructor:
                 zvalues = []
                 az = np.arange(az_start, az_end, np.deg2rad(.5))
                 zen = np.arange(zen_start, zen_end,  np.deg2rad(.5))
-                if 0: ## plotting 
-                    #signal_zenith = np.deg2rad(72)
-                    #signal_azimuth = np.deg2rad(40)
-                    sig_dir = hp.spherical_to_cartesian(signal_zenith, signal_azimuth)
-                   # rotation_matrix = hp.get_rotation(np.array([0,0,1]), sig_dir)
-
-                    rotation_matrix = hp.get_rotation(np.array([0,0,1]), sig_dir)
-                    #cherenkov_angle = np.deg2rad(57.4)
-                    #angle = np.deg2rad(-0.62)
-                    #p3 = np.array([np.sin(cherenkov_angle)*np.cos(angle), np.sin(cherenkov_angle)*np.sin(angle), np.cos(cherenkov_angle)])
-                    #p3 = rotation_matrix.dot(p3)
-                    #a = hp.cartesian_to_spherical(p3[0], p3[1], p3[2])[1]
-                    #z = hp.cartesian_to_spherical(p3[0], p3[1], p3[2])[0]
-                    #print("az", np.rad2deg(a))
-                    #print("zen", np.rad2deg(z))
-                    #print(stop)
-                    
-                    
-                    az = []
-                    zen = []
-                    angles = np.arange(np.deg2rad(-300), np.deg2rad(0), np.deg2rad(.2))
-                    cherenkov_angles = np.arange(np.deg2rad(55) - np.deg2rad(5) , np.deg2rad(55) + np.deg2rad(10), np.deg2rad(.5) )
-                    for cherenkov_angle in cherenkov_angles:
-                        for angle in angles:
-                            p3 = np.array([np.sin(cherenkov_angle)*np.cos(angle), np.sin(cherenkov_angle)*np.sin(angle), np.cos(cherenkov_angle)])
-                            p3 = rotation_matrix.dot(p3)
-                            a = hp.cartesian_to_spherical(p3[0], p3[1], p3[2])[1]
-                            z = hp.cartesian_to_spherical(p3[0], p3[1], p3[2])[0]
-                            a += np.deg2rad(180)
-                            a = hp.get_normalized_angle(a)
-                            z = np.deg2rad(180) -  z
-                            az.append(a)
-                            zen.append(z)
-                    print("az", np.rad2deg(az))
-                    print("zen", np.rad2deg(zen))
+               
                    
                   
                
@@ -641,19 +507,7 @@ class neutrinoDirectionReconstructor:
                 print("plotting output for reconstructecd energy  ...")
                 ## determine zplot values for zenith and azimuths
                 if banana:
-                    #i = 0
-                    #for a in az:
-                    #    z = zen[i]
-                    #    zvalue = minimizer([z, a, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  True, fit = fitprocedure)
-                    #    zplot.append(zvalue)
-                     #   azimuth.append(a)
-                    #    zenith.append(z)
-                    #    print("zenith {}, azimuth {}, zmin {}".format(np.rad2deg(z), np.rad2deg(a), zvalue))
-                    #    if zvalue < zvalue_lowest:
-                     #       global_az = a
-                    #        global_zen = z
-                    #        zvalue_lowest = zvalue
-                     #   i += 1
+                   
                     print('banana')
                 else:
                     for a in az:
@@ -681,10 +535,7 @@ class neutrinoDirectionReconstructor:
                     start = datetime.datetime.now()
                     ax =fig.add_subplot(111, projection = 'mollweide')
 
-                    #zenith = np.arange(simulated_zenith - np.deg2rad(3), simulated_zenith + np.deg2rad(3), np.deg2rad(.5))
-                   # zenith = np.arange(np.deg2rad(50) , np.deg2rad(68), np.deg2rad(.5))
-                   # azimuth = np.arange(np.deg2rad(-180), np.deg2rad(180), np.deg2rad(.5))
-                    #azimuth = np.arange(simulated_azimuth - np.deg2rad(3), simulated_azimuth + np.deg2rad(3), np.deg2rad(.5)) ### this corresponds to a direct ray 
+                
                     zenith = np.arange(np.deg2rad(-1), np.deg2rad(181), np.deg2rad(.5))
                     azimuth = np.arange(np.deg2rad(-181), np.deg2rad(181), np.deg2rad(.5))
                     XX, YY = np.meshgrid(azimuth, zenith)
@@ -705,38 +556,22 @@ class neutrinoDirectionReconstructor:
                             z = YY[i][j]
                             a = XX[i][j]
                             
-                           # print("z", np.rad2deg(z))
-                           # printad2deg(a))
-                            #z = simulated_zenith
-                            #a = simulated_azimuth
+                         
                             p2 = hp.spherical_to_cartesian(z, a)
                             rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
 
                             p2 = rotation_matrix.dot(p2)
                             vector = hp.cartesian_to_spherical(p2[0], p2[1], p2[2])
                             #print("delta", abs( (180 - (np.rad2deg(vector[0]))) - sim_view))
-                            if (abs( (180 - (np.rad2deg(vector[0]))) - sim_view) < 7): ## if viewing angle is within 8 degrees of cherenkov angle 
-                            #if (abs( (180 - (np.rad2deg(vector[0]))) - 57.63) < .2):
-                                #rec_energy = 7.840249360274586e+18
-                               
-            
-                                #print("R", np.rad2deg(vector[1]))
-                                #print("viewing angle correspondig to direction", (180 - (np.rad2deg(vector[0]))))
+                            if (abs( (180 - (np.rad2deg(vector[0]))) - sim_view) < 7): ## 
                                 zvalue = minimizer([z, a, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  True, fit = fitprocedure, banana = False)
-                                #if zvalue < 60000:
-                                #    print("zvalue {}, zen {}, az {}".format(zvalue, np.rad2deg(z), np.rad2deg(a)))
-                                
+                               
                                 tot_N = 80 * 4 * 2 * 2 # number of datapoints # samples * ray solutions * channels
                                 probability = -1* (tot_N /2)* ( np.log(2*np.pi) +  np.log(sigma**2)) - zvalue
-                                #print("zvalue {}, zenith {}, azimuth {}, viewing angle{}".format(zvalue, np.rad2deg(z), np.rad2deg(a), (180 - (np.rad2deg(vector[0])))))
-                                #if zvalue != np.inf:
-                                 #   zplot[k] = float(int(zvalue*10**(-1))*10)
-                                #else: 
+                               
                                 zplot[k] = zvalue 
-                                #print("zvalue", float(round(zvalue*2)/2))
                                 zplot_probability[k] = float(probability)
-                               # print("z", np.rad2deg(z))
-                            #    print("Zvalue", zvalue)
+                            
                                 if zvalue < zvalue_lowest:
                                     global_az = a
                                     global_zen = z
@@ -745,7 +580,6 @@ class neutrinoDirectionReconstructor:
                            
                            
                             k += 1
-                   # print("FSIM ROUND", int(fsim*10**(-1))*10)
                     print('start datetime', cop)
                     print("end datetime", datetime.datetime.now() -  start)
                     print("rec az", np.rad2deg(global_az))
@@ -754,18 +588,7 @@ class neutrinoDirectionReconstructor:
                     ZZ = zplot.reshape(XX.shape)
                     ZZ_probability = zplot_probability.reshape(XX.shape)
                     
-                            
-                   # fig6 = plt.figure()
-                #    ax6 = fig6.add_subplot(111)
-                #    cs = ax6.pcolor(XX, YY, ZZ_probability)
-                #    ax6.contour(XX, YY, np.exp(ZZ_probability), [np.exp(probability_sim)], color = 'red')
-                #    cbar = fig6.colorbar(cs, shrink = 0.5)
-                #    print("log likelihood value", probability_sim)
-                #    print("likelihood value", np.exp(probability_sim))
-                #    print("CONSTANT",  -1* (tot_N /2)* ( np.log(2*np.pi) +  np.log(sigma**2)) )
-                #    fig6.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/test.pdf")
-
-                    #print(stop)
+              
                 
                     vmin = min(zplot)
                     vmax = max(np.array(zplot)[np.array(zplot) != np.inf])
@@ -785,13 +608,7 @@ class neutrinoDirectionReconstructor:
                     Total_area = tot *.5*.5
                     print("TOTAL AREA LARGER THAN SIM VALUE", Total_area)
                             
-                        
-                    
-                   
-                    #print("XX before", np.rad2deg(XX)[mask])
-                    #print("YY before", np.rad2deg(YY)[mask])
-                    
-                    
+               
                     XX -= (simulated_azimuth - np.deg2rad(180)) ## put simulated azimuth at 180 degrees
                     XX += np.deg2rad(180) ## shift such that they correspond to mollweide coordination system
                     
@@ -806,20 +623,8 @@ class neutrinoDirectionReconstructor:
                     YY -= np.deg2rad(90) ## hisft to mollweide projection
                    
                  
-                    #fig1 = plt.figure()
-                    #ax1 = fig1.add_subplot(111, projection = 'mollweide')
-                    #ax1.plot(np.array(XX)[mask], np.array(YY)[mask], 'o')
-                    #fig1.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/test.pdf")                
-                    
-                
-                    #print("len XX", len(XX))
-                    #print("len XX[mask]", len(XX[mask]))
-                    #print("XX no mask", np.rad2deg(XX))
-                    #print("XX", np.rad2deg(XX[mask]))
-                    #print("YY", np.rad2deg(YY[mask]))
                     cs = ax.pcolor(XX, YY, ZZ, cmap = 'viridis', vmax = vmax, vmin = vmin) ## set vmax to max of zplot ## mollweide projection so put in radians 
-                    #cs_contour = ax.contour(XX, YY, ZZ,  [min(zplot) + 0.5, min(zplot) + 2, min(zplot) + 4.5], colors = ['green', 'yellow', 'red'] )
-                    #ax.contour(XX, YY, ZZ,  [int(fsim*10**(-1))*10], colors = ['white'] )
+                   
 
                     ZZ_new = np.empty(ZZ.shape)
                     XX_new = np.empty(ZZ.shape)
@@ -833,18 +638,14 @@ class neutrinoDirectionReconstructor:
                             else:
                                 ZZ_new[i][j] = np.nan
                     
-                    #print("ZNEW SHPA", ZZ_new.shape)
-                    #print("XX.shape", XX.shape)
+                  
                     mask1 = [np.array(ZZ_new) != 0]
-                    #print("XX[mask1]", XX[mask1])
-                    #print("YY[mask]", YY[mask1])
-                    #print("ZZ_new", ZZ_new[mask1])
+                  
                     try:
                         ax.pcolor(XX_new, YY_new, ZZ_new, cmap = 'jet', vmin = .5, vmax = 3) ## mark all bins for which fit is better than simulated vlue  
                     except:
                         print("no values larger than the simulated value")
                         
-                    #levels = [min(zplot) + 0.5, min(zplot) + 2, min(zplot) + 4.5]
                     xtick_labels = np.deg2rad([-150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150]) 
                     xtick_labels += np.deg2rad(180) ## such that range is 0, 360
                     xtick_labels += (simulated_azimuth - np.deg2rad(180)) ## such that simulated azimuth is at the middle
@@ -858,40 +659,25 @@ class neutrinoDirectionReconstructor:
                     ytick_labels += (simulated_zenith - np.deg2rad(90))
                     ytick_labels = np.remainder(ytick_labels, np.deg2rad(180))
                     ytick_labels = [int(i) for i in np.rad2deg(ytick_labels)]
-                    # ytick_labels = np.round(np.array([np.rad2deg(simulated_zenith) - 90, np.rad2deg(simulated_zenith)+ 90 , 30]), 2)
                
                     
                     ### Plot zoom in
                     axins = ax.inset_axes([0, .8, .8, .8]) ## location of zoom in on plot
                     axins.pcolor(XX, YY, ZZ, cmap = 'viridis', vmax = vmax, vmin = vmin)
-                    #for i in range(XX.shape[0]):
-                    #    for j in range(XX.shape[1]):
-                    #        if ZZ[i][j] != np.inf:
-                    #            axins.text(XX[i][j],YY[i][j], int(ZZ[i][j]), color="w", ha="center", va="center", fontweight="bold")
+                  
                     try:
                         axins.pcolor(XX_new, YY_new, ZZ_new, cmap = 'jet', vmin = .5, vmax = 3)
                     except:
                         print("simualted is best value ")
-                    #axins.contour(XX, YY, ZZ,  [min(zplot) + 0.5, min(zplot) + 2, min(zplot) + 4.5], colors = ['green', 'yellow', 'red'] )
-                    #axins.contour(XX, YY, ZZ,  [int(fsim*10**(-1))*10], colors = ['white'] )
-                    #try:
-                    #    axins.pcolor(XX[mask1], YY[mask1], ZZ_new[mask1], cmap = 'jet', vmin = .5, vmax = 1) ## mark all bins for which fit is better than simulated value 
-                    #except:
-                    #    print("no values larger than the simlated value")
+                   
                     axins.set_xlim(-np.deg2rad(5), np.deg2rad(5)) ## in coordinate system of mollweide
                     axins.set_ylim(-np.deg2rad(5), np.deg2rad(5))
-                    #minor_ticks = np.arange(-np.deg2rad(50), -np.deg2rad(50), np.deg2rad(5))
-                    #axins.set_xticks(minor_ticks)
-                    #axins.set_yticks(minor_ticks)
-                    #axins.set_xticklabels(np.array([int(np.rad2deg(-1.4)), int(np.rad2deg(-1.2)), int(np.rad2deg(-1)),int(np.rad2deg(-0.8)),int(np.rad2deg(-0.6)), int(np.rad2deg(-0.4)), int(np.rad2deg(-0.2)),  0, int(np.rad2deg(.2)), int(np.rad2deg(.4)), int(np.rad2deg(.6)), int(np.rad2deg(.8)), int(np.rad2deg(1))]))
-                    
-                    #axins.set_yticklabels(np.array([int(np.rad2deg(-1.4)), int(np.rad2deg(-1.2)), int(np.rad2deg(-1)),int(np.rad2deg(-0.8)),int(np.rad2deg(-0.6)), int(np.rad2deg(-0.4)), int(np.rad2deg(-0.2)),  0, int(np.rad2deg(.2)), int(np.rad2deg(.4)), int(np.rad2deg(.6)), int(np.rad2deg(.8)), int(np.rad2deg(1))]))
+                   
                     axins.tick_params(labelsize = 5)
                     axins.grid(alpha = .5)
 
                     
-                    #minor_ticks = np.arange([])
-                   # axins.set_xticks(minor_ticks)
+                 
                     
                 
                 else:
@@ -1006,7 +792,7 @@ class neutrinoDirectionReconstructor:
                 cbar.set_label('-1 * log(L)', rotation=270)
                 fig.tight_layout()
                 
-                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/plots/ARZ/18/direction_{}_{}.pdf".format(filenumber, event.get_id()))
+                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/CheckZenithEnergyDependence/plots/Alvarez/direction_{}_{}.pdf".format(filenumber, event.get_id()))
                 
                 
                 print("     reconstructed zenith = {}".format(np.rad2deg(rec_zenith)))
@@ -1022,16 +808,7 @@ class neutrinoDirectionReconstructor:
             
             
             
-            if 0:#combined_fit:
-                print("#### Neutrino direction and energy are fit simultaneously.")
-                bnds = ((simulated_zenith - np.deg2rad(5), simulated_zenith + np.deg2rad(5)),(simulated_azimuth - np.deg2rad(5), simulated_azimuth + np.deg2rad(5)), (10**17, 10**19 )) ## these do not work for Nelder-Mead
-                
-                results = opt.minimize(minimizer, x0 = ( [rec_zenith, rec_azimuth, rec_energy]), args = ( simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], 'True', 'combined'), method = 'Nelder-Mead', options = options)
-                rec_zenith = results.x[0]
-                rec_azimuth = results.x[1]
-                rec_energy = results.x[2]
-                print("simulated energy", simulated_energy)
-                print("Results", results)
+        
             
             
             
@@ -1061,15 +838,14 @@ class neutrinoDirectionReconstructor:
             station.set_parameter(stnp.nu_zenith, rec_zenith)
             station.set_parameter(stnp.nu_azimuth, rec_azimuth)
             station.set_parameter(stnp.nu_energy, rec_energy)
-            station.set_parameter(stnp.nu_sigma, area)
+           # station.set_parameter(stnp.nu_sigma, area)
             
             
             
           
             debug_plot = 1
             if debug_plot:
-                #print("reconstruction value global", minimizer([global_zen, global_az], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = fitprocedure))
-                #print("reconstruction value simulation", minimizer([simulated_zenith,simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure))
+                
                 tracglobal = minimizer([global_zen, global_az, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = 'combined')
                 
                 tracglobal_k = minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure, timing_k = True)
@@ -1130,7 +906,7 @@ class neutrinoDirectionReconstructor:
                         
                         ich += 1
                 fig.tight_layout()
-                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/plots/ARZ/18/fit_{}_{}.pdf".format(filenumber, event.get_id()))
+                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/CheckEnergyDependence/plots/Alvarez/fit_{}_{}.pdf".format(filenumber, event.get_id()))
 
 
 

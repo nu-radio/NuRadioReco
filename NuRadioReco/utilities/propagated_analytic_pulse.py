@@ -250,7 +250,8 @@ class simulation():
 		
 			maximum_channel = 0
 			for i in range(iS+1):
-				maximum_trace = max(abs(traces[9][i]))
+				#print("traces.shape", traces.shape)
+				maximum_trace = max(abs(traces[0][i])) ## maximum due to channel 9 (phased array)
 				#print("iS", iS)
 				#print("maximum trace", maximum_trace)
 				#print("launch_vector", launch_vectors[i])
