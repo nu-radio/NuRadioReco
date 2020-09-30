@@ -18,7 +18,7 @@ import numpy as np
 import logging
 logger = logging.getLogger("sim")
 from NuRadioReco.detector import antennapattern
-
+from NuRadioReco.framework.parameters import showerParameters as shp
 raytracing = {}
 eventreader = NuRadioReco.modules.io.eventReader.eventReader()
 
@@ -97,7 +97,7 @@ class simulation():
 
 			
 		x1 = [vertex_x, vertex_y, vertex_z]
-		fhad = station.get_sim_station()[stnp.inelasticity]
+		fhad = 1#event.get_sim_shower(shower_id)[shp.radiation_energy]#station.get_sim_station()[stnp.inelasticity]
 		
 		self._shower_axis = -1 * hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
 		n_index = ice.get_index_of_refraction(x1)
@@ -123,7 +123,7 @@ class simulation():
 					continue
 
 				# loop through all ray tracing solution
-				import matplotlib.pyplot as plt
+				#import matplotlib.pyplot as plt
 		#		fig = plt.figure()
 				for iS in range(r.get_number_of_solutions()):
 					raytracing[channel_id][iS] = {}
@@ -151,7 +151,7 @@ class simulation():
 					raytracing[channel_id][iS]["reflection angle"] = zenith_reflections
 					viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
 					print("VIEWING ANGLE", np.rad2deg(viewing_angle))
-					if channel_id == 9: 
+					if channel_id == 6: 
 						launch_vectors.append( self._launch_vector)
 	#			fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
 
@@ -171,13 +171,18 @@ class simulation():
 				traces[channel_id][iS] = {}
 				timing[channel_id][iS] = {}
 				viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
-
-				spectrum = signalgen.get_frequency_spectrum(
-				energy * fhad, viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
-				'Alvarez2009')
-			
-
-				import matplotlib.pyplot as plt
+			#	print("energy", energy)
+		#		print("R", raytracing[channel_id][iS]["trajectory length"])
+	#			print("viewing angle", viewing_angle)
+				ARZ_trace = np.zeros(self._n_samples)
+				for i in range(10):
+					spectrum = signalgen.get_frequency_spectrum(energy * fhad, viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
+				'ARZ2020')
+					ARZ_trace += fft.freq2time(spectrum, 1/self._dt)
+				ARZ_trace =fft.time2freq(ARZ_trace/10, 1/self._dt)
+				spectrum = ARZ_trace
+				
+				#import matplotlib.pyplot as plt
 				
 				# apply frequency dependent attenuation
 				if attenuate_ice:
@@ -251,7 +256,7 @@ class simulation():
 			maximum_channel = 0
 			for i in range(iS+1):
 				#print("traces.shape", traces.shape)
-				maximum_trace = max(abs(traces[0][i])) ## maximum due to channel 9 (phased array)
+				maximum_trace = max(abs(traces[6][i])) ## maximum due to channel 9 (phased array)
 				#print("iS", iS)
 				#print("maximum trace", maximum_trace)
 				#print("launch_vector", launch_vectors[i])
