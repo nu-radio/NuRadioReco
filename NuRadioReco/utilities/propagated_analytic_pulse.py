@@ -15,7 +15,10 @@ import datetime
 from NuRadioReco.framework.parameters import stationParameters as stnp
 from radiotools import helper as hp
 import numpy as np
+from pathlib import Path
 import logging
+import pickle
+
 logger = logging.getLogger("sim")
 from NuRadioReco.detector import antennapattern
 from NuRadioReco.framework.parameters import showerParameters as shp
@@ -31,13 +34,54 @@ attenuate_ice = True
 #det.update(datetime.datetime(2018, 1, 1))
 
 
-
 hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
 class simulation():
 	
-	def __init__(self):
+	def __init__(self, template = False):
+		self._template = template
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
+		if self._template:
+			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
+			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates.pkl")
+			if my_file.is_file():
+				f = NuRadioReco.utilities.io_utilities.read_pickle('{}/templates.pkl'.format(self._templates_path))
+				self._templates = f
+				self._templates_energies = f['header']['energies']
+				self._templates_viewingangles = f['header']['viewing angles']
+				self._templates_R = f['header']['R']				
+
+			else:
+				## open look up tables 
+				viewing_angles = np.arange(69, 70, .2)
+
+				self._header = {}
+				self._templates = { 'header': {'energies': 0, 'viewing angles': 0, 'R': 0, 'n_indes': 0} }
+				self._templates_viewingangles = []
+				for viewing_angle in viewing_angles:
+					if viewing_angle not in self._templates.keys():
+						try:
+							print("viewing angle", round(viewing_angle, 2))
+							f = NuRadioReco.utilities.io_utilities.read_pickle('{}/templates_ARZ2020_{}.pkl'.format(self._templates_path,int(viewing_angle*10))) #### in future 10 should be removed.
+							if 1:#f['header']['R'] == 1500:
+								self._templates[np.round(viewing_angle, 2)] = f
+								self._templates_viewingangles.append(np.round(viewing_angle,2 ))
+								self._templates_R = f['header']['R']
+								print('done')
+								self._templates['header']['R'] = self._templates_R
+								self._templates['header']['energies'] = f['header']['energies']
+								print("HEADER", self._templates['header']['R'])
+                                                                 
+						except: 
+							print("template for viewing angle {} does not exist".format(int(viewing_angle*10)))
+				self._templates_energies = f['header']['energies']
+				self._templates['header']['viewing angles'] = self._templates_viewingangles
+				print("templates hader", self._templates['header'])
+				
+				with open('{}/templates.pkl'.format(self._templates_path), 'wb') as f: #### this should be args.viewingangle/10
+					pickle.dump(self._templates, f)
+
+			
 		return 
 	
 	def begin(self, det, station, use_channels):
@@ -47,8 +91,10 @@ class simulation():
 
 		channl = station.get_channel(use_channels[0])
 		self._n_samples = channl.get_number_of_samples()
+		print("self n samples", self._n_samples)
 		self._sampling_rate = channl.get_sampling_rate()
 		self._dt = 1./self._sampling_rate
+		print("dt", self._dt)
 		
 	
 		self._ff = np.fft.rfftfreq(self._n_samples, self._dt)
@@ -174,21 +220,45 @@ class simulation():
 			#	print("energy", energy)
 		#		print("R", raytracing[channel_id][iS]["trajectory length"])
 	#			print("viewing angle", viewing_angle)
-				ARZ_trace = np.zeros(self._n_samples)
-				for i in range(10):
+				#for i in range(2):print('viewing angle', np.rad2deg(viewing_angle))
+				#import matplotlib.pyplot as plt
+				#fig = plt.figure()
+				#ax = fig.add_subplot(111)
+				if self._template:
+					
+					template_viewingangle = self._templates_viewingangles[np.abs(np.array(self._templates_viewingangles) - np.rad2deg(viewing_angle)).argmin()] ### viewing angle template which is closest to wanted viewing angle
+					self._templates[template_viewingangle]
+					template_energy = self._templates_energies[np.abs(np.array(self._templates_energies) - energy).argmin()]
+					
+					spectrum = self._templates[template_viewingangle][template_energy]
+					spectrum = np.array(list(spectrum)[0])
+					spectrum *= 2700#self._templates_R
+					
+					spectrum /= raytracing[channel_id][iS]["trajectory length"]
+					#ax.plot(self._ff, abs(fft.time2freq(spectrum, 1/self._dt)), label = 'ARZ')
+					spectrum= fft.time2freq(spectrum, 1/self._dt)
+					
+					
+				else:
+					
 					spectrum = signalgen.get_frequency_spectrum(energy * fhad, viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
-				'ARZ2020')
-					ARZ_trace += fft.freq2time(spectrum, 1/self._dt)
-				ARZ_trace =fft.time2freq(ARZ_trace/10, 1/self._dt)
-				spectrum = ARZ_trace
+					'Alvarez2009')
+					#ARZ_trace += fft.freq2time(spectrum, 1/self._dt)
+					#ax.plot(self._ff, abs(spectrum), label = 'ALvarez')
+					
+				#ax.legend()
+
+				#ax.set_xlim((4650, 4700))
+				#fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test.pdf")
+			
+				#ARZ_trace =fft.time2freq(ARZ_trace/10, 1/self._dt)
+				#spectrum = ARZ_trace
 				
 				#import matplotlib.pyplot as plt
-				
 				# apply frequency dependent attenuation
 				if attenuate_ice:
 					spectrum *= raytracing[channel_id][iS]["attenuation"]
 					
-                #print(stop)
 				if polarization:
 					polarization_direction_onsky = self._calculate_polarization_vector(channel_id, iS)
 
