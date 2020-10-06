@@ -16,6 +16,7 @@ from matplotlib.lines import Line2D
 from lmfit import Minimizer, Parameters, fit_report
 import datetime
 
+
 #### there is a small deviation due to the attenuation. The frequencies used in the simulation are different than for the reconstruction (some factor to in determining the number of samples), and since the attenuation only uses a few points and interpolates linear between them, this result in a small offset. 
 
 
@@ -52,10 +53,10 @@ class neutrinoDirectionReconstructor:
         pass
     
     def run(self, event, shower_id, station, det,
-            use_channels=[9, 14], filenumber = 1, debugplots_path = None):
+            use_channels=[9, 14], filenumber = 1, debugplots_path = None, template = False):
         
         
-        simulation = propagated_analytic_pulse.simulation()
+        simulation = propagated_analytic_pulse.simulation(template)
         simulation.begin(det, station, use_channels)
 
   #      sampling_rate = 5
@@ -244,11 +245,11 @@ class neutrinoDirectionReconstructor:
                             data_trace_timing = np.copy(data_trace) ## cut data around timing
                             data_trace_timing[(np.arange(0, len(data_trace_timing)) - dk) > 300] = 0 ## TO DO: check if 100 makes sense
 
-                            data_trace_timing[(dk - np.arange(0, len(data_trace_timing))) > 100] = 0 
+                            data_trace_timing[(dk - np.arange(0, len(data_trace_timing))) > 200] = 0 
                             rec_trace_timing = np.copy(rec_trace1) ## cut rec around timing
 
                             rec_trace_timing[(np.arange(0, len(data_trace_timing)) - dk) > 300] = 0
-                            rec_trace_timing[(dk - np.arange(0, len(data_trace_timing))) > 100] = 0
+                            rec_trace_timing[(dk - np.arange(0, len(data_trace_timing))) > 200] = 0
                            
                             corr = signal.hilbert(signal.correlate(data_trace_timing, rec_trace_timing)) ## correlate
 
@@ -261,29 +262,36 @@ class neutrinoDirectionReconstructor:
                             #ax.plot(rec_trace_timing, label = 'rec')
                             #ax.plot(data_trace_timing, label = 'data')
                             #ax.legend()
-                            #ax.set_xlim((4000, 6000))
+                            #ax.set_xlim((4700, 5500))
                             #ax1 = fig.add_subplot(212)
-                            #N = 80
+                            N = 100
                             
                             #ax1.plot(rec_trace1[int(k_ref + delta_toffset + dt ) -2*N: int(k_ref + delta_toffset + dt ) + 3*N], label = 'reconstructin')
                             #ax1.plot(data_trace[int(k_ref + delta_toffset + dt ) -2*N: int(k_ref + delta_toffset + dt ) + 3*N], label = 'data')
-                            #ax1.legend()
-                            #fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test_reco.pdf')                           
-                          #  print(stop)
+                                                  
                           
                         delta_k.append(int(k_ref + delta_toffset + dt )) ## for overlapping pulses this does not work
                         rec_trace3 += rec_trace1 ## add two voltage traces in time domain
                     ks[channel.get_id()] = delta_k
-                    N= 80
+                    N= 100
                     
               
                     if fit == 'combined':
                         rec_traces.append(rec_trace3)
+                        
                         if len(delta_k) > 0:
-                            chi2 += np.sum((rec_trace3[delta_k[0]-N: delta_k[0]+3*N] - data_trace[delta_k[0]-N:delta_k[0]+3*N])**2/(2*sigma**2))##
+                            chi2 += np.sum((rec_trace3[delta_k[0]-2*N: delta_k[0]+3*N] - data_trace[delta_k[0]-2*N:delta_k[0]+3*N])**2/(2*sigma**2))##
+                            #ax1.plot(rec_trace3[delta_k[1]-2*N: delta_k[1]+3*N], label = 'fit rec')
+                            #ax1.plot(data_trace[delta_k[1]-2*N:delta_k[1]+3*N], label = 'fit sim')
+                            #ax1.legend()
+                                     
+                            #fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test_reco.pdf')
+                            #print(stop)
+                            
                            
                         if len(delta_k) > 1:
-                            chi2 += np.sum((rec_trace3[delta_k[1]-N: delta_k[1]+3*N] - data_trace[delta_k[1]-N:delta_k[1]+3*N])**2/(2*sigma**2)) 
+                            chi2 += np.sum((rec_trace3[delta_k[1]-2*N: delta_k[1]+3*N] - data_trace[delta_k[1]-2*N:delta_k[1]+3*N])**2/(2*sigma**2)) 
+                           
                            
 
                             
@@ -330,10 +338,10 @@ class neutrinoDirectionReconstructor:
                 for ie, efield in enumerate(station.get_sim_station().get_electric_fields()):
                     if efield.get_channel_ids()[0] == 1:
                         #simulated_vertex = station.get_sim_station()[stnp.nu_vertex]
-                        vertex_R = np.sqrt((simulated_vertex[0] +0.3)**2 + simulated_vertex[1]**2 + (simulated_vertex[2]+100)**2)
+                        vertex_R = np.sqrt((simulated_vertex[0] )**2 + simulated_vertex[1]**2 + (simulated_vertex[2]+100)**2)
                         print("simualted vertex", simulated_vertex)
-                        vertex_zenith = hp.cartesian_to_spherical((simulated_vertex[0] +0.3), simulated_vertex[1], (simulated_vertex[2]+100))[0]
-                        vertex_azimuth = hp.cartesian_to_spherical((simulated_vertex[0] +0.3), simulated_vertex[1], (simulated_vertex[2]+100))[1]
+                        vertex_zenith = hp.cartesian_to_spherical(simulated_vertex[0] , simulated_vertex[1], (simulated_vertex[2]+100))[0]
+                        vertex_azimuth = hp.cartesian_to_spherical(simulated_vertex[0] , simulated_vertex[1], (simulated_vertex[2]+100))[1]
                         
                         #### add uncertainties in radians 
                         zenith_uncertainty = 0#np.deg2rad(100)
@@ -343,12 +351,12 @@ class neutrinoDirectionReconstructor:
                         vertex_azimuth += azimuth_uncertainty
                         vertex_R += R_uncertainty
                         new_vertex = vertex_R *hp.spherical_to_cartesian(vertex_zenith, vertex_azimuth)
-                        new_vertex = [(new_vertex[0] - 0.3), new_vertex[1], new_vertex[2]-100]
+                        new_vertex = [(new_vertex[0] ), new_vertex[1], new_vertex[2]-100]
                         print("vertex including uncertainties", simulated_vertex)
                         #print("simulated neutrino zenith", np.rad2deg(station.get_sim_station()[stnp.nu_zenith]))
                         #print("simulated neutrino azimuth", np.rad2deg(station.get_sim_station()[stnp.nu_azimuth]))
                         print("old R", vertex_R)
-                        vertex_R = np.sqrt((new_vertex[0] -0.3)**2 + new_vertex[1]**2 + (new_vertex[2]+100)**2)
+                        vertex_R = np.sqrt((new_vertex[0] )**2 + new_vertex[1]**2 + (new_vertex[2]+100)**2)
                         print("new R", vertex_R)
 
         
@@ -901,13 +909,13 @@ class neutrinoDirectionReconstructor:
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[ich]), 1/sampling_rate), abs(fft.time2freq(tracsim[ich], sampling_rate)), color = 'orange')
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[ich]), 1/sampling_rate), abs(fft.time2freq(tracrec[ich], sampling_rate)), color = 'green')
                #             ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
-                            N = 80
-                            ax[ich][0].axvline((k-N), label = 'fitting area')
+                            N = 100
+                            ax[ich][0].axvline((k-2*N), label = 'fitting area')
                             ax[ich][0].axvline((k+3*N))
-                            ax[ich][0].set_xlim((k-2*N, k+4*N))
+                            ax[ich][0].set_xlim((k-3*N, k+4*N))
                             ax[ich][0].legend(fontsize = 'x-large')
                             #print("DELTA", (tracsim[ich][k-N: k+3*N] -  tracrec[ich][k-N: k+ 3*N])**2 / (2 * sigma**2))
-                            TOT += np.sum((tracsim[ich][k-N: k+3*N] -  tracrec[ich][k-N: k+ 3*N])**2 / (2*sigma**2))
+                            TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
                             #print("TOT", TOT)
                         if len(k1) > 1:
                             k = k1[1]
@@ -924,11 +932,11 @@ class neutrinoDirectionReconstructor:
                             
                             
                            # N = 50
-                            ax[ich][1].axvline((k-N), label = 'fitting area')
+                            ax[ich][1].axvline((k-2*N), label = 'fitting area')
                             ax[ich][1].axvline((k+3*N))
-                            ax[ich][1].set_xlim((k-2*N, k+4*N))
+                            ax[ich][1].set_xlim((k-3*N, k+4*N))
                             ax[ich][1].legend(fontsize = 'large')
-                            TOT += np.sum((tracsim[ich][k-N: k+3*N] -  tracrec[ich][k-N: k+ 3*N])**2 / (2*sigma**2))
+                            TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
                             #print("TOT", TOT)
 
                         
