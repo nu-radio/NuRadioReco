@@ -178,7 +178,9 @@ class neutrinoDirectionReconstructor:
             
             chi2 = 0
 
-            rec_traces = []
+            rec_traces = {}
+            data_traces = {}
+            data_timing = {}
             normalization_factors = {} ## dictionary to store the normalzation factors
 
 
@@ -215,6 +217,9 @@ class neutrinoDirectionReconstructor:
             for ich, channel in enumerate(station.iter_channels()):
                 if channel.get_id() in use_channels: #iterate over channels
                     data_trace = np.copy(channel.get_trace())
+                    rec_traces[channel.get_id()] = {}
+                    data_traces[channel.get_id()] = {}
+                    data_timing[channel.get_id()] = {}
                     
                     max_trace = 0
                     ### if no solution exist, than analytic voltage is zero
@@ -235,7 +240,8 @@ class neutrinoDirectionReconstructor:
                         
                         ### figuring out the time offset for specfic trace
                         dk = int(k_ref + delta_toffset )
-                        rec_trace1 = np.roll(rec_trace, int(toffset+delta_toffset)) # roll simulated trace
+                        rec_trace1 = rec_trace
+                        #rec_trace1 = np.roll(rec_trace, int(toffset+delta_toffset)) # roll simulated trace
 
                         ### now correlate rectrace1 with the cut data, and look for the offset
                         ## cut data:
@@ -243,69 +249,49 @@ class neutrinoDirectionReconstructor:
                         ARZ =1
                         if ARZ:#(channel.get_id() == 10 and i_trace == 1):
                             data_trace_timing = np.copy(data_trace) ## cut data around timing
-                            data_trace_timing[(np.arange(0, len(data_trace_timing)) - dk) > 300] = 0 ## TO DO: check if 100 makes sense
+							## DETERMIINE PULSE REGION DUE TO REFERENCE TIMING 
 
-                            data_trace_timing[(dk - np.arange(0, len(data_trace_timing))) > 200] = 0 
-                            rec_trace_timing = np.copy(rec_trace1) ## cut rec around timing
-
-                            rec_trace_timing[(np.arange(0, len(data_trace_timing)) - dk) > 300] = 0
-                            rec_trace_timing[(dk - np.arange(0, len(data_trace_timing))) > 200] = 0
                            
-                            corr = signal.hilbert(signal.correlate(data_trace_timing, rec_trace_timing)) ## correlate
+                                                        
+                            data_timing_timing = np.arange(0, len(data_trace_timing), 1)[dk - 300 : dk + 500] ##needs to be same size as template used for reconstruction
+
+                            data_trace_timing = data_trace_timing[dk -300 : dk + 500]
+
+                        
+                            corr = signal.hilbert(signal.correlate(rec_trace1, data_trace_timing))#signal.hilbert(signal.correlate(data_trace_timing, rec_trace_timing)) ## correlate ## they do not have to be the same length 
 
                             dt = np.argmax(corr) - (len(corr)/2) +1 ## find offset
-                            #print('dt', dt)
-                            #dt = 0 
-                            rec_trace1 = np.roll(rec_trace1, int(dt)) # roll reconstruction trace with ARZ extra offset
-                            #fig = plt.figure()
-                            #ax = fig.add_subplot(211)
-                            #ax.plot(rec_trace_timing, label = 'rec')
-                            #ax.plot(data_trace_timing, label = 'data')
-                            #ax.legend()
-                            #ax.set_xlim((4700, 5500))
-                            #ax1 = fig.add_subplot(212)
+                            rec_trace1 = np.roll(rec_trace1, int(-1*dt))
+                           
                             N = 100
                             
-                            #ax1.plot(rec_trace1[int(k_ref + delta_toffset + dt ) -2*N: int(k_ref + delta_toffset + dt ) + 3*N], label = 'reconstructin')
-                            #ax1.plot(data_trace[int(k_ref + delta_toffset + dt ) -2*N: int(k_ref + delta_toffset + dt ) + 3*N], label = 'data')
-                                                  
+                             
                           
                         delta_k.append(int(k_ref + delta_toffset + dt )) ## for overlapping pulses this does not work
-                        rec_trace3 += rec_trace1 ## add two voltage traces in time domain
-                    ks[channel.get_id()] = delta_k
-                    N= 100
-                    
-              
-                    if fit == 'combined':
-                        rec_traces.append(rec_trace3)
-                        
-                        if len(delta_k) > 0:
-                            chi2 += np.sum((rec_trace3[delta_k[0]-2*N: delta_k[0]+3*N] - data_trace[delta_k[0]-2*N:delta_k[0]+3*N])**2/(2*sigma**2))##
-                            #ax1.plot(rec_trace3[delta_k[1]-2*N: delta_k[1]+3*N], label = 'fit rec')
-                            #ax1.plot(data_trace[delta_k[1]-2*N:delta_k[1]+3*N], label = 'fit sim')
-                            #ax1.legend()
-                                     
-                            #fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test_reco.pdf')
-                            #print(stop)
-                            
-                           
-                        if len(delta_k) > 1:
-                            chi2 += np.sum((rec_trace3[delta_k[1]-2*N: delta_k[1]+3*N] - data_trace[delta_k[1]-2*N:delta_k[1]+3*N])**2/(2*sigma**2)) 
-                           
-                           
+                        #rec_trace3 += rec_trace1 ## add two voltage traces in time domain
+                        ks[channel.get_id()] = delta_k
+                        N= 100
 
+
+                        if fit == 'combined':
+                            rec_traces[channel.get_id()][i_trace] = rec_trace1
+                            data_traces[channel.get_id()][i_trace] = data_trace_timing
+                            data_timing[channel.get_id()][i_trace] = data_timing_timing
+                            if 1:#len(delta_k) > 0:
+                                chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
+                               
                             
             if timing_k:
                 return ks
             if not minimize:
-                return rec_traces
+                return [rec_traces, data_traces, data_timing]
             return chi2
     
         station.set_is_neutrino()
         if station.has_sim_station():
-            simulated_zenith = event.get_sim_shower(shower_id)[shp.zenith]   
-            simulated_azimuth = event.get_sim_shower(shower_id)[shp.azimuth]
-            simulated_energy = event.get_sim_shower(shower_id)[shp.energy]
+            simulated_zenith = np.deg2rad(46.02)#event.get_sim_shower(shower_id)[shp.zenith]   
+            simulated_azimuth = np.deg2rad(21.07)#event.get_sim_shower(shower_id)[shp.azimuth]
+            simulated_energy = 2.8 * 10**20#event.get_sim_shower(shower_id)[shp.energy]
             #print("electromagnetic energy", event.get_sim_shower(shower_id)[shp.electromagnetic_energy])
             #print("radiation energy", event.get_sim_shower(shower_id)[shp.electromagnetic_radiation_energy])
             print("energy", event.get_sim_shower(shower_id)[shp.energy])
@@ -370,7 +356,7 @@ class neutrinoDirectionReconstructor:
 
             traces_sim, timing_sim, launch_vector_sim = simulation.simulation( det, station, simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             
-            tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)
+            tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)[0]
           
             fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
             print("FSIM", fsim)
@@ -471,7 +457,7 @@ class neutrinoDirectionReconstructor:
                     """
                     
                     
-                    results = opt.brute(minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy/10 ,simulated_energy*10, simulated_energy)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True))
+                    #results = opt.brute(minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy/10 ,simulated_energy*10, simulated_energy)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True))
                     print('start datetime', cop)
                     print("end datetime", datetime.datetime.now() - cop)
 					
@@ -486,7 +472,7 @@ class neutrinoDirectionReconstructor:
                 if banana: ## convert reconstructed viewing angle and R to azimuth and zenith
                 
            
-                    if 1:
+                    if 0:
                         rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
                         cherenkov_angle = results[0][0]
                         angle = results[0][1]
@@ -504,13 +490,13 @@ class neutrinoDirectionReconstructor:
                                 global_az += np.deg2rad(180)
                             global_az += np.deg2rad(180)
 
-                    rec_zenith = global_zen
-                    rec_azimuth = global_az
-                    rec_energy = results[0][2]
+                    #rec_zenith = global_zen
+                    #rec_azimuth = global_az
+                    #rec_energy = results[0][2]
                     
-                    #rec_zenith = simulated_zenith
-                    #rec_azimuth = simulated_azimuth
-                    #rec_energy = simulated_energy
+                    rec_zenith = simulated_zenith
+                    rec_azimuth = simulated_azimuth
+                    rec_energy = simulated_energy
                     print("reconstructed energy {}".format(rec_energy))
                     print("reconstructed zenith {} and reconstructed azimuth {}".format(np.rad2deg(rec_zenith), np.rad2deg(rec_azimuth)))
                     print("         simualted zenith {}".format(np.rad2deg(simulated_zenith)))
@@ -856,7 +842,7 @@ class neutrinoDirectionReconstructor:
 
             
             ## get the traces for the reconstructed energy and direction
-            tracrec = minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = 'combined')
+            tracrec = minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = 'combined')[0]
             
             ## get the min likelihood value for the simulated values
             fminsim = minimizer([simulated_zenith, simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = 'combined', first_iter = False)
@@ -884,6 +870,12 @@ class neutrinoDirectionReconstructor:
             if debug_plot:
                 
                 tracglobal = minimizer([global_zen, global_az, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = 'combined')
+                tracglobal = tracglobal[0]
+                
+                tracdata = minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[1]
+                timingdata = minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
+
+                
                 
                 tracglobal_k = minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure, timing_k = True)
                 
@@ -899,44 +891,45 @@ class neutrinoDirectionReconstructor:
                         k1 = tracglobal_k[channel.get_id()]
                         if len(k1) > 0:
                             k = k1[0]
-                            ax[ich][0].plot(channel.get_trace(), label = 'data', color = 'black')
-                            ax[ich][0].fill_between(np.arange(0, len(tracsim[ich])),tracsim[ich]- sigma, tracsim[ich] + sigma, color = 'red', alpha = 0.2 )
-                            ax[ich][2].plot( np.fft.rfftfreq(len(channel.get_trace()), 1/sampling_rate), abs(fft.time2freq(channel.get_trace(), sampling_rate)), color = 'black')
-                            ax[ich][0].plot(tracsim[ich], label = 'simulation', color = 'orange')
+                            #ax[ich][0].plot(channel.get_trace(), label = 'data', color = 'black')
+                            ax[ich][0].plot(timingdata[channel.get_id()][0], tracdata[channel.get_id()][0], label = 'data', color = 'black')
+                            ax[ich][0].fill_between(timingdata[channel.get_id()][0],tracsim[channel.get_id()][0]- sigma, tracsim[channel.get_id()][0] + sigma, color = 'red', alpha = 0.2 )
+                            ax[ich][2].plot( np.fft.rfftfreq(len(tracdata[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq( tracdata[channel.get_id()][0], sampling_rate)), color = 'black')
+                            ax[ich][0].plot(timingdata[channel.get_id()][0], tracsim[channel.get_id()][0], label = 'simulation', color = 'orange')
                        
-                            ax[ich][0].plot(tracrec[ich], label = 'reconstruction', color = 'green')
+                            ax[ich][0].plot(timingdata[channel.get_id()][0], tracrec[channel.get_id()][0], label = 'reconstruction', color = 'green')
             #                ax[ich][0].plot(tracglobal[ich], label = 'global reconstruction', color = 'lightblue')
-                            ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[ich]), 1/sampling_rate), abs(fft.time2freq(tracsim[ich], sampling_rate)), color = 'orange')
-                            ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[ich]), 1/sampling_rate), abs(fft.time2freq(tracrec[ich], sampling_rate)), color = 'green')
+                            ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[channel.get_id()][0]), 1/sampling_rate), abs(fft.time2freq(tracsim[channel.get_id()][0], sampling_rate)), color = 'orange')
+                            ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[channel.get_id()][0]), 1/sampling_rate), abs(fft.time2freq(tracrec[channel.get_id()][0], sampling_rate)), color = 'green')
                #             ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
                             N = 100
-                            ax[ich][0].axvline((k-2*N), label = 'fitting area')
-                            ax[ich][0].axvline((k+3*N))
-                            ax[ich][0].set_xlim((k-3*N, k+4*N))
+                           # ax[ich][0].axvline((k-2*N), label = 'fitting area')
+                        #    ax[ich][0].axvline((k+3*N))
+                        #    ax[ich][0].set_xlim((k-3*N, k+4*N))
                             ax[ich][0].legend(fontsize = 'x-large')
                             #print("DELTA", (tracsim[ich][k-N: k+3*N] -  tracrec[ich][k-N: k+ 3*N])**2 / (2 * sigma**2))
-                            TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
+                            #TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
                             #print("TOT", TOT)
                         if len(k1) > 1:
                             k = k1[1]
-                            ax[ich][1].plot(channel.get_trace(), label = 'data', color = 'black')
-                            ax[ich][1].fill_between(np.arange(0, len(tracsim[ich])),tracsim[ich]- sigma, tracsim[ich] + sigma, color = 'red', alpha = 0.2 )
+                            ax[ich][1].plot(timingdata[channel.get_id()][1], tracdata[channel.get_id()][1], label = 'data', color = 'black')
+                            ax[ich][1].fill_between(timingdata[channel.get_id()][1],tracsim[channel.get_id()][1]- sigma, tracsim[channel.get_id()][1] + sigma, color = 'red', alpha = 0.2 )
 
-                            ax[ich][2].plot( np.fft.rfftfreq(len(channel.get_trace()), 1/sampling_rate), abs(fft.time2freq(channel.get_trace(), sampling_rate)), color = 'black')
-                            ax[ich][1].plot(tracsim[ich], label = 'simulation', color = 'orange')
-                            ax[ich][1].plot(tracrec[ich], label = 'reconstruction', color = 'green')
+                            ax[ich][2].plot( np.fft.rfftfreq(len(tracdata[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracdata[channel.get_id()][1], sampling_rate)), color = 'black')
+                            ax[ich][1].plot(timingdata[channel.get_id()][1], tracsim[channel.get_id()][1], label = 'simulation', color = 'orange')
+                            ax[ich][1].plot(timingdata[channel.get_id()][1], tracrec[channel.get_id()][1], label = 'reconstruction', color = 'green')
              #               ax[ich][1].plot(tracglobal[ich], label = 'global reconstruction', color = 'lightblue')
-                            ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[ich]), 1/sampling_rate), abs(fft.time2freq(tracsim[ich], sampling_rate)), color = 'orange')
-                            ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[ich]), 1/sampling_rate), abs(fft.time2freq(tracrec[ich], sampling_rate)), color = 'green')
+                            ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracsim[channel.get_id()][1], sampling_rate)), color = 'orange')
+                            ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracrec[channel.get_id()][1], sampling_rate)), color = 'green')
               #              ax[ich][2].plot( np.fft.rfftfreq(len(tracglobal[ich]), 1/sampling_rate), abs(fft.time2freq(tracglobal[ich], sampling_rate)), color = 'lightblue')
                             
                             
                            # N = 50
-                            ax[ich][1].axvline((k-2*N), label = 'fitting area')
-                            ax[ich][1].axvline((k+3*N))
-                            ax[ich][1].set_xlim((k-3*N, k+4*N))
-                            ax[ich][1].legend(fontsize = 'large')
-                            TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
+                            #ax[ich][1].axvline((k-2*N), label = 'fitting area')
+                            #ax[ich][1].axvline((k+3*N))
+                            #ax[ich][1].set_xlim((k-3*N, k+4*N))
+                            #ax[ich][1].legend(fontsize = 'large')
+                            #TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
                             #print("TOT", TOT)
 
                         

@@ -53,7 +53,7 @@ class simulation():
 
 			else:
 				## open look up tables 
-				viewing_angles = np.arange(69, 70, .2)
+				viewing_angles = np.arange(60, 70, .2)
 
 				self._header = {}
 				self._templates = { 'header': {'energies': 0, 'viewing angles': 0, 'R': 0, 'n_indes': 0} }
@@ -90,7 +90,7 @@ class simulation():
 		sim_to_data = True
 
 		channl = station.get_channel(use_channels[0])
-		self._n_samples = channl.get_number_of_samples()
+		self._n_samples = 800#channl.get_number_of_samples()
 		print("self n samples", self._n_samples)
 		self._sampling_rate = channl.get_sampling_rate()
 		self._dt = 1./self._sampling_rate
@@ -232,11 +232,14 @@ class simulation():
 					
 					spectrum = self._templates[template_viewingangle][template_energy]
 					spectrum = np.array(list(spectrum)[0])
-					spectrum *= 2700#self._templates_R
-					
+					spectrum *= self._templates_R
 					spectrum /= raytracing[channel_id][iS]["trajectory length"]
+                    
+					spectrum *= template_energy
+					spectrum /= energy
 					#ax.plot(self._ff, abs(fft.time2freq(spectrum, 1/self._dt)), label = 'ARZ')
 					spectrum= fft.time2freq(spectrum, 1/self._dt)
+                    
 					
 					
 				else:
@@ -317,10 +320,15 @@ class simulation():
 				analytic_trace_fft *= self._f
 				
                 ### store traces
-				traces[channel_id][iS] = fft.freq2time(analytic_trace_fft, 1/self._dt)
+				## rotate trace such that 
+				traces[channel_id][iS] = np.roll(fft.freq2time(analytic_trace_fft, 1/self._dt), -500)
                 ### store timing
 				timing[channel_id][iS] =raytracing[channel_id][iS]["travel time"]
-                
+				#import matplotlib.pyplot as plt
+				#fig = plt.figure()
+				#ax = fig.add_subplot(111)
+				#ax.plot(traces[channel_id][iS])
+				#fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test.pdf')
 		if(first_iter): ## seelct viewing angle due to channel with largest amplitude 
 		
 			maximum_channel = 0
