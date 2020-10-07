@@ -225,6 +225,7 @@ class simulation():
 				#fig = plt.figure()
 				#ax = fig.add_subplot(111)
 				if self._template:
+
 					
 					template_viewingangle = self._templates_viewingangles[np.abs(np.array(self._templates_viewingangles) - np.rad2deg(viewing_angle)).argmin()] ### viewing angle template which is closest to wanted viewing angle
 					self._templates[template_viewingangle]
@@ -239,6 +240,15 @@ class simulation():
 					spectrum /= energy
 					#ax.plot(self._ff, abs(fft.time2freq(spectrum, 1/self._dt)), label = 'ARZ')
 					spectrum= fft.time2freq(spectrum, 1/self._dt)
+					if (np.rad2deg(viewing_angle) < self._templates_viewingangles[0]):
+						spectrum = np.zeros(len(spectrum))
+					if (np.rad2deg(viewing_angle) > self._templates_viewingangles[-1]):
+						spectrum = np.zeros(len(spectrum))
+					if (energy < self._templates_energies[0]):
+						spectrum = np.zeros(len(spectrum))
+					if (energy > self._templates_energies[-1]):
+						#print("ENERGY LARGER", stop)
+						spectrum = np.zeros(len(spectrum))
                     
 					
 					
