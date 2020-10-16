@@ -38,7 +38,7 @@ class channelParameters(Enum):
     cr_xcorrelations = 8  # dict of result of crosscorrelations with cr templates
     nu_xcorrelations = 9  # dict of result of crosscorrelations with nu templates
     signal_time = 10  # the time of the maximum amplitude of the envelope
-
+    pulses = 11 #dict of likley pulse locations
 
 class electricFieldParameters(Enum):
     ray_path_type = 1  # the type of the ray tracing solution ('direct', 'refracted' or 'reflected')
