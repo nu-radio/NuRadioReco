@@ -1,4 +1,5 @@
 from NuRadioReco.utilities import units
+from NuRadioReco.modules.base.module import register_run
 import numpy as np
 from NuRadioReco.framework.parameters import channelParameters as chp
 import matplotlib.pyplot as plt
@@ -19,7 +20,7 @@ class channelPulseFinder:
         self.__debug = None
         self.begin()
 
-    def begin(self, debug=False, log_level=logging.WARNING):
+    def begin(self, debug=True, log_level=logging.WARNING):
         """
         Parameters
         -----------
@@ -29,7 +30,7 @@ class channelPulseFinder:
         self.__debug = debug
         self.logger.setLevel(log_level)
 
-    def thresholding(trace, lag, threshold, influence):
+    def thresholding(self, trace, lag, threshold, influence):
         """
         Parameters
         -----------
@@ -51,8 +52,8 @@ class channelPulseFinder:
         filtered = np.array(trace)
         avgFilter = [0]*len(trace)
         stdFilter = [0]*len(trace)
-        avgFilter[lag - 1] = np.mean(y[0:lag])
-        stdFilter[lag - 1] = np.std(y[0:lag])
+        avgFilter[lag - 1] = np.mean(trace[0:lag])
+        stdFilter[lag - 1] = np.std(trace[0:lag])
         for i in range(lag, len(trace) - 1):
             if abs(trace[i] - avgFilter[i-1]) > threshold * stdFilter[i-1]:
                 if trace[i] > avgFilter[i-1]:
@@ -60,7 +61,7 @@ class channelPulseFinder:
                 else:
                     signals[i] = -1
 
-                filtered[i] = influence * y[i] + (1 - influence) * filtered[i-1]
+                filtered[i] = influence * trace[i] + (1 - influence) * filtered[i-1]
                 avgFilter[i] = np.mean(filtered[(i-lag):i])
                 stdFilter[i] = np.std(filtered[(i-lag):i])
             else:
@@ -92,16 +93,16 @@ class channelPulseFinder:
             #trace = np.roll(trace,700)[0:400] #to cut the trace to the middle
             peaks, _ = find_peaks(trace, distance=20, width=2, height=.00005*units.mV)
             envelope = np.abs(hilbert(trace))
-            pulses = self.thresholding(envelope, lag=150, threshold=4, influence=0)
+            pulses = self.thresholding(envelope, 150, 4, 0)
             channel[chp.pulses] = pulses
 
-
+        if self.__debug:
             plt.plot(peaks, trace[peaks], "xr", label = 'peaks')
             plt.plot(trace, label='trace')
             plt.plot(envelope, label='envelope')
             plt.plot(pulses["signals"]*np.max(envelope), label="signals")
             plt.legend()
-            #plt.show()
+            plt.show()
 
         self.__t = time.time() - t
 
