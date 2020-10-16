@@ -4,7 +4,6 @@ from NuRadioReco.framework.parameters import channelParameters as chp
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert, find_peaks
 import time
-
 import logging
 logger = logging.getLogger('channelPulseFinder')
 
@@ -13,13 +12,13 @@ class channelPulseFinder:
     Finds pulses and records windows into channel parameters
     """
 
-    def __init__(self, log_level=logging.WARNING):
+    def __init__(self):
         self.__t = 0
         self.logger = logging.getLogger('NuRadioReco.channelPulseFinder')
         self.__debug = None
         self.begin()
 
-    def begin(self,debug=False,log_level=logging.WARNING):
+    def begin(self, debug=False, log_level=logging.WARNING):
         """
         Parameters
         -----------
@@ -45,10 +44,10 @@ class channelPulseFinder:
         Returns
         ----------
         Pulses: dict
-            dictionary of various SNR parameters
+            dictionary of Pulse locations
         """
         signals = np.zeros(len(trace))
-        filteredY = np.array(trace)
+        filtered = np.array(trace)
         avgFilter = [0]*len(trace)
         stdFilter = [0]*len(trace)
         avgFilter[lag - 1] = np.mean(y[0:lag])
@@ -60,19 +59,18 @@ class channelPulseFinder:
                 else:
                     signals[i] = -1
 
-                filteredY[i] = influence * y[i] + (1 - influence) * filteredY[i-1]
-                avgFilter[i] = np.mean(filteredY[(i-lag):i])
-                stdFilter[i] = np.std(filteredY[(i-lag):i])
+                filtered[i] = influence * y[i] + (1 - influence) * filtered[i-1]
+                avgFilter[i] = np.mean(filtered[(i-lag):i])
+                stdFilter[i] = np.std(filtered[(i-lag):i])
             else:
                 signals[i] = 0
-                filteredY[i] = trace[i]
-                avgFilter[i] = np.mean(filteredY[(i-lag):i])
-                stdFilter[i] = np.std(filteredY[(i-lag):i])
+                filtered[i] = trace[i]
+                avgFilter[i] = np.mean(filtered[(i-lag):i])
+                stdFilter[i] = np.std(filtered[(i-lag):i])
 
-        return dict(signals = np.asarray(signals),
-                    avgFilter = np.asarray(avgFilter),
-                    stdFilter = np.asarray(stdFilter))
-    def plots():
+        return dict(signals=np.asarray(signals),
+                    avgFilter=np.asarray(avgFilter),
+                    stdFilter=np.asarray(stdFilter))
 
     @register_run()
     def run(self, evt, station, det):
@@ -100,11 +98,12 @@ class channelPulseFinder:
             plt.plot(peaks, trace[peaks], "xr", label = 'peaks')
             plt.plot(trace, label='trace')
             plt.plot(envelope, label='envelope')
-            plt.plot(result["signals"]*np.max(envelope), label="signals")
+            plt.plot(pulses["signals"]*np.max(envelope), label="signals")
             plt.legend()
             #plt.show()
 
         self.__t = time.time() - t
+
     def end(self):
         from datetime import timedelta
         logger.setLevel(logging.INFO)
