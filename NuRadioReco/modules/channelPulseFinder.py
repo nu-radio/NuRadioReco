@@ -7,6 +7,7 @@ import time
 import logging
 logger = logging.getLogger('channelPulseFinder')
 
+
 class channelPulseFinder:
     """
     Finds pulses and records windows into channel parameters
@@ -53,7 +54,7 @@ class channelPulseFinder:
         avgFilter[lag - 1] = np.mean(y[0:lag])
         stdFilter[lag - 1] = np.std(y[0:lag])
         for i in range(lag, len(trace) - 1):
-            if abs(trace[i] - avgFilter[i-1]) > threshold * stdFilter [i-1]:
+            if abs(trace[i] - avgFilter[i-1]) > threshold * stdFilter[i-1]:
                 if trace[i] > avgFilter[i-1]:
                     signals[i] = 1
                 else:
@@ -91,7 +92,7 @@ class channelPulseFinder:
             #trace = np.roll(trace,700)[0:400] #to cut the trace to the middle
             peaks, _ = find_peaks(trace, distance=20, width=2, height=.00005*units.mV)
             envelope = np.abs(hilbert(trace))
-            pulses = thresholding(envelope, lag=150, threshold=4, influence=0)
+            pulses = self.thresholding(envelope, lag=150, threshold=4, influence=0)
             channel[chp.pulses] = pulses
 
 
