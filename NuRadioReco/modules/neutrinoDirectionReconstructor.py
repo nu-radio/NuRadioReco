@@ -15,7 +15,7 @@ from matplotlib import rc
 from matplotlib.lines import Line2D
 from lmfit import Minimizer, Parameters, fit_report
 import datetime
-
+import math
 
 #### there is a small deviation due to the attenuation. The frequencies used in the simulation are different than for the reconstruction (some factor to in determining the number of samples), and since the attenuation only uses a few points and interpolates linear between them, this result in a small offset. 
 
@@ -56,7 +56,7 @@ class neutrinoDirectionReconstructor:
             use_channels=[9, 14], filenumber = 1, debugplots_path = None, template = False):
         
         
-        simulation = propagated_analytic_pulse.simulation(template)
+        simulation = propagated_analytic_pulse.simulation(template, event.get_sim_shower(shower_id)[shp.vertex])
         simulation.begin(det, station, use_channels)
 
   #      sampling_rate = 5
@@ -169,7 +169,7 @@ class neutrinoDirectionReconstructor:
                         azimuth += np.deg2rad(180)
                     azimuth += np.deg2rad(180)
                 #azimuth  = get_normalized_angle(azimuth)
-                print("zenith {} and azimuth {}".format(np.rad2deg(zenith), np.rad2deg(azimuth)))
+                if (np.rad2deg(zenith) < 48): print("zenith {} and azimuth {}, energy {}".format(np.rad2deg(zenith), np.rad2deg(azimuth), energy))
                 
             if np.rad2deg(zenith) > 100:
                 return np.inf ## not in field of view
@@ -245,9 +245,9 @@ class neutrinoDirectionReconstructor:
 
                         ### now correlate rectrace1 with the cut data, and look for the offset
                         ## cut data:
-                        dt = 0 
+                        #dt = 0 
                         ARZ =1
-                        if ARZ:#(channel.get_id() == 10 and i_trace == 1):
+                        if 1:#channel.get_id() == 9:#ARZ:#(channel.get_id() == 10 and i_trace == 1):
                             data_trace_timing = np.copy(data_trace) ## cut data around timing
 							## DETERMIINE PULSE REGION DUE TO REFERENCE TIMING 
 
@@ -257,13 +257,15 @@ class neutrinoDirectionReconstructor:
 
                             data_trace_timing = data_trace_timing[dk -300 : dk + 500]
 
-                        
+                        if 1:#channel.get_id() == 9:
                             corr = signal.hilbert(signal.correlate(rec_trace1, data_trace_timing))#signal.hilbert(signal.correlate(data_trace_timing, rec_trace_timing)) ## correlate ## they do not have to be the same length 
 
                             dt = np.argmax(corr) - (len(corr)/2) +1 ## find offset
-                            rec_trace1 = np.roll(rec_trace1, int(-1*dt))
+                        #    print("dt", dt)
+                        #    print("int", math.ceil(-1*dt))
+                        rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt))
                            
-                            N = 100
+                        N = 100
                             
                              
                           
@@ -277,10 +279,16 @@ class neutrinoDirectionReconstructor:
                             rec_traces[channel.get_id()][i_trace] = rec_trace1
                             data_traces[channel.get_id()][i_trace] = data_trace_timing
                             data_timing[channel.get_id()][i_trace] = data_timing_timing
-                            if 1:#len(delta_k) > 0:
+                            if 1:#i_trace == 0:#((abs(min(data_trace_timing)) + max(data_trace_timing)) / (2*sigma) > 4):#i_trace == 0:#len(delta_k) > 0:
                                 chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
-                               
-                            
+                                #fig = plt.figure()
+                                #ax = fig.add_subplot(211)
+                                #ax.plot(rec_trace1)
+                                #ax.plot(data_trace_timing)
+                                #ax = fig.add_subplot(212)
+                                #ax.plot((rec_trace1 - data_trace_timing)**2)
+                                #fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test.pdf') 
+            if (np.rad2deg(zenith) < 48): print("fmin", chi2)           
             if timing_k:
                 return ks
             if not minimize:
@@ -289,9 +297,9 @@ class neutrinoDirectionReconstructor:
     
         station.set_is_neutrino()
         if station.has_sim_station():
-            simulated_zenith = np.deg2rad(46.02)#event.get_sim_shower(shower_id)[shp.zenith]   
-            simulated_azimuth = np.deg2rad(21.07)#event.get_sim_shower(shower_id)[shp.azimuth]
-            simulated_energy = 2.8 * 10**20#event.get_sim_shower(shower_id)[shp.energy]
+            simulated_zenith = event.get_sim_shower(shower_id)[shp.zenith]   
+            simulated_azimuth = event.get_sim_shower(shower_id)[shp.azimuth]
+            simulated_energy = event.get_sim_shower(shower_id)[shp.energy]
             #print("electromagnetic energy", event.get_sim_shower(shower_id)[shp.electromagnetic_energy])
             #print("radiation energy", event.get_sim_shower(shower_id)[shp.electromagnetic_radiation_energy])
             print("energy", event.get_sim_shower(shower_id)[shp.energy])
@@ -364,7 +372,7 @@ class neutrinoDirectionReconstructor:
             probability_sim = -1* (tot_N /2)* ( np.log(2*np.pi) +  np.log(sigma**2)) -fsim
             print("FMIN", fsim)
         
-            
+            #print(stop)
             
             
             trac = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True) ## this is to store the correct launch vector for the new vertex position 
@@ -413,8 +421,8 @@ class neutrinoDirectionReconstructor:
                     print("SIM VIEW", sim_view)
                     #sim_view = (75.15)
                     #theta = np.deg2rad(-98.4)
-                    viewing_start = np.deg2rad(sim_view) - np.deg2rad(5) 
-                    viewing_end = np.deg2rad(sim_view) + np.deg2rad(5)
+                    viewing_start = np.deg2rad(sim_view) - np.deg2rad(10) 
+                    viewing_end = np.deg2rad(sim_view) + np.deg2rad(10)
                     theta_start = np.deg2rad(-180)
                     theta_end =  np.deg2rad(180)
                     print('launch vector sim', launch_vector_sim)
@@ -457,7 +465,7 @@ class neutrinoDirectionReconstructor:
                     """
                     
                     
-                    #results = opt.brute(minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy/10 ,simulated_energy*10, simulated_energy)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True))
+                    results = opt.brute(minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True))
                     print('start datetime', cop)
                     print("end datetime", datetime.datetime.now() - cop)
 					
@@ -472,7 +480,7 @@ class neutrinoDirectionReconstructor:
                 if banana: ## convert reconstructed viewing angle and R to azimuth and zenith
                 
            
-                    if 0:
+                    if 1:
                         rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
                         cherenkov_angle = results[0][0]
                         angle = results[0][1]
@@ -490,13 +498,13 @@ class neutrinoDirectionReconstructor:
                                 global_az += np.deg2rad(180)
                             global_az += np.deg2rad(180)
 
-                    #rec_zenith = global_zen
-                    #rec_azimuth = global_az
-                    #rec_energy = results[0][2]
+                    rec_zenith = global_zen
+                    rec_azimuth = global_az
+                    rec_energy = results[0][2]
                     
-                    rec_zenith = simulated_zenith
-                    rec_azimuth = simulated_azimuth
-                    rec_energy = simulated_energy
+                    #rec_zenith = simulated_zenith
+                    #rec_azimuth = simulated_azimuth
+                    #rec_energy = simulated_energy
                     print("reconstructed energy {}".format(rec_energy))
                     print("reconstructed zenith {} and reconstructed azimuth {}".format(np.rad2deg(rec_zenith), np.rad2deg(rec_azimuth)))
                     print("         simualted zenith {}".format(np.rad2deg(simulated_zenith)))
@@ -861,7 +869,7 @@ class neutrinoDirectionReconstructor:
             station.set_parameter(stnp.nu_zenith, rec_zenith)
             station.set_parameter(stnp.nu_azimuth, rec_azimuth)
             station.set_parameter(stnp.nu_energy, rec_energy)
-           # station.set_parameter(stnp.nu_sigma, area)
+            station.set_parameter(stnp.nu_sigma, [fminsim, fminfit])
             
             
             
@@ -888,9 +896,9 @@ class neutrinoDirectionReconstructor:
                 for channel in station.iter_channels():
                     if channel.get_id() in use_channels: # use channels needs to be sorted
                         
-                        k1 = tracglobal_k[channel.get_id()]
-                        if len(k1) > 0:
-                            k = k1[0]
+                    #    k1 = tracglobal_k[channel.get_id()]
+                        if len(tracdata[channel.get_id()]) > 0:
+                            
                             #ax[ich][0].plot(channel.get_trace(), label = 'data', color = 'black')
                             ax[ich][0].plot(timingdata[channel.get_id()][0], tracdata[channel.get_id()][0], label = 'data', color = 'black')
                             ax[ich][0].fill_between(timingdata[channel.get_id()][0],tracsim[channel.get_id()][0]- sigma, tracsim[channel.get_id()][0] + sigma, color = 'red', alpha = 0.2 )
@@ -910,8 +918,8 @@ class neutrinoDirectionReconstructor:
                             #print("DELTA", (tracsim[ich][k-N: k+3*N] -  tracrec[ich][k-N: k+ 3*N])**2 / (2 * sigma**2))
                             #TOT += np.sum((tracsim[ich][k-2*N: k+3*N] -  tracrec[ich][k-2*N: k+ 3*N])**2 / (2*sigma**2))
                             #print("TOT", TOT)
-                        if len(k1) > 1:
-                            k = k1[1]
+                        if len(tracdata[channel.get_id()]) > 1:
+                            
                             ax[ich][1].plot(timingdata[channel.get_id()][1], tracdata[channel.get_id()][1], label = 'data', color = 'black')
                             ax[ich][1].fill_between(timingdata[channel.get_id()][1],tracsim[channel.get_id()][1]- sigma, tracsim[channel.get_id()][1] + sigma, color = 'red', alpha = 0.2 )
 

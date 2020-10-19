@@ -38,14 +38,17 @@ hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorpo
 
 class simulation():
 	
-	def __init__(self, template = False):
+	def __init__(self, template = False, vertex = [0,0,-1000]):
 		self._template = template
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
 		if self._template:
 			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
-			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates.pkl")
+			distances = [2000]
+			distance_event = np.sqrt(vertex[0]**2 + vertex[1]**2 + vertex[2]**2) ## assume station is at 000
+			
+			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates_343.pkl")
 			if my_file.is_file():
-				f = NuRadioReco.utilities.io_utilities.read_pickle('{}/templates.pkl'.format(self._templates_path))
+				f = NuRadioReco.utilities.io_utilities.read_pickle('{}'.format(my_file))
 				self._templates = f
 				self._templates_energies = f['header']['energies']
 				self._templates_viewingangles = f['header']['viewing angles']
@@ -53,7 +56,7 @@ class simulation():
 
 			else:
 				## open look up tables 
-				viewing_angles = np.arange(60, 70, .2)
+				viewing_angles = np.arange(45, 70, .2)
 
 				self._header = {}
 				self._templates = { 'header': {'energies': 0, 'viewing angles': 0, 'R': 0, 'n_indes': 0} }
@@ -62,7 +65,7 @@ class simulation():
 					if viewing_angle not in self._templates.keys():
 						try:
 							print("viewing angle", round(viewing_angle, 2))
-							f = NuRadioReco.utilities.io_utilities.read_pickle('{}/templates_ARZ2020_{}.pkl'.format(self._templates_path,int(viewing_angle*10))) #### in future 10 should be removed.
+							f = NuRadioReco.utilities.io_utilities.read_pickle('{}/templates_ARZ2020_{}_1200.pkl'.format(self._templates_path,int(viewing_angle*10))) #### in future 10 should be removed.
 							if 1:#f['header']['R'] == 1500:
 								self._templates[np.round(viewing_angle, 2)] = f
 								self._templates_viewingangles.append(np.round(viewing_angle,2 ))
@@ -78,7 +81,7 @@ class simulation():
 				self._templates['header']['viewing angles'] = self._templates_viewingangles
 				print("templates hader", self._templates['header'])
 				
-				with open('{}/templates.pkl'.format(self._templates_path), 'wb') as f: #### this should be args.viewingangle/10
+				with open('{}/templates_343.pkl'.format(self._templates_path), 'wb') as f: #### this should be args.viewingangle/10
 					pickle.dump(self._templates, f)
 
 			
@@ -147,8 +150,9 @@ class simulation():
 		
 		self._shower_axis = -1 * hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
 		n_index = ice.get_index_of_refraction(x1)
+		#print("n index", n_index)
 		cherenkov_angle = np.arccos(1. / n_index)
-		
+	#	print("n", n_index)
 		
 #		sampling_rate_detector = det.get_sampling_frequency(station.get_id(), 0)
 		
@@ -177,6 +181,8 @@ class simulation():
 					raytracing[channel_id][iS]["launch vector"] = self._launch_vector
 					
 					R = r.get_path_length(iS)
+	#				print("R", R)
+					
 					raytracing[channel_id][iS]["trajectory length"] = R
 					T = r.get_travel_time(iS)  # calculate travel time
 					if (R == None or T == None):
@@ -197,7 +203,7 @@ class simulation():
 					raytracing[channel_id][iS]["reflection angle"] = zenith_reflections
 					viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
 					print("VIEWING ANGLE", np.rad2deg(viewing_angle))
-					if channel_id == 6: 
+					if channel_id == 9: 
 						launch_vectors.append( self._launch_vector)
 	#			fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
 
@@ -230,29 +236,38 @@ class simulation():
 					template_viewingangle = self._templates_viewingangles[np.abs(np.array(self._templates_viewingangles) - np.rad2deg(viewing_angle)).argmin()] ### viewing angle template which is closest to wanted viewing angle
 					self._templates[template_viewingangle]
 					template_energy = self._templates_energies[np.abs(np.array(self._templates_energies) - energy).argmin()]
-					
+					#print("template energies", self._templates_energies)	
 					spectrum = self._templates[template_viewingangle][template_energy]
 					spectrum = np.array(list(spectrum)[0])
 					spectrum *= self._templates_R
 					spectrum /= raytracing[channel_id][iS]["trajectory length"]
                     
-					spectrum *= template_energy
+					spectrum *= template_energy ### this needs to be added otherwise energy is wrongly determined
+					print("template enegy", template_energy)
+					print("template viewing angle", template_viewingangle)
+					print("template R", self._templates_R)
+					print("trajecory length", raytracing[channel_id][iS]["trajectory length"])
 					spectrum /= energy
 					#ax.plot(self._ff, abs(fft.time2freq(spectrum, 1/self._dt)), label = 'ARZ')
 					spectrum= fft.time2freq(spectrum, 1/self._dt)
-					if (np.rad2deg(viewing_angle) < self._templates_viewingangles[0]):
+					if (np.rad2deg(viewing_angle) < (self._templates_viewingangles[0]-1)):
 						spectrum = np.zeros(len(spectrum))
-					if (np.rad2deg(viewing_angle) > self._templates_viewingangles[-1]):
+						print("viewing angle 1", np.rad2deg(viewing_angle))	
+					if (np.rad2deg(viewing_angle) > (self._templates_viewingangles[-1]+1)):
 						spectrum = np.zeros(len(spectrum))
+						print("viewin gangle 2", np.rad2deg(viewing_angle))
 					if (energy < self._templates_energies[0]):
 						spectrum = np.zeros(len(spectrum))
 					if (energy > self._templates_energies[-1]):
 						#print("ENERGY LARGER", stop)
 						spectrum = np.zeros(len(spectrum))
-                    
+
+			#		print("max spectrum", max(spectrum))
 					
 					
 				else:
+				#ARZ_trace = np.zeros(self._n_samples)
+				#for i in range(10):
 					
 					spectrum = signalgen.get_frequency_spectrum(energy * fhad, viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
 					'Alvarez2009')
@@ -344,7 +359,7 @@ class simulation():
 			maximum_channel = 0
 			for i in range(iS+1):
 				#print("traces.shape", traces.shape)
-				maximum_trace = max(abs(traces[6][i])) ## maximum due to channel 9 (phased array)
+				maximum_trace = max(abs(traces[9][i])) ## maximum due to channel 9 (phased array)
 				#print("iS", iS)
 				#print("maximum trace", maximum_trace)
 				#print("launch_vector", launch_vectors[i])
