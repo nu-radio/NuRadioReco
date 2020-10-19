@@ -20,7 +20,7 @@ class channelPulseFinder:
         self.__debug = None
         self.begin()
 
-    def begin(self, debug=True, log_level=logging.WARNING):
+    def begin(self, debug=False, log_level=logging.WARNING):
         """
         Parameters
         -----------
@@ -35,13 +35,13 @@ class channelPulseFinder:
         Parameters
         -----------
         trace: array
-            event trace
+            Event trace
         lag: int
             Lag of window for mean and std calculations
         threshold: float
             Sigma threshold
         influence: float
-            influence of pulses on other measurments
+            Influence of pulses on other measurments
 
         Returns
         ----------
@@ -60,7 +60,6 @@ class channelPulseFinder:
                     signals[i] = 1
                 else:
                     signals[i] = -1
-
                 filtered[i] = influence * trace[i] + (1 - influence) * filtered[i-1]
                 avgFilter[i] = np.mean(filtered[(i-lag):i])
                 stdFilter[i] = np.std(filtered[(i-lag):i])
@@ -94,6 +93,16 @@ class channelPulseFinder:
             peaks, _ = find_peaks(trace, distance=20, width=2, height=.00005*units.mV)
             envelope = np.abs(hilbert(trace))
             pulses = self.thresholding(envelope, 150, 4, 0)
+            signals = np.array(pulses["signals"])
+            switches = []
+            for i, e in enumerate(signals[:-1]):
+                if e != signals[i+1]:
+                    switches.append(times[i])
+            pulseindex = len(switches) / 2
+            splits = np.array_split(switches,pulseindex)
+            pulses = {}
+            for i, e in enumerate(splits):
+                pulses['Pulse ' + str(i+1) + ' is likely between'] = [e[0],e[1]]
             channel[chp.pulses] = pulses
 
         if self.__debug:
@@ -102,7 +111,7 @@ class channelPulseFinder:
             plt.plot(envelope, label='envelope')
             plt.plot(pulses["signals"]*np.max(envelope), label="signals")
             plt.legend()
-            plt.show()
+            #plt.show()
 
         self.__t = time.time() - t
 
