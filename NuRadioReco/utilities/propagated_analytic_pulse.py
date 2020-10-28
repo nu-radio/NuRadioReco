@@ -43,10 +43,16 @@ class simulation():
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
 		if self._template:
 			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
-			distances = [2000]
+			distances = [700, 900, 1200, 2000, 3000, 4000, 10000]
 			distance_event = np.sqrt(vertex[0]**2 + vertex[1]**2 + vertex[2]**2) ## assume station is at 000
-			
-			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates_343.pkl")
+			print("distance event", distance_event)
+			for dist in distances:
+				if distance_event < dist:
+					R = dist
+					break
+			if R == 10000:
+				R = 4000
+			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates_{}.pkl".format(R, R))
 			if my_file.is_file():
 				f = NuRadioReco.utilities.io_utilities.read_pickle('{}'.format(my_file))
 				self._templates = f
@@ -89,7 +95,6 @@ class simulation():
 	
 	def begin(self, det, station, use_channels):
 		""" initialize filter and amplifier """
-		print("hallo")
 		sim_to_data = True
 
 		channl = station.get_channel(use_channels[0])
@@ -210,13 +215,13 @@ class simulation():
 
 		traces = {}
 		timing = {}
-
-		for channel_id in use_channels:
+		viewingangles = np.zeros((len(use_channels), 2))
+		for ich, channel_id in enumerate(use_channels):
 			#print("CHANNEL", channel_id)
 
 			traces[channel_id] = {}
 			timing[channel_id] = {}
-			for iS in raytracing[channel_id]:
+			for i_s, iS in enumerate(raytracing[channel_id]):
 
 
 				#print("IS", iS)
@@ -243,24 +248,24 @@ class simulation():
 					spectrum /= raytracing[channel_id][iS]["trajectory length"]
                     
 					spectrum *= template_energy ### this needs to be added otherwise energy is wrongly determined
-					print("template enegy", template_energy)
-					print("template viewing angle", template_viewingangle)
-					print("template R", self._templates_R)
-					print("trajecory length", raytracing[channel_id][iS]["trajectory length"])
+	#				print("template enegy", template_energy)
+		#			print("template viewing angle", template_viewingangle)
+			#		print("template R", self._templates_R)
+				#	print("trajecory length", raytracing[channel_id][iS]["trajectory length"])
 					spectrum /= energy
 					#ax.plot(self._ff, abs(fft.time2freq(spectrum, 1/self._dt)), label = 'ARZ')
 					spectrum= fft.time2freq(spectrum, 1/self._dt)
-					if (np.rad2deg(viewing_angle) < (self._templates_viewingangles[0]-1)):
-						spectrum = np.zeros(len(spectrum))
-						print("viewing angle 1", np.rad2deg(viewing_angle))	
-					if (np.rad2deg(viewing_angle) > (self._templates_viewingangles[-1]+1)):
-						spectrum = np.zeros(len(spectrum))
-						print("viewin gangle 2", np.rad2deg(viewing_angle))
-					if (energy < self._templates_energies[0]):
-						spectrum = np.zeros(len(spectrum))
-					if (energy > self._templates_energies[-1]):
-						#print("ENERGY LARGER", stop)
-						spectrum = np.zeros(len(spectrum))
+					#if (np.rad2deg(viewing_angle) < (self._templates_viewingangles[0]-1)):
+				#		spectrum = np.zeros(len(spectrum))
+				#		print("viewing angle 1", np.rad2deg(viewing_angle))	
+				#	if (np.rad2deg(viewing_angle) > (self._templates_viewingangles[-1]+1)):
+				#		spectrum = np.zeros(len(spectrum))
+				#		print("viewin gangle 2", np.rad2deg(viewing_angle))
+				#	if (energy < self._templates_energies[0]):
+				#		spectrum = np.zeros(len(spectrum))
+				#	if (energy > self._templates_energies[-1]):
+				#		#print("ENERGY LARGER", stop)
+				#		spectrum = np.zeros(len(spectrum))
 
 			#		print("max spectrum", max(spectrum))
 					
@@ -284,6 +289,7 @@ class simulation():
 				
 				#import matplotlib.pyplot as plt
 				# apply frequency dependent attenuation
+				viewingangles[ich,i_s] = viewing_angle
 				if attenuate_ice:
 					spectrum *= raytracing[channel_id][iS]["attenuation"]
 					
@@ -371,7 +377,7 @@ class simulation():
 
 
 		
-		return traces, timing, launch_vector       	
+		return traces, timing, launch_vector, viewingangles       	
 
 
 
