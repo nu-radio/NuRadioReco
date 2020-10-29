@@ -315,11 +315,13 @@ class neutrinoDirectionReconstructor:
             #print("radiation energy", event.get_sim_shower(shower_id)[shp.electromagnetic_radiation_energy])
             print("energy", event.get_sim_shower(shower_id)[shp.energy])
             simulated_vertex = event.get_sim_shower(shower_id)[shp.vertex]
+            reconstructed_vertex = station[stnp.vertex]
 	# simulated_zenith = station.get_sim_station()[stnp.nu_zenith]
             #simulated_azimuth = station.get_sim_station()[stnp.nu_azimuth]
             #simulated_energy = station.get_sim_station()[stnp.nu_energy]
             #simulated_vertex = station.get_sim_station()[stnp.nu_vertex]
             print("simulated vertex position is", simulated_vertex)
+            print("reconstructed vertex", reconstructed_vertex)
             SNR = []
             for ich, channel in enumerate(station.iter_channels()): ## checks SNR of channels
                 Vrms = sigma#1.6257*10**(-5)
@@ -368,16 +370,16 @@ class neutrinoDirectionReconstructor:
             print("simulated vertex", simulated_vertex)
             print('new vertex', new_vertex)
            
-            traces_sim, timing_sim, launch_vector_sim, viewingangles_sim = simulation.simulation( det, station, new_vertex[0], new_vertex[1], new_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
+            traces_sim, timing_sim, launch_vector_sim, viewingangles_sim = simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             
             options = {'maxiter':500, 'disp':True}
             print("Launch", launch_vector_sim)
 
-            traces_sim, timing_sim, launch_vector_sim, viewingangles_sim= simulation.simulation( det, station, simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
+            traces_sim, timing_sim, launch_vector_sim, viewingangles_sim= simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             
-            tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)[0]
+            tracsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)[0]
           
-            fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
+            fsim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  True, fit = fitprocedure, first_iter = True)
             print("FSIM", fsim)
             tot_N = 80 * 4 * 2 * 2 # number of datapoints # samples * ray solutions * channels
             probability_sim = -1* (tot_N /2)* ( np.log(2*np.pi) +  np.log(sigma**2)) -fsim
@@ -386,7 +388,7 @@ class neutrinoDirectionReconstructor:
             #print(stop)
             
             
-            trac = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True) ## this is to store the correct launch vector for the new vertex position 
+            trac = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], reconstructed_vertex[0],reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True) ## this is to store the correct launch vector for the new vertex position 
            # print(stop)
 
           
@@ -941,7 +943,7 @@ class neutrinoDirectionReconstructor:
                         
                         ich += 1
                 fig.tight_layout()
-        #        fig.savefig("{}/fit_{}_{}.pdf".format(debugplots_path, filenumber, shower_id))
+                fig.savefig("{}/fit_{}_{}.pdf".format(debugplots_path, filenumber, shower_id))
                 SNRsfit, viewinganglesfit = minimizer([rec_zenith, rec_azimuth, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = True, fit = fitprocedure, return_pulse_parameters = True)
                 SNRssim, viewinganglessim = minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, return_pulse_parameters = True)
                 station.set_parameter(stnp.SNR, [SNRssim, SNRsfit])
