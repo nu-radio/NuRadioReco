@@ -28,8 +28,10 @@ class stationParameters(Enum):
     cr_xmax = 28  # Depth of shower maximum of the air shower
     nu_sigma = 29
     SNR = 30
-    viewingangles = 31 
-
+    viewingangles = 31
+    raytype = 32
+    pulse_position = 33
+        
 
 class channelParameters(Enum):
     zenith = 1  # zenith angle of the incoming signal direction

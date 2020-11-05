@@ -61,10 +61,12 @@ class neutrinoDirectionReconstructor:
         self._simulated_azimuth = event.get_sim_shower(shower_id)[shp.azimuth]
         self._simulated_zenith = event.get_sim_shower(shower_id)[shp.zenith]
         vertex =event.get_sim_shower(shower_id)[shp.vertex] #station[stnp.nu_vertex]
-        simulation = propagated_analytic_pulse.simulation(True, vertex)#event.get_sim_shower(shower_id)[shp.vertex])
+        simulation = propagated_analytic_pulse.simulation(False, vertex)#event.get_sim_shower(shower_id)[shp.vertex])
         simulation.begin(det, station, use_channels)
-        simulation.simulation(det, station, event.get_sim_shower(shower_id)[shp.vertex][0], event.get_sim_shower(shower_id)[shp.vertex][1], event.get_sim_shower(shower_id)[shp.vertex][2], self._simulated_zenith, self._simulated_azimuth, simulated_energy, use_channels, first_iter = True)
-
+        
+        a, b, self._launch_vector_sim, c, d =  simulation.simulation(det, station, event.get_sim_shower(shower_id)[shp.vertex][0], event.get_sim_shower(shower_id)[shp.vertex][1], event.get_sim_shower(shower_id)[shp.vertex][2], self._simulated_zenith, self._simulated_azimuth, simulated_energy, use_channels, first_iter = True)
+        #print("LAN VECTOR SIM", self._launch_vector_sim)
+        #print(stop)
         self._simulation = simulation
         pass
     
@@ -90,7 +92,7 @@ class neutrinoDirectionReconstructor:
 ### get raytype of maximum channel
         tracsim, timsim, lv_sim, vw_sim, raytypes_sim = simulation.simulation(det, station, event.get_sim_shower(shower_id)[shp.vertex][0], event.get_sim_shower(shower_id)[shp.vertex][1], event.get_sim_shower(shower_id)[shp.vertex][2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, first_iter = True) 
         max_trace = 0
-        
+       
         #for iS in tracsim[9]: #phased array channel
         #    #print("trace", trace)    
         #    if max(abs(tracsim[9][iS])) > max_trace:
@@ -217,7 +219,7 @@ class neutrinoDirectionReconstructor:
             print("simulated vertex", simulated_vertex)
             print('new vertex', new_vertex)
            
-            traces_sim, timing_sim, launch_vector_sim, viewingangles_sim, rayptypes = simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
+            traces_sim, timing_sim, self._launch_vector_sim, viewingangles_sim, rayptypes = simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             print("timing sim", timing_sim)
             #print(stop)#
             options = {'maxiter':500, 'disp':True}
@@ -861,7 +863,7 @@ class neutrinoDirectionReconstructor:
             if banana: ## input values accoring to launch vector
                 
                 
-                signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*launch_vector_sim)
+                signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*self._launch_vector_sim)
                 
                 sig_dir = hp.spherical_to_cartesian(signal_zenith, signal_azimuth)
                 rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
@@ -1033,9 +1035,9 @@ class neutrinoDirectionReconstructor:
                    #         print("SNR in fit", SNR)
                             if channel.get_id() in [6,7,8,9,13,14]:#SNR > SNR_cut: ### Add solution type if SNR > 3.5; otherwise noise is fitted and then the timing of the pulse is not found correctly which results in a biased reconstruction
                                 if i_trace == 0: 
-                                    #print("use channel", channel.get_id())                            
+                                    #print("direction {} {}".format(np.rad2deg(zenith), np.rad2deg(azimuth)))                            
                                     chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
-                            elif i_trace ==1:#SNR > 3.5:
+                            elif i_trace == 0:#SNR > 3.5:
                                 #print("use channel", channel.get_id())
                                 chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
                              

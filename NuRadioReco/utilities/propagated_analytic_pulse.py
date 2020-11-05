@@ -168,6 +168,7 @@ class simulation():
 			launch_vectors = []
 
 			for channel_id in use_channels:
+                                
 				raytracing[channel_id] = {}
 				x2 = det.get_relative_position(station.get_id(), channel_id) + det.get_absolute_position(station.get_id())
 				r = prop(x1, x2, ice, 'GL1')
@@ -191,7 +192,7 @@ class simulation():
 					raytracing[channel_id][iS]["trajectory length"] = R
 					T = r.get_travel_time(iS)  # calculate travel time
 					if (R == None or T == None):
-						continue
+						ontinue
 					raytracing[channel_id][iS]["travel time"] = T
 					receive_vector = r.get_receive_vector(iS)
 					zenith, azimuth = hp.cartesian_to_spherical(*receive_vector)
@@ -202,29 +203,28 @@ class simulation():
 					attn = r.get_attenuation(iS, self._ff)#, 0.5 * self._sampling_rate)
 				
 					raytracing[channel_id][iS]["attenuation"] = attn
-
-					
+					raytracing[channel_id][iS]["raytype"] = r.get_solution_type(iS)		
 					zenith_reflections = np.atleast_1d(r.get_reflection_angle(iS))
 					raytracing[channel_id][iS]["reflection angle"] = zenith_reflections
 					viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
 					print("VIEWING ANGLE", np.rad2deg(viewing_angle))
-					if channel_id == 9: 
+					if channel_id == 6: 
 						launch_vectors.append( self._launch_vector)
 	#			fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
-
-
+		raytype = {}
 		traces = {}
 		timing = {}
 		viewingangles = np.zeros((len(use_channels), 2))
 		for ich, channel_id in enumerate(use_channels):
 			#print("CHANNEL", channel_id)
-
+			raytype[channel_id] = {}
 			traces[channel_id] = {}
 			timing[channel_id] = {}
 			for i_s, iS in enumerate(raytracing[channel_id]):
 
 
 				#print("IS", iS)
+				raytype[channel_id][iS] = {}
 				traces[channel_id][iS] = {}
 				timing[channel_id][iS] = {}
 				viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
@@ -355,7 +355,8 @@ class simulation():
 				traces[channel_id][iS] = np.roll(fft.freq2time(analytic_trace_fft, 1/self._dt), -500)
                 ### store timing
 				timing[channel_id][iS] =raytracing[channel_id][iS]["travel time"]
-				#import matplotlib.pyplot as plt
+				raytype[channel_id][iS] = raytracing[channel_id][iS]["raytype"]	
+                                #import matplotlib.pyplot as plt
 				#fig = plt.figure()
 				#ax = fig.add_subplot(111)
 				#ax.plot(traces[channel_id][iS])
@@ -365,7 +366,7 @@ class simulation():
 			maximum_channel = 0
 			for i in range(iS+1):
 				#print("traces.shape", traces.shape)
-				maximum_trace = max(abs(traces[9][i])) ## maximum due to channel 9 (phased array)
+				maximum_trace = max(abs(traces[6][i])) ## maximum due to channel 6 (phased array)
 				#print("iS", iS)
 				#print("maximum trace", maximum_trace)
 				#print("launch_vector", launch_vectors[i])
@@ -377,7 +378,7 @@ class simulation():
 
 
 		
-		return traces, timing, launch_vector, viewingangles       	
+		return traces, timing, launch_vector, viewingangles, raytype       	
 
 
 
