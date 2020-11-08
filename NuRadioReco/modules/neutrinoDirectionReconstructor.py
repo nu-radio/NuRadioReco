@@ -223,7 +223,7 @@ class neutrinoDirectionReconstructor:
             print("timing sim", timing_sim)
             #print(stop)#
             options = {'maxiter':500, 'disp':True}
-            print("Launch", launch_vector_sim)
+            print("Launch", self._launch_vector_sim)
 
             traces_sim, timing_sim, launch_vector_sim, viewingangles_sim, raytype= simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             
@@ -330,7 +330,7 @@ class neutrinoDirectionReconstructor:
                     """
                     
                     
-                    #results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True, False))
+                    results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True, False))
                     print('start datetime', cop)
                     print("end datetime", datetime.datetime.now() - cop)
 					
@@ -345,7 +345,7 @@ class neutrinoDirectionReconstructor:
                 if banana: ## convert reconstructed viewing angle and R to azimuth and zenith
                 
            
-                    if 0:
+                    if 1:
                         rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
                         cherenkov_angle = results[0][0]
                         angle = results[0][1]
@@ -363,13 +363,13 @@ class neutrinoDirectionReconstructor:
                                 global_az += np.deg2rad(180)
                             global_az += np.deg2rad(180)
 
-                    #rec_zenith = global_zen
-                    #rec_azimuth = global_az
-                    #rec_energy = results[0][2]
+                    rec_zenith = global_zen
+                    rec_azimuth = global_az
+                    rec_energy = results[0][2]
                     
-                    rec_zenith = simulated_zenith
-                    rec_azimuth = simulated_azimuth
-                    rec_energy = simulated_energy
+                    #rec_zenith = simulated_zenith
+                    #rec_azimuth = simulated_azimuth
+                    #rec_energy = simulated_energy
                     print("reconstructed energy {}".format(rec_energy))
                     print("reconstructed zenith {} and reconstructed azimuth {}".format(np.rad2deg(rec_zenith), np.rad2deg(rec_azimuth)))
                     print("         simualted zenith {}".format(np.rad2deg(simulated_zenith)))
@@ -1005,15 +1005,15 @@ class neutrinoDirectionReconstructor:
                                 if i_trace ==1:
                                     dt_2 = np.argmax(corr) - (len(corr)/2) + 1
                         dt = np.argmax(corr) - (len(corr)/2) + 1
-                        if channel.get_id() not in [6,7,8,9,13,14]:
+                        if 1:#channel.get_id() not in [6,7,8,9,13,14]:
                             rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt))
-                        else:  
-                            if i_trace ==0:
-                                dt = dt_1 
-                                rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt_1))
-                            if i_trace ==1: 
-                                dt = dt_2
-                                rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt_2))
+                       # else:  
+                       #     if i_trace ==0:
+                       #         dt = dt_1 
+                       #         rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt_1))
+                       #     if i_trace ==1: 
+                       #         dt = dt_2
+                       #         rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt_2))
                            
                         ### for Hpol use same dt as for Vpol 
 			
@@ -1033,13 +1033,13 @@ class neutrinoDirectionReconstructor:
                           
                             SNRs[ich, i_trace] = SNR
                    #         print("SNR in fit", SNR)
-                            if channel.get_id() in [6,7,8,9,13,14]:#SNR > SNR_cut: ### Add solution type if SNR > 3.5; otherwise noise is fitted and then the timing of the pulse is not found correctly which results in a biased reconstruction
+                            if  channel.get_id() in [6]:#,7,8,9,13,14]:#SNR > SNR_cut: ### Add solution type if SNR > 3.5; otherwise noise is fitted and then the timing of the pulse is not found correctly which results in a biased reconstruction
                                 if i_trace == 0: 
                                     #print("direction {} {}".format(np.rad2deg(zenith), np.rad2deg(azimuth)))                            
                                     chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
-                            elif i_trace == 0:#SNR > 3.5:
+                            else SNR > 3.5:
                                 #print("use channel", channel.get_id())
-                                chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
+                            #    chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
                              
              #                   if channel.get_id() == 0:
              #                       print("DK", dk)    
