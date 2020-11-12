@@ -77,7 +77,7 @@ class neutrinoDirectionReconstructor:
         self._det = det
         
         
-        sim_vertex =False
+        sim_vertex = False
         if sim_vertex:
             vertex = event.get_sim_shower(shower_id)[shp.vertex]
         else:
@@ -330,7 +330,7 @@ class neutrinoDirectionReconstructor:
                     """
                     
                     
-                    #results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True, False))
+                    results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True, False))
                     print('start datetime', cop)
                     print("end datetime", datetime.datetime.now() - cop)
 					
@@ -345,7 +345,7 @@ class neutrinoDirectionReconstructor:
                 if banana: ## convert reconstructed viewing angle and R to azimuth and zenith
                 
            
-                    if 0:
+                    if 1:
                         rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
                         cherenkov_angle = results[0][0]
                         angle = results[0][1]
@@ -363,13 +363,13 @@ class neutrinoDirectionReconstructor:
                                 global_az += np.deg2rad(180)
                             global_az += np.deg2rad(180)
 
-                    #rec_zenith = global_zen
-                    #rec_azimuth = global_az
-                    #rec_energy = results[0][2]
+                    rec_zenith = global_zen
+                    rec_azimuth = global_az
+                    rec_energy = results[0][2]
                     
-                    rec_zenith = simulated_zenith
-                    rec_azimuth = simulated_azimuth
-                    rec_energy = simulated_energy
+                    #rec_zenith = simulated_zenith
+                    #rec_azimuth = simulated_azimuth
+                    #rec_energy = simulated_energy
                     print("reconstructed energy {}".format(rec_energy))
                     print("reconstructed zenith {} and reconstructed azimuth {}".format(np.rad2deg(rec_zenith), np.rad2deg(rec_azimuth)))
                     print("         simualted zenith {}".format(np.rad2deg(simulated_zenith)))
@@ -747,7 +747,7 @@ class neutrinoDirectionReconstructor:
              
                 timingdata = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
                 timingsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
-
+                tracsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[1]
 
                 
                 
@@ -773,14 +773,14 @@ class neutrinoDirectionReconstructor:
                             ax[ich][0].fill_between(timingsim[channel.get_id()][0],tracsim[channel.get_id()][0]- sigma, tracsim[channel.get_id()][0] + sigma, color = 'red', alpha = 0.2 )
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracdata[channel.get_id()][0]), 1/sampling_rate), abs(fft.time2freq( tracdata[channel.get_id()][0], sampling_rate)), color = 'black')
                             ax[ich][0].plot(timingsim[channel.get_id()][0], tracsim[channel.get_id()][0], label = 'simulation', color = 'orange')
-                            if 0:#channel.get_id() in [6,7,8,9,13,14]: 
+                            if channel.get_id() in [6]:#,7,8,9,13,14]: 
                                  ax[ich][0].plot(timingdata[channel.get_id()][0], tracrec[channel.get_id()][0], label = 'reconstruction', color = 'green')
                             elif SNR > 3.5:
                                  ax[ich][0].plot(timingdata[channel.get_id()][0], tracrec[channel.get_id()][0], label = 'reconstruction', color = 'green')
 
 
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[channel.get_id()][0]), 1/sampling_rate), abs(fft.time2freq(tracsim[channel.get_id()][0], sampling_rate)), color = 'orange')
-                            if 0:#channel.get_id() in [6,7,8,9,13,14]:
+                            if channel.get_id() in [6]:
                                  ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[channel.get_id()][0]), 1/sampling_rate), abs(fft.time2freq(tracrec[channel.get_id()][0], sampling_rate)), color = 'green')
                          
                             elif SNR > 3.5:
@@ -797,7 +797,7 @@ class neutrinoDirectionReconstructor:
 
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracdata[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracdata[channel.get_id()][1], sampling_rate)), color = 'black')
                             ax[ich][1].plot(timingsim[channel.get_id()][1], tracsim[channel.get_id()][1], label = 'simulation', color = 'orange')
-                            if 0:#channel.get_id() in [6,7,8,9]: 
+                            if channel.get_id() in [6]:#,7,8,9]: 
                                 ax[ich][1].plot(timingdata[channel.get_id()][1], tracrec[channel.get_id()][1], label = 'reconstruction', color = 'green')
                             elif SNR > 3.5:
                                 ax[ich][1].plot(timingdata[channel.get_id()][1], tracrec[channel.get_id()][1], label = 'reconstruction', color = 'green')
@@ -807,7 +807,7 @@ class neutrinoDirectionReconstructor:
 
 
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracsim[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracsim[channel.get_id()][1], sampling_rate)), color = 'orange')
-                            if 0:#channel.get_id() in [6,7,8,9]:
+                            if channel.get_id() in [6]:
                                  ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracrec[channel.get_id()][1], sampling_rate)), color = 'green')
                             elif SNR > 3.5:
                                  ax[ich][2].plot( np.fft.rfftfreq(len(tracrec[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracrec[channel.get_id()][1], sampling_rate)), color = 'green')
@@ -944,7 +944,7 @@ class neutrinoDirectionReconstructor:
            
             for channel in self._station.iter_channels():
                 if channel.get_id() in self._use_channels: #iterate over channels
-                    print("########################### CHANNEl.get_id()", channel.get_id())
+                    #print("########################### CHANNEl.get_id()", channel.get_id())
                     #print("channel id", channel.get_id())
                     #fig = plt.figure()
                     #ax = fig.add_subplot(111)
@@ -964,7 +964,6 @@ class neutrinoDirectionReconstructor:
                     delta_k = [] ## if no solution type exist then channel is not included
                     num = 0
                     for i_trace, key in enumerate(traces[channel.get_id()]): ## iterate over ray type solutions
-                        print("I_TRACE", i_trace)
                         rec_trace_i = traces[channel.get_id()][key]
                         rec_trace = rec_trace_i
                         
@@ -1059,7 +1058,7 @@ class neutrinoDirectionReconstructor:
                         delta_k.append(int(k_ref + delta_toffset + dt )) ## for overlapping pulses this does not work
                         ks[channel.get_id()] = delta_k
 
-                        print("rec traces",rec_trace1)
+                     #   print("rec traces",rec_trace1)
                         if fit == 'combined':
                             #print("data trace timing", data_trace_timing)
                             #print("data timing timing", data_timing_timing)
@@ -1073,7 +1072,8 @@ class neutrinoDirectionReconstructor:
                             SNRs[ich, i_trace] = SNR
                    #         print("SNR in fit", SNR)
                             if  channel.get_id() in [6]:#,7,8,9,13,14]:#SNR > SNR_cut: ### Add solution type if SNR > 3.5; otherwise noise is fitted and then the timing of the pulse is not found correctly which results in a biased reconstruction
-                                if (int(delta_T) == 0): 
+                                if (int(delta_T) == 0):
+                                    print("YES") 
                                     #print("direction {} {}".format(np.rad2deg(zenith), np.rad2deg(azimuth)))                            
                                     chi2 += np.sum((rec_trace1 - data_trace_timing)**2 / (2*sigma**2))
                             elif (SNR > 3.5):
