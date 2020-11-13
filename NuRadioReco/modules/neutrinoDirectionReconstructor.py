@@ -747,7 +747,7 @@ class neutrinoDirectionReconstructor:
              
                 timingdata = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
                 timingsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
-                tracsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[1]
+                tracsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[0]
 
                 
                 
