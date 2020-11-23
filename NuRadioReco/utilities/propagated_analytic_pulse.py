@@ -43,7 +43,7 @@ class simulation():
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
 		if self._template:
 			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
-			distances = [700, 900, 1200, 2000, 3000, 4000, 10000]
+			distances = [500, 700, 900, 1200, 2000, 3000, 4000, 10000]
 			distance_event = np.sqrt(vertex[0]**2 + vertex[1]**2 + vertex[2]**2) ## assume station is at 000
 			print("distance event", distance_event)
 			for dist in distances:
@@ -93,10 +93,10 @@ class simulation():
 			
 		return 
 	
-	def begin(self, det, station, use_channels):
+	def begin(self, det, station, use_channels, raytypesolution = False):
 		""" initialize filter and amplifier """
 		sim_to_data = True
-
+		self._raytypesolution= raytypesolution
 		channl = station.get_channel(use_channels[0])
 		self._n_samples = 800#channl.get_number_of_samples()
 		print("self n samples", self._n_samples)
@@ -355,7 +355,8 @@ class simulation():
 				traces[channel_id][iS] = np.roll(fft.freq2time(analytic_trace_fft, 1/self._dt), -500)
                 ### store timing
 				timing[channel_id][iS] =raytracing[channel_id][iS]["travel time"]
-				raytype[channel_id][iS] = raytracing[channel_id][iS]["raytype"]	
+				raytype[channel_id][iS] = raytracing[channel_id][iS]["raytype"]
+				print("raytype", raytype[channel_id][iS])	
                                 #import matplotlib.pyplot as plt
 				#fig = plt.figure()
 				#ax = fig.add_subplot(111)
@@ -364,16 +365,19 @@ class simulation():
 		if(first_iter): ## seelct viewing angle due to channel with largest amplitude 
 		
 			maximum_channel = 0
-			for i in range(iS+1):
-				#print("traces.shape", traces.shape)
+			for i in range(len(raytype[6])):
+				#print("range iS", range(len(raytype[6])))#print("traces.shape", traces.shape)
 				maximum_trace = max(abs(traces[6][i])) ## maximum due to channel 6 (phased array)
 				#print("iS", iS)
 				#print("maximum trace", maximum_trace)
 				#print("launch_vector", launch_vectors[i])
-				if maximum_trace > maximum_channel:
+				#print("ray type solution", self._raytypesolution)
+				#print("iS", iS)
+				print("raytype iS", raytype[channel_id][iS])
+				if raytype[channel_id][i] == self._raytypesolution:#maximum_trace > maximum_channel:
 					launch_vector = launch_vectors[i]
 					maximum_channel = maximum_trace
-
+					print("end raytype", raytype[channel_id][i])
 		
 
 
