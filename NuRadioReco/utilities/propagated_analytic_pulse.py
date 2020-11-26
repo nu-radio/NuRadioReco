@@ -151,21 +151,22 @@ class simulation():
 
 			
 		x1 = [vertex_x, vertex_y, vertex_z]
-		fhad = 1#event.get_sim_shower(shower_id)[shp.radiation_energy]#station.get_sim_station()[stnp.inelasticity]
+		fhad = 1
 		
 		self._shower_axis = -1 * hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
 		n_index = ice.get_index_of_refraction(x1)
-		#print("n index", n_index)
 		cherenkov_angle = np.arccos(1. / n_index)
-	#	print("n", n_index)
-		
-#		sampling_rate_detector = det.get_sampling_frequency(station.get_id(), 0)
+
 		
 		global raytracing ## define dictionary to store the ray tracing properties	
 		global launch_vectors
 		global launch_vector
+		global viewingangle
+		global pol
 		if(first_iter):
 			launch_vectors = []
+			polarizations = []
+			viewing_angles = []
 
 			for channel_id in use_channels:
                                 
@@ -179,16 +180,12 @@ class simulation():
 					continue
 
 				# loop through all ray tracing solution
-				#import matplotlib.pyplot as plt
-		#		fig = plt.figure()
+			
 				for iS in range(r.get_number_of_solutions()):
 					raytracing[channel_id][iS] = {}
 					self._launch_vector = r.get_launch_vector(iS)
 					raytracing[channel_id][iS]["launch vector"] = self._launch_vector
-					
-					R = r.get_path_length(iS)
-	#				print("R", R)
-					
+					R = r.get_path_length(iS)					
 					raytracing[channel_id][iS]["trajectory length"] = R
 					T = r.get_travel_time(iS)  # calculate travel time
 					if (R == None or T == None):
@@ -207,19 +204,22 @@ class simulation():
 					zenith_reflections = np.atleast_1d(r.get_reflection_angle(iS))
 					raytracing[channel_id][iS]["reflection angle"] = zenith_reflections
 					viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
-					print("VIEWING ANGLE", np.rad2deg(viewing_angle))
-					if channel_id == 6: 
+		#			print("VIEWING ANGLE", np.rad2deg(viewing_angle))
+					if channel_id == 6:
 						launch_vectors.append( self._launch_vector)
-	#			fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/attn.pdf")
+						viewing_angles.append(viewing_angle)
+					
 		raytype = {}
 		traces = {}
 		timing = {}
 		viewingangles = np.zeros((len(use_channels), 2))
+		polarizations = []
 		for ich, channel_id in enumerate(use_channels):
 			#print("CHANNEL", channel_id)
 			raytype[channel_id] = {}
 			traces[channel_id] = {}
 			timing[channel_id] = {}
+	
 			for i_s, iS in enumerate(raytracing[channel_id]):
 
 
@@ -228,66 +228,32 @@ class simulation():
 				traces[channel_id][iS] = {}
 				timing[channel_id][iS] = {}
 				viewing_angle = hp.get_angle(self._shower_axis,raytracing[channel_id][iS]["launch vector"])
-			#	print("energy", energy)
-		#		print("R", raytracing[channel_id][iS]["trajectory length"])
-	#			print("viewing angle", viewing_angle)
-				#for i in range(2):print('viewing angle', np.rad2deg(viewing_angle))
-				#import matplotlib.pyplot as plt
-				#fig = plt.figure()
-				#ax = fig.add_subplot(111)
+		
 				if self._template:
 
 					
 					template_viewingangle = self._templates_viewingangles[np.abs(np.array(self._templates_viewingangles) - np.rad2deg(viewing_angle)).argmin()] ### viewing angle template which is closest to wanted viewing angle
 					self._templates[template_viewingangle]
 					template_energy = self._templates_energies[np.abs(np.array(self._templates_energies) - energy).argmin()]
-					#print("template energies", self._templates_energies)	
 					spectrum = self._templates[template_viewingangle][template_energy]
 					spectrum = np.array(list(spectrum)[0])
 					spectrum *= self._templates_R
 					spectrum /= raytracing[channel_id][iS]["trajectory length"]
                     
 					spectrum *= template_energy ### this needs to be added otherwise energy is wrongly determined
-	#				print("template enegy", template_energy)
-		#			print("template viewing angle", template_viewingangle)
-			#		print("template R", self._templates_R)
-				#	print("trajecory length", raytracing[channel_id][iS]["trajectory length"])
+	
 					spectrum /= energy
-					#ax.plot(self._ff, abs(fft.time2freq(spectrum, 1/self._dt)), label = 'ARZ')
 					spectrum= fft.time2freq(spectrum, 1/self._dt)
-					#if (np.rad2deg(viewing_angle) < (self._templates_viewingangles[0]-1)):
-				#		spectrum = np.zeros(len(spectrum))
-				#		print("viewing angle 1", np.rad2deg(viewing_angle))	
-				#	if (np.rad2deg(viewing_angle) > (self._templates_viewingangles[-1]+1)):
-				#		spectrum = np.zeros(len(spectrum))
-				#		print("viewin gangle 2", np.rad2deg(viewing_angle))
-				#	if (energy < self._templates_energies[0]):
-				#		spectrum = np.zeros(len(spectrum))
-				#	if (energy > self._templates_energies[-1]):
-				#		#print("ENERGY LARGER", stop)
-				#		spectrum = np.zeros(len(spectrum))
-
-			#		print("max spectrum", max(spectrum))
+				
 					
 					
 				else:
-				#ARZ_trace = np.zeros(self._n_samples)
-				#for i in range(10):
-					
+				
 					spectrum = signalgen.get_frequency_spectrum(energy * fhad, viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
 					'Alvarez2009')
-					#ARZ_trace += fft.freq2time(spectrum, 1/self._dt)
-					#ax.plot(self._ff, abs(spectrum), label = 'ALvarez')
 					
-				#ax.legend()
-
-				#ax.set_xlim((4650, 4700))
-				#fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test.pdf")
-			
-				#ARZ_trace =fft.time2freq(ARZ_trace/10, 1/self._dt)
-				#spectrum = ARZ_trace
+					
 				
-				#import matplotlib.pyplot as plt
 				# apply frequency dependent attenuation
 				viewingangles[ich,i_s] = viewing_angle
 				if attenuate_ice:
@@ -304,6 +270,10 @@ class simulation():
 						*polarization_direction_at_antenna))
 				eR, eTheta, ePhi = np.outer(polarization_direction_onsky, spectrum)
 
+                
+				if channel_id == 6: 
+				    polarizations.append( self._calculate_polarization_vector(6, iS))
+                                    
 				## correct for reflection 
 				r_theta = None
 				r_phi = None
@@ -356,33 +326,29 @@ class simulation():
                 ### store timing
 				timing[channel_id][iS] =raytracing[channel_id][iS]["travel time"]
 				raytype[channel_id][iS] = raytracing[channel_id][iS]["raytype"]
-				print("raytype", raytype[channel_id][iS])	
+				#print("raytype", raytype[channel_id][iS])	
                                 #import matplotlib.pyplot as plt
-				#fig = plt.figure()
-				#ax = fig.add_subplot(111)
-				#ax.plot(traces[channel_id][iS])
-				#fig.savefig('/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/test.pdf')
+			
 		if(first_iter): ## seelct viewing angle due to channel with largest amplitude 
-		
+		     
 			maximum_channel = 0
-			for i in range(len(raytype[6])):
+			for i in range(len(raytracing[6])):
 				#print("range iS", range(len(raytype[6])))#print("traces.shape", traces.shape)
 				maximum_trace = max(abs(traces[6][i])) ## maximum due to channel 6 (phased array)
-				#print("iS", iS)
-				#print("maximum trace", maximum_trace)
-				#print("launch_vector", launch_vectors[i])
-				#print("ray type solution", self._raytypesolution)
-				#print("iS", iS)
-				print("raytype iS", raytype[channel_id][iS])
-				if raytype[channel_id][i] == self._raytypesolution:#maximum_trace > maximum_channel:
+			
+	#			print("raytype iS", raytype[6][i])
+		#		print("self._raytypesolutin", self._raytypesolution)
+				if raytype[6][i] == self._raytypesolution:#maximum_trace > maximum_channel:
 					launch_vector = launch_vectors[i]
-					maximum_channel = maximum_trace
-					print("end raytype", raytype[channel_id][i])
+					print("end raytype", raytype[6][i])
+					print("viewing angles", np.rad2deg(viewing_angles))
+					viewingangle = viewing_angles[i]
+					pol = polarizations[i]
 		
 
 
 		
-		return traces, timing, launch_vector, viewingangles, raytype       	
+		return traces, timing, launch_vector, viewingangle,raytype, pol      	
 
 
 

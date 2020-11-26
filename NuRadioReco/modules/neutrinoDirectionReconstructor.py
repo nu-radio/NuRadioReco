@@ -57,20 +57,25 @@ class neutrinoDirectionReconstructor:
         self._det = det
         
         
-        sim_vertex = True
+        sim_vertex = False
         if sim_vertex:
             vertex = event.get_sim_shower(shower_id)[shp.vertex]
         else:
             vertex = station[stnp.nu_vertex]
         simulation = propagated_analytic_pulse.simulation(template, vertex)#event.get_sim_shower(shower_id)[shp.vertex])
-        simulation.begin(det, station, use_channels, raytypesolution = self._station[stnp.raytype])
+        rt = ['direct', 'refracted', 'reflected'].index(self._station[stnp.raytype]) + 1
+        simulation.begin(det, station, use_channels, raytypesolution = rt)
         self._simulation = simulation
         simulated_zenith = event.get_sim_shower(shower_id)[shp.zenith]
         simulated_azimuth = event.get_sim_shower(shower_id)[shp.azimuth]
         self._simulated_azimuth = simulated_azimuth
         simulated_energy = event.get_sim_shower(shower_id)[shp.energy]
-### get raytype of maximum channel
-        tracsim, timsim, lv_sim, vw_sim, raytypes_sim = simulation.simulation(det, station, event.get_sim_shower(shower_id)[shp.vertex][0], event.get_sim_shower(shower_id)[shp.vertex][1], event.get_sim_shower(shower_id)[shp.vertex][2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, first_iter = True) 
+        
+        
+        ### values for simulated vertex and simulated direction
+        tracsim, timsim, lv_sim, vw_sim, a, pol_sim = simulation.simulation(det, station, event.get_sim_shower(shower_id)[shp.vertex][0], event.get_sim_shower(shower_id)[shp.vertex][1], event.get_sim_shower(shower_id)[shp.vertex][2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, first_iter = True) 
+        
+        
         max_trace = 0
        
     
@@ -146,9 +151,9 @@ class neutrinoDirectionReconstructor:
                     print("SNR", SNR)
 					
                     
-            global launch_vector_sim
-            global traces_sim
-            global timing_sim
+            #global launch_vector_sim
+            #global traces_sim
+            #global timing_sim
             
            
 
@@ -173,16 +178,20 @@ class neutrinoDirectionReconstructor:
                         new_vertex = [(new_vertex[0] ), new_vertex[1], new_vertex[2]-100]
                       
                         vertex_R = np.sqrt((new_vertex[0] )**2 + new_vertex[1]**2 + (new_vertex[2]+100)**2)
-            new_vertex = reconstructed_vertex
         
             print("simulated vertex", simulated_vertex)
-            print('new vertex', new_vertex)
+            print('reconstructed', reconstructed_vertex)
            
-            traces_sim, timing_sim, self._launch_vector_sim, viewingangles_sim, rayptypes = simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
+            
+           
+            
+            
+            #### values for reconstructed vertex and simulated direction
+            traces_sim, timing_sim, self._launch_vector_sim, viewingangles_sim, rayptypes, a = simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
             options = {'maxiter':500, 'disp':True}
             print("Launch", self._launch_vector_sim)
 
-            traces_sim, timing_sim, launch_vector_sim, viewingangles_sim, raytype= simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, fit = 'combined', first_iter = True)
+         
             
             tracsim = self.minimizer([simulated_zenith,simulated_azimuth, simulated_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)[0]
           
@@ -220,25 +229,25 @@ class neutrinoDirectionReconstructor:
                     
                     
                     #### define simulated viewing angl e
-                    signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*launch_vector_sim)
-                    print("signal zenith", np.rad2deg(signal_zenith))
-                    print("signal azimuth", np.rad2deg(signal_azimuth))
+                    signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*self._launch_vector_sim) ## due to reconstructed vertex
+                    #print("signal zenith", np.rad2deg(signal_zenith))
+                    #print("signal azimuth", np.rad2deg(signal_azimuth))
                     sig_dir = hp.spherical_to_cartesian(signal_zenith, signal_azimuth)
                    # rotation_matrix = hp.get_rotation(np.array([0,0,1]), sig_dir)
-                    rotation_matrix = hp.get_rotation(np.array([0,0,1]), sig_dir)
-                    z = simulated_zenith
-                    a = simulated_azimuth
-                    p2 = hp.spherical_to_cartesian(z, a)
-                    rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
-                    p2 = rotation_matrix.dot(p2)
-                    vector = hp.cartesian_to_spherical(p2[0], p2[1], p2[2])
-                    print("delta", 180 - (np.rad2deg(vector[0])))
-                    sim_view = 180 - (np.rad2deg(vector[0]))
+                    #rotation_matrix = hp.get_rotation(np.array([0,0,1]), sig_dir)
+                    #z = simulated_zenith
+                    #a = simulated_azimuth
+                    #p2 = hp.spherical_to_cartesian(z, a)
+                    #rotation_matrix = hp.get_rotation(sig_dir, np.array([0, 0,1]))
+                    #p2 = rotation_matrix.dot(p2)
+                    #vector = hp.cartesian_to_spherical(p2[0], p2[1], p2[2])
+                    #print("delta", 180 - (np.rad2deg(vector[0])))
+                    #sim_view = 180 - (np.rad2deg(vector[0]))
                     
-                    signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*launch_vector_sim)
+                    signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*self._launch_vector_sim)
                     print("signal zenith", np.rad2deg(signal_zenith))
                     print("signal azimuth", np.rad2deg(signal_azimuth))
-                    print("SIM VIEW", sim_view)
+                    #print("SIM VIEW", sim_view)
                     sim_view = 56        
 #            print(stop)
                     #sim_view = (75.15)
@@ -247,7 +256,7 @@ class neutrinoDirectionReconstructor:
                     viewing_end = np.deg2rad(sim_view) + np.deg2rad(15)
                     theta_start = np.deg2rad(-180)
                     theta_end =  np.deg2rad(180)
-                    print('launch vector sim', launch_vector_sim)
+                    print('launch vector reconstructed vertex', self._launch_vector_sim)
                     ### write vertex as function of azimuth and also change the azimuth angle
                     import datetime
                     cop = datetime.datetime.now()
@@ -287,17 +296,18 @@ class neutrinoDirectionReconstructor:
                     """
                     
                     
-                    results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, True, False))
+                    results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(simulated_energy - simulated_energy/5 ,simulated_energy+2*simulated_energy/5, simulated_energy/10)), full_output = True, finish = opt.fmin , args = (reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], True,fitprocedure, False, False, True, False))
                     print('start datetime', cop)
                     print("end datetime", datetime.datetime.now() - cop)
 					
                 else:
-                    import datetime
-                    cop = datetime.datetime.now()
-                    results = opt.brute(minimizer, ranges=(slice(zen_start, zen_end, np.deg2rad(.5)), slice(az_start, az_end, np.deg2rad(.5)), slice(9*10**18, 11*10**18, 1e18)), args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, False), full_output = False, finish = opt.fmin)
-                    print('start datetime', cop)
-                    print("DELTAdatetime", datetime.datetime.now() - cop)
-                    print("no banana")
+                    print("not banana")
+                    #import datetime
+                    #cop = datetime.datetime.now()
+                    #results = opt.brute(minimizer, ranges=(slice(zen_start, zen_end, np.deg2rad(.5)), slice(az_start, az_end, np.deg2rad(.5)), slice(9*10**18, 11*10**18, 1e18)), args = (new_vertex[0], new_vertex[1], new_vertex[2], True,fitprocedure, False, False, False), full_output = False, finish = opt.fmin)
+                    #print('start datetime', cop)
+                    #print("DELTAdatetime", datetime.datetime.now() - cop)
+                    #print("no banana")
                 
                 if banana: ## convert reconstructed viewing angle and R to azimuth and zenith
                 
@@ -333,15 +343,13 @@ class neutrinoDirectionReconstructor:
                 
                 
                 else:
-                    global_zen = results[0][0]
-                    global_az = results[0][1]
-                    rec_zenith = global_zen
-                    rec_azimuth = global_az
-                    rec_energy = results[0][2]
-                    #rec_zenith = simulated_zenith
-                    #rec_azimuth = simulated_azimuth
-                    #rec_energy = simulated_energy
-                
+                    print("no banana")
+                    #global_zen = results[0][0]
+                    #global_az = results[0][1]
+                    #rec_zenith = global_zen
+                    #rec_azimuth = global_az
+                    #rec_energy = results[0][2]
+                    
 
 
                 zvalues = []
@@ -363,7 +371,7 @@ class neutrinoDirectionReconstructor:
                 else:
                     for a in az:
                         for z in zen:
-                            zvalue = self.minimizer([z, a, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  True, fit = fitprocedure)
+                            zvalue = self.minimizer([z, a, rec_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  True, fit = fitprocedure)
                             zplot.append(zvalue)
                             azimuth.append(a)
                             zenith.append(z)
@@ -638,7 +646,7 @@ class neutrinoDirectionReconstructor:
                 fig.tight_layout()
                 
                # fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/plots/Alvarez/direction_{}_{}.pdf".format(filenumber, shower_id))
-                """ 
+               """
                 
                 print("     reconstructed zenith = {}".format(np.rad2deg(rec_zenith)))
                 print("     reconstructed azimuth = {}".format(np.rad2deg(rec_azimuth)))
@@ -660,47 +668,45 @@ class neutrinoDirectionReconstructor:
             
             print("RECONSTRUCTED DIRECTION ZENITH {} AZIMUTH {}".format(np.rad2deg(rec_zenith), np.rad2deg(rec_azimuth)))
             print("RECONSTRUCTED ENERGY", rec_energy)
-            print("RECONSTRUCTED DIRECTION ZENITH {} AZIMUTH {} GLOBAL".format(np.rad2deg(global_zen), np.rad2deg(global_az)))
+            #print("RECONSTRUCTED DIRECTION ZENITH {} AZIMUTH {} GLOBAL".format(np.rad2deg(global_zen), np.rad2deg(global_az)))
 
+           
             
             ## get the traces for the reconstructed energy and direction
-            tracrec = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = 'combined')[0]
+            tracrec = self.minimizer([rec_zenith, rec_azimuth, rec_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = 'combined')[0]
             
             ## get the min likelihood value for the simulated values
-            fminsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = 'combined', first_iter = False)
+            fminsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  True, fit = 'combined', first_iter = False)
            
-            fminrec = self.minimizer([global_zen, global_az, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  True, fit = 'combined')
+            #fminrec = self.minimizer([global_zen, global_az, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  True, fit = 'combined')
             
             
-            fminfit = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize =  True, fit = 'combined')
+            fminfit = self.minimizer([rec_zenith, rec_azimuth, rec_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  True, fit = 'combined')
             
-            print("FMIN SIMULATED VALUE", fminsim)
-            print("FMIN RECONSTRUCTED VALUE GLOBAL", fminrec)
+            print("FMIN SIMULATED direction with reconstructed vertex", fminsim)
+            #print("FMIN RECONSTRUCTED VALUE GLOBAL", fminrec)
             print("FMIN RECONSTRUCTED VALUE FIT", fminfit)
-            print("FMIN SIMULATED DIreCtioN, RECONStrUCteD ENERGY", fsim_recenergy)
+            #print("FMIN SIMULATED DIreCtioN, RECONStrUCteD ENERGY", fsim_recenergy)
             
             
-            station.set_parameter(stnp.nu_zenith, rec_zenith)
-            station.set_parameter(stnp.nu_azimuth, rec_azimuth)
-            station.set_parameter(stnp.nu_energy, rec_energy)
-            station.set_parameter(stnp.chi2_efield_time_direction_fit, [fminsim, fminfit])
+           
             
           
             debug_plot = 1
             if debug_plot:
                 
-                tracglobal = self.minimizer([global_zen, global_az, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = 'combined')
-                tracglobal = tracglobal[0]
+                #tracglobal = self.minimizer([global_zen, global_az, rec_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize = False, fit = 'combined')
+                #tracglobal = tracglobal[0]
                 
-                tracdata = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[1]
+                tracdata = self.minimizer([rec_zenith, rec_azimuth, rec_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = fitprocedure)[1]
              
-                timingdata = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
-                timingsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[2]
-                tracsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure)[0]
+                timingdata = self.minimizer([rec_zenith, rec_azimuth, rec_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = fitprocedure)[2]
+                timingsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = fitprocedure)[2]
+                tracsim = self.minimizer([simulated_zenith, simulated_azimuth, simulated_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = fitprocedure)[0]
 
                 
                 
-                tracglobal_k = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure, timing_k = True)
+                #tracglobal_k = self.minimizer([rec_zenith, rec_azimuth, rec_energy], new_vertex[0], new_vertex[1], new_vertex[2], minimize = False, fit = fitprocedure, timing_k = True)
                 
                 fig, ax = plt.subplots(len(use_channels), 3, sharex=False, figsize=(40, 20))
                 matplotlib.rc('xtick', labelsize = 30)
@@ -764,15 +770,31 @@ class neutrinoDirectionReconstructor:
                         ich += 1
                 fig.tight_layout()
                 fig.savefig("{}/fit_{}_{}.pdf".format(debugplots_path, filenumber, shower_id))
-                SNRsfit, viewinganglesfit = self.minimizer([rec_zenith, rec_azimuth, rec_energy], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = True, fit = fitprocedure, return_pulse_parameters = True)
-                SNRssim, viewinganglessim = self.minimizer([simulated_zenith,simulated_azimuth, simulated_energy], simulated_vertex[0], simulated_vertex[1], simulated_vertex[2], minimize =  True, fit = fitprocedure, return_pulse_parameters = True, first_iter = True)
-                #station.set_parameter(stnp.SNR, [SNRssim, SNRsfit])
-                station.set_parameter(stnp.viewingangles, [viewinganglessim, viewinganglesfit])
+                
+                
+                
+                 ### values for reconstructed vertex and reconstructed direction
+                traces_rec, timing_rec, launch_vector_rec, viewingangle_rec, a, pol_rec =  simulation.simulation( det, station, reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], rec_zenith, rec_azimuth, rec_energy, use_channels, fit = 'combined', first_iter = True)  
+                
+                ### store parameters 
+                
+                station.set_parameter(stnp.nu_zenith, rec_zenith)
+                station.set_parameter(stnp.nu_azimuth, rec_azimuth)
+                station.set_parameter(stnp.nu_energy, rec_energy)
+                station.set_parameter(stnp.chi2, [fminsim, fminfit])
+                station.set_parameter(stnp.launch_vector, [lv_sim, launch_vector_rec])
+                station.set_parameter(stnp.polarization, [pol_sim, pol_rec])
+                station.set_parameter(stnp.viewing_angle, [vw_sim, viewingangle_rec])
+                print("reduced chi2 for simulated {} and fit {}".format(fminsim, fminfit))
+                print("launch vector for simulated {} and fit {}".format(lv_sim, launch_vector_rec))
+                print("polarization for simulated {} and fit {}".format(pol_sim, pol_rec))
+                print("viewing angle for simulated {} and fit {}".format(np.rad2deg(vw_sim), np.rad2deg(viewingangle_rec)))
+
 
 
     
                   
-    def minimizer(self, params, vertex_x, vertex_y, vertex_z, minimize = True, fit = 'seperate', timing_k = False, first_iter = False, banana = False, return_pulse_parameters = False, direction = [0, 0]):
+    def minimizer(self, params, vertex_x, vertex_y, vertex_z, minimize = True, fit = 'seperate', timing_k = False, first_iter = False, banana = False,  direction = [0, 0]):
             import datetime
             start1 = datetime.datetime.now()
             
@@ -837,7 +859,7 @@ class neutrinoDirectionReconstructor:
                 return np.inf ## not in field of view
             
         
-            traces, timing, launch_vector, viewingangles, raytypes = self._simulation.simulation(self._det, self._station, vertex_x, vertex_y, vertex_z, zenith, azimuth, energy, self._use_channels, fit, first_iter = first_iter)
+            traces, timing, launch_vector, viewingangles, raytypes, pol = self._simulation.simulation(self._det, self._station, vertex_x, vertex_y, vertex_z, zenith, azimuth, energy, self._use_channels, fit, first_iter = first_iter)
             chi2 = 0
             dof = -3
 
@@ -856,7 +878,7 @@ class neutrinoDirectionReconstructor:
        
             #get timing for raytype of triggered pulse
             for iS in raytypes[6]:
-                if raytypes[6][iS] == ['direct', 'refracted', 'reflected'].index(self._station[stnp.raytype]):
+                if raytypes[6][iS] == ['direct', 'refracted', 'reflected'].index(self._station[stnp.raytype]) + 1:
                     solution_number = iS
             T_ref = timing[6][solution_number]
            
@@ -964,8 +986,6 @@ class neutrinoDirectionReconstructor:
                 return ks
             if not minimize:
                 return [rec_traces, data_traces, data_timing]
-            if return_pulse_parameters:
-                return SNRs, viewingangles 
             return chi2/ dof
 
 
