@@ -4,6 +4,7 @@ import scipy.signal
 import sys
 import time
 import pickle
+import os
 from itertools import count
 import NuRadioReco.modules.channelGenericNoiseAdder
 import NuRadioReco.modules.channelGalacticNoiseAdder
@@ -26,6 +27,10 @@ import pygdsm
 import astropy
 
 '''
+This script calculates a first estimate from which the calculations of the threshold will continue. 
+So first run 1_threshold.py estimate and then use 2_threshold_final.py. Afterwards you have use 3
+
+
 for low in $(seq 80 10 150)
 do ((h=low+30))
 echo $low
@@ -37,11 +42,16 @@ echo $low
 done
 '''
 
+# the sampling rate has a huge influence on the threshold, because the trace has more time to exceed the threshold
+# for a sampling rate of 1GHz, 1955034 iterations yields a resolution of 0.5 Hz
+# if galactic noise is used it adds a factor of 10 because it dices the phase 10 times
+
 parser = argparse.ArgumentParser()
+parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output')
 parser.add_argument('n_iterations', type=int, nargs='?', default = 10, help = 'n_iterations')
 parser.add_argument('passband_low', type=int, nargs='?', default = 80, help = 'passband_low')
 parser.add_argument('passband_high', type=int, nargs='?', default = 180, help = 'passband_high')
-parser.add_argument('detector_file', type=str, nargs='?', default = '../../detector/RNO_G/RNO_G_surface_detector.json', help = 'detector file')
+parser.add_argument('detector_file', type=str, nargs='?', default = 'LPDA_detector_southpole.json', help = 'detector file')
 parser.add_argument('default_station', type=int, nargs='?', default = 101 , help = 'default_station')
 parser.add_argument('sampling_rate', type=int, nargs='?', default = 1, help = 'sampling_rate')
 parser.add_argument('coinc_window', type=int, nargs='?', default = 60, help = 'coinc_window')
@@ -59,6 +69,8 @@ parser.add_argument('station_time', type=str, nargs='?', default = '2019-01-01T0
 
 
 args = parser.parse_args()
+output_path = args.output_path
+abs_output_path = os.path.abspath(args.output_path)
 n_iterations = args.n_iterations
 passband_low = args.passband_low
 passband_high = args.passband_high
@@ -81,10 +93,6 @@ station_time = args.station_time
 
 det = GenericDetector(json_filename=detector_file, default_station=default_station)
 
-# the sampling rate has a huge influence on the threshold, because the trace has more time to exceed the threshold
-# for a sampling rate of 1GHz, 1955034 iterations yields a resolution of 0.5 Hz
-# if galactic noise is used it adds a factor of 10 because it dices the phase 10 times
-
 Vrms_thermal_noise = (((scipy.constants.Boltzmann * units.joule / units.kelvin) * Tnoise *
          (T_noise_max_freq - T_noise_min_freq ) * 50 * units.ohm)**0.5)
 print('Vrms thermal Noise', Vrms_thermal_noise)
@@ -106,13 +114,10 @@ for channel_id in channel_ids: # take some channel id that match your detector
     station.add_channel(channel)
 
 eventTypeIdentifier = NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier()
-
 channelGenericNoiseAdder = NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder()
 channelGenericNoiseAdder.begin()
-
 channelGalacticNoiseAdder = NuRadioReco.modules.channelGalacticNoiseAdder.channelGalacticNoiseAdder()
 channelGalacticNoiseAdder.begin()
-
 #hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
 triggerSimulator = NuRadioReco.modules.trigger.envelopeTrigger.triggerSimulator()
@@ -266,7 +271,9 @@ for n_thres in count():
             dic['station_time'] = station_time
 
             print(dic)
-            with open('output_threshold_estimate/estimate_threshold_pb_{:.0f}_{:.0f}_i{}.pickle'.format(passband_trigger[0]/units.MHz,passband_trigger[1]/units.MHz, len(trigger_status_per_all_it)),'wb') as pickle_out:
+            output_file = 'output_threshold_estimate/estimate_threshold_pb_{:.0f}_{:.0f}_i{}.pickle'.format(passband_trigger[0]/units.MHz,passband_trigger[1]/units.MHz, len(trigger_status_per_all_it))
+            abs_path_output_file = os.path.normpath(os.path.join(abs_output_path, output_file))
+            with open(abs_path_output_file,'wb') as pickle_out:
                 pickle.dump(dic, pickle_out)
 
             sys.exit(0)
