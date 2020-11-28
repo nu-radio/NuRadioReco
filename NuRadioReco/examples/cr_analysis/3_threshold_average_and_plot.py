@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(description='Noise Trigger Rate')
 parser.add_argument('passband_low', type=int, nargs='?', default = 80, help = 'passband low to check')
 parser.add_argument('passband_high', type=int, nargs='?', default = 180, help = 'passband high to check')
 parser.add_argument('number_of_files', type=int, nargs='?', default = 1, help = 'number of n_files to loop over')
+
 args = parser.parse_args()
 passband_low = args.passband_low
 passband_high = args.passband_high
@@ -24,7 +25,6 @@ args = parser.parse_args()
 input_filename = args.input_filename
 output_path = args.output_path
 abs_output_path = os.path.abspath(args.output_path)
-
 
 n_files = number_of_files
 
@@ -146,6 +146,6 @@ plt.tick_params(axis='x', labelsize=16)
 plt.tick_params(axis='y', labelsize=16)
 plt.legend()
 plt.tight_layout()
-plt.show()
-plt.savefig('results/fig_ntr_passband__{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
+#plt.show()
+plt.savefig('results/fig_ntr_passband_{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
 plt.close()
