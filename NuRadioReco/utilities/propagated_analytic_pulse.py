@@ -52,6 +52,7 @@ class simulation():
 					break
 			if R == 10000:
 				R = 4000
+			print("selected distance", R)
 			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates_{}.pkl".format(R, R))
 			if my_file.is_file():
 				f = NuRadioReco.utilities.io_utilities.read_pickle('{}'.format(my_file))
