@@ -31,6 +31,14 @@ import argparse
 import astropy
 
 '''
+This script relies on the output of 1_threshold_estimate.py. It calculates the noise trigger rate of each threshold 
+starting from the one given in the dictionary. To obtain a resolution of 0.5 Hz almost 2e6 iterations are necessary.
+Therefor I commit this job 100 times to the cluster with an iteration of 20000. 
+
+For on passband I used something on the cluster like:
+for number in $(seq 0 1 110); do echo $number; qsub Cluster_ntr_2.sh $number; sleep 0.2; done;
+
+for several passbands I used:
 FILES=output_threshold_estimate/*
 
 for file in $FILES
@@ -38,7 +46,7 @@ do
 echo "Processing $file"
   for number in $(seq 0 1 110)
   do echo $number
-  qsub /afs/ifh.de/group/radio/scratch/lpyras/Cluster_jobs/Cluster_ntr_threshold_second.sh $file 2000 $number
+  qsub /afs/ifh.de/group/radio/scratch/lpyras/Cluster_jobs/Cluster_ntr_threshold_second.sh $file 20000 $number
   sleep 0.2
   done
 done
@@ -46,25 +54,25 @@ done
 
 parser = argparse.ArgumentParser(description='Noise Trigger Rate')
 parser.add_argument('input_filename', type=str, nargs='?', default = 'output_threshold_estimate/estimate_threshold_pb_80_180_i100.pickle', help = 'input filename of check')
-parser.add_argument('iterations', type=int, nargs='?', default = 2, help = 'iterations')
-parser.add_argument('number', type=int, nargs='?', default = 1, help = 'number of n_iteration')
-parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output')
-parser.add_argument('threshold_steps', type=int, nargs='?', default = 0.0001, help = 'steps in which threshold increses [V], use 1e-3 with amp, 1e-6 without amp')
+parser.add_argument('iterations', type=int, nargs='?', default = 20, help = 'number of iterations within the script. Has to be a multiple of 10')
+parser.add_argument('number', type=int, nargs='?', default = 1, help = 'specify how often you would like to run the hole script. Important for cluster use')
+parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output, most likely the path to the cr_analysis directory')
+parser.add_argument('threshold_steps', type=int, nargs='?', default = 0.0001, help = 'steps in which threshold increases [V], use 1e-3 with amp, 1e-4 without amp')
 
 args = parser.parse_args()
 output_path = args.output_path
 abs_output_path = os.path.abspath(args.output_path)
 input_filename = args.input_filename
-iterations = args.iterations
+iterations = args.iterations /10 # the factor of 10 is added with the phase of the galactic noise
 number = args.number
 threshold_steps = args.threshold_steps
 
 data = []
 data = io_utilities.read_pickle(input_filename, encoding='latin1')
 
-#print('file', filename)
-#print('#', number)
-#print(data)
+# print('file', filename)
+# print('#', number)
+# print(data)
 
 detector_file = data['detector_file']
 default_station = data['default_station']
@@ -76,8 +84,7 @@ T_noise = data['T_noise'] * units.kelvin
 T_noise_min_freq = data['T_noise_min_freq'] * units.megahertz
 T_noise_max_freq = data['T_noise_max_freq '] * units.megahertz
 
-galactic_noise_n_zenith = data['galactic_noise_n_zenith']
-galactic_noise_n_azimuth = data['galactic_noise_n_azimuth']
+galactic_noise_n_side = data['galactic_noise_n_side']
 galactic_noise_interpolation_frequencies_step = data['galactic_noise_interpolation_frequencies_step']
 
 passband_trigger = data['passband_trigger']
@@ -89,12 +96,12 @@ check_iterations = data['n_iterations']
 trigger_efficiency = data['efficiency']
 trigger_rate = data['trigger_rate']
 
-#print('passband', passband_trigger / units.megahertz)
-#print('checked threshold', check_trigger_thresholds)
-print('Vrms_thermal_noise',Vrms_thermal_noise)
-#print('trigger thresholds', trigger_thresholds)
-
 trigger_thresholds = (np.arange(check_trigger_thresholds[-2], check_trigger_thresholds[-2] + 0.003, threshold_steps)) *units.volt
+
+# print('passband', passband_trigger / units.megahertz)
+# print('checked threshold', check_trigger_thresholds)
+# print('Vrms_thermal_noise',Vrms_thermal_noise)
+# print('trigger thresholds', trigger_thresholds)
 
 det = GenericDetector(json_filename=detector_file, default_station=default_station) # detector file
 
@@ -114,16 +121,14 @@ for channel_id in channel_ids: # take some channel id that match your detector
     channel.set_trace(trace=default_trace, sampling_rate=sampling_rate)
     station.add_channel(channel)
 
-#initialze modules
 eventTypeIdentifier = NuRadioReco.modules.eventTypeIdentifier.eventTypeIdentifier()
 
 channelGenericNoiseAdder = NuRadioReco.modules.channelGenericNoiseAdder.channelGenericNoiseAdder()
 channelGenericNoiseAdder.begin()
 
 channelGalacticNoiseAdder = NuRadioReco.modules.channelGalacticNoiseAdder.channelGalacticNoiseAdder()
-channelGalacticNoiseAdder.begin()
-
-#hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
+channelGalacticNoiseAdder.begin(n_side=4, interpolation_frequencies=np.arange(10, 1100, galactic_noise_interpolation_frequencies_step) * units.MHz)
+# hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
 triggerSimulator = NuRadioReco.modules.trigger.envelopeTrigger.triggerSimulator()
 triggerSimulator.begin()
@@ -142,15 +147,18 @@ trigger_rate = []
 trigger_efficiency = []
 
 for n_it in range(iterations):
-    #print('iteration', n_it)
-    station = event.get_station(101)
+    # print('iteration', n_it)
+    station = event.get_station(default_station)
 
-    random_generator_hour = np.random.RandomState()
-    hour = random_generator_hour.randint(0, 24)
-    if hour < 10:
-        station.set_station_time(astropy.time.Time('2019-01-01T0{}:00:00'.format(hour)))
-    elif hour >= 10:
-        station.set_station_time(astropy.time.Time('2019-01-01T{}:00:00'.format(hour)))
+    # choose here if you want to calculate the noise at a random time or a fixed one
+    station.set_station_time(astropy.time.Time(station_time))
+
+    # random_generator_hour = np.random.RandomState()
+    # hour = random_generator_hour.randint(0, 24)
+    # if hour < 10:
+    #     station.set_station_time(astropy.time.Time('2019-01-01T0{}:00:00'.format(hour)))
+    # elif hour >= 10:
+    #     station.set_station_time(astropy.time.Time('2019-01-01T{}:00:00'.format(hour)))
 
     eventTypeIdentifier.run(event, station, "forced", 'cosmic_ray')
 
@@ -163,10 +171,10 @@ for n_it in range(iterations):
 
     channelGalacticNoiseAdder.run(event, station, det)
 
-    #hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
+    # hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
 
     for i_phase in range(10):
-        #print('test iteration', (i_phase) + (n_it*10))
+        # print('test iteration', (i_phase) + (n_it*10))
         for channel in station.iter_channels():
             #print('channel', channel.get_id())
             freq_specs = channel.get_frequency_spectrum()
@@ -176,12 +184,12 @@ for n_it in range(iterations):
 
         trigger_status_all_thresholds = []
         for threshold in trigger_thresholds:
-            #print('current threshold', threshold)
+            # print('current threshold', threshold)
             trigger_status_per_all_thresholds = []
             triggered_bins_channels = []
             channels_that_passed_trigger = []
             for channel in station.iter_channels():
-                #print('channel', channel.get_id())
+                # print('channel', channel.get_id())
                 trace = channel.get_trace()
                 frequencies = channel.get_frequencies()
                 f = np.zeros_like(frequencies, dtype=np.complex)
@@ -191,7 +199,6 @@ for n_it in range(iterations):
                 w, h = scipy.signal.freqs(b, a, frequencies[mask])  # w :The angular frequencies at which h was computed. h :The frequency response.
                 f[mask] = h
 
-                # apply filter#
                 sampling_rate = channel.get_sampling_rate()
                 freq_spectrum_fft_copy = np.array(channel.get_frequency_spectrum())
                 freq_spectrum_fft_copy *= f
@@ -199,14 +206,13 @@ for n_it in range(iterations):
 
                 # apply envelope trigger to each channel
                 triggered_bins = np.abs(scipy.signal.hilbert(trace_filtered)) > threshold
-
-                #print('trace > threshold', max(np.abs(scipy.signal.hilbert(trace_filtered))), threshold)
+                # print('trace > threshold', max(np.abs(scipy.signal.hilbert(trace_filtered))), threshold)
 
                 triggered_bins_channels.append(triggered_bins)
 
                 if True in triggered_bins:
                     channels_that_passed_trigger.append(channel.get_id())
-                #print('channel that passed trigger', channels_that_passed_trigger)
+                # print('channel that passed trigger', channels_that_passed_trigger)
 
                 # check for coincidences with get_majority_logic(tts, number_of_coincidences=2,
                 # time_coincidence=32 * units.ns, dt=1 * units.ns)
@@ -221,8 +227,8 @@ for n_it in range(iterations):
 
             trigger_status_all_thresholds.append(has_triggered)
 
-        #print('trigger thresholds', trigger_thresholds)
-        #print('trigger status', trigger_status_all_thresholds)
+        # print('trigger thresholds', trigger_thresholds)
+        # print('trigger status', trigger_status_all_thresholds)
         trigger_status.append(trigger_status_all_thresholds)
 
 trigger_status = np.array(trigger_status)
@@ -230,14 +236,12 @@ triggered_trigger = np.sum(trigger_status, axis=0)
 trigger_efficiency = triggered_trigger / len(trigger_status)
 trigger_rate = (1 / channel_trace_time_interval) * trigger_efficiency
 
-#print('trigger status', trigger_status.shape)
-#print('triggered trigger', triggered_trigger)
-#print('triggered all', len(trigger_status))
-#print('trigger efficiency of this threshold', trigger_efficiency)
-#print('trigger rate of this threshold [Hz]', trigger_rate / units.Hz)
-
-#print('thresholds', trigger_thresholds)
-#print('channel trace time interval [ns]', channel_trace_time_interval / units.ns)
+# print('trigger status', trigger_status.shape)
+# print('triggered trigger', triggered_trigger)
+# print('triggered all', len(trigger_status))
+# print('trigger efficiency of this threshold', trigger_efficiency)
+# print('trigger rate of this threshold [Hz]', trigger_rate / units.Hz)
+# print('thresholds', trigger_thresholds)
 
 dic = {}
 dic['detector_file'] = detector_file
@@ -247,8 +251,7 @@ dic['T_noise'] = T_noise
 dic['T_noise_min_freq'] = T_noise_min_freq * units.megahertz
 dic['T_noise_max_freq '] = T_noise_max_freq * units.megahertz
 dic['Vrms_thermal_noise'] = Vrms_thermal_noise
-dic['galactic_noise_n_zenith'] = galactic_noise_n_zenith
-dic['galactic_noise_n_azimuth'] = galactic_noise_n_azimuth
+dic['galactic_noise_n_side'] = galactic_noise_n_side
 dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step
 dic['station_time'] = station_time
 dic['passband_trigger'] = passband_trigger
@@ -263,7 +266,7 @@ dic['triggered_all'] = len(trigger_status)
 dic['efficiency'] = trigger_efficiency
 dic['trigger_rate'] = trigger_rate
 
-#print(dic)
+# print(dic)
 
 output_file = 'output_threshold_final/final_threshold_pb_{:.0f}_{:.0f}_i{}_{}.pickle'.format(
         passband_trigger[0] / units.MHz, passband_trigger[1] / units.MHz,len(trigger_status), number)
