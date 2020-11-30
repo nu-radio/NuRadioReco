@@ -68,11 +68,13 @@ parser.add_argument('galactic_noise_interpolation_frequencies_step', type=int, n
 parser.add_argument('threshold_start', type=int, nargs='?', default = 0, help = 'value of the first tested threshold')
 parser.add_argument('threshold_step', type=int, nargs='?', default = 0.00001, help = 'value of the threshold step')
 parser.add_argument('station_time', type=str, nargs='?', default = '2019-01-01T02:00:00', help = 'station time for calculation of galactic noise')
+parser.add_argument('station_time_random', type=bool, nargs='?', default = False, help = 'choose if the station time should be random or not')
 
 args = parser.parse_args()
 output_path = args.output_path
 abs_output_path = os.path.abspath(args.output_path)
 n_iterations = args.n_iterations / 10
+n_iterations = int(n_iterations)
 passband_low = args.passband_low
 passband_high = args.passband_high
 passband_trigger = np.array([passband_low, passband_high]) * units.megahertz
@@ -90,6 +92,7 @@ galactic_noise_interpolation_frequencies_step = args.galactic_noise_interpolatio
 threshold_start = args.threshold_start * units.volt
 threshold_step = args.threshold_step *units.volt
 station_time = args.station_time
+station_time_random = args.station_time_random
 
 det = GenericDetector(json_filename=detector_file, default_station=default_station)
 
@@ -106,15 +109,15 @@ event = Event(0, 0)
 station = Station(station_id)
 event.set_station(station)
 
-# choose here if you want to calculate the noise at a random time or a fixed one
 station.set_station_time(astropy.time.Time(station_time))
 
-# random_generator_hour = np.random.RandomState()
-# hour = random_generator_hour.randint(0, 24)
-# if hour < 10:
-#     station.set_station_time(astropy.time.Time('2019-01-01T0{}:00:00'.format(hour)))
-# elif hour >= 10:
-#     station.set_station_time(astropy.time.Time('2019-01-01T{}:00:00'.format(hour)))
+if station_time_random == True:
+    random_generator_hour = np.random.RandomState()
+    hour = random_generator_hour.randint(0, 24)
+    if hour < 10:
+        station.set_station_time(astropy.time.Time('2019-01-01T0{}:00:00'.format(hour)))
+    elif hour >= 10:
+        station.set_station_time(astropy.time.Time('2019-01-01T{}:00:00'.format(hour)))
 
 for channel_id in channel_ids: # take some channel id that match your detector
     channel = Channel(channel_id)
@@ -154,6 +157,7 @@ for n_thres in count():
     threshold = threshold_start + (n_thres * threshold_step)
     thresholds.append(threshold)
     trigger_status_per_all_it = []
+
     for n_it in range(n_iterations):
         station = event.get_station(default_station)
         eventTypeIdentifier.run(event, station, "forced", 'cosmic_ray')
@@ -272,6 +276,7 @@ for n_thres in count():
             dic['galactic_noise_n_side'] = galactic_noise_n_side
             dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step
             dic['station_time'] = station_time
+            dic['station_time_random'] = station_time_random
 
             print(dic)
             output_file = 'output_threshold_estimate/estimate_threshold_pb_{:.0f}_{:.0f}_i{}.pickle'.format(passband_trigger[0]/units.MHz,passband_trigger[1]/units.MHz, len(trigger_status_per_all_it))

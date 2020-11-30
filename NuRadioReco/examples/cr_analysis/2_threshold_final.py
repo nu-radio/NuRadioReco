@@ -64,6 +64,7 @@ output_path = args.output_path
 abs_output_path = os.path.abspath(args.output_path)
 input_filename = args.input_filename
 iterations = args.iterations /10 # the factor of 10 is added with the phase of the galactic noise
+iterations = int(iterations)
 number = args.number
 threshold_steps = args.threshold_steps
 
@@ -78,6 +79,7 @@ detector_file = data['detector_file']
 default_station = data['default_station']
 sampling_rate = data['sampling_rate'] * units.gigahertz
 station_time = data['station_time']
+station_time_random = data['station_time_random']
 
 Vrms_thermal_noise = data['Vrms_thermal_noise'] * units.volt
 T_noise = data['T_noise'] * units.kelvin
@@ -149,16 +151,13 @@ trigger_efficiency = []
 for n_it in range(iterations):
     # print('iteration', n_it)
     station = event.get_station(default_station)
-
-    # choose here if you want to calculate the noise at a random time or a fixed one
-    station.set_station_time(astropy.time.Time(station_time))
-
-    # random_generator_hour = np.random.RandomState()
-    # hour = random_generator_hour.randint(0, 24)
-    # if hour < 10:
-    #     station.set_station_time(astropy.time.Time('2019-01-01T0{}:00:00'.format(hour)))
-    # elif hour >= 10:
-    #     station.set_station_time(astropy.time.Time('2019-01-01T{}:00:00'.format(hour)))
+    if station_time_random == True:
+        random_generator_hour = np.random.RandomState()
+        hour = random_generator_hour.randint(0, 24)
+        if hour < 10:
+            station.set_station_time(astropy.time.Time('2019-01-01T0{}:00:00'.format(hour)))
+        elif hour >= 10:
+            station.set_station_time(astropy.time.Time('2019-01-01T{}:00:00'.format(hour)))
 
     eventTypeIdentifier.run(event, station, "forced", 'cosmic_ray')
 
@@ -254,6 +253,7 @@ dic['Vrms_thermal_noise'] = Vrms_thermal_noise
 dic['galactic_noise_n_side'] = galactic_noise_n_side
 dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step
 dic['station_time'] = station_time
+dic['station_time_random'] = station_time_random
 dic['passband_trigger'] = passband_trigger
 dic['coinc_window'] = coinc_window
 dic['order_trigger'] = order_trigger
