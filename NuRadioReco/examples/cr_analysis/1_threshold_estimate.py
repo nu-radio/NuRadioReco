@@ -32,6 +32,10 @@ increasing the threshold after a number of iteration if more than one trigger tr
 threshold, the next script starts. So first run 1_threshold.py estimate and then use 2_threshold_final.py. 
 Afterwards you have to use 3_threshold_average_and_plot.py to get a dictionary and plot with the results.
 
+the sampling rate has a huge influence on the threshold, because the trace has more time to exceed the threshold
+for a sampling rate of 1GHz, 1955034 iterations yields a resolution of 0.5 Hz
+if galactic noise is used it adds a factor of 10 to the number of iterations because it dices the phase 10 times. this is done due to computation efficiency
+
 For different passbands on the cluster I used something like this:
 
 for low in $(seq 80 10 150)
@@ -45,13 +49,10 @@ echo $low
 done
 '''
 
-# the sampling rate has a huge influence on the threshold, because the trace has more time to exceed the threshold
-# for a sampling rate of 1GHz, 1955034 iterations yields a resolution of 0.5 Hz
-# if galactic noise is used it adds a factor of 10 to the number of iterations because it dices the phase 10 times. this is done due to computation efficiency
 
 parser = argparse.ArgumentParser()
 parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output, most likely the path to the cr_analysis directory')
-parser.add_argument('n_iterations', type=int, nargs='?', default = 10, help = 'number of iterations each threshold should be iterated over')
+parser.add_argument('n_iterations', type=int, nargs='?', default = 10, help = 'number of iterations each threshold should be iterated over. Has to be a multiple of 10')
 parser.add_argument('passband_low', type=int, nargs='?', default = 80, help = 'lower bound of the passband used for the trigger in MHz')
 parser.add_argument('passband_high', type=int, nargs='?', default = 180, help = 'higher bound of the passband used for the trigger in MHz')
 parser.add_argument('detector_file', type=str, nargs='?', default = 'LPDA_detector_southpole.json', help = 'detector file')

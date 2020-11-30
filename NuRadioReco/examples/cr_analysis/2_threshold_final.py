@@ -1,15 +1,8 @@
-import scipy.constants
 import numpy as np
 from NuRadioReco.utilities import units, io_utilities
 import scipy.signal
-from itertools import count
-import io
 import os
-import sys
 import time
-import logging
-import math
-import matplotlib.pyplot as plt
 import pickle
 import NuRadioReco.modules.channelGenericNoiseAdder
 import NuRadioReco.modules.channelGalacticNoiseAdder
@@ -35,6 +28,10 @@ This script relies on the output of 1_threshold_estimate.py. It calculates the n
 starting from the one given in the dictionary. To obtain a resolution of 0.5 Hz almost 2e6 iterations are necessary.
 Therefor I commit this job 100 times to the cluster with an iteration of 20000. 
 
+the sampling rate has a huge influence on the threshold, because the trace has more time to exceed the threshold
+for a sampling rate of 1GHz, 1955034 iterations yields a resolution of 0.5 Hz
+if galactic noise is used it adds a factor of 10 to the number of iterations because it dices the phase 10 times. this is done due to computation efficiency
+
 For on passband I used something on the cluster like:
 for number in $(seq 0 1 110); do echo $number; qsub Cluster_ntr_2.sh $number; sleep 0.2; done;
 
@@ -53,7 +50,7 @@ done
 '''
 
 parser = argparse.ArgumentParser(description='Noise Trigger Rate')
-parser.add_argument('input_filename', type=str, nargs='?', default = 'output_threshold_estimate/estimate_threshold_pb_80_180_i10.pickle', help = 'input filename of check')
+parser.add_argument('input_filename', type=str, nargs='?', default = 'output_threshold_estimate/estimate_threshold_pb_80_180_i10.pickle', help = 'input filename from which the calculation starts.')
 parser.add_argument('iterations', type=int, nargs='?', default = 20, help = 'number of iterations within the script. Has to be a multiple of 10')
 parser.add_argument('number', type=int, nargs='?', default = 1, help = 'specify how often you would like to run the hole script. Important for cluster use')
 parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output, most likely the path to the cr_analysis directory')
