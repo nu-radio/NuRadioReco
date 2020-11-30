@@ -95,6 +95,8 @@ check_iterations = data['n_iterations']
 trigger_efficiency = data['efficiency']
 trigger_rate = data['trigger_rate']
 
+hardware_response = data['hardware_response']
+
 trigger_thresholds = (np.arange(check_trigger_thresholds[-2], check_trigger_thresholds[-2] + 0.003, threshold_steps)) *units.volt
 
 # print('passband', passband_trigger / units.megahertz)
@@ -127,7 +129,7 @@ channelGenericNoiseAdder.begin()
 
 channelGalacticNoiseAdder = NuRadioReco.modules.channelGalacticNoiseAdder.channelGalacticNoiseAdder()
 channelGalacticNoiseAdder.begin(n_side=4, interpolation_frequencies=np.arange(10, 1100, galactic_noise_interpolation_frequencies_step) * units.MHz)
-# hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
+hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
 triggerSimulator = NuRadioReco.modules.trigger.envelopeTrigger.triggerSimulator()
 triggerSimulator.begin()
@@ -167,7 +169,8 @@ for n_it in range(iterations):
 
     channelGalacticNoiseAdder.run(event, station, det)
 
-    # hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
+    if hardware_response == True:
+        hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
 
     for i_phase in range(10):
         # print('test iteration', (i_phase) + (n_it*10))
@@ -262,6 +265,7 @@ dic['triggered_true'] = triggered_trigger
 dic['triggered_all'] = len(trigger_status)
 dic['efficiency'] = trigger_efficiency
 dic['trigger_rate'] = trigger_rate
+dic['hardware_response'] = hardware_response
 
 # print(dic)
 

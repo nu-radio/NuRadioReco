@@ -70,6 +70,7 @@ parser.add_argument('threshold_start', type=int, nargs='?', default = 0, help = 
 parser.add_argument('threshold_step', type=int, nargs='?', default = 0.00001, help = 'value of the threshold step')
 parser.add_argument('station_time', type=str, nargs='?', default = '2019-01-01T00:00:00', help = 'station time for calculation of galactic noise')
 parser.add_argument('station_time_random', type=bool, nargs='?', default = False, help = 'choose if the station time should be random or not')
+parser.add_argument('hardware_response', type=bool, nargs='?', default = False, help = 'choose if the hardware response (amp) should be True or False')
 
 args = parser.parse_args()
 output_path = args.output_path
@@ -94,6 +95,7 @@ threshold_start = args.threshold_start * units.volt
 threshold_step = args.threshold_step *units.volt
 station_time = args.station_time
 station_time_random = args.station_time_random
+hardware_response = args.hardware_response
 
 det = GenericDetector(json_filename=detector_file, default_station=default_station)
 
@@ -131,7 +133,7 @@ channelGenericNoiseAdder = NuRadioReco.modules.channelGenericNoiseAdder.channelG
 channelGenericNoiseAdder.begin()
 channelGalacticNoiseAdder = NuRadioReco.modules.channelGalacticNoiseAdder.channelGalacticNoiseAdder()
 channelGalacticNoiseAdder.begin(n_side=4, interpolation_frequencies=np.arange(10, 1100, galactic_noise_interpolation_frequencies_step) * units.MHz)
-# hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
+hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
 triggerSimulator = NuRadioReco.modules.trigger.envelopeTrigger.triggerSimulator()
 triggerSimulator.begin()
@@ -168,7 +170,8 @@ for n_thres in count():
 
         channelGenericNoiseAdder.run(event, station, det, amplitude=Vrms_thermal_noise, min_freq=T_noise_min_freq, max_freq=T_noise_max_freq, type='rayleigh', bandwidth=None)
         channelGalacticNoiseAdder.run(event, station, det)
-        # hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
+        if hardware_response == True:
+            hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
 
         for i_phase in range(10):
             # print('test iteration', (i_phase) + (n_it*10))
@@ -278,6 +281,7 @@ for n_thres in count():
             dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step
             dic['station_time'] = station_time
             dic['station_time_random'] = station_time_random
+            dic['hardware_response'] = hardware_response
 
             print(dic)
             output_file = 'output_threshold_estimate/estimate_threshold_pb_{:.0f}_{:.0f}_i{}.pickle'.format(passband_trigger[0]/units.MHz,passband_trigger[1]/units.MHz, len(trigger_status_per_all_it))

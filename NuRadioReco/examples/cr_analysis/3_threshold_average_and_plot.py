@@ -60,6 +60,7 @@ if plot_only == False:
     default_station = data['default_station']
     sampling_rate = data['sampling_rate'] * units.gigahertz
     station_time = data['station_time']
+    station_time_random = data['station_time_random']
 
     Vrms_thermal_noise = data['Vrms_thermal_noise'] * units.volt
     T_noise = data['T_noise'] * units.kelvin
@@ -76,6 +77,7 @@ if plot_only == False:
     trigger_thresholds = data['threshold']
     n_iterations = data['iteration']
 
+    hardware_response = data['hardware_response']
 
     trigger_efficiency = np.array(trigger_efficiency) # dimension 0: number of files, dimension 1: different thresholds
     trigger_rate = np.array(trigger_rate)
@@ -102,6 +104,7 @@ if plot_only == False:
     dic['galactic_noise_n_side'] = galactic_noise_n_side
     dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step
     dic['station_time'] = station_time
+    dic['station_time_random'] = station_time_random
     dic['passband_trigger'] = passband_trigger
     dic['coinc_window'] = coinc_window
     dic['order_trigger'] = order_trigger
@@ -113,16 +116,16 @@ if plot_only == False:
     dic['triggered_all'] = len(trigger_status)
     dic['efficiency'] = trigger_efficiency
     dic['trigger_rate'] = trigger_rate
+    dic['hardware_response'] = hardware_response
 
     print(dic)
 
-    with open('results/dict_ntr_pb_{:.0f}_{:.0f}.pickle'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz),
+    with open('results/ntr/dict_ntr_pb_{:.0f}_{:.0f}.pickle'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz),
               'wb') as pickle_out:
         pickle.dump(dic, pickle_out)
 
 
-filename = 'results/dict_ntr_pb_{:.0f}_{:.0f}.pickle'.format(passband_low, passband_high)
-
+filename = 'results/ntr/dict_ntr_pb_{:.0f}_{:.0f}.pickle'.format(passband_low, passband_high)
 data = io_utilities.read_pickle(filename, encoding='latin1')
 
 efficiency= data['efficiency']
@@ -135,12 +138,10 @@ coinc_window = data['coinc_window']
 order_trigger = data['order_trigger']
 iterations = data['iteration']
 
-
 print('threshold', trigger_thresholds)
 print('efficiency', efficiency)
 print('trigger rate', trigger_rate/units.Hz)
 print('passband', passband_trigger/units.megahertz)
-
 
 plt.plot(trigger_thresholds/units.mV, trigger_rate[0]/units.Hz, marker='x', label= 'Noise trigger rate', linestyle='none')
 #plt.title('Passband = {} MHz, iterations = {:.1e}'.format(passband_trigger/units.megahertz, iterations))
@@ -152,5 +153,5 @@ plt.tick_params(axis='y', labelsize=16)
 plt.legend()
 plt.tight_layout()
 #plt.show()
-plt.savefig('results/fig_ntr_passband_{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
+plt.savefig('results/ntr/fig_ntr_passband_{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
 plt.close()
