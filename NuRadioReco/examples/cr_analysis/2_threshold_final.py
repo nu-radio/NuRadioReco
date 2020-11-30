@@ -53,7 +53,7 @@ done
 '''
 
 parser = argparse.ArgumentParser(description='Noise Trigger Rate')
-parser.add_argument('input_filename', type=str, nargs='?', default = 'output_threshold_estimate/estimate_threshold_pb_80_180_i100.pickle', help = 'input filename of check')
+parser.add_argument('input_filename', type=str, nargs='?', default = 'output_threshold_estimate/estimate_threshold_pb_80_180_i10.pickle', help = 'input filename of check')
 parser.add_argument('iterations', type=int, nargs='?', default = 20, help = 'number of iterations within the script. Has to be a multiple of 10')
 parser.add_argument('number', type=int, nargs='?', default = 1, help = 'specify how often you would like to run the hole script. Important for cluster use')
 parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output, most likely the path to the cr_analysis directory')
@@ -258,7 +258,7 @@ dic['passband_trigger'] = passband_trigger
 dic['coinc_window'] = coinc_window
 dic['order_trigger'] = order_trigger
 dic['number_coincidences'] = number_coincidences
-dic['iteration'] = iterations
+dic['iteration'] = iterations * 10
 dic['threshold'] = trigger_thresholds
 dic['trigger_status'] = trigger_status
 dic['triggered_true'] = triggered_trigger

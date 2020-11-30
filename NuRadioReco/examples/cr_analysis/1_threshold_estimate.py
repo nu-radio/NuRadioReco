@@ -67,7 +67,7 @@ parser.add_argument('galactic_noise_n_side', type=int, nargs='?', default = 4, h
 parser.add_argument('galactic_noise_interpolation_frequencies_step', type=int, nargs='?', default = 100, help = 'frequency steps the galactic noise is interpolated over in MHz')
 parser.add_argument('threshold_start', type=int, nargs='?', default = 0, help = 'value of the first tested threshold')
 parser.add_argument('threshold_step', type=int, nargs='?', default = 0.00001, help = 'value of the threshold step')
-parser.add_argument('station_time', type=str, nargs='?', default = '2019-01-01T02:00:00', help = 'station time for calculation of galactic noise')
+parser.add_argument('station_time', type=str, nargs='?', default = '2019-01-01T00:00:00', help = 'station time for calculation of galactic noise')
 parser.add_argument('station_time_random', type=bool, nargs='?', default = False, help = 'choose if the station time should be random or not')
 
 args = parser.parse_args()
