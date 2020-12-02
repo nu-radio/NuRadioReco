@@ -43,7 +43,7 @@ do ((h=low+30))
 echo $low
   for high in $(seq $h 10 400)
   do echo $high
-  qsub /afs/ifh.de/group/radio/scratch/lpyras/Cluster_jobs/Cluster_ntr_1.sh 10000 $low $high
+  qsub /afs/ifh.de/group/radio/scratch/lpyras/Cluster_jobs/Cluster_ntr_1.sh 50000 $low $high
   sleep 0.1
   done
 done
