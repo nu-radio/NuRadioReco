@@ -54,7 +54,7 @@ parser.add_argument('input_filename', type=str, nargs='?', default = 'output_thr
 parser.add_argument('iterations', type=int, nargs='?', default = 20, help = 'number of iterations within the script. Has to be a multiple of 10')
 parser.add_argument('number', type=int, nargs='?', default = 1, help = 'specify how often you would like to run the hole script. Important for cluster use')
 parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output, most likely the path to the cr_analysis directory')
-parser.add_argument('threshold_steps', type=int, nargs='?', default = 0.0001, help = 'steps in which threshold increases [V], use 1e-3 with amp, 1e-4 without amp')
+parser.add_argument('threshold_steps', type=int, nargs='?', default = 0.000001, help = 'steps in which threshold increases [V], use 1e-3 with amp, 1e-6 without amp')
 
 args = parser.parse_args()
 output_path = args.output_path
@@ -74,30 +74,30 @@ data = io_utilities.read_pickle(input_filename, encoding='latin1')
 
 detector_file = data['detector_file']
 default_station = data['default_station']
-sampling_rate = data['sampling_rate'] * units.gigahertz
+sampling_rate = data['sampling_rate']
 station_time = data['station_time']
 station_time_random = data['station_time_random']
 
-Vrms_thermal_noise = data['Vrms_thermal_noise'] * units.volt
-T_noise = data['T_noise'] * units.kelvin
-T_noise_min_freq = data['T_noise_min_freq'] * units.megahertz
-T_noise_max_freq = data['T_noise_max_freq '] * units.megahertz
+Vrms_thermal_noise = data['Vrms_thermal_noise']
+T_noise = data['T_noise']
+T_noise_min_freq = data['T_noise_min_freq']
+T_noise_max_freq = data['T_noise_max_freq ']
 
 galactic_noise_n_side = data['galactic_noise_n_side']
 galactic_noise_interpolation_frequencies_step = data['galactic_noise_interpolation_frequencies_step']
 
 passband_trigger = data['passband_trigger']
 number_coincidences = data['number_coincidences']
-coinc_window = data['coinc_window'] * units.ns
+coinc_window = data['coinc_window']
 order_trigger = data['order_trigger']
-check_trigger_thresholds = data['thresholds'] *units.volt
+check_trigger_thresholds = data['thresholds']
 check_iterations = data['n_iterations']
 trigger_efficiency = data['efficiency']
 trigger_rate = data['trigger_rate']
 
 hardware_response = data['hardware_response']
 
-trigger_thresholds = (np.arange(check_trigger_thresholds[-2], check_trigger_thresholds[-2] + 0.002, threshold_steps)) *units.volt
+trigger_thresholds = (np.arange(check_trigger_thresholds[-5], check_trigger_thresholds[-5] + 0.00003, threshold_steps)) *units.volt
 
 # print('passband', passband_trigger / units.megahertz)
 # print('checked threshold', check_trigger_thresholds)
@@ -173,7 +173,7 @@ for n_it in range(iterations):
         hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
 
     for i_phase in range(10):
-        # print('test iteration', (i_phase) + (n_it*10))
+        print('test iteration', (i_phase) + (n_it*10))
         for channel in station.iter_channels():
             #print('channel', channel.get_id())
             freq_specs = channel.get_frequency_spectrum()
@@ -183,12 +183,11 @@ for n_it in range(iterations):
 
         trigger_status_all_thresholds = []
         for threshold in trigger_thresholds:
-            # print('current threshold', threshold)
-            trigger_status_per_all_thresholds = []
+            print('current threshold', threshold)
             triggered_bins_channels = []
             channels_that_passed_trigger = []
             for channel in station.iter_channels():
-                # print('channel', channel.get_id())
+                print('channel', channel.get_id())
                 trace = channel.get_trace()
                 frequencies = channel.get_frequencies()
                 f = np.zeros_like(frequencies, dtype=np.complex)
@@ -205,13 +204,13 @@ for n_it in range(iterations):
 
                 # apply envelope trigger to each channel
                 triggered_bins = np.abs(scipy.signal.hilbert(trace_filtered)) > threshold
-                # print('trace > threshold', max(np.abs(scipy.signal.hilbert(trace_filtered))), threshold)
+                print('trace > threshold', max(np.abs(scipy.signal.hilbert(trace_filtered))), threshold)
 
                 triggered_bins_channels.append(triggered_bins)
 
                 if True in triggered_bins:
                     channels_that_passed_trigger.append(channel.get_id())
-                # print('channel that passed trigger', channels_that_passed_trigger)
+                print('channel that passed trigger', channels_that_passed_trigger)
 
                 # check for coincidences with get_majority_logic(tts, number_of_coincidences=2,
                 # time_coincidence=32 * units.ns, dt=1 * units.ns)
@@ -226,9 +225,11 @@ for n_it in range(iterations):
 
             trigger_status_all_thresholds.append(has_triggered)
 
-        # print('trigger thresholds', trigger_thresholds)
-        # print('trigger status', trigger_status_all_thresholds)
+            print('current threshold', threshold)
+            print('has_triggered', has_triggered)
+            print('trigger_status_all_thresholds', trigger_status_all_thresholds)
         trigger_status.append(trigger_status_all_thresholds)
+        print('trigger_status', trigger_status)
 
 trigger_status = np.array(trigger_status)
 triggered_trigger = np.sum(trigger_status, axis=0)
@@ -245,10 +246,10 @@ trigger_rate = (1 / channel_trace_time_interval) * trigger_efficiency
 dic = {}
 dic['detector_file'] = detector_file
 dic['default_station'] = default_station
-dic['sampling_rate'] = sampling_rate * units.gigahertz
+dic['sampling_rate'] = sampling_rate
 dic['T_noise'] = T_noise
-dic['T_noise_min_freq'] = T_noise_min_freq * units.megahertz
-dic['T_noise_max_freq '] = T_noise_max_freq * units.megahertz
+dic['T_noise_min_freq'] = T_noise_min_freq
+dic['T_noise_max_freq '] = T_noise_max_freq
 dic['Vrms_thermal_noise'] = Vrms_thermal_noise
 dic['galactic_noise_n_side'] = galactic_noise_n_side
 dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step

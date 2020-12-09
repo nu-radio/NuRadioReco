@@ -69,7 +69,7 @@ parser.add_argument('galactic_noise_interpolation_frequencies_step', type=int, n
 parser.add_argument('threshold_start', type=int, nargs='?', default = 0, help = 'value of the first tested threshold')
 parser.add_argument('threshold_step', type=int, nargs='?', default = 0.00001, help = 'value of the threshold step')
 parser.add_argument('station_time', type=str, nargs='?', default = '2019-01-01T00:00:00', help = 'station time for calculation of galactic noise')
-parser.add_argument('station_time_random', type=bool, nargs='?', default = False, help = 'choose if the station time should be random or not')
+parser.add_argument('station_time_random', type=bool, nargs='?', default = True, help = 'choose if the station time should be random or not')
 parser.add_argument('hardware_response', type=bool, nargs='?', default = False, help = 'choose if the hardware response (amp) should be True or False')
 
 args = parser.parse_args()
@@ -273,10 +273,10 @@ for n_thres in count():
             dic['number_coincidences'] = number_coincidences
             dic['detector_file'] = detector_file
             dic['default_station'] = default_station
-            dic['sampling_rate'] = sampling_rate * units.gigahertz
+            dic['sampling_rate'] = sampling_rate
             dic['order_trigger'] = order_trigger
-            dic['T_noise_min_freq'] = T_noise_min_freq * units.megahertz
-            dic['T_noise_max_freq '] = T_noise_max_freq * units.megahertz
+            dic['T_noise_min_freq'] = T_noise_min_freq
+            dic['T_noise_max_freq '] = T_noise_max_freq
             dic['galactic_noise_n_side'] = galactic_noise_n_side
             dic['galactic_noise_interpolation_frequencies_step'] = galactic_noise_interpolation_frequencies_step
             dic['station_time'] = station_time

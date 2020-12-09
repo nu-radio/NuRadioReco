@@ -10,21 +10,13 @@ import argparse
 parser = argparse.ArgumentParser(description='Noise Trigger Rate')
 parser.add_argument('passband_low', type=int, nargs='?', default = 80, help = 'passband low to check')
 parser.add_argument('passband_high', type=int, nargs='?', default = 180, help = 'passband high to check')
-parser.add_argument('number_of_files', type=int, nargs='?', default = 1, help = 'number of n_files to loop over')
+parser.add_argument('number_of_files', type=int, nargs='?', default = 100, help = 'number of n_files to loop over')
 
 args = parser.parse_args()
 passband_low = args.passband_low
 passband_high = args.passband_high
 number_of_files = args.number_of_files
 
-parser.add_argument('input_filename', type=str, nargs='?', default = 'output_threshold_final/final_threshold_pb_{:.0f}_{:.0f}_i2000_{}.pickle'.format(
-        passband_low, passband_high, number_of_files), help = 'input filename of check')
-parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output')
-
-args = parser.parse_args()
-input_filename = args.input_filename
-output_path = args.output_path
-abs_output_path = os.path.abspath(args.output_path)
 
 n_files = number_of_files
 
@@ -35,6 +27,9 @@ trigger_efficiency = []
 trigger_rate = []
 
 for i_file in range(number_of_files):
+    input_filename = 'output_threshold_final/final_threshold_pb_{:.0f}_{:.0f}_i2000_{}.pickle'.format(passband_low,
+                                                                                                      passband_high,
+                                                                                                      i_file)
     data = []
     data = io_utilities.read_pickle(input_filename, encoding='latin1')
     print(data)
@@ -139,10 +134,10 @@ print('trigger rate', trigger_rate/units.Hz)
 print('passband', passband_trigger/units.megahertz)
 
 
-plt.plot(trigger_thresholds/units.mV, trigger_rate[0]/units.Hz, marker='x', label= 'Noise trigger rate', linestyle='none')
+plt.plot(trigger_thresholds/units.microvolt, trigger_rate[0]/units.Hz, marker='x', label= 'Noise trigger rate', linestyle='none')
 #plt.title('passband = {} MHz, iterations = {:.1e}'.format( passband_trigger/units.megahertz, iterations))
-plt.xlabel('Threshold [mV]', fontsize=18)
-plt.hlines(0, trigger_thresholds[0]/units.mV, trigger_thresholds[-1]/units.mV, label='0 Hz')
+plt.xlabel(r'Threshold [$\mu$V]', fontsize=18)
+plt.hlines(0, trigger_thresholds[0]/units.microvolt, trigger_thresholds[-1]/units.microvolt, label='0 Hz')
 plt.ylabel('Trigger rate [Hz]', fontsize=18)
 plt.tick_params(axis='x', labelsize=16)
 plt.tick_params(axis='y', labelsize=16)
