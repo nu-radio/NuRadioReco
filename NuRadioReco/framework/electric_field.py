@@ -41,6 +41,7 @@ class ElectricField(NuRadioReco.framework.base_trace.BaseTrace):
         self._position = position
         self._shower_id = shower_id
         self._ray_tracing_id = ray_tracing_id
+        self._ray_tracing_path = None
 
     def get_unique_identifier(self):
         """
@@ -111,6 +112,12 @@ class ElectricField(NuRadioReco.framework.base_trace.BaseTrace):
     def get_ray_tracing_solution_id(self):
         return self._ray_tracing_id
 
+    def get_ray_tracing_path(self):
+        return self._ray_tracing_path
+
+    def set_ray_tracing_path(self,path):
+        self._ray_tracing_path = path
+
     def get_position(self):
         """
         get position of the electric field relative to station position
@@ -133,6 +140,7 @@ class ElectricField(NuRadioReco.framework.base_trace.BaseTrace):
                 'channel_ids': self._channel_ids,
                 '_shower_id': self._shower_id,
                 '_ray_tracing_id': self._ray_tracing_id,
+                '_ray_tracing_path': self._ray_tracing_path,
                 'position': self._position,
                 'base_trace': base_trace_pkl}
         return pickle.dumps(data, protocol=4)
@@ -155,3 +163,7 @@ class ElectricField(NuRadioReco.framework.base_trace.BaseTrace):
             self._ray_tracing_id = data['_ray_tracing_id']
         else:
             self._ray_tracing_id = None
+        if '_ray_tracing_path' in data.keys():
+            self._ray_tracing_path = data['_ray_tracing_path']
+        else:
+            self._ray_tracing_path = None
