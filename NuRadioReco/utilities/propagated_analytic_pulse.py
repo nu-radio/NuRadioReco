@@ -18,6 +18,11 @@ import numpy as np
 from pathlib import Path
 import logging
 import pickle
+from NuRadioMC.SignalGen import ARZ
+import NuRadioMC
+
+
+#(librabry = '/lustre/fs22/group/radio/plaisier/software/NuRadioMC/NuRadioMC/SignalGen/ARZ/average.pkl')
 
 logger = logging.getLogger("sim")
 from NuRadioReco.detector import antennapattern
@@ -28,10 +33,6 @@ eventreader = NuRadioReco.modules.io.eventReader.eventReader()
 ice = medium.get_ice_model('greenland_simple')
 prop = propagation.get_propagation_module('analytic')
 attenuate_ice = True
-#sampling_rate = 5
-
-#det = detector.Detector(json_filename = "/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/station_amp.json")
-#det.update(datetime.datetime(2018, 1, 1))
 
 
 hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
@@ -99,12 +100,9 @@ class simulation():
 		sim_to_data = True
 		self._raytypesolution= raytypesolution
 		channl = station.get_channel(use_channels[0])
-		self._n_samples = 800#channl.get_number_of_samples()
-		print("self n samples", self._n_samples)
+		self._n_samples = 800
 		self._sampling_rate = channl.get_sampling_rate()
-		self._dt = 1./self._sampling_rate
-		print("dt", self._dt)
-		
+		self._dt = 1./self._sampling_rate		
 	
 		self._ff = np.fft.rfftfreq(self._n_samples, self._dt)
 		tt = np.arange(0, self._n_samples * self._dt, self._dt)
@@ -142,17 +140,14 @@ class simulation():
 		polarization_direction /= np.linalg.norm(polarization_direction)
 		cs = cstrans.cstrafo(*hp.cartesian_to_spherical(*raytracing[channel_id][iS]["launch vector"]))
 		return cs.transform_from_ground_to_onsky(polarization_direction)
-
-
-	def simulation(self, det, station, vertex_x, vertex_y, vertex_z, nu_zenith, nu_azimuth, energy, use_channels, fit = 'seperate', first_iter = False):
+	
+	def simulation(self, det, station, vertex_x, vertex_y, vertex_z, nu_zenith, nu_azimuth, energy, use_channels, fit = 'seperate', first_iter = False, model = 'ARZ2020'):
 		
 		
 		polarization = True
 		reflection = True
 
-			
 		x1 = [vertex_x, vertex_y, vertex_z]
-		fhad = 1
 		
 		self._shower_axis = -1 * hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
 		n_index = ice.get_index_of_refraction(x1)
@@ -215,16 +210,16 @@ class simulation():
 		timing = {}
 		viewingangles = np.zeros((len(use_channels), 2))
 		polarizations = []
+		
+			
+			
 		for ich, channel_id in enumerate(use_channels):
-			#print("CHANNEL", channel_id)
 			raytype[channel_id] = {}
 			traces[channel_id] = {}
 			timing[channel_id] = {}
 	
 			for i_s, iS in enumerate(raytracing[channel_id]):
-
-
-				#print("IS", iS)
+			
 				raytype[channel_id][iS] = {}
 				traces[channel_id][iS] = {}
 				timing[channel_id][iS] = {}
@@ -246,12 +241,11 @@ class simulation():
 					spectrum /= energy
 					spectrum= fft.time2freq(spectrum, 1/self._dt)
 				
-					
-					
 				else:
 				
-					spectrum = signalgen.get_frequency_spectrum(energy * fhad, viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
-					'Alvarez2009')
+					spectrum = signalgen.get_frequency_spectrum(energy , viewing_angle, self._n_samples, self._dt, "HAD", n_index, raytracing[channel_id][iS]["trajectory length"],
+					model)
+            
 					
 					
 				
@@ -261,8 +255,9 @@ class simulation():
 					spectrum *= raytracing[channel_id][iS]["attenuation"]
 					
 				if polarization:
+	
 					polarization_direction_onsky = self._calculate_polarization_vector(channel_id, iS)
-
+			#		print("polarization direction onsky", polarization_direction_onsky)
 					cs_at_antenna = cstrans.cstrafo(*hp.cartesian_to_spherical(*raytracing[channel_id][iS]["receive vector"]))
 					polarization_direction_at_antenna = cs_at_antenna.transform_from_onsky_to_ground(polarization_direction_onsky)
 					logger.debug('receive zenith {:.0f} azimuth {:.0f} polarization on sky {:.2f} {:.2f} {:.2f}, on ground @ antenna {:.2f} {:.2f} {:.2f}'.format(
@@ -270,8 +265,8 @@ class simulation():
 						polarization_direction_onsky[1], polarization_direction_onsky[2],
 						*polarization_direction_at_antenna))
 				eR, eTheta, ePhi = np.outer(polarization_direction_onsky, spectrum)
-
-                
+			
+		
 				if channel_id == 6: 
 				    polarizations.append( self._calculate_polarization_vector(6, iS))
                                     
@@ -301,19 +296,19 @@ class simulation():
                 ##### Get filter (this is the filter used for the trigger for RNO-G)
 				
                 #### get antenna respons for direction
+				
 				efield_antenna_factor = trace_utilities.get_efield_antenna_factor(station, self._ff, [channel_id], det, raytracing[channel_id][iS]["zenith"],  raytracing[channel_id][iS]["azimuth"], self.antenna_provider)
 				
                 ### convolve efield with antenna reponse
 				analytic_trace_fft = np.sum(efield_antenna_factor[0] * np.array([eTheta, ePhi]), axis = 0)
-                ### filter the trace
-			
 				
+                ### filter the trace
+
 				analytic_trace_fft *=self._h
 				
 		#### add amplifier
 
-				analytic_trace_fft *= self._amp[channel_id]#hardwareResponseIncorporator.get_filter(self._ff, station.get_id(), channel_id, det, sim_to_data)
-            # zero first bins to avoid DC offs
+				analytic_trace_fft *= self._amp[channel_id]
 
 				analytic_trace_fft[0] = 0
 		#### filter becuase of amplifier response 
@@ -337,12 +332,8 @@ class simulation():
 				#print("range iS", range(len(raytype[6])))#print("traces.shape", traces.shape)
 				maximum_trace = max(abs(traces[6][i])) ## maximum due to channel 6 (phased array)
 			
-	#			print("raytype iS", raytype[6][i])
-		#		print("self._raytypesolutin", self._raytypesolution)
 				if raytype[6][i] == self._raytypesolution:#maximum_trace > maximum_channel:
 					launch_vector = launch_vectors[i]
-					print("end raytype", raytype[6][i])
-					print("viewing angles", np.rad2deg(viewing_angles))
 					viewingangle = viewing_angles[i]
 					pol = polarizations[i]
 		
