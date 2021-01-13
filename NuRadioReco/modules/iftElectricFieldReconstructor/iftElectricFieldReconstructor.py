@@ -553,6 +553,7 @@ class IftElectricFieldReconstructor:
         times = np.arange(self.__data_traces.shape[1]) / sampling_rate
         freqs = freq_space.get_k_length_array().val / self.__data_traces.shape[1] * sampling_rate
         alpha = .8
+        fontsize = 12
         for i in range(8):
             x = ift.from_random('normal', self.__efield_trace_operators[0][0].domain)
             efield_spec_sample = self.__efield_spec_operators[0][0].force(x)
@@ -569,9 +570,9 @@ class IftElectricFieldReconstructor:
         ax1_0.grid()
         ax1_0.set_xscale('log')
         ax1_0.set_yscale('log')
-        ax1_0.set_title('Power Spectrum')
-        ax1_0.set_xlabel('k')
-        ax1_0.set_ylabel('A')
+        # ax1_0.set_title('Power Spectrum')
+        ax1_0.set_xlabel('k', fontsize=fontsize)
+        ax1_0.set_ylabel('A', fontsize=fontsize)
         ax1_1.grid()
         ax1_1.set_xlim([50, 750])
         # ax1_2.grid()
@@ -580,18 +581,18 @@ class IftElectricFieldReconstructor:
         ax1_3.set_xlim([50, 750])
         ax1_4.grid()
         ax1_4.set_xlim([0, 150])
-        ax1_1.set_xlabel('f [MHz]')
+        ax1_1.set_xlabel('f [MHz]', fontsize=fontsize)
         # ax1_2.set_xlabel('t [ns]')
-        ax1_3.set_xlabel('f [MHz]')
-        ax1_4.set_xlabel('t [ns]')
+        ax1_3.set_xlabel('f [MHz]', fontsize=fontsize)
+        ax1_4.set_xlabel('t [ns]', fontsize=fontsize)
         ax1_1.set_ylabel('E [a.u.]')
         # ax1_2.set_ylabel('E [a.u.]')
-        ax1_3.set_ylabel('U [a.u.]')
-        ax1_4.set_ylabel('U [a.u.]')
-        ax1_1.set_title('E-Field Spectrum')
+        ax1_3.set_ylabel('U [a.u.]', fontsize=fontsize)
+        ax1_4.set_ylabel('U [a.u.]', fontsize=fontsize)
+        # ax1_1.set_title('E-Field Spectrum')
         # ax1_2.set_title('E-Field Trace')
-        ax1_3.set_title('Channel Spectrum')
-        ax1_4.set_title('Channel Trace')
+        # ax1_3.set_title('Channel Spectrum')
+        # ax1_4.set_title('Channel Trace')
         fig1.tight_layout()
         fig1.savefig('priors_{}_{}.png'.format(event.get_id(), event.get_run_number()))
 
