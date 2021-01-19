@@ -97,7 +97,7 @@ trigger_rate = data['trigger_rate']
 
 hardware_response = data['hardware_response']
 
-trigger_thresholds = (np.arange(check_trigger_thresholds[-5], check_trigger_thresholds[-5] + 0.00003, threshold_steps)) *units.volt
+trigger_thresholds = (np.arange(check_trigger_thresholds[-4], check_trigger_thresholds[-4] + 0.00003, threshold_steps)) *units.volt
 
 # print('passband', passband_trigger / units.megahertz)
 # print('checked threshold', check_trigger_thresholds)
