@@ -44,7 +44,7 @@ class simulation():
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
 		if self._template:
 			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
-			distances = [500, 700, 900, 1200, 2000, 3000, 4000, 10000]
+			distances = [500, 700, 900, 1200, 2000,2100,  3000, 4000, 10000]
 			distance_event = np.sqrt(vertex[0]**2 + vertex[1]**2 + vertex[2]**2) ## assume station is at 000
 			print("distance event", distance_event)
 			for dist in distances:
@@ -100,7 +100,7 @@ class simulation():
 		sim_to_data = True
 		self._raytypesolution= raytypesolution
 		channl = station.get_channel(use_channels[0])
-		self._n_samples = 800
+		self._n_samples = 800 ## templates are 800 samples long. The analytic models can be longer. 
 		self._sampling_rate = channl.get_sampling_rate()
 		self._dt = 1./self._sampling_rate		
 	
@@ -121,6 +121,20 @@ class simulation():
 		fb = np.zeros_like(self._ff, dtype = np.complex)
 		fb[mask] = hb
 		self._h = fb*fa
+
+
+                ### filter for polarization reconstruction
+                #mask = self._ff > 0
+                #order = 8
+                #passband = [200* units.MHz, 300* units.MHz]
+                #b, a = signal.butter(order, passband, 'bandpass', analog=True)
+                #w, ha = signal.freqs(b, a, self._ff[mask])
+                #fa = np.zeros_like(self._ff, dtype=np.complex)
+                #fa[mask] = ha
+                #self._pol_filt = fa
+
+
+
 		self._amp = {}
 		for channel_id in use_channels:
 			self._amp[channel_id] = {}
@@ -141,7 +155,7 @@ class simulation():
 		cs = cstrans.cstrafo(*hp.cartesian_to_spherical(*raytracing[channel_id][iS]["launch vector"]))
 		return cs.transform_from_ground_to_onsky(polarization_direction)
 	
-	def simulation(self, det, station, vertex_x, vertex_y, vertex_z, nu_zenith, nu_azimuth, energy, use_channels, fit = 'seperate', first_iter = False, model = 'ARZ2020'):
+	def simulation(self, det, station, vertex_x, vertex_y, vertex_z, nu_zenith, nu_azimuth, energy, use_channels, fit = 'seperate', first_iter = False, model = 'Alvarez2009'):
 		
 		
 		polarization = True
@@ -169,6 +183,7 @@ class simulation():
 				raytracing[channel_id] = {}
 				x2 = det.get_relative_position(station.get_id(), channel_id) + det.get_absolute_position(station.get_id())
 				r = prop(x1, x2, ice, 'GL1')
+				
 
 				r.find_solutions()
 				if(not r.has_solution()):
@@ -231,6 +246,7 @@ class simulation():
 					template_viewingangle = self._templates_viewingangles[np.abs(np.array(self._templates_viewingangles) - np.rad2deg(viewing_angle)).argmin()] ### viewing angle template which is closest to wanted viewing angle
 					self._templates[template_viewingangle]
 					template_energy = self._templates_energies[np.abs(np.array(self._templates_energies) - energy).argmin()]
+					#print("template energy", template_energy)
 					spectrum = self._templates[template_viewingangle][template_energy]
 					spectrum = np.array(list(spectrum)[0])
 					spectrum *= self._templates_R
@@ -322,6 +338,20 @@ class simulation():
                 ### store timing
 				timing[channel_id][iS] =raytracing[channel_id][iS]["travel time"]
 				raytype[channel_id][iS] = raytracing[channel_id][iS]["raytype"]
+                               # if channel.get_id() == 6:
+                                    ### apply filter to voltage traces
+                                #    filtered_trace = analytic_trace_fft * self._pol_filt
+                                #    power_6 = (fft.freq2time(analytic_trace_fft, 1/self._dt))**2
+                                #if channel.get_id() == 13:
+                                #    filtered_trace = analytic_trace_fft* self._pol_filt
+                                #    power_13 = (fft.freq2time(analytic_trace_fft, 1/self._dt))**2
+                                #    R = power_6 / power_13
+				    ### determine power in each component
+				    ### 
+                                    ### Determine ratio of powers
+
+ 
+                                
 				#print("raytype", raytype[channel_id][iS])	
                                 #import matplotlib.pyplot as plt
 			
@@ -336,6 +366,7 @@ class simulation():
 					launch_vector = launch_vectors[i]
 					viewingangle = viewing_angles[i]
 					pol = polarizations[i]
+                       
 		
 
 

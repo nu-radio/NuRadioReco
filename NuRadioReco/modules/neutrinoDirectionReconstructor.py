@@ -1,3 +1,5 @@
+from scipy import constants
+import scipy.stats as stats 
 import NuRadioReco.modules.io.eventReader
 from radiotools import helper as hp
 import matplotlib.pyplot as plt
@@ -15,6 +17,7 @@ from matplotlib import rc
 from matplotlib.lines import Line2D
 import datetime
 import math
+from NuRadioReco.utilities import units
 
 class neutrinoDirectionReconstructor:
     
@@ -38,11 +41,11 @@ class neutrinoDirectionReconstructor:
         self._simulated_azimuth = event.get_sim_shower(shower_id)[shp.azimuth]
         self._simulated_zenith = event.get_sim_shower(shower_id)[shp.zenith]
         vertex =event.get_sim_shower(shower_id)[shp.vertex] #station[stnp.nu_vertex]
-        simulation = propagated_analytic_pulse.simulation(False, vertex)#event.get_sim_shower(shower_id)[shp.vertex])
+        simulation = propagated_analytic_pulse.simulation(True, vertex)#event.get_sim_shower(shower_id)[shp.vertex])
         simulation.begin(det, station, use_channels, raytypesolution = 2)#[1, 2, 3] [direct, refracted, reflected]
         print("simulated zenith", np.rad2deg(self._simulated_zenith))
         print("simulatd azimuth", np.rad2deg(self._simulated_azimuth))        
-        a, b, self._launch_vector_sim, c, d =  simulation.simulation(det, station, vertex[0],vertex[1], vertex[2], self._simulated_zenith, self._simulated_azimuth, simulated_energy, use_channels, first_iter = True)
+        a, b, self._launch_vector_sim, c, d, e =  simulation.simulation(det, station, vertex[0],vertex[1], vertex[2], self._simulated_zenith, self._simulated_azimuth, simulated_energy, use_channels, first_iter = True)
         print("LAN VECTOR SIM", self._launch_vector_sim)
         print("viewing angle", np.rad2deg(c))
         #print(stop)
@@ -61,8 +64,9 @@ class neutrinoDirectionReconstructor:
         # - ARZ average model 
         
         
-        only_simulation = False ## if True, no fit is performed, but only the script is tested with the simulated values
-        restricted_input = True## For testing, we can restrict the neutrino direction with 10 degrees around the simulated one, (60 energy steps). For 2 channels this takes 6 min. Without restrictring it takes 10 min for 2 channels, (10 energy steps)
+        only_simulation = True# if True, no fit is performed, but only the script is tested with the simulated values
+
+        restricted_input = True#False## For testing, we can restrict the neutrino direction with 10 degrees around the simulated one, (60 energy steps). For 2 channels this takes 6 min. Without restrictring it takes 10 min for 2 channels, (10 energy steps)
         
         self._station = station
         self._use_channels = use_channels
@@ -92,6 +96,7 @@ class neutrinoDirectionReconstructor:
             simulated_azimuth = event.get_sim_shower(shower_id)[shp.azimuth]
             self._simulated_azimuth = simulated_azimuth
             simulated_energy = event.get_sim_shower(shower_id)[shp.energy]
+            self.__simulated_energy = simulated_energy
             simulated_vertex = event.get_sim_shower(shower_id)[shp.vertex]
             ### values for simulated vertex and simulated direction
             tracsim, timsim, lv_sim, vw_sim, a, pol_sim = simulation.simulation(det, station, event.get_sim_shower(shower_id)[shp.vertex][0], event.get_sim_shower(shower_id)[shp.vertex][1], event.get_sim_shower(shower_id)[shp.vertex][2], simulated_zenith, simulated_azimuth, simulated_energy, use_channels, first_iter = True) 
@@ -200,9 +205,14 @@ class neutrinoDirectionReconstructor:
                 all_fsim = self.minimizer([simulated_zenith,simulated_azimuth, np.log10(simulated_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)[3]
                 print("Chi2 values for simulated direction and with/out simulated vertex are {}/{}".format(fsimsim, fsim))
             
-          
+                sim_reduced_chi2_Vpol = self.minimizer([simulated_zenith,simulated_azimuth, np.log10(simulated_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure)[4][0]
+                #print("sim reduced chi2 VPol", sim_reduced_chi2_Vpol)
+                #print(stop)
+                sim_reduced_chi2_Hpol = self.minimizer([simulated_zenith,simulated_azimuth, np.log10(simulated_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True)[4][1]
         
-            
+        
+#sim_reduced_chi2_Vpol = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = 'combined')[4][0]
+ #           sim_reduced_chi2_Hpol = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = 'combined')[4][1]            
             
            # trac = self.minimizer([simulated_zenith,simulated_azimuth, simulated_energy], reconstructed_vertex[0],reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = fitprocedure, first_iter = True) ## this is to store the correct launch vector for the new vertex position 
            # print(stop)
@@ -235,12 +245,12 @@ class neutrinoDirectionReconstructor:
                     results = opt.brute(self.minimizer, ranges=(slice(viewing_start, viewing_end, np.deg2rad(1)), slice(theta_start, theta_end, np.deg2rad(1)), slice(np.log10(simulated_energy) - .5, np.log10(simulated_energy) + .5, .1)), full_output = True, finish = opt.fmin , args = (reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], True,fitprocedure, False, False, True, False))
                 else: 
                     zenith_start = simulated_zenith - np.deg2rad(10)
-                    zenith_end = simulated_zenith + np.deg2rad(10)
+                    zenith_end = simulated_zenith +  np.deg2rad(10)
                     azimuth_start = simulated_azimuth - np.deg2rad(10)
                     azimuth_end = simulated_azimuth + np.deg2rad(10)
                     energy_start = np.log10(simulated_energy) - 1
                     energy_end = np.log10(simulated_energy) + 1
-                    results = opt.brute(self.minimizer, ranges=(slice(zenith_start, zenith_end, np.deg2rad(1)), slice(azimuth_start, azimuth_end, np.deg2rad(1)), slice(energy_start, energy_end, .1)), full_output = True, finish = opt.fmin , args = (reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], True,fitprocedure, False, False, False, False))
+                    results = opt.brute(self.minimizer, ranges=(slice(zenith_start, zenith_end, np.deg2rad(1)), slice(azimuth_start, azimuth_end, np.deg2rad(1)), slice(energy_start, energy_end, .1)), finish = opt.fmin, full_output = True, args = (reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], True,fitprocedure, False, False, False, False))
                     
                 print('start datetime', cop)
                 print("end datetime", datetime.datetime.now() - cop)
@@ -304,13 +314,16 @@ class neutrinoDirectionReconstructor:
             
             ## get the traces for the reconstructed energy and direction
             tracrec = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = 'combined')[0]
-                       
+            fit_reduced_chi2_Vpol = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = 'combined')[4][0]
+            fit_reduced_chi2_Hpol = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = 'combined')[4][1]             
            
             fminfit = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  True, fit = 'combined')            
            
             all_fminfit = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = 'combined')[3]
        
-            
+            #sim_reduced_chi2_Vpol = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = 'combined')[4][0]
+            #sim_reduced_chi2_Hpol = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize =  False, fit = 'combined')[4][1]
+
             print("FMIN SIMULATED direction with reconstructed vertex", fsim)
             print("FMIN RECONSTRUCTED VALUE FIT", fminfit)
             
@@ -325,13 +338,16 @@ class neutrinoDirectionReconstructor:
              
                 timingdata = self.minimizer([rec_zenith, rec_azimuth, np.log10(rec_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = fitprocedure)[2]
                 timingsim = self.minimizer([simulated_zenith, simulated_azimuth, np.log10(simulated_energy)], reconstructed_vertex[0], reconstructed_vertex[1], reconstructed_vertex[2], minimize = False, fit = fitprocedure)[2]
-                
+                              
+
                 fig, ax = plt.subplots(len(use_channels), 3, sharex=False, figsize=(40, 20))
                 matplotlib.rc('xtick', labelsize = 30)
                 matplotlib.rc('ytick', labelsize = 30)
                 ich = 0
                 SNRs = np.zeros((len(use_channels), 2)) 
                 fig_sim, ax_sim = plt.subplots(len(use_channels), 1, sharex = True, figsize = (20, 10))
+                fig_test, ax_test = plt.subplots(len(use_channels), 1, sharex = True, figsize = (20, 10))
+
                 for channel in station.iter_channels():
                     if channel.get_id() in use_channels: # use channels needs to be sorted
                         isch = 0
@@ -339,7 +355,11 @@ class neutrinoDirectionReconstructor:
                             if isch == 0:
                                         
                                 sim_trace = sim_channel
+                                ax_test[ich].plot(sim_channel.get_times(), sim_channel.get_trace())
+                                ax_sim[ich].plot(sim_channel.get_times(), sim_channel.get_trace())
                             if isch == 1:
+                                ax_test[ich].plot(sim_channel.get_times(), sim_channel.get_trace())
+                                ax_sim[ich].plot(sim_channel.get_times(), sim_channel.get_trace())
                                 sim_trace += sim_channel
                             isch += 1
                        
@@ -348,11 +368,11 @@ class neutrinoDirectionReconstructor:
                        
                         
                         if len(tracdata[channel.get_id()]) > 0:
-                            print('max', max(tracdata[channel.get_id()][0]))
-                            SNR = abs(max(tracdata[channel.get_id()][0]) - min(tracdata[channel.get_id()][0])) / (2*sigma)
+                            #print('max', max(tracdata[channel.get_id()][0]))
+                            #SNR = abs(max(tracdata[channel.get_id()][0]) - min(tracdata[channel.get_id()][0])) / (2*sigma)
                             
                             #print("LEN DATA", len(tracdata[channel.get_id()][0]))
-                            SNRs[ich, 0] = SNR
+                            #SNRs[ich, 0] = SNR
                             #ax[ich][0].plot(channel.get_trace(), label = 'data', color = 'black')
                             ax[ich][0].plot(channel.get_times(), channel.get_trace(), label = 'data', color = 'black')
                             #ax[ich][0].plot(timingdata[channel.get_id()][0], tracdata[channel.get_id()][0], label = 'data', color = 'black')
@@ -379,11 +399,12 @@ class neutrinoDirectionReconstructor:
                             ax[ich][0].legend(fontsize = 'x-large')
                            
                         if len(tracdata[channel.get_id()]) > 1:
-                            SNR = abs(max(tracdata[channel.get_id()][1]) - min(tracdata[channel.get_id()][1])) / (2*sigma)
-                            SNRs[ich, 1] = SNR
+                            #SNR = abs(max(tracdata[channel.get_id()][1]) - min(tracdata[channel.get_id()][1])) / (2*sigma)
+                            #SNRs[ich, 1] = SNR
+                            ax[ich][1].plot(channel.get_times(), channel.get_trace(), label = 'data', color = 'black')
                             #print("ich", ich)
                             #ax[ich][1].plot(channel.get_times(), channel.get_trace(), label = 'data', color = 'black')
-                            ax[ich][1].plot(timingdata[channel.get_id()][1], tracdata[channel.get_id()][1], label = 'data', color = 'black')
+                            #ax[ich][1].plot(timingdata[channel.get_id()][1], tracdata[channel.get_id()][1], label = 'data', color = 'black')
                             ax[ich][1].fill_between(timingsim[channel.get_id()][1],tracsim[channel.get_id()][1]- sigma, tracsim[channel.get_id()][1] + sigma, color = 'red', alpha = 0.2 )
 
                             ax[ich][2].plot( np.fft.rfftfreq(len(tracdata[channel.get_id()][1]), 1/sampling_rate), abs(fft.time2freq(tracdata[channel.get_id()][1], sampling_rate)), color = 'black')
@@ -411,6 +432,7 @@ class neutrinoDirectionReconstructor:
                 fig.tight_layout()
                 fig.savefig("{}/fit_{}_{}.pdf".format(debugplots_path, filenumber, shower_id))
                 fig_sim.savefig('{}/sim_{}_{}.pdf'.format(debugplots_path, filenumber, shower_id))
+                fig_test.savefig('{}/test_{}_{}.pdf'.format(debugplots_path, filenumber, shower_id))
                 
                 
                 
@@ -422,16 +444,17 @@ class neutrinoDirectionReconstructor:
             station.set_parameter(stnp.nu_zenith, rec_zenith)
             station.set_parameter(stnp.nu_azimuth, self.transform_azimuth(rec_azimuth))
             station.set_parameter(stnp.nu_energy, rec_energy)
-            station.set_parameter(stnp.chi2, [fsim, fminfit, fsimsim])
+            station.set_parameter(stnp.chi2, [fsim, fminfit, fsimsim, self.__dof, sim_reduced_chi2_Vpol, sim_reduced_chi2_Hpol, fit_reduced_chi2_Vpol, fit_reduced_chi2_Hpol])
             station.set_parameter(stnp.launch_vector, [lv_sim, launch_vector_rec])
             station.set_parameter(stnp.polarization, [pol_sim, pol_rec])
             station.set_parameter(stnp.viewing_angle, [vw_sim, viewingangle_rec])
-            print("reduced chi2 for simulated rec vertex {}, simulated sim vertex {} and fit {}".format(fsim, fsimsim, fminfit))#reconstructed vertex
-            print("reduced chi2 for all channels simulated rec vertex {}, simulated sim vertex {} and fit {}".format(all_fsim, all_fsimsim, all_fminfit))#reconstructed vertex
+            print("chi2 for simulated rec vertex {}, simulated sim vertex {} and fit {}".format(fsim, fsimsim, fminfit))#reconstructed vertex
+            print("chi2 for all channels simulated rec vertex {}, simulated sim vertex {} and fit {}".format(all_fsim, all_fsimsim, all_fminfit))#reconstructed vertex
             print("launch vector for simulated {} and fit {}".format(lv_sim, launch_vector_rec))
             print("polarization for simulated {} and fit {}".format(pol_sim, pol_rec))
             print("viewing angle for simulated {} and fit {}".format(np.rad2deg(vw_sim), np.rad2deg(viewingangle_rec)))
-
+            print("reduced chi2 Vpol for simulated {} and fit {}".format(sim_reduced_chi2_Vpol, fit_reduced_chi2_Vpol))
+            print("reduced chi2 Hpol for simulated {} and fit {}".format(sim_reduced_chi2_Hpol, fit_reduced_chi2_Hpol))
 
     def transform_azimuth(self, azimuth): ## from [-180, 180] to [0, 360]
         azimuth = np.rad2deg(azimuth)
@@ -442,13 +465,27 @@ class neutrinoDirectionReconstructor:
     
                   
     def minimizer(self, params, vertex_x, vertex_y, vertex_z, minimize = True, fit = 'seperate', timing_k = False, first_iter = False, banana = False,  direction = [0, 0]):
-            
+            model_sys = 0
             sigma = 0.0114 #noise Rms for with amplifier #1.7*10**(-5) * 10000 
+            ff = np.fft.rfftfreq(600, .1)
+            mask = ff > 0
+            order = 8
+            passband = [300* units.MHz, 400* units.MHz]
+            b, a = signal.butter(order, passband, 'bandpass', analog=True)
+            w, ha = signal.freqs(b, a, ff[mask])
+            fa = np.zeros_like(ff, dtype=np.complex)
+            fa[mask] = ha
+            pol_filt = fa
+#            print("FF", ff)
+#            print(stop)
        
+
+
+
             if banana:
                 cherenkov_angle, angle, log_energy = params 
                 energy = 10**log_energy
-
+                
 
 
                 signal_zenith, signal_azimuth = hp.cartesian_to_spherical(*self._launch_vector)
@@ -468,11 +505,17 @@ class neutrinoDirectionReconstructor:
                 if np.rad2deg(zenith) > 100:
                     return np.inf ## not in field of view
             else: 
-                zenith, azimuth, log_energy = params
-                energy = 10**log_energy
+                if len(params) ==3:
+                    zenith, azimuth, log_energy = params 
+                    energy = 10**log_energy
+                if len(params) == 1:
+                    log_energy = params
+                    energy = 10**log_energy
+                    zenith, azimuth = direction
             
             azimuth = self.transform_azimuth(azimuth)
-            
+            #energy = self.__simulated_energy
+            print("energy", energy)
             print("parameters zen {} az {} energy {}".format(np.rad2deg(zenith), np.rad2deg(azimuth), energy))
             traces, timing, launch_vector, viewingangles, raytypes, pol = self._simulation.simulation(self._det, self._station, vertex_x, vertex_y, vertex_z, zenith, azimuth, energy, self._use_channels, fit, first_iter = first_iter)
             chi2 = 0
@@ -498,9 +541,15 @@ class neutrinoDirectionReconstructor:
             
 
             ich = -1
-           
+            reduced_chi2_Vpol = 0
+            reduced_chi2_Hpol = 0
+            channels_Vpol = [1,4,6,10, 11, 12]
+            channels_Hpol = [2, 5, 13] 
+            dict_dt = {}
             for channel in self._station.iter_channels():
-                if channel.get_id() in self._use_channels: #iterate over channels                   
+            #    print("channel", channel.get_id())
+                if (channel.get_id() in channels_Vpol) and (channel.get_id() in self._use_channels):# and (channel.get_id() in [self._use_channels]):#self._use_channels: #iterate over channels
+                   # print("CHANNLE", channel.get_id())                
                     ich += 1 ## number of channel
                     data_trace = np.copy(channel.get_trace())
                     rec_traces[channel.get_id()] = {}
@@ -514,19 +563,19 @@ class neutrinoDirectionReconstructor:
                     num = 0
                     chi2s = np.zeros(2)
                     max_timing_index = np.zeros(2)
-                    
+                    max_data = []
                     ### get dt for phased array
-                    for i_trace, key in enumerate(traces[channel.get_id()]): 
-                        
+                    for i_trace, key in enumerate(traces[channel.get_id()]):#get dt for phased array pulse  
+#                        print("i trace",i_trace) 
 
                         rec_trace_i = traces[channel.get_id()][key]
                         rec_trace = rec_trace_i
 
                         max_trace = max(abs(rec_trace_i))
                         delta_T =  timing[channel.get_id()][key] - T_ref
-
-                        if (np.round(delta_T) == 0):
-
+                      
+                        if 1:#(np.round(delta_T) == 0):
+                    #        print("delta T", delta_T)
                             ## before correlating, set values around maximum voltage trace data to zero
                             delta_toffset = delta_T * self._sampling_rate
 
@@ -534,14 +583,14 @@ class neutrinoDirectionReconstructor:
                             dk = int(k_ref + delta_toffset )
                             rec_trace1 = rec_trace
 
-
+                              
                             if ((dk > 300)&(dk < len(np.copy(data_trace)) - 500)):#channel.get_id() == 9:#ARZ:#(channel.get_id() == 10 and i_trace == 1):
                             #    print("YES")
                                 data_trace_timing = np.copy(data_trace) ## cut data around timing
                                 ## DETERMIINE PULSE REGION DUE TO REFERENCE TIMING 
 
 
-
+                                #print("dk", dk)
                                 data_timing_timing = np.copy(channel.get_times())#np.arange(0, len(channel.get_trace()), 1)#
                                 dk_1 = data_timing_timing[dk]
 
@@ -551,16 +600,45 @@ class neutrinoDirectionReconstructor:
                                 ### cut data trace timing to make window to search for pulse smaller
                                 data_trace_timing_1[data_timing_timing < (dk_1 - 150)] = 0
                                 data_trace_timing_1[data_timing_timing > (dk_1 + 250)] = 0
+                                ##### dt is the same for a channel+ corresponding Hpol. Dt will be determined by largest trace
+                                max_data_2 = 0
+                                if (i_trace ==0): 
 
+                                 #   print("trace 1")
+                                    max_data_1 =  max(data_trace_timing_1)
+                                if i_trace ==1:
+                                    max_data_2 = max(data_trace_timing_1)
+                                if ((i_trace ==0) or (i_trace ==1 & (max_data_2 > max_data_1))):
+            #                    print("CHANNLE ID", channel.get_id())
+                                    library_channels ={}
+                                #library_channels[6] = {}
+                                    library_channels[6] = [6,13]
+                                    library_channels[1] = [1,2]
+                                    library_channels[4] = [4,5]
+                                    library_channels[10] = [10]
+                                    library_channels[11] = [11]
+                                    library_channels[12] = [12]
+                     #           print("library", library_channels)
+                                    if 1: 
+                                        corr = signal.hilbert(signal.correlate(rec_trace1, data_trace_timing_1))
+                                    dt = np.argmax(corr) - (len(corr)/2) +1
+                                #    print("DT", dt)   
+                               
+                                    corresponding_channels = library_channels[channel.get_id()]
+             #                       print("corresponding channels", corresponding_channels)
+                                    for ch in corresponding_channels:
+                                        dict_dt[ch] = dt
 
-
-
-
-                                if 1: 
-                                    corr = signal.hilbert(signal.correlate(rec_trace1, data_trace_timing_1))
-                                dt = np.argmax(corr) - (len(corr)/2) +1 
-
-                    
+ 
+            for channel in self._station.iter_channels():
+                if channel.get_id() in self._use_channels:
+                    rec_traces[channel.get_id()] = {}
+                    data_traces[channel.get_id()] = {}
+                    data_timing[channel.get_id()] = {}
+                    weight = 1
+                    data_trace = np.copy(channel.get_trace())
+                    data_trace_timing = data_trace 
+ 
                     for i_trace, key in enumerate(traces[channel.get_id()]): ## iterate over ray type solutions
                         if 1:
                             rec_trace_i = traces[channel.get_id()][key]
@@ -576,7 +654,7 @@ class neutrinoDirectionReconstructor:
                             dk = int(k_ref + delta_toffset )
                             rec_trace1 = rec_trace
 
-
+                            
                             if ((dk > 300)&(dk < len(np.copy(data_trace)) - 500)):#channel.get_id() == 9:#ARZ:#(channel.get_id() == 10 and i_trace == 1):
                             #    print("YES")
                                 data_trace_timing = np.copy(data_trace) ## cut data around timing
@@ -585,7 +663,6 @@ class neutrinoDirectionReconstructor:
 
                                 data_timing_timing = np.copy(channel.get_times())#np.arange(0, len(channel.get_trace()), 1)#
                                 dk_1 = data_timing_timing[dk]
-
                                 data_timing_timing = data_timing_timing[dk - 300 : dk + 500]
                                 data_trace_timing = data_trace_timing[dk -300 : dk + 500]
                                 data_trace_timing_1 = np.copy(data_trace_timing)
@@ -594,14 +671,23 @@ class neutrinoDirectionReconstructor:
                                 data_trace_timing_1[data_timing_timing > (dk_1 + 250)] = 0
                                 
                                
-                                
-
+				#if channel.get_id() in [#corr = signal.hilbert(signal.correlate(rec_trace1, data_trace_timing_1))
+                                #dt = np.argmax(corr) - (len(corr)/2) +1
+                              
+                                dt = dict_dt[channel.get_id()]
                                 rec_trace1 = np.roll(rec_trace1, math.ceil(-1*dt))
-
-                                rec_trace1 = rec_trace1[150 : 550] 
-                                data_trace_timing = data_trace_timing[150:  550]
+                             
+                               # fig = plt.figure()
+                               # ax = fig.add_subplot(111)
+                               # ax.plot(rec_trace1)
+                               # ax.plot(data_trace_timing)
+                               # fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/1_direction_simulations/hoi.pdf")
+                               # print(stop)
+                                rec_trace1 = rec_trace1[150 : 750] 
+                                data_trace_timing = data_trace_timing[150:  750]
                                 #print("len data timing timing", len(data_timing_timing))
-                                data_timing_timing = data_timing_timing[150:  550]
+                                data_timing_timing = data_timing_timing[150:  750]
+                                
 
 
 
@@ -614,33 +700,70 @@ class neutrinoDirectionReconstructor:
                                     rec_traces[channel.get_id()][i_trace] = rec_trace1
                                     data_traces[channel.get_id()][i_trace] = data_trace_timing
                                     data_timing[channel.get_id()][i_trace] = data_timing_timing
+                                    #print("data timing", i_trace)                                  
                                     
                                     
 
                                     SNR = abs(max(data_trace_timing) - min(data_trace_timing) ) / (2*sigma)
-                                    if channel.get_id() == 6:
-                                        if i_trace == 0:
-                                            SNR_1 = SNR ## find offset
-                                        if i_trace ==1:
-                                            SNR_2 = SNR
-
+                                 #   if channel.get_id() == 6:
+                                 #       if i_trace == 0:
+                                 #           SNR_1 = SNR ## find offset
+                                 #       if i_trace ==1:
+                                 #           SNR_2 = SNR
+                                    ff = np.fft.rfftfreq(600, .1)
+                                    mask = ff > 0
+                                    order = 8
+                                    passband = [200* units.MHz, 300* units.MHz]
+                                    b, a = signal.butter(order, passband, 'bandpass', analog=True)
+                                    w, ha = signal.freqs(b, a, ff[mask])
+                                    fa = np.zeros_like(ff, dtype=np.complex)
+                                    fa[mask] = ha
+                                    pol_filt = fa
                                 # if vertex is wrong reconstructed, than it can be that data_timing_timing does not exist. In that case, set to zero. 
                                     try:
                                         max_timing_index[i_trace] = data_timing_timing[np.argmax(data_trace_timing)]
                                     except: 
                                         max_timing_index[i_trace] = 0   
 
-                                    if channel.get_id() == 6:#(int(delta_T) == 0):
-                                        trace_trig = i_trace
+                                    if  channel.get_id() == 6:#(int(delta_T) == 0):
+                                        if 1:#   
+                                            trace_trig = i_trace
 
-                                        chi2s[i_trace] = np.sum((rec_trace1 - data_trace_timing)**2 / (2*(sigma+self._model_sys*abs(data_trace_timing))**2))
+                                            chi2s[i_trace] = np.sum((rec_trace1 - data_trace_timing)**2 / ((sigma+model_sys*abs(data_trace_timing))**2))#/len(rec_trace1)
+             #                           print("len data trace timing", len(data_trace_timing))
+                                            data_tmp = fft.time2freq(data_trace_timing, self._sampling_rate) * pol_filt 
+                                            power_data_6 = np.sum(fft.freq2time(data_tmp, self._sampling_rate)**2)                   
+                                            rec_tmp = fft.time2freq(rec_trace1, self._sampling_rate) * pol_filt                     
+                                            power_rec_6 = np.sum(fft.freq2time(rec_tmp, self._sampling_rate) **2)
+                                            reduced_chi2_Vpol +=  weight*0.5* np.sum((rec_trace1 - data_trace_timing)**2 / ((sigma+model_sys*abs(data_trace_timing))**2))/len(rec_trace1)
+
                                     if channel.get_id() == 13:
-                                        if 1:#i_trace == trace_trig:
-                                            chi2s[i_trace] = np.sum((rec_trace1 - data_trace_timing)**2 / (2*(sigma+self._model_sys*abs(data_trace_timing))**2))
-                
+                                        if  1:#max(data_timing[channel.get_id()][0]) < min(data_timing[channel.get_id()][1]):#i_trace == trace_trig:
+                                            mask_trace = 200
+                                            chi2s[i_trace] = np.sum((rec_trace1[0:mask_trace] - data_trace_timing[0:mask_trace])**2 / ((sigma)**2))/len(rec_trace1[0:mask_trace])
+                                            data_tmp = fft.time2freq(data_trace_timing, self._sampling_rate) * pol_filt
+                                            power_data_13 = np.sum((fft.freq2time(data_tmp, self._sampling_rate) )**2)
+                                            rec_tmp = fft.time2freq(rec_trace1, self._sampling_rate) * pol_filt       
+                                            power_rec_13 = np.sum((fft.freq2time(rec_tmp, self._sampling_rate) )**2)
+                                            R_rec = power_rec_6/power_rec_13
+                                            R_data = power_data_6/power_data_13
+                                           # print("CHI@ HPOL",  0.5*np.sum((rec_trace1[0:200] - data_trace_timing[0:200])**2 / ((sigma**2))))
+                                            if 0:#i_trace ==0:
+                                                fig = plt.figure()
+                                                ax = fig.add_subplot(111)
+                                                ax.plot(data_trace_timing[0:mask_trace])
+                                                ax.plot(rec_trace1[0:mask_trace])
+                                                #ax.plot((data_trace_timing - rec_trace1)/15 /sigma)
+                                                fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/1_direction_simulations/hoi.pdf")
+                                            reduced_chi2_Hpol +=  weight* 0.5*np.sum((rec_trace1[0:mask_trace] - data_trace_timing[0:mask_trace])**2 / ((sigma)**2))/len(rec_trace1[0:mask_trace])
+                                           # print("reduced chi2 Hpol", weight* 0.5*np.sum((rec_trace1[0:mask_trace] - data_trace_timing[0:mask_trace])**2 / ((sigma)**2))/len(rec_trace1[0:mask_trace]))
+                                    #        print("R_rec", R_rec)
+                                    #        print("R_data", R_data)
                                     elif (SNR > 3.5):
-
-                                        chi2s[i_trace] = np.sum((rec_trace1 - data_trace_timing)**2 / (2*(sigma+self._model_sys*abs(data_trace_timing))**2))
+                                        if channel.get_id() in channels_Vpol:
+                                            mask_trace = 400
+                                        if channel.get_id() in channels_Hpol:
+                                            chi2s[i_trace] = np.sum((rec_trace1[0:mask_trace] - data_trace_timing[0:mask_trace])**2 / ((sigma)**2))#/len(rec_trace1[0:mask_trace])
 
                   
                     
@@ -648,6 +771,7 @@ class neutrinoDirectionReconstructor:
                             rec_traces[channel.get_id()][i_trace] = np.zeros(400)
                             data_traces[channel.get_id()][i_trace] = np.zeros(400)
                             data_timing[channel.get_id()][i_trace] = np.zeros(400)
+                        
 
                     if 0:# (abs(max_timing_index[ 0] - max_timing_index[ 1]) < 300): #check if both pulses correspond to the same data. If so, only add minimum chi2
                      
@@ -655,20 +779,139 @@ class neutrinoDirectionReconstructor:
                         dof += len(rec_trace1)
                         all_chi2.append(min(chi2s)/len(rec_trace1))
                     else: ## else, add both
-                        chi2 += chi2s[0] 
-                        chi2 += chi2s[1]
-                        dof += 2*len(rec_trace1)
-                        all_chi2.append(chi2s[0]/len(rec_trace1))
-                        all_chi2.append(chi2s[1]/len(rec_trace1))
+                        #print("data timing channel id", data_timing[channel.get_id()])
+                        if max(data_timing[channel.get_id()][0]) > min(data_timing[channel.get_id()][1]):
+                                time = np.arange(min(data_timing[channel.get_id()][0]), max(data_timing[channel.get_id()][1]),.1)
+                                ff = np.fft.rfftfreq(len(time), .1)
+                                mask = ff > 0
+                                order = 8
+                                passband = [200* units.MHz, 500* units.MHz]
+                                b, a = signal.butter(order, passband, 'bandpass', analog=True)
+                                w, ha = signal.freqs(b, a, ff[mask])
+                                fa = np.zeros_like(ff, dtype=np.complex)
+                                fa[mask] = ha
+                                pol_filt = fa
 
+                                model_sys = 0 
+                                #if channel.get_id() ==6: 
+                                #time = np.arange(min(data_timing[channel.get_id()][0]), max(data_timing[channel.get_id()][1]),.1)
+                                #print("timing", data_timing[channel.get_id()][0])
+                                data1 = np.append(data_traces[channel.get_id()][0], np.zeros(len(time) - len(data_traces[channel.get_id()][0])))
+                                data2 = np.append(np.zeros(len(time) - len(data_traces[channel.get_id()][1])), data_traces[channel.get_id()][1])
+                                #print("timing", time)
+                                data1[(len(data_traces[channel.get_id()][0]))::] = data2[len(data_traces[channel.get_id()][0])::]
+                                rec1 = np.append(rec_traces[channel.get_id()][0], np.zeros(len(time) - len(rec_traces[channel.get_id()][0])))
+                                rec2 = np.append(np.zeros(len(time) - len(rec_traces[channel.get_id()][1])), rec_traces[channel.get_id()][1])
+                                rec = rec1 + rec2
+                                add = 0
+                                if channel.get_id() ==6:
+                                    add = 1
+                                    weight = 1
+                                    reduced_chi2_Vpol =  weight* np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2))/len(rec)
+                                    data_tmp = fft.time2freq(data1, self._sampling_rate) * pol_filt
+                                    power_data_6 = np.sum(fft.freq2time(data_tmp, self._sampling_rate)**2)
+                                    rec_tmp = fft.time2freq(rec, self._sampling_rate) * pol_filt
+                                    power_rec_6 = np.sum(fft.freq2time(rec_tmp, self._sampling_rate) **2)    
+
+                                if channel.get_id() ==13:
+                                    weight = 1
+                                    add =1 
+                                    filter_Hpol = True
+                                    if filter_Hpol: 
+                                        rec = fft.time2freq(rec, self._sampling_rate) #* pol_filt
+                                        rec = fft.freq2time(rec, self._sampling_rate) 
+                                        data1 = fft.time2freq(data1, self._sampling_rate)# *pol_filt
+                                        data1 = fft.freq2time(data1, self._sampling_rate) 
+                                        reduced_chi2_Hpol = weight * np.sum((rec - data1)**2 / ((sigma)**2))/len(rec)
+                                        noise_temp = 300
+                                        bandwidth = 652 
+                                        noise_rms = sigma/1.5#(noise_temp* 50 * constants.k * bandwidth / units.Hz) ** 0.5
+                                        #sigma = noise_rms
+                                        #print("Noise rms", noise_rms)
+                                        reduced_chi2_Hpol =  weight* np.sum((rec - data1)**2 / ((sigma)**2))/len(rec)
+                                    data_tmp = fft.time2freq(data1, self._sampling_rate) * pol_filt
+                                    power_data_13 = np.sum(fft.freq2time(data_tmp, self._sampling_rate)**2)
+                                    rec_tmp = fft.time2freq(rec, self._sampling_rate) * pol_filt
+                                    power_rec_13 = np.sum(fft.freq2time(rec_tmp, self._sampling_rate) **2)
+                                    R_data =  power_data_6/power_data_13 
+                                    R_rec =  power_rec_6/power_rec_13      
+                                    #chi2 += weight* np.sum((rec - data1)**2 / ((sigma)**2))/len(rec)
+                                if (SNR > 3.5):
+                                    add = 1
+                                    data_tmp = fft.time2freq(data1, self._sampling_rate) * pol_filt
+                                    power_data_6 = np.sum(fft.freq2time(data_tmp, self._sampling_rate)**2)
+                                    rec_tmp = fft.time2freq(rec, self._sampling_rate) * pol_filt
+                                    power_rec_6 = np.sum(fft.freq2time(rec_tmp, self._sampling_rate) **2)
+                                
+                                if add: chi2 += weight* np.sum((rec - data1)**2 / ((sigma)**2))#/len(rec)
+                                #print("SImg aHPol", sigma)
+                                sigma = 0.0114
+                                dof += len(time)
+                                print("ADDD DOF {}, chi2 {}, chi2 /dof {}".format( dof, chi2, chi2/dof))
+                                if 0:#channel.get_id() == 6:
+                                    fontsize = 30
+                                    fig = plt.figure(figsize = (40, 40))
+                                    ax = fig.add_subplot(421)
+                                    ax.plot(time, data1, label = 'data')
+                                    #ax.plot(time, data2)
+                                    ax.set_title("Chi2: {}, dof: {}, chi2/dof: {}".format(np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2)),2), np.round(dof,2), np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2))/dof, 2)), fontsize = 30)
+                                    ax.plot(time, rec, lw = 1, label = 'reconstruction')
+                                    ax3 = fig.add_subplot(423)
+                                    ax3.plot(time, (rec-data1)/(sigma + model_sys * abs(data1)), label = '(rec-data)/sigma')
+                                    ax3.plot(time, (rec-data1), label = '(rec-data)')
+                                    ax3.legend(fontsize = 30)
+                                    ax3.axvline(time[np.argmax(((rec-data1)/(sigma + model_sys * abs(data1)))[0:400])])
+                                    ax.axvline(time[np.argmax(((rec-data1)/(sigma + model_sys * abs(data1)))[0:400])])
+                                    ax3.axvline(time[np.argmax(((rec-data1)/(sigma + model_sys * abs(data1))))])
+                                    ax.axvline(time[np.argmax(((rec-data1)/(sigma + model_sys * abs(data1))))])
+                                    ax.grid()
+                                    ax.legend(fontsize = fontsize)
+                                    ax3.grid()
+                                    #ax3.set_xlim((11940, 11980))
+                                    #aex.set_xlim((11940, 11980))
+                                    ax1 = fig.add_subplot(422)
+                                    ax1.hist((rec-data1)/(sigma + model_sys * abs(data1)), density = True)
+                                    ax1.plot(np.arange(-5, 5, .1), stats.norm.pdf(np.arange(-5, 5, .1), 0, 1), color = 'red', label = 'standard normal')
+                                
+          #                      if channel.get_id() ==6:
+           #                         reduced_chi2_Vpol = np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2))/dof, 2)
+                                if 0:#channel.get_id() == 13:
+                                    ax = fig.add_subplot(425)
+                                    ax.plot(data1)
+                                    ax.plot(rec, lw = 1)
+                                    ax1 = fig.add_subplot(426)
+                                    ax1.hist((rec-data1)/(sigma/1.5 + model_sys * abs(data1)), density = True)
+                                    ax1.plot(np.arange(-5, 5, .1), stats.norm.pdf(np.arange(-5, 5, .1), 0, 1), color = 'red', label = 'standard normal')
+                                    ax1.legend()
+                                    ax3 = fig.add_subplot(427)
+                                    ax3.plot((rec-data1)/(sigma + model_sys * abs(data1)), label = '(rec-data)/sigma')
+                                    ax3.legend(fontsize = fontsize)
+                                    ax.set_title("Chi2: {}, dof: {}, chi2/dof: {}".format(np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2)),2), np.round(len(time),2), np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2))/len(time), 2)), fontsize = fontsize)#ax.set_title("Chi2: {}, dof {}, chi2/dof = {}:".format(np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2), 2)), dof, np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2))/dof, 2)))
+                                    fig.tight_layout()
+                                    #print(stop)
+                                    fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/1_direction_simulations/totaltrace.pdf")
+        #                        
+                                
+                                     # if channel.get_id() ==13:
+         #                           reduced_chi2_Hpol = np.round(np.sum((rec - data1)**2 / ((sigma+model_sys*abs(data1))**2))/len(time), 2)    			
+                        else:
+                                chi2 += chi2s[0] 
+                                chi2 += chi2s[1]
+                                dof += 2*len(rec_trace1)
+                                all_chi2.append(chi2s[0])
+                                all_chi2.append(chi2s[1])
+            self.__dof = dof
 
             if timing_k:
                 return ks
             if not minimize:
                 #print("simtraces", simtraces)
                 #print("simtraces_timing", simtraces_timing)
-                return [rec_traces, data_traces, data_timing, all_chi2]
-            return chi2/dof # - (dof - 3)/2 * np.log(2*np.pi*(sigma+self._model_sys*abs(data_trace_timing)**2))
+                #print("data timing 0", [data_timing[6][0][0], data_timing[6][0][-1]])
+                #print("data timing 1", [data_timing[6][1][0], data_timing[6][1][-1]])
+                return [rec_traces, data_traces, data_timing, all_chi2, [reduced_chi2_Vpol, reduced_chi2_Hpol]]
+        #    print("CHI2 {}, dof {}, chi2/dof {}".format(chi2, dof, chi2/dof))
+            return chi2 # - (dof - 3)/2 * np.log(2*np.pi*(sigma+self._model_sys*abs(data_trace_timing)**2))
 
 
 
