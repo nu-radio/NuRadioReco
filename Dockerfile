@@ -1,5 +1,5 @@
 FROM python:3.6-slim
-LABEL maintainer="The NuRadioReco Authors <todo@todo.com>"
+LABEL maintainer="Glaser, C., Nelles, A., Plaisier, I."
 
 RUN apt-get update
 RUN apt-get upgrade -y
