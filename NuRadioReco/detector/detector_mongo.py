@@ -13,11 +13,14 @@ logger.setLevel(logging.DEBUG)
 # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
 # client = MongoClient("mongodb+srv://detector_write:detector_write@cluster0-fc0my.mongodb.net/test?retryWrites=true&w=majority")
 # client = MongoClient("localhost")
-MONGODB_URL = os.environ.get('MONGODB_URL')
-if MONGODB_URL is None:
-    logging.warning('MONGODB_URL not set, defaulting to "localhost"')
-    MONGODB_URL = 'localhost'
-client = MongoClient(MONGODB_URL)
+mongo_password = os.environ.get('mongo_password')
+mongo_user = os.environ.get('mongo_user')
+mongo_server = os.environ.get('mongo_server')
+if mongo_server is None:
+    logging.warning('variable "mongo_server" not set')
+if None in [mongo_user, mongo_server]:
+    logging.warning('"mongo_user" or "mongo_password" not set')
+client = MongoClient("mongodb://{}:{}@{}/?retryWrites=true&w=majority".format(mongo_user, mongo_password, mongo_server))
 db = client.RNOG_test
 
 

@@ -21,8 +21,8 @@ variables:
 ## Run the container
 `docker run -it --rm -p 8050:8050 radio/detector`
 
-(one may pass the url to the mongodb as environmental variable
-`docker run -it --rm  -e MONGODB_URL=<URL_TO_MONGODB> -p 8050:8050 radio/detector`)
+(one may pass the url/user/password to the mongodb as environmental variables
+`docker run -it --rm  -e mongo_user=<USER> -e mongo_password=<PW> -e mongo_server=<URL_TO_MONGODB> -p 8050:8050 radio/detector`)
 
 ## Open in browser
 To connect to the application with your web browser you now have to
