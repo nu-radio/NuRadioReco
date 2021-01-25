@@ -44,7 +44,7 @@ class simulation():
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
 		if self._template:
 			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
-			distances = [500, 700, 900, 1200, 2000,2100,  3000, 4000, 10000]
+			distances = [500, 700, 900, 1200, 2000,2100,  3000, 3200, 4000, 10000]
 			distance_event = np.sqrt(vertex[0]**2 + vertex[1]**2 + vertex[2]**2) ## assume station is at 000
 			print("distance event", distance_event)
 			for dist in distances:
@@ -64,7 +64,7 @@ class simulation():
 
 			else:
 				## open look up tables 
-				viewing_angles = np.arange(45, 70, .2)
+				viewing_angles = np.arange(40, 70, .2)
 
 				self._header = {}
 				self._templates = { 'header': {'energies': 0, 'viewing angles': 0, 'R': 0, 'n_indes': 0} }
@@ -155,7 +155,7 @@ class simulation():
 		cs = cstrans.cstrafo(*hp.cartesian_to_spherical(*raytracing[channel_id][iS]["launch vector"]))
 		return cs.transform_from_ground_to_onsky(polarization_direction)
 	
-	def simulation(self, det, station, vertex_x, vertex_y, vertex_z, nu_zenith, nu_azimuth, energy, use_channels, fit = 'seperate', first_iter = False, model = 'Alvarez2009'):
+	def simulation(self, det, station, vertex_x, vertex_y, vertex_z, nu_zenith, nu_azimuth, energy, use_channels, fit = 'seperate', first_iter = False, model = 'ARZ2020'):
 		
 		
 		polarization = True

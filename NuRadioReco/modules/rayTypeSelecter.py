@@ -18,7 +18,7 @@ import datetime
 import math
 from NuRadioMC.utilities import medium
 from NuRadioMC.SignalProp import propagation
-
+import scipy
 
 
 class rayTypeSelecter:
@@ -36,7 +36,7 @@ class rayTypeSelecter:
         pass
 
     def run(self, event, shower_id, station, det,
-            use_channels=[9, 14]):
+            use_channels=[9, 14], template = None):
         ice = medium.get_ice_model('greenland_simple')
         prop = propagation.get_propagation_module('analytic')
         sim_station = True
@@ -47,6 +47,12 @@ class rayTypeSelecter:
         sampling_rate = station.get_channel(0).get_sampling_rate() ## assume same for all channels
         if debug_plots: fig, axs = plt.subplots(3)
         ich = 0
+        print("template", template)
+        if template is not None:
+        #### Run template through channel 6
+            channel = station.get_channel(6)
+            corr = scipy.signal.correlate(channel.get_trace(), template)
+	    dt = np.argmax(corr) - (len(corr)/2) +1
         T_ref = np.zeros(3)
         max_totaltrace = np.zeros(3)
         position_max_totaltrace = np.zeros(3)
