@@ -39,20 +39,16 @@ hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorpo
 
 class simulation():
 	
-	def __init__(self, template = False, vertex = [0,0,-1000]):
+	def __init__(self, template = False, vertex = [0,0,-1000], distances = None):
 		self._template = template
 		self.antenna_provider = antennapattern.AntennaPatternProvider()
 		if self._template:
 			self._templates_path = '/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates'
-			distances = [500, 700, 900, 1200, 2000,2100,  3000, 3200, 4000, 10000]
+			distances = [200, 300, 400, 500, 600, 700,800, 900, 1000, 1100, 1200, 1300,1400,  1500, 1600, 1800, 2100, 2200, 2500, 3000, 300, 3500, 4000]
 			distance_event = np.sqrt(vertex[0]**2 + vertex[1]**2 + vertex[2]**2) ## assume station is at 000
 			print("distance event", distance_event)
-			for dist in distances:
-				if distance_event < dist:
-					R = dist
-					break
-			if R == 10000:
-				R = 4000
+		
+			R = distances[np.abs(np.array(distances) - distance_event).argmin()]
 			print("selected distance", R)
 			my_file = Path("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/templates/templates_{}.pkl".format(R, R))
 			if my_file.is_file():
