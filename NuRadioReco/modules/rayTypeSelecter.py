@@ -47,17 +47,8 @@ class rayTypeSelecter:
         sampling_rate = station.get_channel(0).get_sampling_rate() ## assume same for all channels
         if debug_plots: fig, axs = plt.subplots(3)
         ich = 0
-        print("template", template)
-        if template is not None:
-        #### Run template through channel 6
-            channel = station.get_channel(6)
-            corr = scipy.signal.correlate(channel.get_trace(), template)
-            dt = np.argmax(corr) - (len(corr)/2) +1
-            fig = plt.figure()
-            ax = fig.add_subplot(111)
-            ax.plot(channel.get_trace())
-            ax.axvline(dt)
-            fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/1_direction_simulations/hoi.pdf")
+    #    print("template", template)
+        #### determine position of pulse 
         T_ref = np.zeros(3)
         max_totaltrace = np.zeros(3)
         position_max_totaltrace = np.zeros(3)
@@ -74,23 +65,41 @@ class rayTypeSelecter:
                        if r.get_solution_type(iS) == raytype:
                            
                            T = r.get_travel_time(iS)
-                           print("ref channel", use_channels[0])
+     #                      print("ref channel", use_channels[0])
                            if channel.get_id() == use_channels[0]: T_ref[iS] = T
-                           print("T REF", T_ref)
+      #                     print("T REF", T_ref)
                            dt = T - T_ref[iS]
                            dn_samples = dt * sampling_rate
                            dn_samples = math.ceil(-1*dn_samples)
-                           trace = np.roll(np.copy(channel.get_trace()), dn_samples)
+                           cp_trace = np.copy(channel.get_trace())
+                           if template is not None:
+                                #### Run template through channel 6
+                                #channel = station.get_channel(6)
+                #                cp_trace = np.copy(channel.get_trace())
+                                if len(cp_trace) != len(template):
+                                    #add_zeros = np.zeros(abs(len(channel.get_trace()) - len(template)))
+                                    template = np.pad(template, (0, abs(len(cp_trace) - len(template))))
+                           corr = scipy.signal.correlate(cp_trace*(1/(max(cp_trace))), template*(1/(max(template))))
+                            #xcorr = hp.get_normalized_xcorr(channel.get_trace(), template)
+                            # print("xcorr", len(xcorr))
+                           dt = np.argmax(corr) - (len(corr)/2) +1
+       #                    print("dt", dt)
+                           template_roll = np.roll(template, int(dt))
+                           pos_max = np.argmax(template_roll)
+                           cp_trace[np.arange(len(cp_trace)) < (pos_max - 20 * sampling_rate)] = 0
+                           cp_trace[np.arange(len(cp_trace)) > (pos_max + 30 * sampling_rate)] = 0
+                           trace = np.roll(cp_trace, dn_samples)
                            total_trace += trace
-
+                           position_max_totaltrace[raytype-1] = pos_max
                            if debug_plots: axs[raytype-1].plot(trace)
         #    if debug_plots: axs[raytype].set_xlim((1500, 2250))
             if debug_plots: axs[raytype-1].set_title("raytype {}".format(['direct', 'refracted', 'reflected'][raytype-1]))
-            if debug_plots: axs[raytype-1].plot(total_trace, label = 'total {}'.format(raytype))
+            if debug_plots: axs[raytype-1].plot(hp.get_normalized_xcorr(total_trace/max(total_trace), template_roll/(max(template))), label = 'total {}'.format(raytype))
             if debug_plots: axs[raytype-1].legend()
-            max_totaltrace[raytype-1] = max(abs(total_trace))
-     
-            position_max_totaltrace[raytype-1] = np.argmax((abs(total_trace)))
+            max_totaltrace[raytype-1] = max(hp.get_normalized_xcorr(total_trace/max(total_trace), template_roll/max(template)))
+            where_are_NaNs = np.isnan(max_totaltrace)
+            max_totaltrace[where_are_NaNs] = 0 
+            #position_max_totaltrace[raytype-1] = pos_max#np.argmax((abs(total_trace)))
         print("max total trace", max_totaltrace)
         reconstructed_raytype = ['direct', 'refracted', 'reflected'][np.argmax(max_totaltrace)]
         if debug_plots: fig.tight_layout()
