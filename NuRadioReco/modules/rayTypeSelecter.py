@@ -52,7 +52,12 @@ class rayTypeSelecter:
         #### Run template through channel 6
             channel = station.get_channel(6)
             corr = scipy.signal.correlate(channel.get_trace(), template)
-	    dt = np.argmax(corr) - (len(corr)/2) +1
+            dt = np.argmax(corr) - (len(corr)/2) +1
+            fig = plt.figure()
+            ax = fig.add_subplot(111)
+            ax.plot(channel.get_trace())
+            ax.axvline(dt)
+            fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/1_direction_simulations/hoi.pdf")
         T_ref = np.zeros(3)
         max_totaltrace = np.zeros(3)
         position_max_totaltrace = np.zeros(3)
