@@ -1,9 +1,11 @@
 from pymongo import MongoClient
+import os
 import pymongo
 import datetime
 # pprint library is used to make the output look more pretty
 from pprint import pprint
 import logging
+import urllib.parse
 
 logging.basicConfig()
 logger = logging.getLogger("database")
@@ -11,7 +13,18 @@ logger.setLevel(logging.DEBUG)
 
 # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
 # client = MongoClient("mongodb+srv://detector_write:detector_write@cluster0-fc0my.mongodb.net/test?retryWrites=true&w=majority")
-client = MongoClient("localhost")
+# client = MongoClient("localhost")
+
+# use db connection from environment, pw and user need to be percent escaped
+mongo_password = urllib.parse.quote_plus(os.environ.get('mongo_password'))
+mongo_user = urllib.parse.quote_plus(os.environ.get('mongo_user'))
+mongo_server = os.environ.get('mongo_server')
+if mongo_server is None:
+    logging.warning('variable "mongo_server" not set')
+if None in [mongo_user, mongo_server]:
+    logging.warning('"mongo_user" or "mongo_password" not set')
+# start client
+client = MongoClient("mongodb://{}:{}@{}".format(mongo_user, mongo_password, mongo_server), tls=True)
 db = client.RNOG_test
 
 
