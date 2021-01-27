@@ -41,7 +41,7 @@ class rayTypeSelecter:
         prop = propagation.get_propagation_module('analytic')
         sim_station = True
         if sim_station: vertex = event.get_sim_shower(shower_id)[shp.vertex]
-        debug_plots = True
+        debug_plots =True
         #vertex= station[stnp.nu_vertex] 
         x1 = vertex
         sampling_rate = station.get_channel(0).get_sampling_rate() ## assume same for all channels
@@ -86,12 +86,16 @@ class rayTypeSelecter:
        #                    print("dt", dt)
                            template_roll = np.roll(template, int(dt))
                            pos_max = np.argmax(template_roll)
+                           if channel.get_id() == 6: 
+                               pos_max_6 = pos_max
                            cp_trace[np.arange(len(cp_trace)) < (pos_max - 20 * sampling_rate)] = 0
                            cp_trace[np.arange(len(cp_trace)) > (pos_max + 30 * sampling_rate)] = 0
                            trace = np.roll(cp_trace, dn_samples)
                            total_trace += trace
-                           position_max_totaltrace[raytype-1] = pos_max
                            if debug_plots: axs[raytype-1].plot(trace)
+            print("pos max", pos_max)  ### pos of pulse does not depend on ra tracing solution. 
+            position_max_totaltrace[raytype-1] = pos_max_6
+        #          if debug_plots: axs[raytype-1].plot(trace)
         #    if debug_plots: axs[raytype].set_xlim((1500, 2250))
             if debug_plots: axs[raytype-1].set_title("raytype {}".format(['direct', 'refracted', 'reflected'][raytype-1]))
             if debug_plots: axs[raytype-1].plot(hp.get_normalized_xcorr(total_trace/max(total_trace), template_roll/(max(template))), label = 'total {}'.format(raytype))
@@ -103,7 +107,7 @@ class rayTypeSelecter:
         print("max total trace", max_totaltrace)
         reconstructed_raytype = ['direct', 'refracted', 'reflected'][np.argmax(max_totaltrace)]
         if debug_plots: fig.tight_layout()
-        if debug_plots: fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/TotalFit/first_test/inIceMCCall/Uncertainties/1_direction_simulations/test.pdf")
+        if debug_plots: fig.savefig("/lustre/fs22/group/radio/plaisier/software/simulations/thesis_direction_figures/test.pdf")
         station.set_parameter(stnp.raytype, reconstructed_raytype) 
         print("position max totaltrace", position_max_totaltrace)
         station.set_parameter(stnp.pulse_position, position_max_totaltrace[np.argmax(max_totaltrace)])#pulse location channel 6
