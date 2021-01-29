@@ -201,15 +201,15 @@ for n_it in range(iterations):
         for threshold in trigger_thresholds:
             print('current threshold', threshold)
             if trigger_name == 'high_low':
-                triggerSimulator.run(event, station, det, threshold_high=n_thres, threshold_low=-n_thres,
+                triggerSimulator.run(event, station, det, threshold_high=threshold, threshold_low=-threshold,
                                      coinc_window=coinc_window, number_concidences=number_coincidences,
                                      triggered_channels=triggered_channels, trigger_name=trigger_name)
             if trigger_name == 'envelope':
-                triggerSimulator.run(event, station, det, passband_trigger, order, n_thres, coinc_window,
+                triggerSimulator.run(event, station, det, passband_trigger, order, threshold, coinc_window,
                                      number_coincidences=number_coincidences, triggered_channels=triggered_channels,
                                      trigger_name=trigger_name)
 
-            has_triggered = station.get_trigger('default_high_low').has_triggered()
+            has_triggered = station.get_trigger(trigger_name).has_triggered()
             trigger_status_all_thresholds.append(has_triggered)
 
             #print('current threshold', threshold)
@@ -263,5 +263,3 @@ output_file = 'output_threshold_final/final_threshold_{}_pb_{:.0f}_{:.0f}_i{}_{}
 abs_path_output_file = os.path.normpath(os.path.join(abs_output_path, output_file))
 with open(abs_path_output_file, 'wb') as pickle_out:
     pickle.dump(dic, pickle_out)
-
-
