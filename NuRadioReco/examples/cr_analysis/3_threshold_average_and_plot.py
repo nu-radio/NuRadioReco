@@ -31,6 +31,7 @@ sampling_rate = data['sampling_rate']
 station_time = data['station_time']
 station_time_random = data['station_time_random']
 hardware_response = data['hardware_response']
+trigger_name = data['trigger_name']
 
 Vrms_thermal_noise = data['Vrms_thermal_noise']
 T_noise = data['T_noise']
@@ -101,15 +102,16 @@ dic['triggered_true'] = triggered_true_all
 dic['efficiency'] = trigger_efficiency_all
 dic['trigger_rate'] = trigger_rate_all
 dic['hardware_response'] = hardware_response
+dic['trigger_name'] = trigger_name
 
 #print(dic)
 
-with open('/lustre/fs22/group/radio/lpyras/results/dict_ntr_envelope_pb_{:.0f}_{:.0f}.pickle'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz),
+with open('/lustre/fs22/group/radio/lpyras/results/dict_ntr_{}_pb_{:.0f}_{:.0f}.pickle'.format(trigger_name, passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz),
           'wb') as pickle_out:
     pickle.dump(dic, pickle_out)
 
 
-filename = '/lustre/fs22/group/radio/lpyras/results/dict_ntr_envelope_pb_{:.0f}_{:.0f}.pickle'.format(passband_low, passband_high)
+filename = '/lustre/fs22/group/radio/lpyras/results/dict_ntr_{}_pb_{:.0f}_{:.0f}.pickle'.format(trigger_name, passband_low, passband_high)
 
 data = io_utilities.read_pickle(filename, encoding='latin1')
 
@@ -122,6 +124,7 @@ T_noise = data['T_noise']
 coinc_window = data['coinc_window']
 order_trigger = data['order_trigger']
 iterations = data['iteration']
+trigger_name = data['trigger_name']
 
 
 print('threshold', trigger_thresholds)
@@ -154,5 +157,5 @@ plt.yscale('log')
 plt.legend()
 plt.tight_layout()
 #plt.show()
-plt.savefig('results/fig_ntr_envelope_passband_{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
+plt.savefig('results/fig_ntr_{}_passband_{:.0f}_{:.0f}.png'.format(trigger_name, passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
 plt.close()

@@ -73,6 +73,8 @@ data = io_utilities.read_pickle(input_filename, encoding='latin1')
 # print('#', number)
 # print(data)
 
+triggered_channels = [16, 19, 22]
+
 detector_file = data['detector_file']
 default_station = data['default_station']
 sampling_rate = data['sampling_rate']
@@ -97,6 +99,7 @@ trigger_efficiency = data['efficiency']
 trigger_rate = data['trigger_rate']
 
 hardware_response = data['hardware_response']
+trigger_name = data['trigger_name']
 
 trigger_thresholds = (np.arange(check_trigger_thresholds[-1] + (15*threshold_steps), check_trigger_thresholds[-1] + (30*threshold_steps), threshold_steps)) *units.volt
 
@@ -132,8 +135,14 @@ channelGalacticNoiseAdder = NuRadioReco.modules.channelGalacticNoiseAdder.channe
 channelGalacticNoiseAdder.begin(n_side=4, interpolation_frequencies=np.arange(10, 1100, galactic_noise_interpolation_frequencies_step) * units.MHz)
 hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
 
-triggerSimulator = NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator()
-triggerSimulator.begin()
+if trigger_name == 'high_low':
+    triggerSimulator = NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator()
+    triggerSimulator.begin()
+
+if trigger_name == 'envelope':
+    triggerSimulator = NuRadioReco.modules.trigger.envelopeTrigger.triggerSimulator()
+    triggerSimulator.begin()
+
 channelBandPassFilter = NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter()
 channelBandPassFilter.begin()
 
@@ -184,16 +193,24 @@ for n_it in range(iterations):
             rand_phase = np.random.uniform(low=0, high= 2*np.pi, size=len(freq_specs))
             freq_specs = np.abs(freq_specs) * np.exp(1j * rand_phase)
             channel.set_frequency_spectrum(frequency_spectrum=freq_specs, sampling_rate=sampling_rate)
-            channelBandPassFilter.run(event, station, det, passband=passband_trigger,
-                                      filter_type='butter', order=order_trigger)
+            if trigger_name == 'high_low':
+                channelBandPassFilter.run(event, station, det, passband=passband_trigger,
+                                          filter_type='butter', order=order_trigger)
+
         trigger_status_all_thresholds = []
         for threshold in trigger_thresholds:
             print('current threshold', threshold)
-            triggerSimulator.run(event, station, det, threshold_high=threshold, threshold_low=-threshold,
+            if trigger_name == 'high_low':
+                triggerSimulator.run(event, station, det, threshold_high=n_thres, threshold_low=-n_thres,
                                      coinc_window=coinc_window, number_concidences=number_coincidences,
-                                     triggered_channels=None, trigger_name="default_high_low")
+                                     triggered_channels=triggered_channels, trigger_name=trigger_name)
 
-            has_triggered = station.get_trigger('default_high_low').has_triggered()
+            if trigger_name == 'envelope':
+                triggerSimulator.run(event, station, det, passband_trigger, order, n_thres, coinc_window,
+                                     number_coincidences=number_coincidences, triggered_channels=triggered_channels,
+                                     trigger_name=trigger_name)
+
+        has_triggered = station.get_trigger('default_high_low').has_triggered()
             trigger_status_all_thresholds.append(has_triggered)
 
             #print('current threshold', threshold)
@@ -238,10 +255,11 @@ dic['triggered_all'] = len(trigger_status)
 dic['efficiency'] = trigger_efficiency
 dic['trigger_rate'] = trigger_rate
 dic['hardware_response'] = hardware_response
+dic['trigger_name'] = trigger_name
 
 print(dic)
 
-output_file = 'output_threshold_final/final_threshold_highlow_pb_{:.0f}_{:.0f}_i{}_{}.pickle'.format(
+output_file = 'output_threshold_final/final_threshold_{}_pb_{:.0f}_{:.0f}_i{}_{}.pickle'.format(trigger_name,
         passband_trigger[0] / units.MHz, passband_trigger[1] / units.MHz,len(trigger_status), number)
 abs_path_output_file = os.path.normpath(os.path.join(abs_output_path, output_file))
 with open(abs_path_output_file, 'wb') as pickle_out:

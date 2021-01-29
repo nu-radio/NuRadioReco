@@ -55,6 +55,7 @@ done
 parser = argparse.ArgumentParser()
 parser.add_argument('output_path', type=os.path.abspath, nargs='?', default = '', help = 'Path to save output, most likely the path to the cr_analysis directory')
 parser.add_argument('n_iterations', type=int, nargs='?', default = 10, help = 'number of iterations each threshold should be iterated over. Has to be a multiple of 10')
+parser.add_argument('trigger_name', type=str, nargs='?', default = 'high_low', help = 'name of the trigger, high_low or envelope')
 parser.add_argument('passband_low', type=int, nargs='?', default = 80, help = 'lower bound of the passband used for the trigger in MHz')
 parser.add_argument('passband_high', type=int, nargs='?', default = 180, help = 'higher bound of the passband used for the trigger in MHz')
 parser.add_argument('detector_file', type=str, nargs='?', default = 'LPDA_detector_southpole.json', help = 'detector file')
@@ -79,6 +80,7 @@ output_path = args.output_path
 abs_output_path = os.path.abspath(args.output_path)
 n_iterations = args.n_iterations / 10
 n_iterations = int(n_iterations)
+trigger_name = args.trigger_name
 passband_low = args.passband_low
 passband_high = args.passband_high
 passband_trigger = np.array([passband_low, passband_high]) * units.megahertz
@@ -101,6 +103,7 @@ hardware_response = args.hardware_response
 
 det = GenericDetector(json_filename=detector_file, default_station=default_station)
 
+triggered_channels = [16, 19, 22]
 
 Vrms_thermal_noise = (((scipy.constants.Boltzmann * units.joule / units.kelvin) * Tnoise *
          (T_noise_max_freq - T_noise_min_freq ) * 50 * units.ohm)**0.5)
@@ -137,11 +140,16 @@ channelGenericNoiseAdder.begin()
 channelGalacticNoiseAdder = NuRadioReco.modules.channelGalacticNoiseAdder.channelGalacticNoiseAdder()
 channelGalacticNoiseAdder.begin(n_side=4, interpolation_frequencies=np.arange(10, 1100, galactic_noise_interpolation_frequencies_step) * units.MHz)
 hardwareResponseIncorporator = NuRadioReco.modules.RNO_G.hardwareResponseIncorporator.hardwareResponseIncorporator()
-triggerSimulator = NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator()
-triggerSimulator.begin()
 channelBandPassFilter = NuRadioReco.modules.channelBandPassFilter.channelBandPassFilter()
 channelBandPassFilter.begin()
 
+if trigger_name == 'high_low':
+    triggerSimulator = NuRadioReco.modules.trigger.highLowThreshold.triggerSimulator()
+    triggerSimulator.begin()
+
+if trigger_name == 'envelope':
+    triggerSimulator = NuRadioReco.modules.trigger.envelopeTrigger.triggerSimulator()
+    triggerSimulator.begin()
 
 t = time.time()  # absolute time of system
 sampling_rate = station.get_channel(channel_ids[0]).get_sampling_rate()
@@ -175,7 +183,7 @@ for n_thres in count():
             default_trace = np.zeros(1024)
             channel.set_trace(trace=default_trace, sampling_rate=sampling_rate)
 
-        channelGenericNoiseAdder.run(event, station, det, amplitude=Vrms_thermal_noise, min_freq=T_noise_min_freq, max_freq=T_noise_max_freq, type='rayleigh', bandwidth=None)
+        channelGenericNoiseAdder.run(event, station, det, amplitude=Vrms_thermal_noise, min_freq=T_noise_min_freq, max_freq=T_noise_max_freq, type='rayleigh')
         channelGalacticNoiseAdder.run(event, station, det)
         if hardware_response == True:
             hardwareResponseIncorporator.run(event, station, det, sim_to_data=True)
@@ -189,13 +197,19 @@ for n_thres in count():
                 rand_phase = np.random.uniform(low=0, high= 2*np.pi, size=len(freq_specs))
                 freq_specs = np.abs(freq_specs) * np.exp(1j * rand_phase)
                 channel.set_frequency_spectrum(frequency_spectrum=freq_specs, sampling_rate=sampling_rate)
-                channelBandPassFilter.run(event, station, det, passband=passband_trigger,
+                if trigger_name == 'high_low':
+                    channelBandPassFilter.run(event, station, det, passband=passband_trigger,
                                           filter_type='butter', order=order_trigger)
 
-            triggerSimulator.run(event, station, det, threshold_high=n_thres, threshold_low=-n_thres,
-                                     coinc_window = coinc_window, number_concidences = number_coincidences, triggered_channels = None, trigger_name = "default_high_low")
+            if trigger_name == 'high_low':
+                triggerSimulator.run(event, station, det, threshold_high=n_thres, threshold_low=-n_thres,
+                                     coinc_window = coinc_window, number_concidences = number_coincidences, triggered_channels = triggered_channels, trigger_name = trigger_name)
 
-            trigger_status_one_it = station.get_trigger('default_high_low').has_triggered()
+            if trigger_name == 'envelope':
+                triggerSimulator.run(event, station, det, passband_trigger, order, n_thres, coinc_window,
+                number_coincidences=number_coincidences, triggered_channels=triggered_channels, trigger_name=trigger_name)
+
+            trigger_status_one_it = station.get_trigger(trigger_name).has_triggered()
             print(trigger_status_one_it)
             trigger_status_per_all_it.append(trigger_status_one_it)
 
@@ -253,9 +267,10 @@ for n_thres in count():
             dic['station_time'] = station_time
             dic['station_time_random'] = station_time_random
             dic['hardware_response'] = hardware_response
+            dic['trigger_name'] = trigger_name
 
             print(dic)
-            output_file = 'output_threshold_estimate/estimate_threshold_pb_{:.0f}_{:.0f}_i{}.pickle'.format(passband_trigger[0]/units.MHz,passband_trigger[1]/units.MHz, len(trigger_status_per_all_it))
+            output_file = 'output_threshold_estimate/estimate_threshold_{}_pb_{:.0f}_{:.0f}_i{}.pickle'.format(trigger_name, passband_trigger[0]/units.MHz,passband_trigger[1]/units.MHz, len(trigger_status_per_all_it))
             abs_path_output_file = os.path.normpath(os.path.join(abs_output_path, output_file))
             with open(abs_path_output_file,'wb') as pickle_out:
                 pickle.dump(dic, pickle_out)
