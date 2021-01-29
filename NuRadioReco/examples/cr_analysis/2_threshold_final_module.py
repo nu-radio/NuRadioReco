@@ -204,13 +204,12 @@ for n_it in range(iterations):
                 triggerSimulator.run(event, station, det, threshold_high=n_thres, threshold_low=-n_thres,
                                      coinc_window=coinc_window, number_concidences=number_coincidences,
                                      triggered_channels=triggered_channels, trigger_name=trigger_name)
-
             if trigger_name == 'envelope':
                 triggerSimulator.run(event, station, det, passband_trigger, order, n_thres, coinc_window,
                                      number_coincidences=number_coincidences, triggered_channels=triggered_channels,
                                      trigger_name=trigger_name)
 
-        has_triggered = station.get_trigger('default_high_low').has_triggered()
+            has_triggered = station.get_trigger('default_high_low').has_triggered()
             trigger_status_all_thresholds.append(has_triggered)
 
             #print('current threshold', threshold)
