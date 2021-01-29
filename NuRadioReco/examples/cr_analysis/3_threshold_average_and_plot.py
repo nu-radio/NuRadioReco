@@ -68,7 +68,7 @@ for i_file in range(number_of_files):
     trigger_status[i_file] = data['trigger_status']
 
 
-triggered_true_all =  np.sum(triggered_true, axis=0)
+triggered_true_all = np.sum(triggered_true, axis=0)
 trigger_efficiency_all = np.sum(trigger_efficiency, axis=0) / n_files
 trigger_rate_all = np.sum(trigger_rate, axis=0) / n_files
 iterations = n_iterations * n_files
@@ -104,12 +104,12 @@ dic['hardware_response'] = hardware_response
 
 #print(dic)
 
-with open('results/dict_ntr_pb_{:.0f}_{:.0f}.pickle'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz),
+with open('/lustre/fs22/group/radio/lpyras/results/dict_ntr_envelope_pb_{:.0f}_{:.0f}.pickle'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz),
           'wb') as pickle_out:
     pickle.dump(dic, pickle_out)
 
 
-filename = 'results/dict_ntr_pb_{:.0f}_{:.0f}.pickle'.format(passband_low, passband_high)
+filename = '/lustre/fs22/group/radio/lpyras/results/dict_ntr_envelope_pb_{:.0f}_{:.0f}.pickle'.format(passband_low, passband_high)
 
 data = io_utilities.read_pickle(filename, encoding='latin1')
 
@@ -132,18 +132,21 @@ print('passband', passband_trigger/units.megahertz)
 from scipy.interpolate import interp1d
 
 
-x = trigger_thresholds[11:23]/units.microvolt
-y = trigger_rate[11:23]/units.Hz
-f1 = interp1d(x, y, kind='cubic')
-print('f1',f1(31.7575))
-xnew = np.linspace(trigger_thresholds[12]/units.microvolt, trigger_thresholds[22]/units.microvolt)
+x = trigger_thresholds/units.microvolt
+y = trigger_rate/units.Hz
+f1 = interp1d(x, y, 'cubic')
 
+#print(x)
+thresh = 31.7
+print('f1',f1(thresh))
+xnew = np.linspace(trigger_thresholds[10]/units.microvolt, trigger_thresholds[22]/units.microvolt)
+#print(xnew)
 
 plt.plot(trigger_thresholds/units.microvolt, trigger_rate/units.Hz, marker='x', label= 'Noise trigger rate', linestyle='none')
-plt.plot(xnew, f1(xnew), '--', label='cubic, c(31.7575) = {:.2f} Hz'.format(f1(31.7575)))
-#plt.title('passband = {} MHz, iterations = {:.1e}'.format( passband_trigger/units.megahertz, iterations))
+plt.plot(xnew, f1(xnew), '--', label='interp1d f({:.2f}) = {:.2f} Hz'.format(thresh, f1(thresh)))
+plt.title('Envelope trigger, passband = {} MHz, iterations = {:.1e}'.format( passband_trigger/units.megahertz, iterations))
 plt.xlabel(r'Threshold [$\mu$V]', fontsize=18)
-plt.hlines(0, trigger_thresholds[0]/units.microvolt, trigger_thresholds[-1]/units.microvolt, label='0 Hz')
+#plt.hlines(0, trigger_thresholds[0]/units.microvolt, trigger_thresholds[5]/units.microvolt, label='0 Hz')
 plt.ylabel('Trigger rate [Hz]', fontsize=18)
 plt.tick_params(axis='x', labelsize=16)
 plt.tick_params(axis='y', labelsize=16)
@@ -151,5 +154,5 @@ plt.yscale('log')
 plt.legend()
 plt.tight_layout()
 #plt.show()
-plt.savefig('results/fig_ntr_passband_{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
+plt.savefig('results/fig_ntr_envelope_passband_{:.0f}_{:.0f}.png'.format(passband_trigger[0]/units.megahertz, passband_trigger[1]/units.megahertz))
 plt.close()
