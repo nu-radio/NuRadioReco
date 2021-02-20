@@ -90,7 +90,13 @@ class readCoREAS:
                 self.logger.warning("file {} seems to be corrupt, skipping to next file".format(self.__input_files[self.__current_input_file]))
                 self.__current_input_file += 1
                 continue
-            corsika = h5py.File(self.__input_files[self.__current_input_file], "r")
+            try:
+                corsika = h5py.File(self.__input_files[self.__current_input_file], "r")
+            except Exception as e:
+                self.logger.warning(e)
+                self.logger.warning(f"error reading file {self.__input_files[self.__current_input_file]}, skipping file...")
+                continue
+
             self.logger.info(
                 "using coreas simulation {} with E={:2g} theta = {:.0f}".format(
                     self.__input_files[self.__current_input_file],
