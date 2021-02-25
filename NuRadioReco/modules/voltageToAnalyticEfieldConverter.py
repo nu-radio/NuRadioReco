@@ -613,7 +613,7 @@ class voltageToAnalyticEfieldConverter:
         exp_efield = hp.get_lorentzforce_vector(zenith, azimuth, hp.get_magnetic_field_vector(site))
         cs = coordinatesystems.cstrafo(zenith, azimuth, site=site)
         exp_efield_onsky = cs.transform_from_ground_to_onsky(exp_efield)
-        exp_pol_angle = np.arctan2(abs(exp_efield_onsky[2]), abs(exp_efield_onsky[1]))
+        exp_pol_angle = np.arctan2(abs(exp_efield_onsky[2]), abs(exp_efield_onsky[1]))   # taking absolute value before doing arctan. Otherwise exp_pol_angle can sometimes be negative, other times even < -90deg, which does not make sense
         logger.info("expected polarization angle = {:.1f}".format(exp_pol_angle / units.deg))
         electric_field.set_parameter(efp.polarization_angle_expectation, exp_pol_angle)
         res_amp_second_order = opt.minimize(
