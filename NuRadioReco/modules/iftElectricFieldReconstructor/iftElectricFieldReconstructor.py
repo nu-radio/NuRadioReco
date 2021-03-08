@@ -281,12 +281,14 @@ class IftElectricFieldReconstructor:
                 ax2_1.set_title('Channel {}'.format(channel_id))
                 ax2_1.plot(self.__electric_field_template.get_times() + channel.get_trace_start_time() + toffset[np.argmax(correlation_sum)], channel_trace_templates[i_channel] / np.max(channel_trace_templates[i_channel]) * np.max(channel_trace) / units.mV, c='C1')
                 sim_channel_sum = None
-                for sim_channel in station.get_sim_station().iter_channels():
-                    if sim_channel.get_id() == channel_id:
-                        if sim_channel_sum is None:
-                            sim_channel_sum = sim_channel
-                        else:
-                            sim_channel_sum += sim_channel
+                sim_station = station.get_sim_station()
+                if sim_station is not None:
+                    for sim_channel in sim_station.iter_channels():
+                        if sim_channel.get_id() == channel_id:
+                            if sim_channel_sum is None:
+                                sim_channel_sum = sim_channel
+                            else:
+                                sim_channel_sum += sim_channel
                 if sim_channel_sum is not None:
                     sim_channel_sum.apply_time_shift(-channel.get_parameter(chp.signal_time_offset), True)
                     ax2_1.plot(sim_channel_sum.get_times(), sim_channel_sum.get_filtered_trace(passband, filter_type='butterabs') / units.mV, c='k', alpha=.5)
@@ -689,7 +691,7 @@ class IftElectricFieldReconstructor:
                             sim_channel_sum.get_times(),
                             sim_channel_sum.get_trace() / units.mV,
                             c='C1',
-                            linewidth=6,
+                            linewidth=8,
                             zorder=1,
                             label=sim_channel_label
                         )
@@ -719,11 +721,12 @@ class IftElectricFieldReconstructor:
                         if sim_efield_max is None or np.max(np.abs(efield_sum.get_frequency_spectrum())) > sim_efield_max:
                             sim_efield_max = np.max(np.abs(efield_sum.get_frequency_spectrum()))
             else:
-                channel_snr = .5 * (np.max(station.get_channel(channel_id).get_trace()) - np.min(station.get_channel(channel_id).get_trace())) / (self.__noise_levels * self.__scaling_factor)
+                channel_snr = .5 * (np.max(station.get_channel(channel_id).get_trace()) - np.min(station.get_channel(channel_id).get_trace())) / (self.__noise_levels[i_channel] * self.__scaling_factor)
             ax2_1.plot(times, self.__data_traces[i_channel] * self.__scaling_factor / units.mV, c='C0', alpha=1., zorder=5, label='data')
+            ax2_1.scatter(times, self.__data_traces[i_channel] * self.__scaling_factor / units.mV, c='C0', alpha=1., zorder=5)
 
             ax1_1.plot(freqs / units.MHz, amp_trace_stat_calculator.mean * self.__scaling_factor / units.mV, c='C2', label='IFT reco', linewidth=3, alpha=.6)
-            ax2_1.plot(times, trace_stat_calculator.mean * self.__scaling_factor / units.mV, c='C2', linestyle='-', zorder=2, linewidth=4, label='IFT reconstruction')
+            ax2_1.plot(times, trace_stat_calculator.mean * self.__scaling_factor / units.mV, c='C2', linestyle='-', zorder=2, linewidth=4, label='IFT reconstruction', alpha=.8)
             ax2_1.set_xlim([times[0], times[-1]])
             if channel_snr is not None:
                 textbox = dict(boxstyle='round', facecolor='white', alpha=.5)
@@ -746,13 +749,15 @@ class IftElectricFieldReconstructor:
                 ax1_3.axvline(self.__passband[0] / units.MHz, c='k', alpha=.5, linestyle=':')
                 ax1_3.axvline(self.__passband[1] / units.MHz, c='k', alpha=.5, linestyle=':')
                 ax1_3.grid()
-                ax1_3.set_xlim([0, 750])
+                if self.__passband is not None:
+                    ax1_3.set_xlim([self.__passband[0] / units.MHz- 100, self.__passband[1] / units.MHz + 100])
                 ax1_3.set_xlabel('f [MHz]')
             if i_channel == 0:
                 ax2_1.legend(fontsize=fontsize)
                 ax1_1.legend(fontsize=fontsize)
-            ax1_1.set_xlim([0, 750])
-            ax1_2.set_xlim([0, 750])
+            if self.__passband is not None:
+                ax1_1.set_xlim([self.__passband[0] / units.MHz - 100, self.__passband[1] / units.MHz + 100])
+                ax1_2.set_xlim([self.__passband[0] / units.MHz - 100, self.__passband[1] / units.MHz + 100])
             ax1_1.set_title('Channel {}'.format(channel_id), fontsize=fontsize)
             ax2_1.set_title('Channel {}'.format(channel_id), fontsize=fontsize)
             ax1_1.set_xlabel('f [MHz]', fontsize=fontsize)
