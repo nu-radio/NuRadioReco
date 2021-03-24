@@ -2,6 +2,10 @@
 
 Reconstruction framework for radio detectors of high-energy neutrinos and cosmic-rays
 
+## Important Info
+The development of NuRadioReco will continue as part of the NuRadioMC project. Please go to https://github.com/nu-radio/NuRadioMC for the newest version of NuRadioReco. NuRadioReco will remain independent of NuRadioMC but will be developed in the same git repository to better synchronize changes in NuRadioMC that depend on changes in NuRadioReco. 
+
+
 Please see
 
 Glaser, C., Nelles, A., Plaisier, I. et al. Eur. Phys. J. C (2019) 79: 464. https://doi.org/10.1140/epjc/s10052-019-6971-5
